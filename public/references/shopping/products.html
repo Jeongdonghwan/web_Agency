@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop - MODEN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', 'Noto Sans KR', sans-serif;
+      background: #FFFFFF;
+      color: #111;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 0 80px;
+      height: 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      z-index: 100;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+
+    .nav {
+      display: flex;
+      gap: 48px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: #666;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav a:hover, .nav a.active {
+      color: #111;
+    }
+
+    .header-icons {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .header-icons a {
+      color: #111;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+
+    /* Page Header */
+    .page-header {
+      padding: 140px 80px 60px;
+      background: #FAFAFA;
+    }
+
+    .page-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+
+    .breadcrumb {
+      display: flex;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: #999;
+    }
+
+    .breadcrumb a {
+      color: #999;
+      text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+      color: #111;
+    }
+
+    /* Shop Content */
+    .shop-content {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 60px;
+      padding: 60px 80px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 120px;
+      height: fit-content;
+    }
+
+    .filter-group {
+      margin-bottom: 40px;
+    }
+
+    .filter-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #111;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .filter-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .filter-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .filter-option input {
+      width: 18px;
+      height: 18px;
+      accent-color: #111;
+    }
+
+    .filter-option label {
+      font-size: 0.9rem;
+      color: #666;
+      cursor: pointer;
+    }
+
+    .filter-option:hover label {
+      color: #111;
+    }
+
+    .price-range {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .price-input {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #eee;
+      font-size: 0.9rem;
+      background: #fff;
+    }
+
+    .price-input:focus {
+      outline: none;
+      border-color: #111;
+    }
+
+    /* Products */
+    .products-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+
+    .products-count {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .sort-select {
+      padding: 12px 40px 12px 16px;
+      border: 1px solid #eee;
+      font-size: 0.9rem;
+      background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E") right 16px center no-repeat;
+      appearance: none;
+      cursor: pointer;
+    }
+
+    .sort-select:focus {
+      outline: none;
+      border-color: #111;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .product-card {
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .product-image {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: #f5f5f5;
+      margin-bottom: 20px;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .product-card:hover .product-image img {
+      transform: scale(1.05);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: #111;
+      color: #fff;
+      padding: 6px 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .product-badge.sale {
+      background: #e53e3e;
+    }
+
+    .product-wishlist {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      background: #fff;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .product-card:hover .product-wishlist {
+      opacity: 1;
+    }
+
+    .product-info {
+      padding: 0 4px;
+    }
+
+    .product-category {
+      font-size: 0.75rem;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .product-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 8px;
+    }
+
+    .product-price {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .current-price {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .original-price {
+      font-size: 0.9rem;
+      color: #999;
+      text-decoration: line-through;
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 60px;
+    }
+
+    .page-btn {
+      width: 44px;
+      height: 44px;
+      border: 1px solid #eee;
+      background: #fff;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .page-btn:hover, .page-btn.active {
+      background: #111;
+      color: #fff;
+      border-color: #111;
+    }
+
+    /* Footer */
+    .footer {
+      background: #FAFAFA;
+      padding: 60px 80px;
+      margin-top: 80px;
+      text-align: center;
+    }
+
+    .footer-copy {
+      font-size: 0.85rem;
+      color: #999;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .header { padding: 0 40px; }
+      .page-header { padding: 120px 40px 40px; }
+      .shop-content {
+        grid-template-columns: 1fr;
+        padding: 40px;
+      }
+      .sidebar { display: none; }
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    .mobile-menu-btn span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #111;
+      margin: 3px 0;
+      transition: all 0.3s ease;
+    }
+    .mobile-menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+    .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+    .mobile-menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+    .mobile-menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+    }
+    .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      gap: 32px;
+    }
+    .mobile-nav a {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #111;
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+    }
+    .mobile-menu-overlay.active .mobile-nav a { opacity: 1; transform: translateY(0); }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(1) { transition-delay: 0.1s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(2) { transition-delay: 0.2s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(3) { transition-delay: 0.3s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(4) { transition-delay: 0.4s; }
+
+    @media (max-width: 768px) {
+      .header { padding: 0 24px; height: 70px; }
+      .nav { display: none; }
+      .header-icons { display: none; }
+      .mobile-menu-btn { display: flex; }
+      .mobile-menu-overlay { display: block; }
+      .page-header { padding: 100px 24px 30px; }
+      .page-header h1 { font-size: 1.8rem; }
+      .shop-content { padding: 24px; }
+      .products-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .footer { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="logo">MODEN</a>
+    <nav class="nav">
+      <a href="products.html" class="active">Shop</a>
+      <a href="products.html">New Arrivals</a>
+      <a href="products.html">Collections</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="header-icons">
+      <a href="#">🔍</a>
+      <a href="#">👤</a>
+      <a href="#">🛒</a>
+    </div>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+  <div class="mobile-menu-overlay" id="mobileMenu">
+    <nav class="mobile-nav">
+      <a href="index.html">Home</a>
+      <a href="products.html">Shop</a>
+      <a href="products.html">Collections</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+
+  <div class="page-header">
+    <h1>All Products</h1>
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <span>Shop</span>
+    </div>
+  </div>
+
+  <div class="shop-content">
+    <aside class="sidebar">
+      <div class="filter-group">
+        <h3 class="filter-title">Categories</h3>
+        <div class="filter-options">
+          <label class="filter-option">
+            <input type="checkbox" checked>
+            <span>All Products</span>
+          </label>
+          <label class="filter-option">
+            <input type="checkbox">
+            <span>Living Room</span>
+          </label>
+          <label class="filter-option">
+            <input type="checkbox">
+            <span>Bedroom</span>
+          </label>
+          <label class="filter-option">
+            <input type="checkbox">
+            <span>Kitchen</span>
+          </label>
+          <label class="filter-option">
+            <input type="checkbox">
+            <span>Lighting</span>
+          </label>
+          <label class="filter-option">
+            <input type="checkbox">
+            <span>Decor</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h3 class="filter-title">Price Range</h3>
+        <div class="price-range">
+          <input type="text" class="price-input" placeholder="₩ Min">
+          <span>-</span>
+          <input type="text" class="price-input" placeholder="₩ Max">
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h3 class="filter-title">Color</h3>
+        <div class="filter-options">
+          <label class="filter-option">
+            <input type="checkbox">
+            <span>Black</span>
+          </label>
+          <label class="filter-option">
+            <input type="checkbox">
+            <span>White</span>
+          </label>
+          <label class="filter-option">
+            <input type="checkbox">
+            <span>Gray</span>
+          </label>
+          <label class="filter-option">
+            <input type="checkbox">
+            <span>Natural Wood</span>
+          </label>
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <div class="products-header">
+        <span class="products-count">280 Products</span>
+        <select class="sort-select">
+          <option>Sort by: Featured</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+          <option>Newest</option>
+          <option>Best Selling</option>
+        </select>
+      </div>
+
+      <div class="products-grid">
+        <a href="product-detail.html" class="product-card">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80" alt="Sofa">
+            <span class="product-badge">BEST</span>
+            <button class="product-wishlist">♡</button>
+          </div>
+          <div class="product-info">
+            <p class="product-category">Living</p>
+            <h3 class="product-name">미니멀 패브릭 소파</h3>
+            <div class="product-price">
+              <span class="current-price">₩890,000</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="product-detail.html" class="product-card">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600&q=80" alt="Lamp">
+            <button class="product-wishlist">♡</button>
+          </div>
+          <div class="product-info">
+            <p class="product-category">Lighting</p>
+            <h3 class="product-name">무드 테이블 램프</h3>
+            <div class="product-price">
+              <span class="current-price">₩129,000</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="product-detail.html" class="product-card">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=600&q=80" alt="Chair">
+            <span class="product-badge">NEW</span>
+            <button class="product-wishlist">♡</button>
+          </div>
+          <div class="product-info">
+            <p class="product-category">Furniture</p>
+            <h3 class="product-name">우드 라운지 체어</h3>
+            <div class="product-price">
+              <span class="current-price">₩450,000</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="product-detail.html" class="product-card">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&q=80" alt="Vase">
+            <button class="product-wishlist">♡</button>
+          </div>
+          <div class="product-info">
+            <p class="product-category">Decor</p>
+            <h3 class="product-name">세라믹 화병 세트</h3>
+            <div class="product-price">
+              <span class="current-price">₩89,000</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="product-detail.html" class="product-card">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=600&q=80" alt="Bed">
+            <span class="product-badge sale">SALE</span>
+            <button class="product-wishlist">♡</button>
+          </div>
+          <div class="product-info">
+            <p class="product-category">Bedroom</p>
+            <h3 class="product-name">오크 우드 베드 프레임</h3>
+            <div class="product-price">
+              <span class="current-price">₩1,290,000</span>
+              <span class="original-price">₩1,590,000</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="product-detail.html" class="product-card">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600&q=80" alt="Coffee Table">
+            <button class="product-wishlist">♡</button>
+          </div>
+          <div class="product-info">
+            <p class="product-category">Living</p>
+            <h3 class="product-name">라운드 커피 테이블</h3>
+            <div class="product-price">
+              <span class="current-price">₩380,000</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="product-detail.html" class="product-card">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=600&q=80" alt="Clock">
+            <button class="product-wishlist">♡</button>
+          </div>
+          <div class="product-info">
+            <p class="product-category">Decor</p>
+            <h3 class="product-name">미니멀 벽시계</h3>
+            <div class="product-price">
+              <span class="current-price">₩79,000</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="product-detail.html" class="product-card">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=600&q=80" alt="Shelf">
+            <button class="product-wishlist">♡</button>
+          </div>
+          <div class="product-info">
+            <p class="product-category">Storage</p>
+            <h3 class="product-name">월넛 월 쉘프</h3>
+            <div class="product-price">
+              <span class="current-price">₩159,000</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="product-detail.html" class="product-card">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=600&q=80" alt="Plant">
+            <span class="product-badge">NEW</span>
+            <button class="product-wishlist">♡</button>
+          </div>
+          <div class="product-info">
+            <p class="product-category">Plants</p>
+            <h3 class="product-name">몬스테라 화분 세트</h3>
+            <div class="product-price">
+              <span class="current-price">₩68,000</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="pagination">
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <button class="page-btn">4</button>
+        <button class="page-btn">→</button>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <p class="footer-copy">© 2024 MODEN. All rights reserved.</p>
+  </footer>
+  <script>
+    function toggleMobileMenu() {
+      const btn = document.querySelector('.mobile-menu-btn');
+      const overlay = document.getElementById('mobileMenu');
+      btn.classList.toggle('active');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : '';
+    }
+  </script>
+</body>
+</html>

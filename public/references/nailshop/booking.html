@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>예약안내 - NAIL ATELIER</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', 'Noto Sans KR', sans-serif;
+      background: linear-gradient(135deg, #faf5ff 0%, #fdf2f8 50%, #fff7ed 100%);
+      color: #2D2D2D;
+      min-height: 100vh;
+    }
+
+    /* Animated Background */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(167, 139, 250, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(244, 114, 182, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(251, 191, 36, 0.1) 0%, transparent 50%);
+      z-index: -1;
+      animation: bgFloat 20s ease-in-out infinite;
+    }
+
+    @keyframes bgFloat {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.1) rotate(5deg); }
+    }
+
+    /* Header - Floating Pill Style */
+    .header {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: auto;
+      max-width: 800px;
+      padding: 16px 20px 16px 30px;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 100px;
+      z-index: 100;
+      box-shadow: 0 8px 32px rgba(147, 51, 234, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .logo {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #9333ea 0%, #db2777 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .nav {
+      display: flex;
+      gap: 28px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: #666;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: #9333ea;
+    }
+
+    .header-btn {
+      background: linear-gradient(135deg, #9333ea 0%, #db2777 100%);
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .header-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(147, 51, 234, 0.3);
+    }
+
+    /* Page Header */
+    .page-header {
+      padding: 180px 60px 80px;
+      text-align: center;
+    }
+
+    .page-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 8px 20px;
+      border-radius: 100px;
+      color: #9333ea;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      border: 1px solid rgba(147, 51, 234, 0.2);
+    }
+
+    .page-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #9333ea 0%, #db2777 50%, #f97316 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+    }
+
+    .page-desc {
+      font-size: 1rem;
+      color: #666;
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* Booking Section */
+    .booking-section {
+      padding: 40px 60px 80px;
+    }
+
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Booking Form */
+    .booking-form-wrapper {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 50px;
+      border-radius: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 20px 60px rgba(147, 51, 234, 0.1);
+    }
+
+    .form-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #2D2D2D;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #2D2D2D;
+      margin-bottom: 10px;
+    }
+
+    .form-group label .required {
+      color: #db2777;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 16px 20px;
+      border: 2px solid rgba(147, 51, 234, 0.1);
+      border-radius: 16px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      background: rgba(255, 255, 255, 0.8);
+      transition: all 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #9333ea;
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(147, 51, 234, 0.1);
+    }
+
+    .form-group textarea {
+      height: 120px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .service-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .service-option {
+      position: relative;
+    }
+
+    .service-option input {
+      display: none;
+    }
+
+    .service-option label {
+      display: block;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 2px solid rgba(147, 51, 234, 0.1);
+      border-radius: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .service-option input:checked + label {
+      border-color: #9333ea;
+      background: linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(219, 39, 119, 0.1) 100%);
+      color: #9333ea;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #9333ea 0%, #db2777 100%);
+      color: #fff;
+      border: none;
+      border-radius: 100px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(147, 51, 234, 0.3);
+    }
+
+    /* Booking Info */
+    .booking-info {
+      padding-top: 10px;
+    }
+
+    .info-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 30px;
+      border-radius: 24px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      transition: all 0.3s;
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(147, 51, 234, 0.1);
+    }
+
+    .info-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #9333ea 0%, #db2777 100%);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+    }
+
+    .info-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #2D2D2D;
+      margin-bottom: 12px;
+    }
+
+    .info-content {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.8;
+    }
+
+    .info-content a {
+      color: #9333ea;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* Notice Box */
+    .notice-box {
+      background: linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(219, 39, 119, 0.1) 100%);
+      border: 1px solid rgba(147, 51, 234, 0.2);
+      border-radius: 24px;
+      padding: 28px;
+      margin-top: 20px;
+    }
+
+    .notice-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #9333ea;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .notice-list {
+      list-style: none;
+      font-size: 0.85rem;
+      color: #666;
+      line-height: 2;
+    }
+
+    .notice-list li {
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .notice-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #9333ea;
+      font-weight: 700;
+    }
+
+    /* Map Section */
+    .map-section {
+      padding: 80px 60px;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      background: linear-gradient(135deg, #9333ea 0%, #db2777 100%);
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #2D2D2D;
+    }
+
+    .map-wrapper {
+      max-width: 1000px;
+      margin: 0 auto;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(147, 51, 234, 0.15);
+    }
+
+    .map-wrapper iframe {
+      width: 100%;
+      height: 400px;
+      border: none;
+    }
+
+    .location-info {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1000px;
+      margin: 40px auto 0;
+    }
+
+    .location-card {
+      text-align: center;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      transition: all 0.3s;
+    }
+
+    .location-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(147, 51, 234, 0.1);
+    }
+
+    .location-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #9333ea 0%, #db2777 100%);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin: 0 auto 16px;
+    }
+
+    .location-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #2D2D2D;
+      margin-bottom: 8px;
+    }
+
+    .location-text {
+      font-size: 0.85rem;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      padding: 80px 60px;
+    }
+
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      transition: all 0.3s;
+    }
+
+    .faq-item:hover {
+      box-shadow: 0 10px 30px rgba(147, 51, 234, 0.1);
+    }
+
+    .faq-question {
+      padding: 24px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #2D2D2D;
+    }
+
+    .faq-question::after {
+      content: '+';
+      font-size: 1.5rem;
+      color: #9333ea;
+      transition: transform 0.3s;
+      font-weight: 300;
+    }
+
+    .faq-item.active .faq-question::after {
+      content: '−';
+    }
+
+    .faq-answer {
+      padding: 0 30px 24px;
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.8;
+      display: none;
+    }
+
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+
+    /* Footer */
+    .footer {
+      background: rgba(45, 45, 45, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 60px;
+    }
+
+    .footer-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 40px;
+    }
+
+    .footer-brand .logo {
+      background: linear-gradient(135deg, #a78bfa 0%, #f472b6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+
+    .footer-brand p {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.85rem;
+      line-height: 1.8;
+    }
+
+    .footer-links h4 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #a78bfa;
+      margin-bottom: 20px;
+    }
+
+    .footer-links a {
+      display: block;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-bottom p {
+      color: rgba(255,255,255,0.3);
+      font-size: 0.8rem;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      gap: 5px;
+      padding: 0;
+      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.15);
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: #9333ea;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    .mobile-menu-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(250, 245, 255, 0.98) 0%, rgba(253, 242, 248, 0.98) 50%, rgba(255, 247, 237, 0.98) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 99;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .mobile-menu-overlay.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+    }
+
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .mobile-nav a {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      background: linear-gradient(135deg, #9333ea 0%, #db2777 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s;
+    }
+
+    .mobile-menu-overlay.active .mobile-nav a {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(1) { transition-delay: 0.1s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(2) { transition-delay: 0.2s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(3) { transition-delay: 0.3s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(4) { transition-delay: 0.4s; }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .header {
+        padding: 12px 16px;
+        gap: 20px;
+      }
+
+      .nav {
+        gap: 16px;
+      }
+
+      .booking-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .location-info {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-btn { display: flex; }
+      .mobile-menu-overlay { display: none; }
+      .mobile-menu-overlay.active { display: flex; }
+      .header {
+        width: calc(100% - 40px);
+        padding: 12px 20px;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .page-header {
+        padding: 160px 20px 60px;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+      }
+
+      .booking-section,
+      .map-section,
+      .faq-section {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .booking-form-wrapper {
+        padding: 30px;
+        border-radius: 24px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .service-options {
+        grid-template-columns: 1fr;
+      }
+
+      .footer {
+        padding: 40px 20px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-animation"></div>
+
+  <header class="header">
+    <a href="index.html" class="logo">NAIL ATELIER</a>
+    <nav class="nav">
+      <a href="services.html">서비스</a>
+      <a href="gallery.html">갤러리</a>
+      <a href="booking.html" class="active">예약안내</a>
+    </nav>
+    <a href="booking.html" class="header-btn">예약하기</a>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <div class="mobile-menu-overlay" id="mobileMenu">
+    <nav class="mobile-nav">
+      <a href="index.html">홈</a>
+      <a href="services.html">서비스</a>
+      <a href="gallery.html">갤러리</a>
+      <a href="booking.html">예약</a>
+    </nav>
+  </div>
+
+  <section class="page-header">
+    <span class="page-tag">Reservation</span>
+    <h1 class="page-title">예약안내</h1>
+    <p class="page-desc">
+      온라인 예약으로 더욱 편리하게<br>
+      NAIL ATELIER를 만나보세요.
+    </p>
+  </section>
+
+  <section class="booking-section">
+    <div class="booking-grid">
+      <div class="booking-form-wrapper">
+        <h2 class="form-title">온라인 예약</h2>
+        <form>
+          <div class="form-row">
+            <div class="form-group">
+              <label>성함 <span class="required">*</span></label>
+              <input type="text" placeholder="홍길동" required>
+            </div>
+            <div class="form-group">
+              <label>연락처 <span class="required">*</span></label>
+              <input type="tel" placeholder="010-0000-0000" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>예약 날짜 <span class="required">*</span></label>
+              <input type="date" required>
+            </div>
+            <div class="form-group">
+              <label>예약 시간 <span class="required">*</span></label>
+              <select required>
+                <option value="">시간 선택</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+                <option value="18:00">18:00</option>
+                <option value="19:00">19:00</option>
+                <option value="20:00">20:00</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>서비스 선택 <span class="required">*</span></label>
+            <div class="service-options">
+              <div class="service-option">
+                <input type="radio" name="service" id="service1" value="gel">
+                <label for="service1">💅 젤 네일</label>
+              </div>
+              <div class="service-option">
+                <input type="radio" name="service" id="service2" value="art">
+                <label for="service2">🎨 아트 네일</label>
+              </div>
+              <div class="service-option">
+                <input type="radio" name="service" id="service3" value="care">
+                <label for="service3">✨ 손 케어</label>
+              </div>
+              <div class="service-option">
+                <input type="radio" name="service" id="service4" value="pedi">
+                <label for="service4">🦶 패디큐어</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>담당 아티스트</label>
+            <select>
+              <option value="">상관없음</option>
+              <option value="kim">김예은 (Chief Artist)</option>
+              <option value="lee">이수진 (Senior Artist)</option>
+              <option value="park">박소현 (Artist)</option>
+              <option value="choi">최민지 (Artist)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>요청사항</label>
+            <textarea placeholder="원하시는 디자인이나 참고 이미지가 있으시면 말씀해주세요."></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">예약 신청하기</button>
+        </form>
+      </div>
+
+      <div class="booking-info">
+        <div class="info-card">
+          <div class="info-icon">📞</div>
+          <h3 class="info-title">전화 예약</h3>
+          <div class="info-content">
+            <a href="tel:02-1234-5678">02-1234-5678</a><br>
+            영업시간 내 전화 예약 가능합니다.
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">⏰</div>
+          <h3 class="info-title">영업시간</h3>
+          <div class="info-content">
+            평일: AM 10:00 - PM 9:00<br>
+            주말: AM 10:00 - PM 7:00<br>
+            매주 월요일 정기 휴무
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">💅</div>
+          <h3 class="info-title">소요 시간 안내</h3>
+          <div class="info-content">
+            젤 네일: 약 1시간<br>
+            아트 네일: 약 1시간 30분~2시간<br>
+            손 케어: 약 40분<br>
+            패디큐어: 약 1시간
+          </div>
+        </div>
+
+        <div class="notice-box">
+          <div class="notice-title">💜 예약 시 유의사항</div>
+          <ul class="notice-list">
+            <li>예약 변경/취소는 최소 2시간 전에 연락 부탁드립니다.</li>
+            <li>당일 예약 취소 시 위약금이 발생할 수 있습니다.</li>
+            <li>10분 이상 지각 시 예약이 취소될 수 있습니다.</li>
+            <li>온라인 예약 시 10% 할인 혜택을 드립니다.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="map-section">
+    <div class="section-header">
+      <span class="section-tag">Location</span>
+      <h2 class="section-title">오시는 길</h2>
+    </div>
+    <div class="map-wrapper">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3164.8542456789!2d127.0256789!3d37.52654321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDMxJzM1LjYiTiAxMjfCsDAxJzMyLjQiRQ!5e0!3m2!1sko!2skr!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+    <div class="location-info">
+      <div class="location-card">
+        <div class="location-icon">📍</div>
+        <h4 class="location-title">주소</h4>
+        <p class="location-text">
+          서울시 강남구 압구정로 123<br>
+          아뜰리에빌딩 3층
+        </p>
+      </div>
+      <div class="location-card">
+        <div class="location-icon">🚇</div>
+        <h4 class="location-title">대중교통</h4>
+        <p class="location-text">
+          압구정로데오역 5번 출구<br>
+          도보 3분 거리
+        </p>
+      </div>
+      <div class="location-card">
+        <div class="location-icon">🅿️</div>
+        <h4 class="location-title">주차 안내</h4>
+        <p class="location-text">
+          건물 지하주차장 이용<br>
+          2시간 무료 주차
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="section-header">
+      <span class="section-tag">FAQ</span>
+      <h2 class="section-title">자주 묻는 질문</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item active">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          예약 없이 방문해도 되나요?
+        </div>
+        <div class="faq-answer">
+          예약제로 운영되어 사전 예약을 권장드립니다. 예약 없이 방문하시면 대기가 길어지거나 시술을 받지 못하실 수 있습니다. 당일 예약도 가능하니 전화로 문의해 주세요.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          젤 네일은 얼마나 유지되나요?
+        </div>
+        <div class="faq-answer">
+          개인차가 있지만 일반적으로 3~4주 정도 유지됩니다. 손을 많이 사용하시는 분은 조금 더 빨리 떨어질 수 있으며, 정기적인 관리를 받으시면 더 오래 유지됩니다.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          임산부도 네일을 받을 수 있나요?
+        </div>
+        <div class="faq-answer">
+          네, 가능합니다. 다만 일반 젤 대신 유기농 젤이나 물광 네일을 추천드리며, 시술 전 임신 사실을 꼭 알려주시면 안전한 제품으로 진행해 드립니다.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          네일 오프만 따로 할 수 있나요?
+        </div>
+        <div class="faq-answer">
+          네, 젤 오프만 따로 진행 가능합니다. 오프 후 기본 손톱 정리까지 포함된 서비스이며, 가격은 15,000원입니다.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          결제 수단은 어떻게 되나요?
+        </div>
+        <div class="faq-answer">
+          현금, 카드, 계좌이체 모두 가능합니다. 카드는 모든 종류의 신용카드/체크카드를 사용하실 수 있으며, 현금 결제 시 현금영수증 발급도 가능합니다.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">NAIL ATELIER</a>
+        <p>
+          섬세한 터치와 프리미엄 제품으로<br>
+          당신만의 특별한 아름다움을 완성합니다.
+        </p>
+      </div>
+      <div class="footer-links">
+        <h4>Menu</h4>
+        <a href="services.html">서비스</a>
+        <a href="gallery.html">갤러리</a>
+        <a href="booking.html">예약안내</a>
+      </div>
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <a href="#">02-1234-5678</a>
+        <a href="#">서울시 강남구 압구정로 123</a>
+        <a href="#">AM 10:00 - PM 9:00</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 NAIL ATELIER. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleFaq(element) {
+      const item = element.parentElement;
+      item.classList.toggle('active');
+    }
+
+    function toggleMobileMenu() {
+      const btn = document.querySelector('.mobile-menu-btn');
+      const overlay = document.getElementById('mobileMenu');
+      btn.classList.toggle('active');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : '';
+    }
+  </script>
+</body>
+</html>

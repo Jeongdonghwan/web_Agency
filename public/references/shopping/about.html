@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - MODEN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', 'Noto Sans KR', sans-serif;
+      background: #FFFFFF;
+      color: #111;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 0 80px;
+      height: 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      z-index: 100;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+
+    .nav {
+      display: flex;
+      gap: 48px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: #666;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav a:hover, .nav a.active {
+      color: #111;
+    }
+
+    .header-icons {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .header-icons a {
+      color: #111;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 180px 80px 100px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #999;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: -2px;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: #666;
+      line-height: 1.8;
+    }
+
+    /* Story Section */
+    .story {
+      padding: 0 80px 120px;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      max-width: 1400px;
+      margin: 0 auto;
+      align-items: center;
+    }
+
+    .story-image {
+      aspect-ratio: 4/5;
+      overflow: hidden;
+    }
+
+    .story-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .story-content {
+      max-width: 500px;
+    }
+
+    .story-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #999;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .story-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: -1px;
+      margin-bottom: 24px;
+    }
+
+    .story-text {
+      font-size: 1rem;
+      color: #666;
+      line-height: 1.9;
+      margin-bottom: 16px;
+    }
+
+    /* Values */
+    .values {
+      padding: 120px 80px;
+      background: #FAFAFA;
+    }
+
+    .values-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 80px;
+    }
+
+    .values-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #999;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .values-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: -1px;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .value-card {
+      text-align: center;
+    }
+
+    .value-icon {
+      width: 80px;
+      height: 80px;
+      background: #111;
+      color: #fff;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+    }
+
+    .value-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 12px;
+    }
+
+    .value-desc {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    /* Process */
+    .process {
+      padding: 120px 80px;
+    }
+
+    .process-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 80px;
+    }
+
+    .process-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #999;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .process-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: -1px;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .process-step {
+      text-align: center;
+      position: relative;
+    }
+
+    .process-step::after {
+      content: '→';
+      position: absolute;
+      right: -24px;
+      top: 40px;
+      font-size: 1.5rem;
+      color: #ddd;
+    }
+
+    .process-step:last-child::after {
+      display: none;
+    }
+
+    .step-number {
+      width: 60px;
+      height: 60px;
+      background: #fff;
+      border: 2px solid #111;
+      font-size: 1.2rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .step-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 8px;
+    }
+
+    .step-desc {
+      font-size: 0.85rem;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* Team */
+    .team {
+      padding: 120px 80px;
+      background: #111;
+      color: #fff;
+    }
+
+    .team-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .team-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #666;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .team-title {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .team-card {
+      text-align: center;
+    }
+
+    .team-image {
+      aspect-ratio: 1;
+      background: #222;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .team-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%);
+      transition: filter 0.3s;
+    }
+
+    .team-card:hover .team-image img {
+      filter: grayscale(0%);
+    }
+
+    .team-name {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .team-role {
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    /* CTA */
+    .cta {
+      padding: 120px 80px;
+      text-align: center;
+      background: #FAFAFA;
+    }
+
+    .cta-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+
+    .cta-desc {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 32px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: #111;
+      color: #fff;
+      padding: 18px 48px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .cta-btn:hover {
+      background: #333;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 40px 80px;
+      text-align: center;
+      border-top: 1px solid #eee;
+    }
+
+    .footer-copy {
+      font-size: 0.85rem;
+      color: #999;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .header { padding: 0 40px; }
+      .hero { padding: 140px 40px 80px; }
+      .hero-title { font-size: 2.5rem; }
+      .story { padding: 0 40px 80px; }
+      .story-grid { grid-template-columns: 1fr; gap: 40px; }
+      .values, .process, .team { padding: 80px 40px; }
+      .values-grid { grid-template-columns: 1fr; gap: 40px; }
+      .process-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-step::after { display: none; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .cta { padding: 80px 40px; }
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    .mobile-menu-btn span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #111;
+      margin: 3px 0;
+      transition: all 0.3s ease;
+    }
+    .mobile-menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+    .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+    .mobile-menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+    .mobile-menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+    }
+    .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      gap: 32px;
+    }
+    .mobile-nav a {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #111;
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+    }
+    .mobile-menu-overlay.active .mobile-nav a { opacity: 1; transform: translateY(0); }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(1) { transition-delay: 0.1s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(2) { transition-delay: 0.2s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(3) { transition-delay: 0.3s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(4) { transition-delay: 0.4s; }
+
+    @media (max-width: 768px) {
+      .header { padding: 0 24px; height: 70px; }
+      .nav { display: none; }
+      .header-icons { display: none; }
+      .mobile-menu-btn { display: flex; }
+      .mobile-menu-overlay { display: block; }
+      .hero { padding: 120px 24px 60px; }
+      .hero-title { font-size: 2rem; }
+      .story { padding: 0 24px 60px; }
+      .values, .process, .team { padding: 60px 24px; }
+      .process-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+      .cta { padding: 60px 24px; }
+      .footer { padding: 30px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="logo">MODEN</a>
+    <nav class="nav">
+      <a href="products.html">Shop</a>
+      <a href="products.html">New Arrivals</a>
+      <a href="products.html">Collections</a>
+      <a href="about.html" class="active">About</a>
+    </nav>
+    <div class="header-icons">
+      <a href="#">🔍</a>
+      <a href="#">👤</a>
+      <a href="#">🛒</a>
+    </div>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+  <div class="mobile-menu-overlay" id="mobileMenu">
+    <nav class="mobile-nav">
+      <a href="index.html">Home</a>
+      <a href="products.html">Shop</a>
+      <a href="products.html">Collections</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+
+  <section class="hero">
+    <p class="hero-tag">About MODEN</p>
+    <h1 class="hero-title">Less is More</h1>
+    <p class="hero-desc">
+      2015년 설립된 MODEN은 미니멀한 디자인과 뛰어난 품질을 추구하는<br>
+      라이프스타일 브랜드입니다. 일상을 더 아름답게 만드는 제품을 제안합니다.
+    </p>
+  </section>
+
+  <section class="story">
+    <div class="story-grid">
+      <div class="story-image">
+        <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80" alt="Our Story">
+      </div>
+      <div class="story-content">
+        <p class="story-tag">Our Story</p>
+        <h2 class="story-title">단순함 속에서<br>발견하는 아름다움</h2>
+        <p class="story-text">
+          MODEN은 '현대적인(Modern)'과 '덴마크(Den)'의 조합에서 탄생한 이름입니다.
+          북유럽의 미니멀 디자인 철학을 바탕으로, 불필요한 것을 덜어내고
+          본질에 집중합니다.
+        </p>
+        <p class="story-text">
+          우리는 트렌드를 좇지 않습니다. 10년이 지나도 변하지 않을
+          시대를 초월한 디자인, 그것이 MODEN이 추구하는 가치입니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="values">
+    <div class="values-header">
+      <p class="values-tag">Our Values</p>
+      <h2 class="values-title">우리가 믿는 가치</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">✦</div>
+        <h3 class="value-title">Simplicity</h3>
+        <p class="value-desc">
+          불필요한 장식을 배제하고 본질적인 아름다움에 집중합니다.
+          단순한 것이 가장 오래갑니다.
+        </p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">◈</div>
+        <h3 class="value-title">Quality</h3>
+        <p class="value-desc">
+          엄선된 소재와 숙련된 장인의 손길로 만들어집니다.
+          품질에는 타협하지 않습니다.
+        </p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">◎</div>
+        <h3 class="value-title">Sustainability</h3>
+        <p class="value-desc">
+          환경을 생각하는 지속가능한 생산 방식을 추구합니다.
+          더 나은 내일을 위해 오늘 행동합니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="process">
+    <div class="process-header">
+      <p class="process-tag">Our Process</p>
+      <h2 class="process-title">제품이 만들어지기까지</h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <h3 class="step-title">Design</h3>
+        <p class="step-desc">불필요한 요소를 제거한<br>미니멀 디자인 설계</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <h3 class="step-title">Material</h3>
+        <p class="step-desc">친환경 인증 소재<br>엄선 및 검수</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <h3 class="step-title">Craft</h3>
+        <p class="step-desc">숙련 장인의<br>수작업 제작</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <h3 class="step-title">Quality</h3>
+        <p class="step-desc">3단계 품질 검사<br>완벽한 마감</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="team">
+    <div class="team-header">
+      <p class="team-tag">Our Team</p>
+      <h2 class="team-title">함께하는 사람들</h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-image">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80" alt="Team">
+        </div>
+        <h3 class="team-name">김민수</h3>
+        <p class="team-role">CEO & Founder</p>
+      </div>
+      <div class="team-card">
+        <div class="team-image">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" alt="Team">
+        </div>
+        <h3 class="team-name">이서연</h3>
+        <p class="team-role">Creative Director</p>
+      </div>
+      <div class="team-card">
+        <div class="team-image">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80" alt="Team">
+        </div>
+        <h3 class="team-name">박준혁</h3>
+        <p class="team-role">Product Designer</p>
+      </div>
+      <div class="team-card">
+        <div class="team-image">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80" alt="Team">
+        </div>
+        <h3 class="team-name">최유진</h3>
+        <p class="team-role">Marketing Lead</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2 class="cta-title">미니멀한 일상을 시작하세요</h2>
+    <p class="cta-desc">MODEN의 모든 제품을 만나보세요.</p>
+    <a href="products.html" class="cta-btn">Shop Now</a>
+  </section>
+
+  <footer class="footer">
+    <p class="footer-copy">© 2024 MODEN. All rights reserved.</p>
+  </footer>
+  <script>
+    function toggleMobileMenu() {
+      const btn = document.querySelector('.mobile-menu-btn');
+      const overlay = document.getElementById('mobileMenu');
+      btn.classList.toggle('active');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : '';
+    }
+  </script>
+</body>
+</html>

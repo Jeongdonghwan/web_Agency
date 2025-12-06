@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시공실적 - 한성건설</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-white: #ffffff;
+            --bg-light: #f5f5f5;
+            --bg-dark: #1a1a1a;
+            --accent-orange: #ff6b35;
+            --text-dark: #222222;
+            --text-gray: #666666;
+            --border-light: #e0e0e0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Pretendard', 'Raleway', sans-serif;
+            background: var(--bg-white);
+            color: var(--text-dark);
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: var(--bg-white);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo svg { width: 45px; height: 45px; }
+
+        .logo-text span {
+            font-family: 'Raleway', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .logo-text small { font-size: 0.7rem; color: var(--text-gray); display: block; }
+
+        nav { display: flex; gap: 45px; }
+        nav a { color: var(--text-dark); text-decoration: none; font-weight: 600; }
+        nav a:hover, nav a.active { color: var(--accent-orange); }
+
+        .header-phone { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+        .header-phone i { color: var(--accent-orange); }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .mobile-menu-btn span { display: block; width: 28px; height: 2px; background: var(--text-dark); }
+
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100vh;
+            background: var(--bg-white);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+        }
+        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+        .mobile-nav {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            gap: 30px;
+        }
+        .mobile-nav a { color: var(--text-dark); text-decoration: none; font-size: 1.5rem; font-weight: 700; }
+
+        .page-hero {
+            padding: 180px 60px 100px;
+            background: var(--bg-light);
+        }
+
+        .page-hero-content { max-width: 1400px; margin: 0 auto; }
+
+        .breadcrumb { display: flex; gap: 10px; margin-bottom: 30px; font-size: 0.9rem; }
+        .breadcrumb a { color: var(--text-gray); text-decoration: none; }
+        .breadcrumb .current { color: var(--accent-orange); }
+
+        .page-hero h1 {
+            font-family: 'Raleway', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .page-hero p { font-size: 1.15rem; color: var(--text-gray); max-width: 600px; }
+
+        .filter-section {
+            padding: 60px;
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .filter-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--bg-light);
+            border: 1px solid var(--border-light);
+            padding: 12px 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover { border-color: var(--accent-orange); color: var(--accent-orange); }
+
+        .filter-btn.active {
+            background: var(--accent-orange);
+            border-color: var(--accent-orange);
+            color: var(--bg-white);
+        }
+
+        .projects-section {
+            padding: 80px 60px 120px;
+            background: var(--bg-white);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .project-card:hover { transform: translateY(-10px); }
+
+        .project-image {
+            height: 280px;
+            background: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image i {
+            font-size: 4rem;
+            color: var(--text-gray);
+            opacity: 0.3;
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(255, 107, 53, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-overlay { opacity: 1; }
+
+        .project-overlay a {
+            color: var(--bg-white);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .project-content {
+            padding: 25px;
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-top: none;
+        }
+
+        .project-category {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-orange);
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .project-content h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+        .project-content p { font-size: 0.9rem; color: var(--text-gray); }
+
+        .stats-section {
+            padding: 80px 60px;
+            background: var(--bg-dark);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-item { text-align: center; color: var(--bg-white); }
+
+        .stat-number {
+            font-family: 'Raleway', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--accent-orange);
+            margin-bottom: 10px;
+        }
+
+        .stat-number span { font-size: 1.8rem; }
+        .stat-label { font-size: 1rem; color: rgba(255,255,255,0.7); }
+
+        footer {
+            background: var(--bg-dark);
+            padding: 60px;
+            color: var(--bg-white);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-content p { color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+        .footer-links { display: flex; gap: 30px; }
+        .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.9rem; }
+        .footer-links a:hover { color: var(--accent-orange); }
+
+        @media (max-width: 1200px) {
+            .projects-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 25px; }
+            nav, .header-phone { display: none; }
+            .mobile-menu-btn { display: flex; }
+            .mobile-menu-overlay { display: block; }
+            .page-hero { padding: 140px 25px 80px; }
+            .page-hero h1 { font-size: 2.2rem; }
+            .filter-section { padding: 40px 25px; }
+            .projects-section { padding: 60px 25px; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .stats-section { padding: 60px 25px; }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+            .stat-number { font-size: 2.5rem; }
+            footer { padding: 40px 25px; }
+            .footer-content { flex-direction: column; gap: 20px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10" y="50" width="30" height="40" fill="#ff6b35"/>
+                <rect x="45" y="30" width="25" height="60" fill="#1a1a1a"/>
+                <rect x="75" y="40" width="15" height="50" fill="#c9a227"/>
+            </svg>
+            <div class="logo-text">
+                <span>HANSUNG</span>
+                <small>CONSTRUCTION</small>
+            </div>
+        </a>
+        <nav>
+            <a href="about.html">회사소개</a>
+            <a href="business.html">사업분야</a>
+            <a href="products.html" class="active">시공실적</a>
+            <a href="contact.html">문의하기</a>
+        </nav>
+        <div class="header-phone"><i class="fas fa-phone"></i> 1588-1234</div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <nav class="mobile-nav">
+            <a href="about.html">회사소개</a>
+            <a href="business.html">사업분야</a>
+            <a href="products.html">시공실적</a>
+            <a href="contact.html">문의하기</a>
+        </nav>
+    </div>
+
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <div class="breadcrumb">
+                <a href="index.html">HOME</a> <span>/</span> <span class="current">시공실적</span>
+            </div>
+            <h1>Our Projects</h1>
+            <p>한성건설이 완성한 2,000여 건의 프로젝트를 소개합니다. 신뢰와 품질로 완성한 자랑스러운 시공 실적입니다.</p>
+        </div>
+    </section>
+
+    <section class="filter-section">
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">전체</button>
+            <button class="filter-btn" data-filter="residential">주거시설</button>
+            <button class="filter-btn" data-filter="commercial">상업시설</button>
+            <button class="filter-btn" data-filter="industrial">산업시설</button>
+            <button class="filter-btn" data-filter="remodeling">리모델링</button>
+        </div>
+    </section>
+
+    <section class="projects-section">
+        <div class="projects-grid">
+            <div class="project-card" data-category="residential">
+                <div class="project-image">
+                    <i class="fas fa-building"></i>
+                    <div class="project-overlay">
+                        <a href="#">자세히 보기 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <p class="project-category">RESIDENTIAL</p>
+                    <h3>강남 하이파크 레지던스</h3>
+                    <p>서울 강남구 | 지상 35층 | 2024</p>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="commercial">
+                <div class="project-image">
+                    <i class="fas fa-city"></i>
+                    <div class="project-overlay">
+                        <a href="#">자세히 보기 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <p class="project-category">COMMERCIAL</p>
+                    <h3>판교 테크원 오피스</h3>
+                    <p>경기 성남시 | 지상 20층 | 2023</p>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="industrial">
+                <div class="project-image">
+                    <i class="fas fa-warehouse"></i>
+                    <div class="project-overlay">
+                        <a href="#">자세히 보기 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <p class="project-category">INDUSTRIAL</p>
+                    <h3>인천 스마트 물류센터</h3>
+                    <p>인천 서구 | 50,000m2 | 2023</p>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="residential">
+                <div class="project-image">
+                    <i class="fas fa-home"></i>
+                    <div class="project-overlay">
+                        <a href="#">자세히 보기 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <p class="project-category">RESIDENTIAL</p>
+                    <h3>분당 그린힐스 타운하우스</h3>
+                    <p>경기 성남시 | 50세대 | 2023</p>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="commercial">
+                <div class="project-image">
+                    <i class="fas fa-hotel"></i>
+                    <div class="project-overlay">
+                        <a href="#">자세히 보기 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <p class="project-category">COMMERCIAL</p>
+                    <h3>제주 파라다이스 호텔</h3>
+                    <p>제주시 | 200객실 | 2022</p>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="remodeling">
+                <div class="project-image">
+                    <i class="fas fa-tools"></i>
+                    <div class="project-overlay">
+                        <a href="#">자세히 보기 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <p class="project-category">REMODELING</p>
+                    <h3>명동 센트럴 빌딩 리뉴얼</h3>
+                    <p>서울 중구 | 15층 | 2022</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">2,000<span>+</span></div>
+                <p class="stat-label">완공 프로젝트</p>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">150<span>만m2</span></div>
+                <p class="stat-label">총 시공면적</p>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">98<span>%</span></div>
+                <p class="stat-label">고객 만족도</p>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">40<span>년</span></div>
+                <p class="stat-label">업력</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 HANSUNG Construction. All Rights Reserved.</p>
+            <div class="footer-links">
+                <a href="#">개인정보처리방침</a>
+                <a href="#">이용약관</a>
+                <a href="contact.html">오시는길</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        }
+
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                projectCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

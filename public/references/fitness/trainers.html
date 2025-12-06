@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>트레이너 - FIT STUDIO</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #0F0F0F;
+      color: #fff;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 15, 15, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 2rem;
+      letter-spacing: 3px;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: #FF6B35;
+    }
+
+    .nav {
+      display: flex;
+      gap: 36px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: #FF6B35;
+    }
+
+    .header-btn {
+      background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+      color: #fff;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .header-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+    }
+
+    /* Page Header */
+    .page-header {
+      padding: 160px 60px 100px;
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.15) 0%, rgba(15, 15, 15, 1) 100%);
+      text-align: center;
+    }
+
+    .page-tag {
+      display: inline-block;
+      background: rgba(255, 107, 53, 0.15);
+      color: #FF6B35;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      border: 1px solid rgba(255, 107, 53, 0.3);
+    }
+
+    .page-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 5rem;
+      color: #fff;
+      letter-spacing: 4px;
+      margin-bottom: 20px;
+    }
+
+    .page-desc {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.6);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Trainers Section */
+    .trainers-section {
+      padding: 100px 60px;
+    }
+
+    .trainers-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .trainer-card {
+      position: relative;
+      background: #1A1A1A;
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.4s;
+    }
+
+    .trainer-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(255, 107, 53, 0.2);
+    }
+
+    .trainer-image {
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .trainer-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .trainer-card:hover .trainer-image img {
+      transform: scale(1.1);
+    }
+
+    .trainer-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #1A1A1A 0%, transparent 50%);
+    }
+
+    .trainer-specialty {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      z-index: 1;
+    }
+
+    .trainer-info {
+      padding: 30px;
+      position: relative;
+      margin-top: -60px;
+      z-index: 1;
+    }
+
+    .trainer-name {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.8rem;
+      color: #fff;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .trainer-title {
+      font-size: 0.85rem;
+      color: #FF6B35;
+      margin-bottom: 16px;
+    }
+
+    .trainer-bio {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .trainer-stats {
+      display: flex;
+      gap: 20px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.5rem;
+      color: #FF6B35;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .trainer-social {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .social-link {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+    }
+
+    .social-link:hover {
+      border-color: #FF6B35;
+      color: #FF6B35;
+      background: rgba(255, 107, 53, 0.1);
+    }
+
+    /* Featured Trainer */
+    .featured-section {
+      padding: 100px 60px;
+      background: #1A1A1A;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      color: #FF6B35;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 3rem;
+      color: #fff;
+      letter-spacing: 3px;
+    }
+
+    .featured-trainer {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: center;
+    }
+
+    .featured-image {
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      border-radius: 20px;
+      position: relative;
+    }
+
+    .featured-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .featured-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .featured-content {
+      padding: 20px 0;
+    }
+
+    .featured-name {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 4rem;
+      color: #fff;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+    }
+
+    .featured-title {
+      font-size: 1rem;
+      color: #FF6B35;
+      margin-bottom: 30px;
+    }
+
+    .featured-bio {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 2;
+      margin-bottom: 30px;
+    }
+
+    .featured-certs {
+      margin-bottom: 40px;
+    }
+
+    .cert-title {
+      font-size: 0.9rem;
+      color: #fff;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .cert-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .cert-badge {
+      background: rgba(255, 107, 53, 0.15);
+      color: #FF6B35;
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      border: 1px solid rgba(255, 107, 53, 0.3);
+    }
+
+    .featured-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+      color: #fff;
+      padding: 18px 48px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .featured-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 120px 60px;
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.2) 0%, rgba(15, 15, 15, 1) 100%);
+      text-align: center;
+    }
+
+    .cta-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 4rem;
+      color: #fff;
+      letter-spacing: 4px;
+      margin-bottom: 20px;
+    }
+
+    .cta-desc {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 40px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+      color: #fff;
+      padding: 20px 60px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4);
+    }
+
+    /* Footer */
+    .footer {
+      background: #0A0A0A;
+      padding: 80px 60px 40px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+
+    .footer-brand .logo {
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+
+    .footer-brand p {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+
+    .footer-links h4 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      color: #FF6B35;
+      margin-bottom: 24px;
+    }
+
+    .footer-links a {
+      display: block;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-bottom p {
+      color: rgba(255,255,255,0.3);
+      font-size: 0.8rem;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 1001;
+      padding: 8px;
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #FF6B35;
+      margin: 3px 0;
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    .mobile-menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 15, 15, 0.98);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .mobile-menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-nav {
+      text-align: center;
+    }
+
+    .mobile-nav a {
+      display: block;
+      font-family: 'Bebas Neue', cursive;
+      font-size: 2.5rem;
+      font-weight: 400;
+      color: #fff;
+      text-decoration: none;
+      padding: 16px 0;
+      letter-spacing: 3px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+    }
+
+    .mobile-menu-overlay.active .mobile-nav a {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mobile-nav a:nth-child(1) { transition-delay: 0.1s; }
+    .mobile-nav a:nth-child(2) { transition-delay: 0.15s; }
+    .mobile-nav a:nth-child(3) { transition-delay: 0.2s; }
+    .mobile-nav a:nth-child(4) { transition-delay: 0.25s; }
+    .mobile-nav a:nth-child(5) { transition-delay: 0.3s; }
+
+    .mobile-nav a:hover {
+      color: #FF6B35;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .trainers-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .featured-trainer {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 15px 20px;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: flex;
+      }
+
+      .page-header,
+      .trainers-section,
+      .featured-section,
+      .cta-section {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .page-title {
+        font-size: 3rem;
+      }
+
+      .trainers-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+      }
+
+      .featured-name {
+        font-size: 2.5rem;
+      }
+
+      .cta-title {
+        font-size: 2.5rem;
+      }
+
+      .footer {
+        padding: 60px 20px 30px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="logo">FIT<span>STUDIO</span></a>
+    <nav class="nav">
+      <a href="programs.html">프로그램</a>
+      <a href="trainers.html" class="active">트레이너</a>
+      <a href="programs.html">시설안내</a>
+      <a href="pricing.html">이용요금</a>
+      <a href="pricing.html">커뮤니티</a>
+    </nav>
+    <a href="pricing.html" class="header-btn">무료 체험</a>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <div class="mobile-menu-overlay">
+    <nav class="mobile-nav">
+      <a href="programs.html" onclick="toggleMobileMenu()">프로그램</a>
+      <a href="trainers.html" onclick="toggleMobileMenu()">트레이너</a>
+      <a href="programs.html" onclick="toggleMobileMenu()">시설안내</a>
+      <a href="pricing.html" onclick="toggleMobileMenu()">이용요금</a>
+      <a href="pricing.html" onclick="toggleMobileMenu()">무료 체험</a>
+    </nav>
+  </div>
+
+  <section class="page-header">
+    <span class="page-tag">Expert Team</span>
+    <h1 class="page-title">OUR TRAINERS</h1>
+    <p class="page-desc">
+      각 분야 최고의 자격과 경험을 갖춘 전문 트레이너들이<br>
+      당신의 목표 달성을 도와드립니다.
+    </p>
+  </section>
+
+  <section class="trainers-section">
+    <div class="trainers-grid">
+      <div class="trainer-card">
+        <div class="trainer-image">
+          <span class="trainer-specialty">PT 전문</span>
+          <img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=500&q=80" alt="김민수 트레이너">
+        </div>
+        <div class="trainer-info">
+          <h3 class="trainer-name">KIM MINSU</h3>
+          <p class="trainer-title">Head Trainer</p>
+          <p class="trainer-bio">10년차 피트니스 전문가. 체계적인 웨이트 트레이닝과 식단 관리로 수많은 회원들의 변화를 이끌었습니다.</p>
+          <div class="trainer-stats">
+            <div class="stat">
+              <div class="stat-value">10+</div>
+              <div class="stat-label">Years</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">500+</div>
+              <div class="stat-label">Clients</div>
+            </div>
+          </div>
+          <div class="trainer-social">
+            <a href="#" class="social-link">📷</a>
+            <a href="#" class="social-link">📱</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="trainer-card">
+        <div class="trainer-image">
+          <span class="trainer-specialty">요가</span>
+          <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=500&q=80" alt="이서연 트레이너">
+        </div>
+        <div class="trainer-info">
+          <h3 class="trainer-name">LEE SEOYEON</h3>
+          <p class="trainer-title">Yoga Master</p>
+          <p class="trainer-bio">인도 리쉬케시 200시간 요가 TTC 수료. 빈야사와 하타 요가 전문으로 몸과 마음의 균형을 찾아드립니다.</p>
+          <div class="trainer-stats">
+            <div class="stat">
+              <div class="stat-value">8+</div>
+              <div class="stat-label">Years</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">300+</div>
+              <div class="stat-label">Clients</div>
+            </div>
+          </div>
+          <div class="trainer-social">
+            <a href="#" class="social-link">📷</a>
+            <a href="#" class="social-link">📱</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="trainer-card">
+        <div class="trainer-image">
+          <span class="trainer-specialty">필라테스</span>
+          <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=500&q=80" alt="박지훈 트레이너">
+        </div>
+        <div class="trainer-info">
+          <h3 class="trainer-name">PARK JIHOON</h3>
+          <p class="trainer-title">Pilates Instructor</p>
+          <p class="trainer-bio">재활 필라테스 전문. 체형 교정과 코어 강화에 특화된 맞춤형 레슨을 제공합니다.</p>
+          <div class="trainer-stats">
+            <div class="stat">
+              <div class="stat-value">6+</div>
+              <div class="stat-label">Years</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">400+</div>
+              <div class="stat-label">Clients</div>
+            </div>
+          </div>
+          <div class="trainer-social">
+            <a href="#" class="social-link">📷</a>
+            <a href="#" class="social-link">📱</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="trainer-card">
+        <div class="trainer-image">
+          <span class="trainer-specialty">그룹 피트니스</span>
+          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&q=80" alt="최유진 트레이너">
+        </div>
+        <div class="trainer-info">
+          <h3 class="trainer-name">CHOI YUJIN</h3>
+          <p class="trainer-title">Group Fitness Coach</p>
+          <p class="trainer-bio">스피닝, 에어로빅, 줌바 전문. 에너지 넘치는 그룹 클래스로 즐거운 운동을 만들어드립니다.</p>
+          <div class="trainer-stats">
+            <div class="stat">
+              <div class="stat-value">5+</div>
+              <div class="stat-label">Years</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">1000+</div>
+              <div class="stat-label">Classes</div>
+            </div>
+          </div>
+          <div class="trainer-social">
+            <a href="#" class="social-link">📷</a>
+            <a href="#" class="social-link">📱</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="trainer-card">
+        <div class="trainer-image">
+          <span class="trainer-specialty">크로스핏</span>
+          <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=500&q=80" alt="정현우 트레이너">
+        </div>
+        <div class="trainer-info">
+          <h3 class="trainer-name">JUNG HYUNWOO</h3>
+          <p class="trainer-title">CrossFit Coach</p>
+          <p class="trainer-bio">크로스핏 레벨 2 자격 보유. 기능성 운동과 고강도 인터벌 트레이닝 전문입니다.</p>
+          <div class="trainer-stats">
+            <div class="stat">
+              <div class="stat-value">7+</div>
+              <div class="stat-label">Years</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">350+</div>
+              <div class="stat-label">Clients</div>
+            </div>
+          </div>
+          <div class="trainer-social">
+            <a href="#" class="social-link">📷</a>
+            <a href="#" class="social-link">📱</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="trainer-card">
+        <div class="trainer-image">
+          <span class="trainer-specialty">복싱</span>
+          <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=500&q=80" alt="한지민 트레이너">
+        </div>
+        <div class="trainer-info">
+          <h3 class="trainer-name">HAN JIMIN</h3>
+          <p class="trainer-title">Boxing Trainer</p>
+          <p class="trainer-bio">전 아마추어 복싱 선수 출신. 다이어트 복싱부터 실전 기술까지 가르칩니다.</p>
+          <div class="trainer-stats">
+            <div class="stat">
+              <div class="stat-value">9+</div>
+              <div class="stat-label">Years</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">450+</div>
+              <div class="stat-label">Clients</div>
+            </div>
+          </div>
+          <div class="trainer-social">
+            <a href="#" class="social-link">📷</a>
+            <a href="#" class="social-link">📱</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="trainer-card">
+        <div class="trainer-image">
+          <span class="trainer-specialty">다이어트</span>
+          <img src="https://images.unsplash.com/photo-1571388208497-71bedc66e932?w=500&q=80" alt="송다은 트레이너">
+        </div>
+        <div class="trainer-info">
+          <h3 class="trainer-name">SONG DAEUN</h3>
+          <p class="trainer-title">Diet Specialist</p>
+          <p class="trainer-bio">영양사 자격 보유. 과학적인 식단 관리와 운동 프로그램으로 건강한 다이어트를 도와드립니다.</p>
+          <div class="trainer-stats">
+            <div class="stat">
+              <div class="stat-value">4+</div>
+              <div class="stat-label">Years</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">200+</div>
+              <div class="stat-label">Clients</div>
+            </div>
+          </div>
+          <div class="trainer-social">
+            <a href="#" class="social-link">📷</a>
+            <a href="#" class="social-link">📱</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="trainer-card">
+        <div class="trainer-image">
+          <span class="trainer-specialty">재활 운동</span>
+          <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?w=500&q=80" alt="오준서 트레이너">
+        </div>
+        <div class="trainer-info">
+          <h3 class="trainer-name">OH JUNSEO</h3>
+          <p class="trainer-title">Rehabilitation Expert</p>
+          <p class="trainer-bio">물리치료사 출신. 부상 후 재활부터 통증 완화까지 전문적인 케어를 제공합니다.</p>
+          <div class="trainer-stats">
+            <div class="stat">
+              <div class="stat-value">8+</div>
+              <div class="stat-label">Years</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">600+</div>
+              <div class="stat-label">Clients</div>
+            </div>
+          </div>
+          <div class="trainer-social">
+            <a href="#" class="social-link">📷</a>
+            <a href="#" class="social-link">📱</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="featured-section">
+    <div class="section-header">
+      <span class="section-tag">Featured Trainer</span>
+      <h2 class="section-title">HEAD TRAINER OF THE MONTH</h2>
+    </div>
+    <div class="featured-trainer">
+      <div class="featured-image">
+        <span class="featured-badge">⭐ TOP TRAINER</span>
+        <img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=800&q=80" alt="김민수 트레이너">
+      </div>
+      <div class="featured-content">
+        <h2 class="featured-name">KIM MINSU</h2>
+        <p class="featured-title">Head Trainer | Personal Training Specialist</p>
+        <p class="featured-bio">
+          10년간의 트레이닝 경험을 바탕으로 수백 명의 회원들이 목표를 달성할 수 있도록 도왔습니다.
+          체계적인 웨이트 트레이닝과 과학적인 식단 관리를 통해 건강한 라이프스타일로의 변화를 이끌어드립니다.
+          "포기하지 않으면 반드시 변화합니다"라는 신념으로 매 세션을 진행합니다.
+        </p>
+        <div class="featured-certs">
+          <p class="cert-title">자격 및 수료</p>
+          <div class="cert-list">
+            <span class="cert-badge">NSCA-CPT</span>
+            <span class="cert-badge">NASM-PES</span>
+            <span class="cert-badge">영양 컨설턴트</span>
+            <span class="cert-badge">스포츠 재활 전문가</span>
+            <span class="cert-badge">체형 교정 전문가</span>
+          </div>
+        </div>
+        <a href="pricing.html" class="featured-btn">1:1 PT 신청하기</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2 class="cta-title">FIND YOUR PERFECT TRAINER</h2>
+    <p class="cta-desc">무료 상담을 통해 나에게 맞는 트레이너를 찾아보세요</p>
+    <a href="pricing.html" class="cta-btn">무료 상담 신청</a>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">FIT<span>STUDIO</span></a>
+        <p>
+          최고의 시설과 전문 트레이너가 함께하는<br>
+          프리미엄 피트니스 센터
+        </p>
+      </div>
+      <div class="footer-links">
+        <h4>PROGRAMS</h4>
+        <a href="programs.html">Weight Training</a>
+        <a href="programs.html">Group Fitness</a>
+        <a href="programs.html">Yoga & Pilates</a>
+        <a href="programs.html">Personal Training</a>
+      </div>
+      <div class="footer-links">
+        <h4>ABOUT</h4>
+        <a href="trainers.html">트레이너</a>
+        <a href="programs.html">시설안내</a>
+        <a href="pricing.html">이용요금</a>
+        <a href="#">공지사항</a>
+      </div>
+      <div class="footer-links">
+        <h4>CONTACT</h4>
+        <a href="#">02-1234-5678</a>
+        <a href="#">서울시 강남구 테헤란로 123</a>
+        <a href="#">AM 06:00 - PM 11:00</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 FIT STUDIO. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      const btn = document.querySelector('.mobile-menu-btn');
+      const overlay = document.querySelector('.mobile-menu-overlay');
+      btn.classList.toggle('active');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : '';
+    }
+  </script>
+</body>
+</html>

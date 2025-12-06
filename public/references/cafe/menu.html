@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu - BREW HOUSE</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #1a1512;
+      color: #f5f0e8;
+    }
+
+    /* Floating Dark Glass Header */
+    .header {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 80px);
+      max-width: 1400px;
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(26, 21, 18, 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(201, 168, 108, 0.15);
+      border-radius: 100px;
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      color: #c9a86c;
+      text-decoration: none;
+      letter-spacing: 2px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 40px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: rgba(245, 240, 232, 0.7);
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      transition: all 0.3s;
+    }
+
+    .nav a:hover, .nav a.active {
+      color: #c9a86c;
+    }
+
+    .header-btn {
+      background: linear-gradient(135deg, #c9a86c 0%, #a08050 100%);
+      color: #1a1512;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .header-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(201, 168, 108, 0.3);
+    }
+
+    /* Page Hero */
+    .page-hero {
+      padding: 180px 60px 100px;
+      text-align: center;
+      background: linear-gradient(180deg, #1a1512 0%, #2d2421 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(201, 168, 108, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .page-tag {
+      display: inline-block;
+      color: #c9a86c;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      margin-bottom: 16px;
+    }
+
+    .page-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 4rem;
+      background: linear-gradient(135deg, #f5f0e8 0%, #c9a86c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+
+    .page-desc {
+      font-size: 1.1rem;
+      color: rgba(245, 240, 232, 0.6);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Menu Tabs */
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 0 60px;
+      margin-top: -30px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .menu-tab {
+      background: rgba(45, 36, 33, 0.8);
+      border: 1px solid rgba(201, 168, 108, 0.1);
+      color: rgba(245, 240, 232, 0.7);
+      padding: 16px 32px;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      backdrop-filter: blur(10px);
+    }
+
+    .menu-tab:hover, .menu-tab.active {
+      background: linear-gradient(135deg, #c9a86c 0%, #a08050 100%);
+      color: #1a1512;
+      border-color: transparent;
+    }
+
+    /* Menu Section */
+    .menu-section {
+      padding: 80px 60px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .menu-category {
+      margin-bottom: 80px;
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .category-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, rgba(201, 168, 108, 0.2) 0%, rgba(201, 168, 108, 0.05) 100%);
+      border: 1px solid rgba(201, 168, 108, 0.3);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+
+    .category-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: #f5f0e8;
+    }
+
+    .category-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(201, 168, 108, 0.3), transparent);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .menu-card {
+      background: rgba(45, 36, 33, 0.5);
+      border: 1px solid rgba(201, 168, 108, 0.1);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: all 0.4s;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(201, 168, 108, 0.3);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(201, 168, 108, 0.1);
+    }
+
+    .menu-image {
+      height: 220px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .menu-card:hover .menu-image::after {
+      opacity: 1;
+    }
+
+    .menu-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(201, 168, 108, 0.1);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .menu-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: linear-gradient(135deg, #c9a86c 0%, #a08050 100%);
+      color: #1a1512;
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      z-index: 1;
+    }
+
+    .menu-badge.new {
+      background: linear-gradient(135deg, #4a9079 0%, #2d5c4a 100%);
+      color: #fff;
+    }
+
+    .menu-info {
+      padding: 28px;
+    }
+
+    .menu-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      color: #f5f0e8;
+      margin-bottom: 8px;
+    }
+
+    .menu-desc {
+      font-size: 0.9rem;
+      color: rgba(245, 240, 232, 0.5);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .menu-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .menu-price {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      color: #c9a86c;
+    }
+
+    .menu-option {
+      font-size: 0.8rem;
+      color: rgba(245, 240, 232, 0.4);
+      background: rgba(201, 168, 108, 0.1);
+      padding: 6px 12px;
+      border-radius: 100px;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 80px 60px 40px;
+      background: #0f0c0a;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: #c9a86c;
+      margin-bottom: 24px;
+    }
+
+    .footer-nav {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-nav a {
+      color: rgba(245, 240, 232, 0.5);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    .footer-nav a:hover {
+      color: #c9a86c;
+    }
+
+    .footer-bottom {
+      padding-top: 30px;
+      border-top: 1px solid rgba(201, 168, 108, 0.1);
+    }
+
+    .footer-bottom p {
+      color: rgba(245, 240, 232, 0.3);
+      font-size: 0.85rem;
+    }
+
+    /* Mobile Menu Button */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1001;
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #c9a86c;
+      margin: 3px 0;
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    /* Mobile Menu Overlay */
+    .mobile-menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(26, 21, 18, 0.98);
+      backdrop-filter: blur(20px);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .mobile-menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      gap: 32px;
+    }
+
+    .mobile-nav a {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: #f5f0e8;
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+    }
+
+    .mobile-menu-overlay.active .mobile-nav a {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(1) { transition-delay: 0.1s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(2) { transition-delay: 0.2s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(3) { transition-delay: 0.3s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(4) { transition-delay: 0.4s; }
+
+    .mobile-nav a:hover {
+      color: #c9a86c;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header {
+        width: calc(100% - 40px);
+        padding: 12px 24px;
+      }
+      .nav { display: none; }
+      .header-btn { display: none; }
+      .mobile-menu-btn { display: flex; }
+      .mobile-menu-overlay { display: block; }
+      .page-hero { padding: 140px 24px 80px; }
+      .page-title { font-size: 2.5rem; }
+      .menu-tabs {
+        flex-wrap: wrap;
+        padding: 0 24px;
+        margin-top: -20px;
+      }
+      .menu-tab { padding: 12px 20px; font-size: 0.8rem; }
+      .menu-section { padding: 60px 24px; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .footer { padding: 60px 24px 30px; }
+      .footer-nav { flex-wrap: wrap; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="logo">BREW HOUSE</a>
+    <nav class="nav">
+      <a href="menu.html" class="active">MENU</a>
+      <a href="about.html">STORY</a>
+      <a href="contact.html">VISIT</a>
+    </nav>
+    <a href="contact.html" class="header-btn">예약하기</a>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <div class="mobile-menu-overlay" id="mobileMenu">
+    <nav class="mobile-nav">
+      <a href="index.html" onclick="toggleMobileMenu()">HOME</a>
+      <a href="menu.html" onclick="toggleMobileMenu()">MENU</a>
+      <a href="about.html" onclick="toggleMobileMenu()">STORY</a>
+      <a href="contact.html" onclick="toggleMobileMenu()">VISIT</a>
+    </nav>
+  </div>
+
+  <section class="page-hero">
+    <span class="page-tag">OUR MENU</span>
+    <h1 class="page-title">Menu</h1>
+    <p class="page-desc">정성껏 준비한 브루하우스의 프리미엄 메뉴를 만나보세요</p>
+  </section>
+
+  <div class="menu-tabs">
+    <button class="menu-tab active">All</button>
+    <button class="menu-tab">Coffee</button>
+    <button class="menu-tab">Beverage</button>
+    <button class="menu-tab">Dessert</button>
+  </div>
+
+  <section class="menu-section">
+    <!-- Coffee -->
+    <div class="menu-category">
+      <div class="category-header">
+        <div class="category-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c9a86c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 8h1a4 4 0 1 1 0 8h-1"/>
+            <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/>
+            <line x1="6" y1="2" x2="6" y2="4"/>
+            <line x1="10" y1="2" x2="10" y2="4"/>
+            <line x1="14" y1="2" x2="14" y2="4"/>
+          </svg>
+        </div>
+        <h2 class="category-title">Coffee</h2>
+        <div class="category-line"></div>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card">
+          <div class="menu-image" style="background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80')">
+            <span class="menu-badge">BEST</span>
+          </div>
+          <div class="menu-info">
+            <h3 class="menu-name">시그니처 라떼</h3>
+            <p class="menu-desc">브루하우스만의 특별한 블렌딩으로 완성한 부드러운 라떼</p>
+            <div class="menu-footer">
+              <div class="menu-price">₩5,500</div>
+              <span class="menu-option">ICE +500</span>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-image" style="background-image: url('https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&q=80')"></div>
+          <div class="menu-info">
+            <h3 class="menu-name">아메리카노</h3>
+            <p class="menu-desc">깊고 진한 에스프레소의 풍미를 느낄 수 있는 정통 아메리카노</p>
+            <div class="menu-footer">
+              <div class="menu-price">₩4,500</div>
+              <span class="menu-option">ICE +500</span>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-image" style="background-image: url('https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80')"></div>
+          <div class="menu-info">
+            <h3 class="menu-name">카푸치노</h3>
+            <p class="menu-desc">풍성한 우유 거품과 에스프레소의 완벽한 조화</p>
+            <div class="menu-footer">
+              <div class="menu-price">₩5,000</div>
+              <span class="menu-option">ICE +500</span>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-image" style="background-image: url('https://images.unsplash.com/photo-1485808191679-5f86510681a2?w=600&q=80')">
+            <span class="menu-badge new">NEW</span>
+          </div>
+          <div class="menu-info">
+            <h3 class="menu-name">바닐라 플랫화이트</h3>
+            <p class="menu-desc">부드러운 바닐라 향과 벨벳처럼 부드러운 마이크로폼</p>
+            <div class="menu-footer">
+              <div class="menu-price">₩5,800</div>
+              <span class="menu-option">ICE +500</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Beverage -->
+    <div class="menu-category">
+      <div class="category-header">
+        <div class="category-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c9a86c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 2h8l-1 9H9L8 2z"/>
+            <path d="M9 11h6l-1 9a2 2 0 0 1-2 2h0a2 2 0 0 1-2-2l-1-9z"/>
+            <path d="M6 6h12"/>
+          </svg>
+        </div>
+        <h2 class="category-title">Beverage</h2>
+        <div class="category-line"></div>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card">
+          <div class="menu-image" style="background-image: url('https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=600&q=80')"></div>
+          <div class="menu-info">
+            <h3 class="menu-name">그린티 라떼</h3>
+            <p class="menu-desc">제주 유기농 녹차로 만든 고소하고 진한 녹차 라떼</p>
+            <div class="menu-footer">
+              <div class="menu-price">₩5,500</div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-image" style="background-image: url('https://images.unsplash.com/photo-1544252890-c1909a3e3b91?w=600&q=80')"></div>
+          <div class="menu-info">
+            <h3 class="menu-name">자몽 에이드</h3>
+            <p class="menu-desc">상큼한 자몽과 탄산의 청량한 만남</p>
+            <div class="menu-footer">
+              <div class="menu-price">₩5,500</div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-image" style="background-image: url('https://images.unsplash.com/photo-1563227812-0ea4c22e6cc8?w=600&q=80')"></div>
+          <div class="menu-info">
+            <h3 class="menu-name">딸기 스무디</h3>
+            <p class="menu-desc">신선한 딸기를 갈아 만든 달콤한 스무디</p>
+            <div class="menu-footer">
+              <div class="menu-price">₩6,000</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dessert -->
+    <div class="menu-category">
+      <div class="category-header">
+        <div class="category-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c9a86c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 19a4 4 0 0 1-4-4 7 7 0 0 1 7-7h0a7 7 0 0 1 7 7 4 4 0 0 1-4 4"/>
+            <path d="M12 8V3"/>
+            <path d="M10 3h4"/>
+            <path d="M5 19h14"/>
+            <path d="M6 19v2"/>
+            <path d="M18 19v2"/>
+          </svg>
+        </div>
+        <h2 class="category-title">Dessert</h2>
+        <div class="category-line"></div>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card">
+          <div class="menu-image" style="background-image: url('https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80')">
+            <span class="menu-badge">BEST</span>
+          </div>
+          <div class="menu-info">
+            <h3 class="menu-name">티라미수</h3>
+            <p class="menu-desc">매일 아침 직접 만드는 이탈리안 정통 티라미수</p>
+            <div class="menu-footer">
+              <div class="menu-price">₩7,500</div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-image" style="background-image: url('https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?w=600&q=80')"></div>
+          <div class="menu-info">
+            <h3 class="menu-name">크루아상</h3>
+            <p class="menu-desc">버터 향 가득한 겉바속촉 프랑스식 크루아상</p>
+            <div class="menu-footer">
+              <div class="menu-price">₩4,500</div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-image" style="background-image: url('https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&q=80')"></div>
+          <div class="menu-info">
+            <h3 class="menu-name">바스크 치즈케이크</h3>
+            <p class="menu-desc">진한 치즈 풍미와 부드러운 식감의 시그니처 케이크</p>
+            <div class="menu-footer">
+              <div class="menu-price">₩6,500</div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-image" style="background-image: url('https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600&q=80')"></div>
+          <div class="menu-info">
+            <h3 class="menu-name">마카롱 세트</h3>
+            <p class="menu-desc">다양한 맛의 수제 마카롱 5종 세트</p>
+            <div class="menu-footer">
+              <div class="menu-price">₩9,000</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logo">BREW HOUSE</div>
+      <nav class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="menu.html">Menu</a>
+        <a href="about.html">Story</a>
+        <a href="contact.html">Visit</a>
+      </nav>
+      <div class="footer-bottom">
+        <p>© 2024 BREW HOUSE. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      const btn = document.querySelector('.mobile-menu-btn');
+      const overlay = document.getElementById('mobileMenu');
+      btn.classList.toggle('active');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : '';
+    }
+  </script>
+</body>
+</html>

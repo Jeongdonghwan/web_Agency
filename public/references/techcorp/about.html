@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회사소개 - TECHWAVE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #0d1b2a;
+            --bg-darker: #050a12;
+            --bg-card: #112240;
+            --accent-blue: #1e90ff;
+            --accent-cyan: #00d4ff;
+            --text-white: #ffffff;
+            --text-gray: #8892a0;
+            --text-light: #ccd6e0;
+            --gradient: linear-gradient(135deg, #1e90ff 0%, #00d4ff 100%);
+            --glow-cyan: 0 0 30px rgba(0, 212, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', 'Montserrat', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-white);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(5, 10, 18, 0.9);
+            backdrop-filter: blur(20px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo span {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--text-white);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--accent-cyan);
+        }
+
+        .header-cta {
+            background: var(--gradient);
+            color: var(--bg-darker);
+            padding: 12px 28px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .header-cta:hover {
+            box-shadow: var(--glow-cyan);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 28px;
+            height: 2px;
+            background: var(--text-white);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(5, 10, 18, 0.98);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            gap: 30px;
+        }
+
+        .mobile-nav a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* Page Hero */
+        .page-hero {
+            padding: 180px 60px 100px;
+            background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(30,144,255,0.03)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            background-size: 100px 100px;
+        }
+
+        .page-hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .breadcrumb span {
+            color: var(--text-gray);
+        }
+
+        .breadcrumb .current {
+            color: var(--accent-cyan);
+        }
+
+        .page-hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .page-hero h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-hero p {
+            font-size: 1.15rem;
+            color: var(--text-gray);
+            max-width: 600px;
+            line-height: 1.8;
+        }
+
+        /* CEO Section */
+        .ceo-section {
+            padding: 120px 60px;
+            background: var(--bg-darker);
+        }
+
+        .ceo-content {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .ceo-image {
+            position: relative;
+        }
+
+        .ceo-image-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ceo-image-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--accent-cyan);
+            z-index: 0;
+        }
+
+        .ceo-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            position: relative;
+            z-index: 1;
+            filter: grayscale(30%);
+        }
+
+        .ceo-placeholder {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ceo-placeholder i {
+            font-size: 8rem;
+            color: var(--accent-blue);
+            opacity: 0.3;
+        }
+
+        .ceo-text h2 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            color: var(--accent-cyan);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .ceo-text h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            line-height: 1.3;
+        }
+
+        .ceo-text p {
+            font-size: 1.05rem;
+            color: var(--text-gray);
+            line-height: 2;
+            margin-bottom: 20px;
+        }
+
+        .ceo-signature {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(30, 144, 255, 0.2);
+        }
+
+        .ceo-signature p {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+
+        .ceo-signature .name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-white);
+        }
+
+        /* History Section */
+        .history-section {
+            padding: 120px 60px;
+            background: var(--bg-dark);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-tag {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            color: var(--accent-cyan);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .timeline {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent-cyan), var(--accent-blue));
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 60px;
+            position: relative;
+            margin-bottom: 60px;
+            width: 50%;
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            padding-left: 60px;
+            padding-right: 0;
+            margin-left: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            box-shadow: var(--glow-cyan);
+        }
+
+        .timeline-item:nth-child(even)::after {
+            right: auto;
+            left: -8px;
+        }
+
+        .timeline-content {
+            background: var(--bg-card);
+            padding: 30px;
+            border: 1px solid rgba(30, 144, 255, 0.1);
+            max-width: 400px;
+        }
+
+        .timeline-year {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .timeline-content h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .timeline-content p {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        /* Vision Section */
+        .vision-section {
+            padding: 120px 60px;
+            background: var(--bg-darker);
+        }
+
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .vision-card {
+            background: var(--bg-card);
+            padding: 60px 50px;
+            border: 1px solid rgba(30, 144, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .vision-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient);
+        }
+
+        .vision-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .vision-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            color: var(--accent-cyan);
+            margin-bottom: 20px;
+        }
+
+        .vision-card h4 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .vision-card p {
+            font-size: 1rem;
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+
+        /* Organization Section */
+        .org-section {
+            padding: 120px 60px;
+            background: var(--bg-dark);
+        }
+
+        .org-chart {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .org-level {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .org-level:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 25px;
+            background: var(--accent-cyan);
+        }
+
+        .org-box {
+            background: var(--bg-card);
+            padding: 25px 50px;
+            text-align: center;
+            border: 1px solid rgba(30, 144, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .org-box.ceo {
+            background: var(--gradient);
+        }
+
+        .org-box.ceo h4 {
+            color: var(--bg-darker);
+        }
+
+        .org-box:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .org-box h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .org-departments {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .org-dept {
+            background: var(--bg-card);
+            padding: 20px 30px;
+            text-align: center;
+            border: 1px solid rgba(30, 144, 255, 0.1);
+            min-width: 150px;
+        }
+
+        .org-dept h5 {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-darker);
+            padding: 60px;
+            border-top: 1px solid rgba(30, 144, 255, 0.1);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-content p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .ceo-content {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .ceo-image-wrapper::before {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 25px;
+            }
+
+            nav, .header-cta {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .mobile-menu-overlay {
+                display: block;
+            }
+
+            .page-hero {
+                padding: 140px 25px 80px;
+            }
+
+            .page-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .ceo-section,
+            .history-section,
+            .vision-section,
+            .org-section {
+                padding: 80px 25px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .ceo-text h3 {
+                font-size: 1.8rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                width: 100%;
+                margin-left: 0;
+                padding-left: 60px;
+                padding-right: 0;
+            }
+
+            .timeline-item::after,
+            .timeline-item:nth-child(even)::after {
+                left: 12px;
+                right: auto;
+            }
+
+            .vision-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .org-level {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .org-departments {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            footer {
+                padding: 40px 25px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 10L90 30V70L50 90L10 70V30L50 10Z" stroke="url(#grad1)" stroke-width="3" fill="none"/>
+                <circle cx="50" cy="50" r="15" fill="url(#grad1)"/>
+                <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#1e90ff"/>
+                        <stop offset="100%" style="stop-color:#00d4ff"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+            <span>TECHWAVE</span>
+        </a>
+        <nav>
+            <a href="about.html" class="active">회사소개</a>
+            <a href="business.html">사업분야</a>
+            <a href="products.html">제품소개</a>
+            <a href="contact.html">문의하기</a>
+        </nav>
+        <a href="contact.html" class="header-cta">상담신청</a>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <nav class="mobile-nav">
+            <a href="about.html">회사소개</a>
+            <a href="business.html">사업분야</a>
+            <a href="products.html">제품소개</a>
+            <a href="contact.html">문의하기</a>
+        </nav>
+    </div>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <div class="breadcrumb">
+                <a href="index.html">HOME</a>
+                <span>/</span>
+                <span class="current">회사소개</span>
+            </div>
+            <h1>About <span>TECHWAVE</span></h1>
+            <p>첨단 기술력과 혁신적인 솔루션으로 고객의 성공을 이끄는 기술 파트너, TECHWAVE를 소개합니다.</p>
+        </div>
+    </section>
+
+    <!-- CEO Section -->
+    <section class="ceo-section">
+        <div class="ceo-content">
+            <div class="ceo-image">
+                <div class="ceo-image-wrapper">
+                    <div class="ceo-placeholder">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="ceo-text">
+                <h2>CEO Message</h2>
+                <h3>기술로 세상을 연결하고<br>혁신으로 미래를 열어갑니다</h3>
+                <p>안녕하십니까, TECHWAVE 대표이사 김테크입니다.</p>
+                <p>TECHWAVE는 2005년 창립 이래 '기술을 통한 가치 창출'이라는 비전 아래, 끊임없는 연구개발과 혁신을 통해 대한민국 기술 산업의 발전에 기여해 왔습니다.</p>
+                <p>4차 산업혁명 시대를 맞이하여, 우리는 AI, IoT, 스마트 팩토리 등 첨단 기술 분야에서 선도적인 역할을 수행하며, 고객사의 디지털 전환과 경쟁력 강화를 위한 최적의 솔루션을 제공하고 있습니다.</p>
+                <p>앞으로도 TECHWAVE는 기술 혁신의 최전선에서 고객과 함께 성장하며, 더 나은 미래를 만들어 나가겠습니다.</p>
+                <div class="ceo-signature">
+                    <p>TECHWAVE 대표이사</p>
+                    <p class="name">김 테 크</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section class="history-section">
+        <div class="section-header">
+            <p class="section-tag">History</p>
+            <h2 class="section-title">TECHWAVE의 발자취</h2>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2024</div>
+                    <h4>글로벌 확장</h4>
+                    <p>동남아시아 지사 설립, 매출 1,000억 돌파</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2022</div>
+                    <h4>스마트 팩토리 사업 확대</h4>
+                    <p>AI 기반 생산관리 시스템 출시, 특허 50건 달성</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2018</div>
+                    <h4>기술연구소 설립</h4>
+                    <p>판교 R&D 센터 설립, 직원 200명 돌파</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2015</div>
+                    <h4>산업자동화 진출</h4>
+                    <p>로봇 제어 시스템 개발, ISO 9001 인증</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2010</div>
+                    <h4>본사 이전</h4>
+                    <p>강남 사옥 이전, 매출 100억 달성</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2005</div>
+                    <h4>TECHWAVE 설립</h4>
+                    <p>산업용 제어 시스템 개발 시작</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section class="vision-section">
+        <div class="section-header">
+            <p class="section-tag">Vision & Mission</p>
+            <h2 class="section-title">우리의 비전</h2>
+        </div>
+        <div class="vision-grid">
+            <div class="vision-card">
+                <h3>VISION</h3>
+                <h4>기술 혁신으로 더 나은 세상을 만듭니다</h4>
+                <p>TECHWAVE는 끊임없는 기술 혁신을 통해 산업의 패러다임을 바꾸고, 인류의 삶을 풍요롭게 하는 글로벌 기술 기업으로 성장하겠습니다.</p>
+            </div>
+            <div class="vision-card">
+                <h3>MISSION</h3>
+                <h4>고객 성공을 위한 최고의 기술 파트너</h4>
+                <p>최신 기술과 전문 역량을 바탕으로 고객의 비즈니스 과제를 해결하고, 함께 성장하는 신뢰받는 파트너가 되겠습니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Organization Section -->
+    <section class="org-section">
+        <div class="section-header">
+            <p class="section-tag">Organization</p>
+            <h2 class="section-title">조직도</h2>
+        </div>
+        <div class="org-chart">
+            <div class="org-level">
+                <div class="org-box ceo">
+                    <h4>대표이사</h4>
+                </div>
+            </div>
+            <div class="org-level">
+                <div class="org-box">
+                    <h4>경영지원본부</h4>
+                </div>
+                <div class="org-box">
+                    <h4>기술연구소</h4>
+                </div>
+                <div class="org-box">
+                    <h4>영업본부</h4>
+                </div>
+            </div>
+            <div class="org-departments">
+                <div class="org-dept">
+                    <h5>인사팀</h5>
+                </div>
+                <div class="org-dept">
+                    <h5>재무팀</h5>
+                </div>
+                <div class="org-dept">
+                    <h5>R&D팀</h5>
+                </div>
+                <div class="org-dept">
+                    <h5>품질관리팀</h5>
+                </div>
+                <div class="org-dept">
+                    <h5>국내영업팀</h5>
+                </div>
+                <div class="org-dept">
+                    <h5>해외영업팀</h5>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 TECHWAVE. All Rights Reserved.</p>
+            <div class="footer-links">
+                <a href="#">개인정보처리방침</a>
+                <a href="#">이용약관</a>
+                <a href="contact.html">오시는길</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const btn = document.querySelector('.mobile-menu-btn');
+            const menu = document.getElementById('mobileMenu');
+            btn.classList.toggle('active');
+            menu.classList.toggle('active');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+        }
+    </script>
+</body>
+</html>

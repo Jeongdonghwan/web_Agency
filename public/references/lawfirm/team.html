@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>구성원 - 법무법인 정의</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #FAFAFA;
+      color: #1A1A1A;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(26, 26, 26, 0.08);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #1B365D 0%, #0D1B2A 100%);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #C5A572;
+      font-size: 1.2rem;
+    }
+
+    .logo-text {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #1B365D;
+    }
+
+    .nav {
+      display: flex;
+      gap: 40px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: #1A1A1A;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: #1B365D;
+    }
+
+    .header-btn {
+      background: #1B365D;
+      color: #fff;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .header-btn:hover {
+      background: #0D1B2A;
+      transform: translateY(-2px);
+    }
+
+    /* Page Header */
+    .page-header {
+      padding: 160px 60px 80px;
+      background: linear-gradient(135deg, #1B365D 0%, #0D1B2A 100%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(197, 165, 114, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(197, 165, 114, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    .page-header-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-tag {
+      display: inline-block;
+      color: #C5A572;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .page-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 3rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .page-desc {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Team Section */
+    .team-section {
+      padding: 100px 60px;
+      background: #fff;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      color: #1B365D;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 2.5rem;
+      color: #1A1A1A;
+      font-weight: 600;
+    }
+
+    /* Partners */
+    .partners-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 60px;
+      max-width: 1100px;
+      margin: 0 auto 100px;
+    }
+
+    .partner-card {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 40px;
+      background: #FAFAFA;
+      border-radius: 12px;
+      padding: 40px;
+      border: 1px solid rgba(26, 26, 26, 0.06);
+    }
+
+    .partner-image {
+      width: 280px;
+      height: 350px;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .partner-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(30%);
+      transition: filter 0.5s;
+    }
+
+    .partner-card:hover .partner-image img {
+      filter: grayscale(0%);
+    }
+
+    .partner-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .partner-position {
+      display: inline-block;
+      background: linear-gradient(135deg, #1B365D 0%, #0D1B2A 100%);
+      color: #C5A572;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      width: fit-content;
+      margin-bottom: 16px;
+    }
+
+    .partner-name {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #1A1A1A;
+      margin-bottom: 8px;
+    }
+
+    .partner-name-en {
+      font-size: 0.9rem;
+      color: #999;
+      margin-bottom: 20px;
+    }
+
+    .partner-specialty {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .partner-specialty span {
+      background: rgba(27, 54, 93, 0.1);
+      color: #1B365D;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+
+    .partner-bio {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .partner-education {
+      font-size: 0.85rem;
+      color: #888;
+      line-height: 1.8;
+    }
+
+    .partner-education strong {
+      color: #1A1A1A;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    /* Associates */
+    .associates-section {
+      padding: 80px 60px;
+      background: #FAFAFA;
+    }
+
+    .associates-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .associate-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(26, 26, 26, 0.06);
+      transition: all 0.4s;
+    }
+
+    .associate-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(27, 54, 93, 0.1);
+    }
+
+    .associate-image {
+      width: 100%;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+    }
+
+    .associate-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(50%);
+      transition: all 0.5s;
+    }
+
+    .associate-card:hover .associate-image img {
+      filter: grayscale(0%);
+      transform: scale(1.05);
+    }
+
+    .associate-info {
+      padding: 24px;
+      text-align: center;
+    }
+
+    .associate-name {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #1A1A1A;
+      margin-bottom: 4px;
+    }
+
+    .associate-position {
+      font-size: 0.85rem;
+      color: #1B365D;
+      margin-bottom: 12px;
+    }
+
+    .associate-specialty {
+      font-size: 0.8rem;
+      color: #999;
+    }
+
+    /* Staff Section */
+    .staff-section {
+      padding: 80px 60px;
+      background: #fff;
+    }
+
+    .staff-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .staff-card {
+      text-align: center;
+    }
+
+    .staff-image {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid #eee;
+    }
+
+    .staff-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .staff-name {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #1A1A1A;
+      margin-bottom: 4px;
+    }
+
+    .staff-role {
+      font-size: 0.8rem;
+      color: #999;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 100px 60px;
+      background: linear-gradient(135deg, #1B365D 0%, #0D1B2A 100%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(197, 165, 114, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(197, 165, 114, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 2.5rem;
+      color: #fff;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .cta-desc {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 40px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: #C5A572;
+      color: #0D1B2A;
+      padding: 18px 48px;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .cta-btn:hover {
+      background: #D4B683;
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    .footer {
+      background: #0D1B2A;
+      color: #fff;
+      padding: 80px 60px 40px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .footer-brand .logo-icon {
+      width: 36px;
+      height: 36px;
+      font-size: 1rem;
+    }
+
+    .footer-brand .logo-text {
+      color: #fff;
+    }
+
+    .footer-info p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+
+    .footer-links h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+      color: #C5A572;
+    }
+
+    .footer-links a {
+      display: block;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-bottom p {
+      color: rgba(255,255,255,0.4);
+      font-size: 0.8rem;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 1001;
+      padding: 8px;
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #1B365D;
+      margin: 3px 0;
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    .mobile-menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(26, 39, 68, 0.98);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .mobile-menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-nav {
+      text-align: center;
+    }
+
+    .mobile-nav a {
+      display: block;
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: #fff;
+      text-decoration: none;
+      padding: 16px 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+    }
+
+    .mobile-menu-overlay.active .mobile-nav a {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mobile-nav a:nth-child(1) { transition-delay: 0.1s; }
+    .mobile-nav a:nth-child(2) { transition-delay: 0.15s; }
+    .mobile-nav a:nth-child(3) { transition-delay: 0.2s; }
+    .mobile-nav a:nth-child(4) { transition-delay: 0.25s; }
+    .mobile-nav a:nth-child(5) { transition-delay: 0.3s; }
+
+    .mobile-nav a:hover {
+      color: #C5A572;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .partners-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .partner-card {
+        grid-template-columns: 200px 1fr;
+      }
+
+      .partner-image {
+        width: 200px;
+        height: 250px;
+      }
+
+      .associates-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .staff-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 15px 20px;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: flex;
+      }
+
+      .page-header,
+      .team-section,
+      .associates-section,
+      .staff-section,
+      .cta-section {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .page-title {
+        font-size: 2rem;
+      }
+
+      .partner-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .partner-image {
+        width: 100%;
+        max-width: 280px;
+        margin: 0 auto;
+      }
+
+      .partner-position {
+        margin: 0 auto 16px;
+      }
+
+      .associates-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      .staff-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .footer {
+        padding: 60px 20px 30px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">⚖</div>
+      <span class="logo-text">법무법인 정의</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">법인소개</a>
+      <a href="practice.html">업무분야</a>
+      <a href="team.html" class="active">구성원</a>
+      <a href="practice.html">성공사례</a>
+      <a href="contact.html">법률상담</a>
+    </nav>
+    <a href="contact.html" class="header-btn">무료 상담 신청</a>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <div class="mobile-menu-overlay">
+    <nav class="mobile-nav">
+      <a href="index.html" onclick="toggleMobileMenu()">법인소개</a>
+      <a href="practice.html" onclick="toggleMobileMenu()">업무분야</a>
+      <a href="team.html" onclick="toggleMobileMenu()">구성원</a>
+      <a href="practice.html" onclick="toggleMobileMenu()">성공사례</a>
+      <a href="contact.html" onclick="toggleMobileMenu()">법률상담</a>
+    </nav>
+  </div>
+
+  <section class="page-header">
+    <div class="page-header-content">
+      <span class="page-tag">Our Team</span>
+      <h1 class="page-title">구성원</h1>
+      <p class="page-desc">
+        각 분야 최고의 전문성을 갖춘 변호사들이 여러분의 권리를 지켜드립니다.
+      </p>
+    </div>
+  </section>
+
+  <section class="team-section">
+    <div class="section-header">
+      <span class="section-tag">Partners</span>
+      <h2 class="section-title">대표 변호사</h2>
+    </div>
+    <div class="partners-grid">
+      <div class="partner-card">
+        <div class="partner-image">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80" alt="김정의 대표변호사">
+        </div>
+        <div class="partner-info">
+          <span class="partner-position">대표 변호사</span>
+          <h3 class="partner-name">김정의</h3>
+          <p class="partner-name-en">Kim Jung-eui</p>
+          <div class="partner-specialty">
+            <span>기업법무</span>
+            <span>M&A</span>
+            <span>금융거래</span>
+          </div>
+          <p class="partner-bio">
+            30년간 대형 로펌에서 기업법무를 전담하며 다양한 M&A 및 기업 구조조정 프로젝트를 이끌었습니다. 현재 법무법인 정의의 대표변호사로서 기업 고객들의 신뢰받는 법률 파트너 역할을 수행하고 있습니다.
+          </p>
+          <div class="partner-education">
+            <strong>학력 및 경력</strong>
+            서울대학교 법학과 졸업<br>
+            제32회 사법시험 합격<br>
+            前 김앤장 법률사무소 파트너
+          </div>
+        </div>
+      </div>
+
+      <div class="partner-card">
+        <div class="partner-image">
+          <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&q=80" alt="박신뢰 대표변호사">
+        </div>
+        <div class="partner-info">
+          <span class="partner-position">대표 변호사</span>
+          <h3 class="partner-name">박신뢰</h3>
+          <p class="partner-name-en">Park Shin-roe</p>
+          <div class="partner-specialty">
+            <span>형사변호</span>
+            <span>수사대응</span>
+            <span>화이트칼라</span>
+          </div>
+          <p class="partner-bio">
+            검찰 출신으로 20년간 형사 사건을 전문적으로 수행해 왔습니다. 특히 경제범죄, 조세범죄 등 화이트칼라 범죄 분야에서 뛰어난 변론 능력을 인정받고 있습니다.
+          </p>
+          <div class="partner-education">
+            <strong>학력 및 경력</strong>
+            고려대학교 법학과 졸업<br>
+            제35회 사법시험 합격<br>
+            前 서울중앙지검 특수부 부장검사
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="associates-section">
+    <div class="section-header">
+      <span class="section-tag">Associates</span>
+      <h2 class="section-title">소속 변호사</h2>
+    </div>
+    <div class="associates-grid">
+      <div class="associate-card">
+        <div class="associate-image">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="이준혁 변호사">
+        </div>
+        <div class="associate-info">
+          <h3 class="associate-name">이준혁</h3>
+          <p class="associate-position">파트너 변호사</p>
+          <p class="associate-specialty">민사소송 | 손해배상</p>
+        </div>
+      </div>
+
+      <div class="associate-card">
+        <div class="associate-image">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80" alt="최서연 변호사">
+        </div>
+        <div class="associate-info">
+          <h3 class="associate-name">최서연</h3>
+          <p class="associate-position">파트너 변호사</p>
+          <p class="associate-specialty">노동법 | 인사노무</p>
+        </div>
+      </div>
+
+      <div class="associate-card">
+        <div class="associate-image">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80" alt="정민수 변호사">
+        </div>
+        <div class="associate-info">
+          <h3 class="associate-name">정민수</h3>
+          <p class="associate-position">시니어 변호사</p>
+          <p class="associate-specialty">부동산 | 건설</p>
+        </div>
+      </div>
+
+      <div class="associate-card">
+        <div class="associate-image">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80" alt="한지은 변호사">
+        </div>
+        <div class="associate-info">
+          <h3 class="associate-name">한지은</h3>
+          <p class="associate-position">시니어 변호사</p>
+          <p class="associate-specialty">가사 | 상속</p>
+        </div>
+      </div>
+
+      <div class="associate-card">
+        <div class="associate-image">
+          <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80" alt="김동현 변호사">
+        </div>
+        <div class="associate-info">
+          <h3 class="associate-name">김동현</h3>
+          <p class="associate-position">어소시에이트</p>
+          <p class="associate-specialty">기업법무 | 계약</p>
+        </div>
+      </div>
+
+      <div class="associate-card">
+        <div class="associate-image">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80" alt="윤채린 변호사">
+        </div>
+        <div class="associate-info">
+          <h3 class="associate-name">윤채린</h3>
+          <p class="associate-position">어소시에이트</p>
+          <p class="associate-specialty">형사 | 행정</p>
+        </div>
+      </div>
+
+      <div class="associate-card">
+        <div class="associate-image">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80" alt="박준서 변호사">
+        </div>
+        <div class="associate-info">
+          <h3 class="associate-name">박준서</h3>
+          <p class="associate-position">어소시에이트</p>
+          <p class="associate-specialty">지적재산권 | IT</p>
+        </div>
+      </div>
+
+      <div class="associate-card">
+        <div class="associate-image">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80" alt="송예진 변호사">
+        </div>
+        <div class="associate-info">
+          <h3 class="associate-name">송예진</h3>
+          <p class="associate-position">어소시에이트</p>
+          <p class="associate-specialty">금융 | 증권</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="staff-section">
+    <div class="section-header">
+      <span class="section-tag">Professional Staff</span>
+      <h2 class="section-title">전문 스탭</h2>
+    </div>
+    <div class="staff-grid">
+      <div class="staff-card">
+        <div class="staff-image">
+          <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=200&q=80" alt="스탭">
+        </div>
+        <h4 class="staff-name">이미영</h4>
+        <p class="staff-role">사무국장</p>
+      </div>
+      <div class="staff-card">
+        <div class="staff-image">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80" alt="스탭">
+        </div>
+        <h4 class="staff-name">김소희</h4>
+        <p class="staff-role">법률사무원</p>
+      </div>
+      <div class="staff-card">
+        <div class="staff-image">
+          <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&q=80" alt="스탭">
+        </div>
+        <h4 class="staff-name">박지현</h4>
+        <p class="staff-role">법률사무원</p>
+      </div>
+      <div class="staff-card">
+        <div class="staff-image">
+          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80" alt="스탭">
+        </div>
+        <h4 class="staff-name">최준호</h4>
+        <p class="staff-role">법률사무원</p>
+      </div>
+      <div class="staff-card">
+        <div class="staff-image">
+          <img src="https://images.unsplash.com/photo-1499952127939-9bbf5af6c51c?w=200&q=80" alt="스탭">
+        </div>
+        <h4 class="staff-name">정수민</h4>
+        <p class="staff-role">경리</p>
+      </div>
+      <div class="staff-card">
+        <div class="staff-image">
+          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&q=80" alt="스탭">
+        </div>
+        <h4 class="staff-name">김다은</h4>
+        <p class="staff-role">비서</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2 class="cta-title">법률 상담이 필요하신가요?</h2>
+      <p class="cta-desc">전문 변호사가 직접 상담해 드립니다.</p>
+      <a href="contact.html" class="cta-btn">무료 상담 신청</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-info">
+        <div class="footer-brand">
+          <div class="logo-icon">⚖</div>
+          <span class="logo-text">법무법인 정의</span>
+        </div>
+        <p>
+          서울특별시 강남구 테헤란로 123, 정의빌딩 10층<br>
+          대표변호사: 김정의 | 사업자등록번호: 123-45-67890<br>
+          TEL: 02-123-4567 | FAX: 02-123-4568
+        </p>
+      </div>
+      <div class="footer-links">
+        <h4>업무분야</h4>
+        <a href="practice.html">기업법무</a>
+        <a href="practice.html">민사소송</a>
+        <a href="practice.html">형사변호</a>
+        <a href="practice.html">노동법</a>
+      </div>
+      <div class="footer-links">
+        <h4>법인소개</h4>
+        <a href="index.html">법인연혁</a>
+        <a href="team.html">구성원</a>
+        <a href="practice.html">성공사례</a>
+        <a href="#">언론보도</a>
+      </div>
+      <div class="footer-links">
+        <h4>고객지원</h4>
+        <a href="contact.html">상담예약</a>
+        <a href="contact.html">오시는길</a>
+        <a href="#">공지사항</a>
+        <a href="#">FAQ</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 법무법인 정의. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      const btn = document.querySelector('.mobile-menu-btn');
+      const overlay = document.querySelector('.mobile-menu-overlay');
+      btn.classList.toggle('active');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : '';
+    }
+  </script>
+</body>
+</html>

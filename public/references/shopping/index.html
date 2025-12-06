@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MODEN - Minimal Lifestyle Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', 'Noto Sans KR', sans-serif;
+      background: #FFFFFF;
+      color: #111;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 0 80px;
+      height: 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      z-index: 100;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+
+    .nav {
+      display: flex;
+      gap: 48px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: #666;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav a:hover {
+      color: #111;
+    }
+
+    .header-icons {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .header-icons a {
+      color: #111;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+
+    .cart-badge {
+      position: relative;
+    }
+
+    .cart-badge::after {
+      content: '2';
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 18px;
+      height: 18px;
+      background: #111;
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 600;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 80px;
+      padding-top: 160px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .hero-content {
+      max-width: 500px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #999;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-size: 4rem;
+      font-weight: 700;
+      line-height: 1.1;
+      color: #111;
+      margin-bottom: 24px;
+      letter-spacing: -2px;
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 48px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+    }
+
+    .btn-primary {
+      background: #111;
+      color: #fff;
+      border: none;
+      padding: 18px 48px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background: #333;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #111;
+      border: 1px solid #ddd;
+      padding: 18px 48px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-secondary:hover {
+      border-color: #111;
+    }
+
+    .hero-image {
+      position: relative;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 600px;
+      object-fit: cover;
+    }
+
+    .hero-image-tag {
+      position: absolute;
+      bottom: 32px;
+      left: 32px;
+      background: #fff;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .hero-image-tag span {
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .hero-image-tag strong {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    /* Featured */
+    .featured {
+      padding: 120px 80px;
+      background: #FAFAFA;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 60px;
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: -1px;
+    }
+
+    .section-link {
+      color: #666;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+
+    .section-link:hover {
+      color: #111;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .product-card {
+      background: #fff;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .product-image {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: #f5f5f5;
+      margin-bottom: 20px;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .product-card:hover .product-image img {
+      transform: scale(1.05);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: #111;
+      color: #fff;
+      padding: 6px 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .product-info {
+      padding: 0 4px;
+    }
+
+    .product-category {
+      font-size: 0.75rem;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .product-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 8px;
+    }
+
+    .product-price {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #111;
+    }
+
+    /* Categories */
+    .categories {
+      padding: 120px 80px;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .category-card {
+      position: relative;
+      height: 400px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .category-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s;
+    }
+
+    .category-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .category-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+    }
+
+    .category-content {
+      position: absolute;
+      bottom: 40px;
+      left: 40px;
+      color: #fff;
+    }
+
+    .category-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .category-count {
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+
+    /* Banner */
+    .banner {
+      padding: 0 80px;
+      margin-bottom: 120px;
+    }
+
+    .banner-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: #111;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 500px;
+    }
+
+    .banner-content {
+      padding: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: #fff;
+    }
+
+    .banner-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: 24px;
+    }
+
+    .banner-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+    }
+
+    .banner-desc {
+      font-size: 1rem;
+      line-height: 1.8;
+      opacity: 0.7;
+      margin-bottom: 40px;
+    }
+
+    .btn-white {
+      display: inline-block;
+      background: #fff;
+      color: #111;
+      padding: 18px 48px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      width: fit-content;
+    }
+
+    .btn-white:hover {
+      background: #f0f0f0;
+    }
+
+    .banner-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Footer */
+    .footer {
+      background: #FAFAFA;
+      padding: 80px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      max-width: 1400px;
+      margin: 0 auto 60px;
+    }
+
+    .footer-brand {
+      max-width: 300px;
+    }
+
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    .footer-desc {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-social a {
+      width: 40px;
+      height: 40px;
+      background: #111;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .footer-social a:hover {
+      background: #333;
+    }
+
+    .footer-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: #666;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #111;
+    }
+
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 40px;
+      border-top: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-size: 0.85rem;
+      color: #999;
+    }
+
+    .footer-payments {
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-payments span {
+      padding: 8px 16px;
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #666;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .header { padding: 0 40px; }
+      .hero { padding: 40px; padding-top: 120px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-title { font-size: 3rem; }
+      .hero-image { order: -1; }
+      .featured, .categories { padding: 80px 40px; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .categories-grid { grid-template-columns: 1fr; }
+      .banner { padding: 0 40px; }
+      .banner-inner { grid-template-columns: 1fr; }
+      .footer { padding: 60px 40px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Mobile Menu Button */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1001;
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #111;
+      margin: 3px 0;
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    /* Mobile Menu Overlay */
+    .mobile-menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .mobile-menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      gap: 32px;
+    }
+
+    .mobile-nav a {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #111;
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+    }
+
+    .mobile-menu-overlay.active .mobile-nav a {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(1) { transition-delay: 0.1s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(2) { transition-delay: 0.2s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(3) { transition-delay: 0.3s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(4) { transition-delay: 0.4s; }
+
+    .mobile-nav a:hover {
+      color: #666;
+    }
+
+    @media (max-width: 768px) {
+      .header { padding: 0 24px; height: 70px; }
+      .nav { display: none; }
+      .header-icons { display: none; }
+      .mobile-menu-btn { display: flex; }
+      .mobile-menu-overlay { display: block; }
+      .hero { padding: 24px; padding-top: 100px; }
+      .hero-title { font-size: 2.2rem; }
+      .hero-btns { flex-direction: column; }
+      .btn-primary, .btn-secondary { width: 100%; text-align: center; }
+      .featured, .categories { padding: 60px 24px; }
+      .product-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .banner { padding: 0 24px; }
+      .banner-content { padding: 40px; }
+      .banner-title { font-size: 1.8rem; }
+      .footer { padding: 40px 24px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+      .footer-bottom { flex-direction: column; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="logo">MODEN</a>
+    <nav class="nav">
+      <a href="products.html">Shop</a>
+      <a href="products.html">New Arrivals</a>
+      <a href="products.html">Collections</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="header-icons">
+      <a href="#">🔍</a>
+      <a href="#">👤</a>
+      <a href="#" class="cart-badge">🛒</a>
+    </div>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <div class="mobile-menu-overlay" id="mobileMenu">
+    <nav class="mobile-nav">
+      <a href="index.html" onclick="toggleMobileMenu()">Home</a>
+      <a href="products.html" onclick="toggleMobileMenu()">Shop</a>
+      <a href="products.html" onclick="toggleMobileMenu()">Collections</a>
+      <a href="about.html" onclick="toggleMobileMenu()">About</a>
+    </nav>
+  </div>
+
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <span class="hero-tag">New Collection 2024</span>
+        <h1 class="hero-title">
+          Less is<br>
+          More
+        </h1>
+        <p class="hero-desc">
+          미니멀한 디자인으로 일상의 품격을 높이는<br>
+          라이프스타일 브랜드, MODEN.
+        </p>
+        <div class="hero-btns">
+          <a href="products.html" class="btn-primary">Shop Now</a>
+          <a href="about.html" class="btn-secondary">Our Story</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80" alt="Featured Product">
+        <div class="hero-image-tag">
+          <span>Starting from</span>
+          <strong>₩89,000</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="featured">
+    <div class="section-header">
+      <h2 class="section-title">Best Sellers</h2>
+      <a href="products.html" class="section-link">
+        View All
+        <span>→</span>
+      </a>
+    </div>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80" alt="Sofa">
+          <span class="product-badge">BEST</span>
+        </div>
+        <div class="product-info">
+          <p class="product-category">Living</p>
+          <h3 class="product-name">미니멀 패브릭 소파</h3>
+          <p class="product-price">₩890,000</p>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600&q=80" alt="Lamp">
+        </div>
+        <div class="product-info">
+          <p class="product-category">Lighting</p>
+          <h3 class="product-name">무드 테이블 램프</h3>
+          <p class="product-price">₩129,000</p>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=600&q=80" alt="Chair">
+          <span class="product-badge">NEW</span>
+        </div>
+        <div class="product-info">
+          <p class="product-category">Furniture</p>
+          <h3 class="product-name">우드 라운지 체어</h3>
+          <p class="product-price">₩450,000</p>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&q=80" alt="Vase">
+        </div>
+        <div class="product-info">
+          <p class="product-category">Decor</p>
+          <h3 class="product-name">세라믹 화병 세트</h3>
+          <p class="product-price">₩89,000</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="categories">
+    <div class="section-header">
+      <h2 class="section-title">Shop by Category</h2>
+    </div>
+    <div class="categories-grid">
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80" alt="Living Room">
+        <div class="category-overlay"></div>
+        <div class="category-content">
+          <h3 class="category-name">Living Room</h3>
+          <p class="category-count">124 Products</p>
+        </div>
+      </div>
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?w=800&q=80" alt="Bedroom">
+        <div class="category-overlay"></div>
+        <div class="category-content">
+          <h3 class="category-name">Bedroom</h3>
+          <p class="category-count">89 Products</p>
+        </div>
+      </div>
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80" alt="Kitchen">
+        <div class="category-overlay"></div>
+        <div class="category-content">
+          <h3 class="category-name">Kitchen</h3>
+          <p class="category-count">67 Products</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="banner">
+    <div class="banner-inner">
+      <div class="banner-content">
+        <span class="banner-tag">Limited Edition</span>
+        <h2 class="banner-title">
+          2024 Spring<br>
+          Collection
+        </h2>
+        <p class="banner-desc">
+          자연에서 영감을 받은 따뜻한 컬러와<br>
+          미니멀한 라인의 새로운 컬렉션을 만나보세요.
+        </p>
+        <a href="products.html" class="btn-white">Explore Now</a>
+      </div>
+      <div class="banner-image">
+        <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80" alt="Spring Collection">
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">MODEN</div>
+        <p class="footer-desc">
+          미니멀한 디자인으로 일상의 품격을 높이는 라이프스타일 브랜드입니다.
+        </p>
+        <div class="footer-social">
+          <a href="#">f</a>
+          <a href="#">in</a>
+          <a href="#">ig</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-title">Shop</h4>
+        <ul class="footer-links">
+          <li><a href="products.html">All Products</a></li>
+          <li><a href="products.html">New Arrivals</a></li>
+          <li><a href="products.html">Best Sellers</a></li>
+          <li><a href="products.html">Sale</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-title">Support</h4>
+        <ul class="footer-links">
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Shipping</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-title">Company</h4>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Partners</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2024 MODEN. All rights reserved.</p>
+      <div class="footer-payments">
+        <span>VISA</span>
+        <span>MASTER</span>
+        <span>KAKAO</span>
+        <span>NAVER</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      const btn = document.querySelector('.mobile-menu-btn');
+      const overlay = document.getElementById('mobileMenu');
+      btn.classList.toggle('active');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : '';
+    }
+  </script>
+</body>
+</html>

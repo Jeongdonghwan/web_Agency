@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>미니멀 패브릭 소파 - MODEN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', 'Noto Sans KR', sans-serif;
+      background: #FFFFFF;
+      color: #111;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 0 80px;
+      height: 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      z-index: 100;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+
+    .nav {
+      display: flex;
+      gap: 48px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: #666;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav a:hover {
+      color: #111;
+    }
+
+    .header-icons {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .header-icons a {
+      color: #111;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+
+    /* Breadcrumb */
+    .breadcrumb-bar {
+      padding: 100px 80px 20px;
+      background: #fff;
+    }
+
+    .breadcrumb {
+      display: flex;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: #999;
+    }
+
+    .breadcrumb a {
+      color: #999;
+      text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+      color: #111;
+    }
+
+    /* Product Section */
+    .product-section {
+      padding: 40px 80px 80px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+    }
+
+    /* Gallery */
+    .product-gallery {
+      position: sticky;
+      top: 120px;
+    }
+
+    .main-image {
+      width: 100%;
+      aspect-ratio: 1;
+      background: #f5f5f5;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    .main-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .thumbnail-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .thumbnail {
+      aspect-ratio: 1;
+      background: #f5f5f5;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.2s;
+      overflow: hidden;
+    }
+
+    .thumbnail:hover, .thumbnail.active {
+      border-color: #111;
+    }
+
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Product Info */
+    .product-info {
+      padding-top: 20px;
+    }
+
+    .product-badge {
+      display: inline-block;
+      background: #111;
+      color: #fff;
+      padding: 6px 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .product-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+
+    .product-price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 24px;
+    }
+
+    .product-desc {
+      font-size: 0.95rem;
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid #eee;
+    }
+
+    /* Options */
+    .option-group {
+      margin-bottom: 24px;
+    }
+
+    .option-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 12px;
+    }
+
+    .color-options {
+      display: flex;
+      gap: 12px;
+    }
+
+    .color-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .color-btn:hover, .color-btn.active {
+      border-color: #111;
+      transform: scale(1.1);
+    }
+
+    .color-btn.gray { background: #9CA3AF; }
+    .color-btn.beige { background: #D4B896; }
+    .color-btn.charcoal { background: #374151; }
+
+    .size-options {
+      display: flex;
+      gap: 12px;
+    }
+
+    .size-btn {
+      padding: 12px 24px;
+      border: 1px solid #eee;
+      background: #fff;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .size-btn:hover, .size-btn.active {
+      border-color: #111;
+      background: #111;
+      color: #fff;
+    }
+
+    /* Quantity */
+    .quantity-group {
+      margin-bottom: 32px;
+    }
+
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      width: fit-content;
+      border: 1px solid #eee;
+    }
+
+    .qty-btn {
+      width: 48px;
+      height: 48px;
+      border: none;
+      background: #fff;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .qty-btn:hover {
+      background: #f5f5f5;
+    }
+
+    .qty-input {
+      width: 60px;
+      height: 48px;
+      border: none;
+      border-left: 1px solid #eee;
+      border-right: 1px solid #eee;
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .qty-input:focus {
+      outline: none;
+    }
+
+    /* Buttons */
+    .action-btns {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .btn-cart {
+      flex: 1;
+      padding: 18px;
+      background: #111;
+      color: #fff;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn-cart:hover {
+      background: #333;
+    }
+
+    .btn-wishlist {
+      width: 56px;
+      height: 56px;
+      border: 1px solid #eee;
+      background: #fff;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-wishlist:hover {
+      border-color: #111;
+    }
+
+    .btn-buy {
+      width: 100%;
+      padding: 18px;
+      background: #fff;
+      color: #111;
+      border: 1px solid #111;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-bottom: 32px;
+    }
+
+    .btn-buy:hover {
+      background: #111;
+      color: #fff;
+    }
+
+    /* Features */
+    .product-features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 24px 0;
+      border-top: 1px solid #eee;
+    }
+
+    .feature-item {
+      text-align: center;
+    }
+
+    .feature-icon {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    .feature-text {
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    /* Accordion */
+    .accordion {
+      border-top: 1px solid #eee;
+      margin-top: 32px;
+    }
+
+    .accordion-item {
+      border-bottom: 1px solid #eee;
+    }
+
+    .accordion-header {
+      width: 100%;
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #111;
+    }
+
+    .accordion-header span:last-child {
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+
+    .accordion-content {
+      padding: 0 0 20px;
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.8;
+      display: none;
+    }
+
+    .accordion-item.active .accordion-content {
+      display: block;
+    }
+
+    .accordion-item.active .accordion-header span:last-child {
+      transform: rotate(45deg);
+    }
+
+    /* Related Products */
+    .related-section {
+      padding: 80px;
+      background: #FAFAFA;
+    }
+
+    .related-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .related-card {
+      background: #fff;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.3s;
+    }
+
+    .related-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .related-image {
+      aspect-ratio: 1;
+      background: #f5f5f5;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    .related-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .related-card:hover .related-image img {
+      transform: scale(1.05);
+    }
+
+    .related-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 4px;
+    }
+
+    .related-price {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #111;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 40px 80px;
+      text-align: center;
+      border-top: 1px solid #eee;
+    }
+
+    .footer-copy {
+      font-size: 0.85rem;
+      color: #999;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .header { padding: 0 40px; }
+      .breadcrumb-bar { padding: 100px 40px 20px; }
+      .product-section { padding: 40px; }
+      .product-grid { grid-template-columns: 1fr; gap: 40px; }
+      .product-gallery { position: static; }
+      .related-section { padding: 60px 40px; }
+      .related-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    .mobile-menu-btn span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #111;
+      margin: 3px 0;
+      transition: all 0.3s ease;
+    }
+    .mobile-menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+    .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+    .mobile-menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+    .mobile-menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+    }
+    .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      gap: 32px;
+    }
+    .mobile-nav a {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #111;
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+    }
+    .mobile-menu-overlay.active .mobile-nav a { opacity: 1; transform: translateY(0); }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(1) { transition-delay: 0.1s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(2) { transition-delay: 0.2s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(3) { transition-delay: 0.3s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(4) { transition-delay: 0.4s; }
+
+    @media (max-width: 768px) {
+      .header { padding: 0 24px; height: 70px; }
+      .nav { display: none; }
+      .header-icons { display: none; }
+      .mobile-menu-btn { display: flex; }
+      .mobile-menu-overlay { display: block; }
+      .breadcrumb-bar { padding: 90px 24px 16px; }
+      .product-section { padding: 24px; }
+      .product-title { font-size: 1.5rem; }
+      .thumbnail-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+      .action-btns { flex-direction: column; }
+      .btn-wishlist { width: 100%; height: auto; padding: 16px; }
+      .product-features { grid-template-columns: 1fr; gap: 16px; }
+      .related-section { padding: 40px 24px; }
+      .related-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .footer { padding: 30px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="logo">MODEN</a>
+    <nav class="nav">
+      <a href="products.html">Shop</a>
+      <a href="products.html">New Arrivals</a>
+      <a href="products.html">Collections</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="header-icons">
+      <a href="#">🔍</a>
+      <a href="#">👤</a>
+      <a href="#">🛒</a>
+    </div>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+  <div class="mobile-menu-overlay" id="mobileMenu">
+    <nav class="mobile-nav">
+      <a href="index.html">Home</a>
+      <a href="products.html">Shop</a>
+      <a href="products.html">Collections</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="products.html">Shop</a>
+      <span>/</span>
+      <span>미니멀 패브릭 소파</span>
+    </div>
+  </div>
+
+  <section class="product-section">
+    <div class="product-grid">
+      <div class="product-gallery">
+        <div class="main-image">
+          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80" alt="Product" id="mainImage">
+        </div>
+        <div class="thumbnail-grid">
+          <div class="thumbnail active" onclick="changeImage(this, 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80')">
+            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=200&q=80" alt="Thumb 1">
+          </div>
+          <div class="thumbnail" onclick="changeImage(this, 'https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=800&q=80')">
+            <img src="https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=200&q=80" alt="Thumb 2">
+          </div>
+          <div class="thumbnail" onclick="changeImage(this, 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=800&q=80')">
+            <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=200&q=80" alt="Thumb 3">
+          </div>
+          <div class="thumbnail" onclick="changeImage(this, 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80')">
+            <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=200&q=80" alt="Thumb 4">
+          </div>
+        </div>
+      </div>
+
+      <div class="product-info">
+        <span class="product-badge">BEST SELLER</span>
+        <h1 class="product-title">미니멀 패브릭 소파</h1>
+        <p class="product-price">₩890,000</p>
+        <p class="product-desc">
+          미니멀한 디자인과 편안한 착석감을 동시에 만족시키는 패브릭 소파입니다.
+          고밀도 폼과 포켓스프링의 조합으로 오래 앉아도 편안하며,
+          분리 가능한 커버로 세탁이 용이합니다.
+        </p>
+
+        <div class="option-group">
+          <p class="option-label">Color</p>
+          <div class="color-options">
+            <button class="color-btn gray active"></button>
+            <button class="color-btn beige"></button>
+            <button class="color-btn charcoal"></button>
+          </div>
+        </div>
+
+        <div class="option-group">
+          <p class="option-label">Size</p>
+          <div class="size-options">
+            <button class="size-btn active">2인용</button>
+            <button class="size-btn">3인용</button>
+            <button class="size-btn">4인용</button>
+          </div>
+        </div>
+
+        <div class="quantity-group">
+          <p class="option-label">Quantity</p>
+          <div class="quantity-selector">
+            <button class="qty-btn" onclick="changeQty(-1)">−</button>
+            <input type="text" class="qty-input" value="1" id="qtyInput">
+            <button class="qty-btn" onclick="changeQty(1)">+</button>
+          </div>
+        </div>
+
+        <div class="action-btns">
+          <button class="btn-cart">Add to Cart</button>
+          <button class="btn-wishlist">♡</button>
+        </div>
+
+        <button class="btn-buy">Buy Now</button>
+
+        <div class="product-features">
+          <div class="feature-item">
+            <div class="feature-icon">🚚</div>
+            <p class="feature-text">무료 배송</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">↩️</div>
+            <p class="feature-text">30일 반품</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🛡️</div>
+            <p class="feature-text">2년 보증</p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-item active">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+              <span>제품 상세</span>
+              <span>+</span>
+            </button>
+            <div class="accordion-content">
+              <p>• 소재: 프리미엄 패브릭, 천연 원목 프레임</p>
+              <p>• 내장재: 고밀도 폼 + 포켓스프링</p>
+              <p>• 사이즈: 2인용 (W180 x D90 x H80cm)</p>
+              <p>• 무게: 45kg</p>
+              <p>• 색상: 라이트그레이, 베이지, 차콜</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+              <span>배송 안내</span>
+              <span>+</span>
+            </button>
+            <div class="accordion-content">
+              <p>• 배송비: 무료 (제주/도서산간 추가 30,000원)</p>
+              <p>• 배송 기간: 주문 후 7-10일 (주말/공휴일 제외)</p>
+              <p>• 배송 방법: 가구 전문 배송 업체를 통한 방문 설치</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+              <span>교환/반품</span>
+              <span>+</span>
+            </button>
+            <div class="accordion-content">
+              <p>• 반품 가능 기간: 수령 후 30일 이내</p>
+              <p>• 반품 조건: 미사용 상태, 포장 훼손 없을 시</p>
+              <p>• 교환/반품 배송비: 고객 부담</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="related-section">
+    <h2 class="related-title">You May Also Like</h2>
+    <div class="related-grid">
+      <a href="product-detail.html" class="related-card">
+        <div class="related-image">
+          <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" alt="Lamp">
+        </div>
+        <h3 class="related-name">무드 테이블 램프</h3>
+        <p class="related-price">₩129,000</p>
+      </a>
+      <a href="product-detail.html" class="related-card">
+        <div class="related-image">
+          <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=400&q=80" alt="Table">
+        </div>
+        <h3 class="related-name">라운드 커피 테이블</h3>
+        <p class="related-price">₩380,000</p>
+      </a>
+      <a href="product-detail.html" class="related-card">
+        <div class="related-image">
+          <img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400&q=80" alt="Vase">
+        </div>
+        <h3 class="related-name">세라믹 화병 세트</h3>
+        <p class="related-price">₩89,000</p>
+      </a>
+      <a href="product-detail.html" class="related-card">
+        <div class="related-image">
+          <img src="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400&q=80" alt="Chair">
+        </div>
+        <h3 class="related-name">우드 라운지 체어</h3>
+        <p class="related-price">₩450,000</p>
+      </a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p class="footer-copy">© 2024 MODEN. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      const btn = document.querySelector('.mobile-menu-btn');
+      const overlay = document.getElementById('mobileMenu');
+      btn.classList.toggle('active');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : '';
+    }
+
+    function changeImage(thumb, src) {
+      document.getElementById('mainImage').src = src;
+      document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+    }
+
+    function changeQty(delta) {
+      const input = document.getElementById('qtyInput');
+      let val = parseInt(input.value) + delta;
+      if (val < 1) val = 1;
+      input.value = val;
+    }
+
+    function toggleAccordion(btn) {
+      const item = btn.parentElement;
+      item.classList.toggle('active');
+    }
+
+    // Color & Size selection
+    document.querySelectorAll('.color-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    document.querySelectorAll('.size-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

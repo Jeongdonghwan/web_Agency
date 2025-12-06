@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>법무법인 정의 - Law Firm Justice</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans KR', 'Lato', sans-serif;
+      background: #f8f6f3;
+      color: #1a2744;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(26, 39, 68, 0.08);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #1a2744 0%, #2d3a52 100%);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon svg {
+      width: 24px;
+      height: 24px;
+      color: #b8860b;
+    }
+
+    .logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #1a2744;
+    }
+
+    .nav {
+      display: flex;
+      gap: 36px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: #1a2744;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav a:hover {
+      color: #b8860b;
+    }
+
+    .header-btn {
+      background: linear-gradient(135deg, #b8860b 0%, #9a7209 100%);
+      color: #fff;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .header-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(184, 134, 11, 0.3);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      background: #f8f6f3;
+      border: 1px solid rgba(26, 39, 68, 0.15);
+      border-radius: 8px;
+      cursor: pointer;
+      gap: 5px;
+      padding: 0;
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: #1a2744;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    .mobile-menu-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 39, 68, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 99;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .mobile-menu-overlay.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+    }
+
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .mobile-nav a {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #fff;
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s;
+    }
+
+    .mobile-nav a:hover {
+      color: #b8860b;
+    }
+
+    .mobile-menu-overlay.active .mobile-nav a {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(1) { transition-delay: 0.1s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(2) { transition-delay: 0.15s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(3) { transition-delay: 0.2s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(4) { transition-delay: 0.25s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(5) { transition-delay: 0.3s; }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1a2744 0%, #2d3a52 100%);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 55%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&q=80') center/cover;
+      clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 55%;
+      height: 100%;
+      background: linear-gradient(90deg, #1a2744 0%, rgba(26, 39, 68, 0.85) 40%, rgba(26, 39, 68, 0.5) 100%);
+      clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+    }
+
+    .hero-pattern {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(184, 134, 11, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(184, 134, 11, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 0 60px;
+      max-width: 680px;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: #b8860b;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      margin-bottom: 28px;
+      text-transform: uppercase;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 50px;
+      height: 2px;
+      background: linear-gradient(90deg, #b8860b, transparent);
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.8rem;
+      font-weight: 600;
+      line-height: 1.2;
+      color: #fff;
+      margin-bottom: 28px;
+    }
+
+    .hero-title span {
+      color: #b8860b;
+    }
+
+    .hero-desc {
+      font-size: 1.15rem;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.9;
+      margin-bottom: 48px;
+      font-weight: 300;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #b8860b 0%, #9a7209 100%);
+      color: #fff;
+      border: none;
+      padding: 18px 42px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(184, 134, 11, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      padding: 16px 40px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-secondary:hover {
+      border-color: #b8860b;
+      color: #b8860b;
+    }
+
+    /* Stats */
+    .stats {
+      padding: 80px 60px;
+      background: #fff;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 32px 24px;
+      border-radius: 12px;
+      background: #f8f6f3;
+      transition: all 0.4s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(26, 39, 68, 0.08);
+    }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 600;
+      color: #1a2744;
+      margin-bottom: 8px;
+    }
+
+    .stat-number span {
+      color: #b8860b;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: #666;
+      font-weight: 500;
+    }
+
+    /* Practice Areas */
+    .practice {
+      padding: 100px 60px;
+      background: #f8f6f3;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      color: #b8860b;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: #1a2744;
+      font-weight: 600;
+    }
+
+    .section-title span {
+      color: #b8860b;
+    }
+
+    .practice-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .practice-card {
+      background: #fff;
+      padding: 40px 32px;
+      border-radius: 12px;
+      border: 1px solid rgba(26, 39, 68, 0.08);
+      transition: all 0.4s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .practice-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #1a2744, #b8860b);
+      transform: scaleX(0);
+      transition: transform 0.4s;
+    }
+
+    .practice-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .practice-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(26, 39, 68, 0.1);
+    }
+
+    .practice-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #1a2744 0%, #2d3a52 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .practice-icon svg {
+      width: 28px;
+      height: 28px;
+      color: #b8860b;
+    }
+
+    .practice-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #1a2744;
+      margin-bottom: 12px;
+    }
+
+    .practice-desc {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.8;
+    }
+
+    /* Team Section */
+    .team {
+      padding: 100px 60px;
+      background: #fff;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .team-card {
+      text-align: center;
+      transition: all 0.4s;
+    }
+
+    .team-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .team-image {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 24px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid #f8f6f3;
+      box-shadow: 0 10px 30px rgba(26, 39, 68, 0.1);
+    }
+
+    .team-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .team-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #1a2744;
+      margin-bottom: 8px;
+    }
+
+    .team-role {
+      font-size: 0.85rem;
+      color: #b8860b;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .team-desc {
+      font-size: 0.85rem;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      padding: 100px 60px;
+      background: linear-gradient(135deg, #1a2744 0%, #2d3a52 100%);
+    }
+
+    .testimonials .section-tag {
+      color: #b8860b;
+    }
+
+    .testimonials .section-title {
+      color: #fff;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .testimonial-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 40px;
+      transition: all 0.4s;
+    }
+
+    .testimonial-card:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-5px);
+    }
+
+    .testimonial-quote {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.9;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .testimonial-quote::before {
+      content: '"';
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      color: #b8860b;
+      opacity: 0.5;
+      display: block;
+      line-height: 0.5;
+      margin-bottom: 16px;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .testimonial-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #b8860b 0%, #9a7209 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .testimonial-info h4 {
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .testimonial-info p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.85rem;
+    }
+
+    /* CTA */
+    .cta {
+      padding: 100px 60px;
+      background: #f8f6f3;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-content {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 600;
+      color: #1a2744;
+      margin-bottom: 20px;
+    }
+
+    .cta-title span {
+      color: #b8860b;
+    }
+
+    .cta-desc {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 40px;
+      line-height: 1.8;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #1a2744 0%, #2d3a52 100%);
+      color: #fff;
+      padding: 20px 48px;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(26, 39, 68, 0.3);
+    }
+
+    .cta-phone {
+      margin-top: 32px;
+      font-size: 1.4rem;
+      color: #1a2744;
+    }
+
+    .cta-phone span {
+      color: #b8860b;
+      font-weight: 700;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 80px 60px 40px;
+      background: #1a2744;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      max-width: 1200px;
+      margin: 0 auto 60px;
+    }
+
+    .footer-brand .logo {
+      margin-bottom: 20px;
+    }
+
+    .footer-brand .logo-icon {
+      background: rgba(184, 134, 11, 0.2);
+      border: 1px solid rgba(184, 134, 11, 0.3);
+    }
+
+    .footer-brand .logo-text {
+      color: #fff;
+    }
+
+    .footer-brand p {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .footer-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+    }
+
+    .footer-contact-item svg {
+      width: 18px;
+      height: 18px;
+      color: #b8860b;
+    }
+
+    .footer-links h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 24px;
+    }
+
+    .footer-links a {
+      display: block;
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: #b8860b;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 0.85rem;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-bottom-links a {
+      color: rgba(255, 255, 255, 0.4);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.3s;
+    }
+
+    .footer-bottom-links a:hover {
+      color: #b8860b;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .header { padding: 16px 40px; }
+      .hero-content { padding: 0 40px; }
+      .hero-title { font-size: 3rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .practice-grid { grid-template-columns: repeat(2, 1fr); }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .testimonial-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-btn { display: flex; }
+      .mobile-menu-overlay { display: none; }
+      .mobile-menu-overlay.active { display: flex; }
+
+      .header { padding: 16px 24px; }
+      .nav { display: none; }
+      .header-btn { display: none; }
+
+      .hero { min-height: auto; padding: 120px 0 60px; }
+      .hero::before, .hero::after { display: none; }
+      .hero-content { padding: 0 24px; max-width: 100%; }
+      .hero-title { font-size: 2.2rem; }
+      .hero-btns { flex-direction: column; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; text-align: center; }
+
+      .stats { padding: 60px 24px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .stat-number { font-size: 2.2rem; }
+
+      .practice, .team, .testimonials, .cta { padding: 60px 24px; }
+      .section-title { font-size: 2rem; }
+      .practice-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: 1fr; }
+
+      .cta-title { font-size: 1.8rem; }
+
+      .footer { padding: 60px 24px 30px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 3L1 9l11 6 9-4.91V17M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+        </svg>
+      </div>
+      <span class="logo-text">법무법인 정의</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">법인소개</a>
+      <a href="practice.html">업무분야</a>
+      <a href="team.html">구성원</a>
+      <a href="contact.html">법률상담</a>
+    </nav>
+    <a href="contact.html" class="header-btn">무료 상담 신청</a>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <div class="mobile-menu-overlay" id="mobileMenu">
+    <nav class="mobile-nav">
+      <a href="index.html">홈</a>
+      <a href="practice.html">업무분야</a>
+      <a href="team.html">구성원</a>
+      <a href="contact.html">법률상담</a>
+    </nav>
+  </div>
+
+  <section class="hero">
+    <div class="hero-pattern"></div>
+    <div class="hero-content">
+      <span class="hero-tag">SINCE 1995</span>
+      <h1 class="hero-title">
+        <span>정의</span>로운 법률서비스<br>
+        신뢰로 약속합니다
+      </h1>
+      <p class="hero-desc">
+        30년간 쌓아온 전문성과 신뢰를 바탕으로<br>
+        의뢰인의 권리를 끝까지 지켜드립니다.
+      </p>
+      <div class="hero-btns">
+        <a href="contact.html" class="btn-primary">
+          상담 예약하기
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a href="practice.html" class="btn-secondary">업무분야 보기</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">30<span>+</span></div>
+        <div class="stat-label">Years of Experience</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">98<span>%</span></div>
+        <div class="stat-label">Win Rate</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">5,000<span>+</span></div>
+        <div class="stat-label">Cases Handled</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">15<span>+</span></div>
+        <div class="stat-label">Expert Attorneys</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="practice">
+    <div class="section-header">
+      <span class="section-tag">Practice Areas</span>
+      <h2 class="section-title">주요 <span>업무분야</span></h2>
+    </div>
+    <div class="practice-grid">
+      <div class="practice-card">
+        <div class="practice-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+          </svg>
+        </div>
+        <h3 class="practice-title">기업법무</h3>
+        <p class="practice-desc">기업 설립, M&A, 계약 검토 등 기업 활동 전반에 걸친 법률 자문</p>
+      </div>
+      <div class="practice-card">
+        <div class="practice-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+        </div>
+        <h3 class="practice-title">민사소송</h3>
+        <p class="practice-desc">손해배상, 계약분쟁, 부동산 소송 등 민사 전반의 분쟁 해결</p>
+      </div>
+      <div class="practice-card">
+        <div class="practice-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+        </div>
+        <h3 class="practice-title">형사변호</h3>
+        <p class="practice-desc">수사단계부터 재판까지 전문 형사변호사의 체계적인 대응</p>
+      </div>
+      <div class="practice-card">
+        <div class="practice-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <h3 class="practice-title">부동산</h3>
+        <p class="practice-desc">부동산 거래, 임대차 분쟁, 재개발·재건축 관련 법률 서비스</p>
+      </div>
+      <div class="practice-card">
+        <div class="practice-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </div>
+        <h3 class="practice-title">가사/이혼</h3>
+        <p class="practice-desc">이혼, 양육권, 재산분할 등 가사 분쟁의 원만한 해결</p>
+      </div>
+      <div class="practice-card">
+        <div class="practice-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3 class="practice-title">행정소송</h3>
+        <p class="practice-desc">행정처분 취소, 국가배상 등 공법 분야 전문 대리</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="team">
+    <div class="section-header">
+      <span class="section-tag">Our Team</span>
+      <h2 class="section-title">주요 <span>구성원</span></h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-image">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80" alt="대표변호사">
+        </div>
+        <h3 class="team-name">김정의</h3>
+        <p class="team-role">대표변호사 / 서울대 법학과</p>
+        <p class="team-desc">30년 경력, 대한변호사협회 이사</p>
+      </div>
+      <div class="team-card">
+        <div class="team-image">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" alt="파트너변호사">
+        </div>
+        <h3 class="team-name">이수진</h3>
+        <p class="team-role">파트너변호사 / 고려대 법학과</p>
+        <p class="team-desc">기업법무 전문, M&A 100건 이상</p>
+      </div>
+      <div class="team-card">
+        <div class="team-image">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="파트너변호사">
+        </div>
+        <h3 class="team-name">박민우</h3>
+        <p class="team-role">파트너변호사 / 연세대 법학과</p>
+        <p class="team-desc">형사전문, 전 검찰 출신</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <div class="section-header">
+      <span class="section-tag">Client Reviews</span>
+      <h2 class="section-title">의뢰인 <span>후기</span></h2>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-quote">
+          어려운 소송을 맡겨드렸는데, 김정의 대표변호사님의 꼼꼼한 준비와 전문적인 변론으로 좋은 결과를 얻을 수 있었습니다. 진심으로 감사드립니다.
+        </p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">K</div>
+          <div class="testimonial-info">
+            <h4>K 기업 대표</h4>
+            <p>기업법무 의뢰</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-quote">
+          처음 법률 상담을 받아봤는데, 복잡한 내용을 쉽게 설명해주시고 친절하게 안내해주셔서 큰 도움이 되었습니다. 주변에도 추천하고 있습니다.
+        </p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">P</div>
+          <div class="testimonial-info">
+            <h4>박OO 님</h4>
+            <p>민사소송 의뢰</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-content">
+      <h2 class="cta-title">법률 문제로 <span>고민</span>이신가요?</h2>
+      <p class="cta-desc">
+        법무법인 정의의 전문 변호사가<br>
+        최선의 해결책을 찾아드리겠습니다.
+      </p>
+      <a href="contact.html" class="cta-btn">
+        무료 상담 신청
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+      <p class="cta-phone">대표전화 <span>02-1234-5678</span></p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 3L1 9l11 6 9-4.91V17M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+            </svg>
+          </div>
+          <span class="logo-text">법무법인 정의</span>
+        </a>
+        <p>
+          30년 전통의 법무법인 정의<br>
+          신뢰와 전문성으로 의뢰인의 권리를 지킵니다.
+        </p>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          서울시 서초구 서초대로 123
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          02-1234-5678
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>업무분야</h4>
+        <a href="practice.html">기업법무</a>
+        <a href="practice.html">민사소송</a>
+        <a href="practice.html">형사변호</a>
+        <a href="practice.html">부동산</a>
+      </div>
+      <div class="footer-links">
+        <h4>법인안내</h4>
+        <a href="index.html">법인소개</a>
+        <a href="team.html">구성원</a>
+        <a href="contact.html">오시는길</a>
+      </div>
+      <div class="footer-links">
+        <h4>고객지원</h4>
+        <a href="contact.html">상담예약</a>
+        <a href="#">FAQ</a>
+        <a href="#">공지사항</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 법무법인 정의. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">개인정보처리방침</a>
+        <a href="#">이용약관</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      const btn = document.querySelector('.mobile-menu-btn');
+      const overlay = document.getElementById('mobileMenu');
+      btn.classList.toggle('active');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : '';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio References - Web Design Agency</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', 'Noto Sans KR', sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 24px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: linear-gradient(to bottom, rgba(10, 10, 10, 0.95), transparent);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-dot {
+      width: 10px;
+      height: 10px;
+      background: #6366f1;
+      border-radius: 50%;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .header-link {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .header-link:hover {
+      color: #fff;
+    }
+
+    .header-btn {
+      background: #6366f1;
+      color: #fff;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .header-btn:hover {
+      background: #818cf8;
+      transform: translateY(-2px);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 180px 60px 100px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #a5b4fc;
+      margin-bottom: 32px;
+      letter-spacing: 1px;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: #6366f1;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .hero-title {
+      font-size: 4rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.7) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.5);
+      max-width: 500px;
+      margin: 0 auto 48px;
+      line-height: 1.8;
+    }
+
+    /* Filter */
+    .filter-container {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 60px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.6);
+      padding: 12px 24px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .filter-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .filter-btn.active {
+      background: #6366f1;
+      border-color: #6366f1;
+      color: #fff;
+    }
+
+    /* Portfolio Grid */
+    .portfolio-section {
+      padding: 0 60px 120px;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .portfolio-card {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #141414;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .portfolio-card:hover {
+      transform: translateY(-12px);
+    }
+
+    .portfolio-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.5s;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .portfolio-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-image {
+      position: relative;
+      height: 280px;
+      overflow: hidden;
+    }
+
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .portfolio-card:hover .card-image img {
+      transform: scale(1.1);
+    }
+
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10, 10, 10, 0.95) 0%, transparent 60%);
+    }
+
+    .card-category {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+
+    .category-fnb { color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .category-corporate { color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3); }
+    .category-commerce { color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .category-professional { color: #8b5cf6; border: 1px solid rgba(139, 92, 246, 0.3); }
+    .category-beauty { color: #ec4899; border: 1px solid rgba(236, 72, 153, 0.3); }
+    .category-fitness { color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .category-tech { color: #00d4ff; border: 1px solid rgba(0, 212, 255, 0.3); }
+    .category-construction { color: #ff6b35; border: 1px solid rgba(255, 107, 53, 0.3); }
+
+    .card-content {
+      padding: 28px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .card-tag {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #6366f1;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: gap 0.3s;
+    }
+
+    .card-link:hover {
+      gap: 12px;
+    }
+
+    .card-link svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s;
+    }
+
+    .portfolio-card:hover .card-link svg {
+      transform: translateX(4px);
+    }
+
+    /* Stats */
+    .stats {
+      padding: 80px 60px;
+      background: linear-gradient(to bottom, transparent, rgba(99, 102, 241, 0.05), transparent);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .stat-item {
+      padding: 30px;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* CTA */
+    .cta {
+      padding: 120px 60px;
+      text-align: center;
+      position: relative;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .cta-desc {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 40px;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+      color: #fff;
+      border: none;
+      padding: 18px 40px;
+      border-radius: 100px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
+    }
+
+    /* Footer */
+    .footer {
+      padding: 40px 60px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-text {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.4);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 20px 24px;
+      }
+
+      .header-right {
+        display: none;
+      }
+
+      .hero {
+        padding: 140px 24px 60px;
+      }
+
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .portfolio-section {
+        padding: 0 24px 80px;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        padding: 60px 24px;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+      }
+
+      .cta {
+        padding: 80px 24px;
+      }
+
+      .cta-title {
+        font-size: 1.8rem;
+      }
+
+      .footer {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+        padding: 40px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="../index.html" class="logo">
+      <span class="logo-dot"></span>
+      STUDIO
+    </a>
+    <div class="header-right">
+      <a href="../index.html" class="header-link">홈</a>
+      <a href="#" class="header-link">서비스</a>
+      <a href="#" class="header-link">문의</a>
+      <button class="header-btn">프로젝트 시작하기</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <span class="hero-tag">PORTFOLIO SHOWCASE</span>
+    <h1 class="hero-title">
+      우리가 만든<br>
+      <span>브랜드 경험</span>
+    </h1>
+    <p class="hero-desc">
+      다양한 산업군의 클라이언트와 함께한<br>
+      웹사이트 프로젝트를 확인해보세요.
+    </p>
+  </section>
+
+  <div class="filter-container">
+    <button class="filter-btn active" data-filter="all">전체</button>
+    <button class="filter-btn" data-filter="fnb">F&B</button>
+    <button class="filter-btn" data-filter="corporate">기업</button>
+    <button class="filter-btn" data-filter="tech">IT/테크</button>
+    <button class="filter-btn" data-filter="construction">건설</button>
+    <button class="filter-btn" data-filter="commerce">커머스</button>
+    <button class="filter-btn" data-filter="professional">전문직</button>
+    <button class="filter-btn" data-filter="beauty">뷰티</button>
+    <button class="filter-btn" data-filter="fitness">피트니스</button>
+  </div>
+
+  <section class="portfolio-section">
+    <div class="portfolio-grid">
+      <!-- Cafe -->
+      <div class="portfolio-card" data-category="fnb">
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80" alt="BREW HOUSE">
+          <div class="card-overlay"></div>
+          <span class="card-category category-fnb">F&B</span>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">BREW HOUSE</h3>
+          <p class="card-desc">프리미엄 스페셜티 커피 브랜드의 감각적인 웹사이트</p>
+          <div class="card-tags">
+            <span class="card-tag">카페</span>
+            <span class="card-tag">브랜딩</span>
+            <span class="card-tag">반응형</span>
+          </div>
+          <a href="cafe/index.html" class="card-link">
+            View Project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Trading -->
+      <div class="portfolio-card" data-category="corporate">
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80" alt="글로벌트레이드">
+          <div class="card-overlay"></div>
+          <span class="card-category category-corporate">기업</span>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">글로벌트레이드</h3>
+          <p class="card-desc">국제 무역 전문 기업의 신뢰감 있는 기업 웹사이트</p>
+          <div class="card-tags">
+            <span class="card-tag">무역</span>
+            <span class="card-tag">B2B</span>
+            <span class="card-tag">글로벌</span>
+          </div>
+          <a href="trading/index.html" class="card-link">
+            View Project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Shopping -->
+      <div class="portfolio-card" data-category="commerce">
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80" alt="MODEN">
+          <div class="card-overlay"></div>
+          <span class="card-category category-commerce">커머스</span>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">MODEN</h3>
+          <p class="card-desc">미니멀 라이프스타일 쇼핑몰의 세련된 이커머스</p>
+          <div class="card-tags">
+            <span class="card-tag">쇼핑몰</span>
+            <span class="card-tag">미니멀</span>
+            <span class="card-tag">이커머스</span>
+          </div>
+          <a href="shopping/index.html" class="card-link">
+            View Project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Law Firm -->
+      <div class="portfolio-card" data-category="professional">
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80" alt="법무법인 정의">
+          <div class="card-overlay"></div>
+          <span class="card-category category-professional">전문직</span>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">법무법인 정의</h3>
+          <p class="card-desc">30년 전통 법무법인의 신뢰감 있는 전문직 웹사이트</p>
+          <div class="card-tags">
+            <span class="card-tag">로펌</span>
+            <span class="card-tag">전문직</span>
+            <span class="card-tag">프리미엄</span>
+          </div>
+          <a href="lawfirm/index.html" class="card-link">
+            View Project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Fitness -->
+      <div class="portfolio-card" data-category="fitness">
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80" alt="FIT STUDIO">
+          <div class="card-overlay"></div>
+          <span class="card-category category-fitness">피트니스</span>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">FIT STUDIO</h3>
+          <p class="card-desc">프리미엄 피트니스 센터의 다이내믹한 웹사이트</p>
+          <div class="card-tags">
+            <span class="card-tag">헬스장</span>
+            <span class="card-tag">피트니스</span>
+            <span class="card-tag">PT</span>
+          </div>
+          <a href="fitness/index.html" class="card-link">
+            View Project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Nail Shop -->
+      <div class="portfolio-card" data-category="beauty">
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&q=80" alt="NAIL ATELIER">
+          <div class="card-overlay"></div>
+          <span class="card-category category-beauty">뷰티</span>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">NAIL ATELIER</h3>
+          <p class="card-desc">하이엔드 네일 아트 살롱의 감성적인 웹사이트</p>
+          <div class="card-tags">
+            <span class="card-tag">네일샵</span>
+            <span class="card-tag">뷰티</span>
+            <span class="card-tag">예약시스템</span>
+          </div>
+          <a href="nailshop/index.html" class="card-link">
+            View Project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Techcorp -->
+      <div class="portfolio-card" data-category="tech">
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80" alt="테크코프">
+          <div class="card-overlay"></div>
+          <span class="card-category category-tech">IT/테크</span>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">TECHCORP</h3>
+          <p class="card-desc">첨단 기술 기업의 다크 테크 스타일 웹사이트</p>
+          <div class="card-tags">
+            <span class="card-tag">IT기업</span>
+            <span class="card-tag">테크</span>
+            <span class="card-tag">인트로애니</span>
+          </div>
+          <a href="techcorp/index.html" class="card-link">
+            View Project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Construction -->
+      <div class="portfolio-card" data-category="construction">
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80" alt="한성건설">
+          <div class="card-overlay"></div>
+          <span class="card-category category-construction">건설</span>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">한성건설</h3>
+          <p class="card-desc">40년 전통 건설사의 클린 프로페셔널 웹사이트</p>
+          <div class="card-tags">
+            <span class="card-tag">건설</span>
+            <span class="card-tag">시공</span>
+            <span class="card-tag">프로페셔널</span>
+          </div>
+          <a href="construction/index.html" class="card-link">
+            View Project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number">150+</div>
+        <div class="stat-label">완료 프로젝트</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">98%</div>
+        <div class="stat-label">고객 만족도</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">기업 클라이언트</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">8년</div>
+        <div class="stat-label">업계 경력</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2 class="cta-title">프로젝트를 시작할 준비가 되셨나요?</h2>
+    <p class="cta-desc">당신의 비즈니스를 위한 완벽한 웹사이트를 만들어드립니다.</p>
+    <a href="../index.html#contact" class="cta-btn">
+      무료 상담 신청
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </a>
+  </section>
+
+  <footer class="footer">
+    <p class="footer-text">© 2024 Web Design Agency. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#">이용약관</a>
+      <a href="#">개인정보처리방침</a>
+      <a href="#">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // Filter functionality
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const portfolioCards = document.querySelectorAll('.portfolio-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active button
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+
+        // Filter cards
+        portfolioCards.forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = 'block';
+            card.style.animation = 'fadeIn 0.5s ease';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Add fadeIn animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>

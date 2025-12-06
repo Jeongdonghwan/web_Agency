@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIT STUDIO - Premium Fitness Center</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #0F0F0F;
+      color: #fff;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 15, 15, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 2rem;
+      letter-spacing: 3px;
+      color: #fff;
+    }
+
+    .logo span {
+      color: #FF6B35;
+    }
+
+    .nav {
+      display: flex;
+      gap: 36px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .nav a:hover {
+      color: #FF6B35;
+    }
+
+    .header-btn {
+      background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+      color: #fff;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .header-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1400&q=80') center/cover;
+    }
+
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(15, 15, 15, 0.95) 0%, rgba(15, 15, 15, 0.6) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 0 60px;
+      max-width: 800px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(255, 107, 53, 0.15);
+      color: #FF6B35;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      border: 1px solid rgba(255, 107, 53, 0.3);
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 6rem;
+      line-height: 1;
+      color: #fff;
+      margin-bottom: 24px;
+      letter-spacing: 4px;
+    }
+
+    .hero-title span {
+      color: #FF6B35;
+    }
+
+    .hero-desc {
+      font-size: 1.15rem;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.8;
+      margin-bottom: 48px;
+      max-width: 500px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+      color: #fff;
+      border: none;
+      padding: 20px 48px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4);
+    }
+
+    .btn-secondary {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: transparent;
+      color: #fff;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .btn-secondary:hover {
+      color: #FF6B35;
+    }
+
+    .play-icon {
+      width: 50px;
+      height: 50px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: all 0.3s;
+    }
+
+    .btn-secondary:hover .play-icon {
+      border-color: #FF6B35;
+      background: rgba(255, 107, 53, 0.1);
+    }
+
+    /* Stats */
+    .stats {
+      background: #1A1A1A;
+      padding: 60px;
+      display: flex;
+      justify-content: center;
+      gap: 100px;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 4rem;
+      color: #FF6B35;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* Programs */
+    .programs {
+      padding: 100px 60px;
+      background: #0F0F0F;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      color: #FF6B35;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 3.5rem;
+      color: #fff;
+      letter-spacing: 3px;
+    }
+
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .program-card {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border-radius: 16px;
+      cursor: pointer;
+    }
+
+    .program-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .program-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .program-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(15, 15, 15, 0.95) 0%, transparent 60%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 30px;
+    }
+
+    .program-name {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 2rem;
+      color: #fff;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .program-desc {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Footer hint */
+    .footer-hint {
+      padding: 40px;
+      background: #1A1A1A;
+      text-align: center;
+    }
+
+    .footer-hint p {
+      color: rgba(255,255,255,0.4);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">FIT<span>STUDIO</span></div>
+    <nav class="nav">
+      <a href="#">프로그램</a>
+      <a href="#">트레이너</a>
+      <a href="#">시설안내</a>
+      <a href="#">이용요금</a>
+      <a href="#">커뮤니티</a>
+    </nav>
+    <button class="header-btn">무료 체험</button>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <span class="hero-tag">No Pain, No Gain</span>
+      <h1 class="hero-title">
+        TRANSFORM<br>
+        YOUR <span>BODY</span>
+      </h1>
+      <p class="hero-desc">
+        최고의 시설과 전문 트레이너가 함께하는 프리미엄 피트니스.<br>
+        지금 당신의 변화를 시작하세요.
+      </p>
+      <div class="hero-btns">
+        <button class="btn-primary">지금 시작하기</button>
+        <button class="btn-secondary">
+          <span class="play-icon">▶</span>
+          시설 둘러보기
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-number">5,000+</div>
+      <div class="stat-label">Active Members</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">50+</div>
+      <div class="stat-label">Expert Trainers</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">100+</div>
+      <div class="stat-label">Weekly Classes</div>
+    </div>
+  </div>
+
+  <section class="programs">
+    <div class="section-header">
+      <span class="section-tag">Our Programs</span>
+      <h2 class="section-title">FITNESS PROGRAMS</h2>
+    </div>
+    <div class="programs-grid">
+      <div class="program-card">
+        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&q=80" alt="Weight Training">
+        <div class="program-overlay">
+          <h3 class="program-name">WEIGHT TRAINING</h3>
+          <p class="program-desc">체계적인 근력 운동 프로그램</p>
+        </div>
+      </div>
+      <div class="program-card">
+        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=80" alt="Group Fitness">
+        <div class="program-overlay">
+          <h3 class="program-name">GROUP FITNESS</h3>
+          <p class="program-desc">에너지 넘치는 그룹 운동</p>
+        </div>
+      </div>
+      <div class="program-card">
+        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80" alt="Yoga & Pilates">
+        <div class="program-overlay">
+          <h3 class="program-name">YOGA & PILATES</h3>
+          <p class="program-desc">유연성과 균형의 완성</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-hint">
+    <p>© 2024 FIT STUDIO. All rights reserved.</p>
+  </div>
+</body>
+</html>
