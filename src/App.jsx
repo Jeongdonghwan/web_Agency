@@ -1045,8 +1045,8 @@ const FloatingButtons = () => {
     document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
   };
 
-  // 카카오톡 채널 URL (실제 채널 ID로 교체 필요)
-  const kakaoChannelUrl = 'https://pf.kakao.com/_xxxxx';
+  // 카카오톡 채널 URL
+  const kakaoChannelUrl = 'http://pf.kakao.com/_Izxnxgn';
 
   return (
     <div className={`floating-buttons ${isVisible ? 'visible' : ''}`}>
