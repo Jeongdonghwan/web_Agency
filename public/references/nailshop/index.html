@@ -131,8 +131,8 @@
       border: 1px solid rgba(147, 51, 234, 0.2);
     }
 
-    .hero-tag::before {
-      content: '✨';
+    .hero-tag svg {
+      flex-shrink: 0;
     }
 
     .hero-title {
@@ -351,7 +351,7 @@
       align-items: center;
       justify-content: center;
       margin: 0 auto 24px;
-      font-size: 2rem;
+      color: #9333ea;
     }
 
     .service-title {
@@ -372,6 +372,71 @@
       font-size: 1.1rem;
       font-weight: 700;
       color: #9333ea;
+    }
+
+    /* Process Section */
+    .process {
+      padding: 100px 80px;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .process-grid::before {
+      content: '';
+      position: absolute;
+      top: 60px;
+      left: 15%;
+      right: 15%;
+      height: 2px;
+      background: linear-gradient(90deg, #e9d5ff, #fbcfe8, #fed7aa, #e9d5ff);
+    }
+
+    .process-step {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .process-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #9333ea 0%, #db2777 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(147, 51, 234, 0.3);
+    }
+
+    .process-number {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #9333ea;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .process-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1f1f1f;
+      margin-bottom: 8px;
+    }
+
+    .process-desc {
+      font-size: 0.85rem;
+      color: #666;
+      line-height: 1.6;
     }
 
     /* Gallery */
@@ -430,6 +495,80 @@
       color: #fff;
       font-size: 0.9rem;
       font-weight: 600;
+    }
+
+    /* Reviews Section */
+    .reviews {
+      padding: 100px 80px;
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .review-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px);
+      padding: 36px;
+      border-radius: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      transition: all 0.4s;
+    }
+
+    .review-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(147, 51, 234, 0.12);
+    }
+
+    .review-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .review-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid rgba(147, 51, 234, 0.2);
+      flex-shrink: 0;
+    }
+
+    .review-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .review-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1f1f1f;
+      margin-bottom: 4px;
+    }
+
+    .review-service {
+      font-size: 0.75rem;
+      color: #9333ea;
+      font-weight: 500;
+    }
+
+    .review-stars {
+      color: #f59e0b;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+    }
+
+    .review-text {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.8;
     }
 
     /* CTA */
@@ -523,9 +662,9 @@
       align-items: center;
       justify-content: center;
       text-decoration: none;
-      font-size: 1.1rem;
       transition: all 0.3s;
       border: 1px solid rgba(147, 51, 234, 0.2);
+      color: #9333ea;
     }
 
     .footer-social a:hover {
@@ -534,9 +673,25 @@
       transform: translateY(-3px);
     }
 
+    .footer-social a:hover svg {
+      stroke: #fff;
+    }
+
     .footer-copy {
       font-size: 0.8rem;
       color: #bbb;
+    }
+
+    /* Scroll Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* Mobile Menu */
@@ -642,10 +797,13 @@
       .hero-img-secondary { display: none; }
       .floating-card.rating { left: 10%; top: 20px; }
       .floating-card.price { right: 10%; bottom: 40px; }
-      .services, .gallery, .cta { padding: 80px 40px; }
+      .services, .gallery, .cta, .process, .reviews { padding: 80px 40px; }
       .services-grid { grid-template-columns: 1fr; }
       .gallery-grid { grid-template-columns: repeat(2, 1fr); }
       .gallery-item:first-child { grid-column: span 2; }
+      .process-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+      .process-grid::before { display: none; }
+      .reviews-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 768px) {
@@ -664,13 +822,14 @@
       .hero-images { height: 300px; }
       .hero-img-main { width: 220px; height: 280px; }
       .floating-card { padding: 12px 16px; }
-      .services, .gallery, .cta { padding: 60px 24px; }
+      .services, .gallery, .cta, .process, .reviews { padding: 60px 24px; }
       .service-card { padding: 32px 24px; }
       .gallery-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
       .gallery-item:first-child { grid-column: span 1; grid-row: span 1; }
       .cta-card { padding: 48px 24px; border-radius: 32px; }
       .cta-title { font-size: 1.8rem; }
       .footer { padding: 40px 24px; }
+      .process-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
     }
   </style>
 </head>
@@ -703,7 +862,7 @@
   <section class="hero">
     <div class="hero-grid">
       <div class="hero-content">
-        <span class="hero-tag">Premium Nail Art</span>
+        <span class="hero-tag"><svg width="16" height="16" viewBox="0 0 24 24" fill="#9333ea"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg> Premium Nail Art</span>
         <h1 class="hero-title">
           손끝에서 피어나는<br>
           아름다움
@@ -719,14 +878,20 @@
       </div>
       <div class="hero-images">
         <div class="hero-img-main">
-          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=80" alt="Nail Art">
+          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=80" loading="lazy" alt="프리미엄 네일 아트 시술">
         </div>
         <div class="hero-img-secondary">
-          <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=400&q=80" alt="Nail Design">
+          <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=400&q=80" loading="lazy" alt="세련된 네일 디자인">
         </div>
         <div class="floating-card rating">
           <div>
-            <div class="rating-stars">★★★★★</div>
+            <div class="rating-stars">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="vertical-align:middle;"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="vertical-align:middle;"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="vertical-align:middle;"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="vertical-align:middle;"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="vertical-align:middle;"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg>
+            </div>
             <div class="rating-text">4.9점</div>
           </div>
           <div class="rating-sub">2,847 리뷰</div>
@@ -739,26 +904,26 @@
     </div>
   </section>
 
-  <section class="services">
+  <section class="services reveal">
     <div class="section-header">
       <p class="section-tag">Our Services</p>
       <h2 class="section-title">인기 서비스</h2>
     </div>
     <div class="services-grid">
       <div class="service-card">
-        <div class="service-icon">💅</div>
+        <div class="service-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 11V6a2 2 0 00-2-2 2 2 0 00-2 2v0M14 10V4a2 2 0 00-2-2 2 2 0 00-2 2v2M10 10.5V6a2 2 0 00-2-2 2 2 0 00-2 2v8"></path><path d="M18 8a2 2 0 012 2v7.4a2 2 0 01-.6 1.4l-3 3a2 2 0 01-2.8 0l-5.3-5.3a2 2 0 010-2.8L12 10"></path></svg></div>
         <h3 class="service-title">젤 네일</h3>
         <p class="service-desc">오래 지속되는 아름다운 컬러와<br>광택의 프리미엄 젤 네일</p>
         <p class="service-price">₩49,000~</p>
       </div>
       <div class="service-card">
-        <div class="service-icon">🎨</div>
+        <div class="service-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r="0.5" fill="currentColor"></circle><circle cx="17.5" cy="10.5" r="0.5" fill="currentColor"></circle><circle cx="8.5" cy="7.5" r="0.5" fill="currentColor"></circle><circle cx="6.5" cy="12" r="0.5" fill="currentColor"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg></div>
         <h3 class="service-title">네일 아트</h3>
         <p class="service-desc">트렌디한 디자인부터 유니크한<br>커스텀 아트까지</p>
         <p class="service-price">₩69,000~</p>
       </div>
       <div class="service-card">
-        <div class="service-icon">✨</div>
+        <div class="service-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg></div>
         <h3 class="service-title">네일 케어</h3>
         <p class="service-desc">손톱 건강을 위한 전문<br>케어 & 트리트먼트</p>
         <p class="service-price">₩39,000~</p>
@@ -766,46 +931,153 @@
     </div>
   </section>
 
-  <section class="gallery">
+  <section class="process reveal">
+    <div class="section-header">
+      <p class="section-tag">Process</p>
+      <h2 class="section-title">시술 과정</h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="process-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path></svg>
+        </div>
+        <div class="process-number">Step 01</div>
+        <h3 class="process-title">상담</h3>
+        <p class="process-desc">원하시는 디자인과 스타일에 대해<br>1:1 맞춤 상담을 진행합니다.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="13.5" cy="6.5" r="0.5" fill="#fff"></circle><circle cx="17.5" cy="10.5" r="0.5" fill="#fff"></circle><circle cx="8.5" cy="7.5" r="0.5" fill="#fff"></circle><circle cx="6.5" cy="12" r="0.5" fill="#fff"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg>
+        </div>
+        <div class="process-number">Step 02</div>
+        <h3 class="process-title">디자인</h3>
+        <p class="process-desc">고객님의 취향에 맞는<br>디자인을 함께 선정합니다.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M18 11V6a2 2 0 00-2-2 2 2 0 00-2 2v0M14 10V4a2 2 0 00-2-2 2 2 0 00-2 2v2M10 10.5V6a2 2 0 00-2-2 2 2 0 00-2 2v8"></path><path d="M18 8a2 2 0 012 2v7.4a2 2 0 01-.6 1.4l-3 3a2 2 0 01-2.8 0l-5.3-5.3a2 2 0 010-2.8L12 10"></path></svg>
+        </div>
+        <div class="process-number">Step 03</div>
+        <h3 class="process-title">시술</h3>
+        <p class="process-desc">전문 아티스트의 섬세한<br>기술로 시술을 진행합니다.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg>
+        </div>
+        <div class="process-number">Step 04</div>
+        <h3 class="process-title">마무리</h3>
+        <p class="process-desc">꼼꼼한 마무리와 관리 방법<br>안내로 완성합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery reveal">
     <div class="section-header">
       <p class="section-tag">Gallery</p>
       <h2 class="section-title">최근 작품</h2>
     </div>
     <div class="gallery-grid">
       <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&q=80" alt="Gallery 1">
+        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&q=80" loading="lazy" alt="프렌치 그라데이션 네일 아트">
         <div class="gallery-overlay">
-          <span class="gallery-label">French Gradient</span>
+          <span class="gallery-label">프렌치 그라데이션</span>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=400&q=80" alt="Gallery 2">
+        <img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=400&q=80" loading="lazy" alt="마블 아트 네일">
         <div class="gallery-overlay">
-          <span class="gallery-label">Marble Art</span>
+          <span class="gallery-label">마블 아트</span>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=400&q=80" alt="Gallery 3">
+        <img src="https://images.unsplash.com/photo-1636018895032-aaab6a5c0b98?w=400&q=80" loading="lazy" alt="크리스탈 디자인 네일">
         <div class="gallery-overlay">
-          <span class="gallery-label">Crystal Design</span>
+          <span class="gallery-label">크리스탈 디자인</span>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=400&q=80" alt="Gallery 4">
+        <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=400&q=80" loading="lazy" alt="미니멀 시크 네일">
         <div class="gallery-overlay">
-          <span class="gallery-label">Minimal Chic</span>
+          <span class="gallery-label">미니멀 시크</span>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400&q=80" alt="Gallery 5">
+        <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=400&q=80" loading="lazy" alt="옴브레 스타일 네일">
         <div class="gallery-overlay">
-          <span class="gallery-label">Ombre Style</span>
+          <span class="gallery-label">옴브레 스타일</span>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="cta">
+  <section class="reviews reveal">
+    <div class="section-header">
+      <p class="section-tag">Reviews</p>
+      <h2 class="section-title">고객 후기</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-header">
+          <div class="review-avatar">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&q=80" loading="lazy" alt="고객 김서연 프로필">
+          </div>
+          <div>
+            <div class="review-name">김서연</div>
+            <div class="review-service">젤 네일 | 2024.01</div>
+          </div>
+        </div>
+        <div class="review-stars">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="vertical-align:middle;"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="vertical-align:middle;"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="vertical-align:middle;"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="vertical-align:middle;"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="vertical-align:middle;"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg>
+        </div>
+        <p class="review-text">처음 방문했는데 너무 만족스러웠어요! 원하는 디자인을 꼼꼼하게 상담해주시고 결과물도 너무 예뻤습니다. 다음에도 꼭 다시 올게요.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-header">
+          <div class="review-avatar">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&q=80" loading="lazy" alt="고객 이지은 프로필">
+          </div>
+          <div>
+            <div class="review-name">이지은</div>
+            <div class="review-service">네일 아트 | 2024.02</div>
+          </div>
+        </div>
+        <div class="review-stars">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="vertical-align:middle;"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="vertical-align:middle;"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="vertical-align:middle;"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="vertical-align:middle;"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="vertical-align:middle;"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg>
+        </div>
+        <p class="review-text">아트 네일 전문이라 그런지 디테일이 정말 살아있어요. 친구들이 어디서 했냐고 물어볼 정도로 퀄리티가 높습니다. 강력 추천합니다!</p>
+      </div>
+      <div class="review-card">
+        <div class="review-header">
+          <div class="review-avatar">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&q=80" loading="lazy" alt="고객 박하나 프로필">
+          </div>
+          <div>
+            <div class="review-name">박하나</div>
+            <div class="review-service">네일 케어 | 2024.03</div>
+          </div>
+        </div>
+        <div class="review-stars">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="vertical-align:middle;"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="vertical-align:middle;"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="vertical-align:middle;"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="vertical-align:middle;"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="vertical-align:middle;"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7L2 9.4h7.6z"/></svg>
+        </div>
+        <p class="review-text">케어를 받았는데 손톱이 정말 건강해진 느낌이에요. 파라핀 팩까지 포함된 스페셜 케어가 특히 좋았습니다. 정기적으로 방문할 예정이에요.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta reveal">
     <div class="cta-card">
       <h2 class="cta-title">지금 예약하세요</h2>
       <p class="cta-desc">첫 방문 고객 20% 할인 + 네일 케어 서비스 무료 제공</p>
@@ -817,11 +1089,11 @@
     <div class="footer-logo">NAIL ATELIER</div>
     <p class="footer-text">서울 강남구 압구정로 123 아틀리에빌딩 2층</p>
     <div class="footer-social">
-      <a href="#">📷</a>
-      <a href="#">💬</a>
-      <a href="#">📱</a>
+      <a href="#" aria-label="인스타그램"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+      <a href="#" aria-label="카카오톡"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path></svg></a>
+      <a href="#" aria-label="전화"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"></path></svg></a>
     </div>
-    <p class="footer-copy">© 2024 NAIL ATELIER. All rights reserved.</p>
+    <p class="footer-copy">&copy; 2024 NAIL ATELIER. All rights reserved.</p>
   </footer>
 
   <script>
@@ -832,6 +1104,20 @@
       overlay.classList.toggle('active');
       document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : '';
     }
+
+    // IntersectionObserver for scroll reveal animations
+    const revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      revealObserver.observe(el);
+    });
   </script>
 </body>
 </html>

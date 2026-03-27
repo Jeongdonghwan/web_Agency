@@ -327,11 +327,19 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
-        .hero-slide:nth-child(2) .hero-bg {
-            background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.35) 100%);
         }
 
         .hero-content {
@@ -358,12 +366,12 @@
             font-weight: 800;
             line-height: 1.15;
             margin-bottom: 25px;
-            color: var(--text-dark);
+            color: #ffffff;
         }
 
         .hero-desc {
             font-size: 1.1rem;
-            color: var(--text-gray);
+            color: rgba(255, 255, 255, 0.85);
             line-height: 1.8;
             margin-bottom: 40px;
         }
@@ -395,8 +403,8 @@
 
         .btn-outline {
             background: transparent;
-            border: 2px solid var(--text-dark);
-            color: var(--text-dark);
+            border: 2px solid #ffffff;
+            color: #ffffff;
             padding: 14px 38px;
             text-decoration: none;
             font-weight: 600;
@@ -405,8 +413,8 @@
         }
 
         .btn-outline:hover {
-            background: var(--text-dark);
-            color: var(--bg-white);
+            background: #ffffff;
+            color: var(--text-dark);
         }
 
         /* Hero Progress */
@@ -452,7 +460,11 @@
             font-family: 'Raleway', sans-serif;
             font-size: 1.1rem;
             font-weight: 700;
-            color: var(--text-dark);
+            color: #ffffff;
+        }
+
+        .progress-circle .bg {
+            stroke: rgba(255, 255, 255, 0.3);
         }
 
         .hero-nav {
@@ -467,13 +479,15 @@
         .hero-nav button {
             width: 50px;
             height: 50px;
-            background: var(--bg-white);
-            border: 1px solid var(--border-light);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(4px);
         }
 
         .hero-nav button:hover {
@@ -504,16 +518,34 @@
         .about-image-main {
             width: 100%;
             height: 500px;
-            background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .about-image-main i {
-            font-size: 6rem;
-            color: var(--accent-orange);
-            opacity: 0.3;
+        .about-image-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .about-image-secondary {
+            position: absolute;
+            bottom: -40px;
+            left: -40px;
+            width: 220px;
+            height: 180px;
+            overflow: hidden;
+            border: 5px solid var(--bg-white);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            z-index: 2;
+        }
+
+        .about-image-secondary img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .about-badge {
@@ -674,12 +706,34 @@
 
         .business-card {
             background: var(--bg-white);
-            padding: 45px 30px;
+            padding: 0;
             text-align: center;
             border: 1px solid var(--border-light);
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+        }
+
+        .business-card-img {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .business-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .business-card:hover .business-card-img img {
+            transform: scale(1.08);
+        }
+
+        .business-card-body {
+            padding: 30px 30px 35px;
         }
 
         .business-card::before {
@@ -778,17 +832,20 @@
         }
 
         .project-image {
-            height: 350px;
-            background: linear-gradient(135deg, #dee2e6 0%, #ced4da 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            height: 230px;
+            overflow: hidden;
         }
 
-        .project-image i {
-            font-size: 5rem;
-            color: var(--text-light);
-            opacity: 0.5;
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
         }
 
         .project-content {
@@ -1061,6 +1118,18 @@
             color: var(--bg-white);
         }
 
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* Responsive */
         @media (max-width: 1200px) {
             .about-grid {
@@ -1070,6 +1139,14 @@
 
             .about-badge {
                 right: 20px;
+            }
+
+            .about-image-secondary {
+                left: auto;
+                right: -20px;
+                bottom: -30px;
+                width: 180px;
+                height: 150px;
             }
 
             .stats-grid {
@@ -1277,7 +1354,7 @@
         <div class="swiper hero-swiper">
             <div class="swiper-wrapper">
                 <div class="swiper-slide hero-slide">
-                    <div class="hero-bg"></div>
+                    <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=80');"></div>
                     <div class="hero-content">
                         <p class="hero-subtitle">Since 1985</p>
                         <h1 class="hero-title">신뢰와 품질로<br>짓는 미래</h1>
@@ -1291,7 +1368,7 @@
                     </div>
                 </div>
                 <div class="swiper-slide hero-slide">
-                    <div class="hero-bg"></div>
+                    <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1541888946425-d81bb19240f7?w=1600&q=80');"></div>
                     <div class="hero-content">
                         <p class="hero-subtitle">Professional Construction</p>
                         <h1 class="hero-title">전문 시공으로<br>완성하는 공간</h1>
@@ -1324,16 +1401,19 @@
     <!-- About Preview -->
     <section class="about-preview">
         <div class="about-grid">
-            <div class="about-image">
+            <div class="about-image reveal">
                 <div class="about-image-main">
-                    <i class="fas fa-building"></i>
+                    <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f7?w=600&q=80" loading="lazy" alt="한성건설이 시공한 현대식 건물 외관" style="max-width:500px; border-radius:16px;">
+                </div>
+                <div class="about-image-secondary">
+                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&q=80" loading="lazy" alt="한성건설 건설 현장 작업 전경">
                 </div>
                 <div class="about-badge">
                     <span>40</span>
                     <small>YEARS</small>
                 </div>
             </div>
-            <div class="about-content">
+            <div class="about-content reveal">
                 <h2>About Us</h2>
                 <h3>40년 전통의<br>건설 전문기업</h3>
                 <p>1985년 설립 이래, 한성건설은 대한민국 건설 산업의 발전과 함께 성장해 왔습니다. 최고의 기술력과 풍부한 경험을 바탕으로 고객에게 최상의 품질과 서비스를 제공합니다.</p>
@@ -1363,19 +1443,19 @@
     <!-- Stats Section -->
     <section class="stats">
         <div class="stats-grid">
-            <div class="stat-item">
+            <div class="stat-item reveal">
                 <div class="stat-number" data-target="2000">0<span>+</span></div>
                 <p class="stat-label">완공 프로젝트</p>
             </div>
-            <div class="stat-item">
+            <div class="stat-item reveal">
                 <div class="stat-number" data-target="150">0<span>만m2</span></div>
                 <p class="stat-label">총 시공면적</p>
             </div>
-            <div class="stat-item">
+            <div class="stat-item reveal">
                 <div class="stat-number" data-target="40">0<span>년+</span></div>
                 <p class="stat-label">업력</p>
             </div>
-            <div class="stat-item">
+            <div class="stat-item reveal">
                 <div class="stat-number" data-target="350">0<span>명</span></div>
                 <p class="stat-label">전문 인력</p>
             </div>
@@ -1384,57 +1464,77 @@
 
     <!-- Business Section -->
     <section class="business">
-        <div class="section-header">
+        <div class="section-header reveal">
             <p class="section-tag">Business Area</p>
             <h2 class="section-title">사업분야</h2>
         </div>
         <div class="business-grid">
-            <div class="business-card">
-                <div class="business-icon">
-                    <i class="fas fa-home"></i>
+            <div class="business-card reveal">
+                <div class="business-card-img">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80" loading="lazy" alt="주거 건설 시공 사례 - 현대식 주택 단지">
                 </div>
-                <h3>주거시설</h3>
-                <p>아파트, 빌라, 단독주택 등 쾌적한 주거공간을 설계하고 시공합니다.</p>
-                <a href="business.html" class="business-link">
-                    자세히 보기 <i class="fas fa-arrow-right"></i>
-                </a>
+                <div class="business-card-body">
+                    <div class="business-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>주거 건설</h3>
+                    <p>아파트, 빌라, 단독주택 등 쾌적한 주거공간을 설계하고 시공합니다.</p>
+                    <a href="business.html" class="business-link">
+                        자세히 보기 <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
-            <div class="business-card">
-                <div class="business-icon">
-                    <i class="fas fa-store"></i>
+            <div class="business-card reveal">
+                <div class="business-card-img">
+                    <img src="https://images.unsplash.com/photo-1486325212027-8a9ce835ce2a?w=400&q=80" loading="lazy" alt="상업 건설 시공 사례 - 현대식 상업용 빌딩">
                 </div>
-                <h3>상업시설</h3>
-                <p>오피스빌딩, 상가, 호텔 등 비즈니스 공간을 전문 시공합니다.</p>
-                <a href="business.html" class="business-link">
-                    자세히 보기 <i class="fas fa-arrow-right"></i>
-                </a>
+                <div class="business-card-body">
+                    <div class="business-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3>상업 건설</h3>
+                    <p>오피스빌딩, 상가, 호텔 등 비즈니스 공간을 전문 시공합니다.</p>
+                    <a href="business.html" class="business-link">
+                        자세히 보기 <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
-            <div class="business-card">
-                <div class="business-icon">
-                    <i class="fas fa-industry"></i>
+            <div class="business-card reveal">
+                <div class="business-card-img">
+                    <img src="https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=400&q=80" loading="lazy" alt="인프라 시공 사례 - 교량 및 도로 건설">
                 </div>
-                <h3>산업시설</h3>
-                <p>공장, 물류센터, 연구시설 등 산업 인프라를 구축합니다.</p>
-                <a href="business.html" class="business-link">
-                    자세히 보기 <i class="fas fa-arrow-right"></i>
-                </a>
+                <div class="business-card-body">
+                    <div class="business-icon">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h3>인프라</h3>
+                    <p>교량, 도로, 물류센터 등 산업 인프라를 구축합니다.</p>
+                    <a href="business.html" class="business-link">
+                        자세히 보기 <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
-            <div class="business-card">
-                <div class="business-icon">
-                    <i class="fas fa-hammer"></i>
+            <div class="business-card reveal">
+                <div class="business-card-img">
+                    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&q=80" loading="lazy" alt="인테리어 시공 사례 - 모던 실내 디자인">
                 </div>
-                <h3>리모델링</h3>
-                <p>노후 건물의 가치를 높이는 전문 리모델링 서비스를 제공합니다.</p>
-                <a href="business.html" class="business-link">
-                    자세히 보기 <i class="fas fa-arrow-right"></i>
-                </a>
+                <div class="business-card-body">
+                    <div class="business-icon">
+                        <i class="fas fa-hammer"></i>
+                    </div>
+                    <h3>인테리어</h3>
+                    <p>노후 건물의 가치를 높이는 전문 인테리어 및 리모델링 서비스를 제공합니다.</p>
+                    <a href="business.html" class="business-link">
+                        자세히 보기 <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Projects Section -->
     <section class="projects">
-        <div class="section-header">
+        <div class="section-header reveal">
             <p class="section-tag">Our Projects</p>
             <h2 class="section-title">최근 시공실적</h2>
         </div>
@@ -1443,36 +1543,36 @@
                 <div class="swiper-slide">
                     <div class="project-card">
                         <div class="project-image">
-                            <i class="fas fa-building"></i>
+                            <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=500&q=80" loading="lazy" alt="강남 하이파크 레지던스 - 준공된 현대식 건물 전경">
                         </div>
                         <div class="project-content">
                             <p class="project-category">RESIDENTIAL</p>
                             <h3>강남 하이파크 레지던스</h3>
-                            <p>서울 강남구 | 지상 35층</p>
+                            <p>서울 강남구 | 지상 35층 | 2023년 준공</p>
                         </div>
                     </div>
                 </div>
                 <div class="swiper-slide">
                     <div class="project-card">
                         <div class="project-image">
-                            <i class="fas fa-city"></i>
+                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500&q=80" loading="lazy" alt="판교 그린힐 아파트 - 대형 아파트 단지 조감도">
+                        </div>
+                        <div class="project-content">
+                            <p class="project-category">RESIDENTIAL</p>
+                            <h3>판교 그린힐 아파트</h3>
+                            <p>경기 성남시 | 1,200세대 | 2022년 준공</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=500&q=80" loading="lazy" alt="인천 스마트 비즈 센터 - 상업 시설 외관">
                         </div>
                         <div class="project-content">
                             <p class="project-category">COMMERCIAL</p>
-                            <h3>판교 테크원 오피스</h3>
-                            <p>경기 성남시 | 지상 20층</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="project-card">
-                        <div class="project-image">
-                            <i class="fas fa-warehouse"></i>
-                        </div>
-                        <div class="project-content">
-                            <p class="project-category">INDUSTRIAL</p>
-                            <h3>인천 스마트 물류센터</h3>
-                            <p>인천 서구 | 연면적 50,000m2</p>
+                            <h3>인천 스마트 비즈 센터</h3>
+                            <p>인천 서구 | 연면적 50,000m2 | 2024년 준공</p>
                         </div>
                     </div>
                 </div>
@@ -1483,7 +1583,7 @@
 
     <!-- CTA Section -->
     <section class="cta">
-        <div class="cta-content">
+        <div class="cta-content reveal">
             <h2>프로젝트 문의하기</h2>
             <p>신축, 리모델링, 인테리어 등 건설에 관한 모든 것을 상담해 드립니다.<br>전문 상담원이 친절하게 안내해 드립니다.</p>
             <div class="cta-buttons">
@@ -1530,10 +1630,10 @@
             <div class="footer-column">
                 <h4>사업분야</h4>
                 <ul>
-                    <li><a href="business.html">주거시설</a></li>
-                    <li><a href="business.html">상업시설</a></li>
-                    <li><a href="business.html">산업시설</a></li>
-                    <li><a href="business.html">리모델링</a></li>
+                    <li><a href="business.html">주거 건설</a></li>
+                    <li><a href="business.html">상업 건설</a></li>
+                    <li><a href="business.html">인프라</a></li>
+                    <li><a href="business.html">인테리어</a></li>
                 </ul>
             </div>
             <div class="footer-column footer-contact">
@@ -1694,6 +1794,21 @@
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => {
+            revealObserver.observe(el);
+        });
     </script>
 </body>
 </html>

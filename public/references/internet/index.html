@@ -1,0 +1,2259 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>넷플러스 - 초고속 인터넷 가입 전문</title>
+  <meta name="description" content="KT, SKT, LG U+ 전 통신사 인터넷 요금 비교. 최대 30만원 사은품, 당일 설치, 위약금 지원. 넷플러스에서 가장 합리적인 인터넷 요금제를 찾아보세요.">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary: #0891b2;
+      --primary-dark: #0e7490;
+      --primary-light: #06b6d4;
+      --primary-bg: #ecfeff;
+      --dark: #0f172a;
+      --dark-secondary: #1e293b;
+      --text: #334155;
+      --text-light: #64748b;
+      --bg: #ffffff;
+      --bg-gray: #f8fafc;
+      --border: #e2e8f0;
+      --success: #10b981;
+      --warning: #f59e0b;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 12px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      transition: all 0.3s;
+    }
+
+    .header.scrolled {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon svg {
+      width: 22px;
+      height: 22px;
+      color: #fff;
+    }
+
+    .logo-text {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -0.5px;
+    }
+
+    .logo-text span {
+      color: var(--primary);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-gray);
+      padding: 4px;
+      border-radius: 12px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: var(--text-light);
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 8px 18px;
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: var(--primary);
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .header-cta {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .header-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(8, 145, 178, 0.35);
+    }
+
+    .header-cta svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 42px;
+      height: 42px;
+      background: var(--bg-gray);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      gap: 5px;
+      padding: 0;
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: var(--dark);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    .mobile-menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(20px);
+      z-index: 99;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .mobile-menu-overlay.active {
+      display: flex;
+    }
+
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mobile-nav a {
+      text-decoration: none;
+      color: var(--dark);
+      font-size: 1.3rem;
+      font-weight: 600;
+      padding: 12px 32px;
+      border-radius: 12px;
+      transition: all 0.3s;
+    }
+
+    .mobile-nav a:hover {
+      color: var(--primary);
+      background: var(--primary-bg);
+    }
+
+    .mobile-nav .mobile-cta {
+      margin-top: 16px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff;
+      padding: 16px 48px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+    }
+
+    .mobile-nav .mobile-cta:hover {
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.78) 0%, rgba(15, 23, 42, 0.88) 100%),
+                  url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1600&q=80') center/cover no-repeat;
+      padding: 140px 24px 80px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(8, 145, 178, 0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 70% 30%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(8, 145, 178, 0.15);
+      border: 1px solid rgba(8, 145, 178, 0.3);
+      padding: 8px 20px;
+      border-radius: 50px;
+      color: var(--primary-light);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 28px;
+      animation: fadeInUp 0.6s ease-out 0.2s both;
+    }
+
+    .hero-badge svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .hero-title {
+      font-size: 3.4rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.25;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+      animation: fadeInUp 0.6s ease-out 0.4s both;
+    }
+
+    .hero-title span {
+      color: var(--primary-light);
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.8;
+      margin-bottom: 36px;
+      animation: fadeInUp 0.6s ease-out 0.6s both;
+    }
+
+    .hero-desc strong {
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 600;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.6s ease-out 0.8s both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: #fff;
+      padding: 16px 36px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(8, 145, 178, 0.4);
+    }
+
+    .btn-primary svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #fff;
+      padding: 16px 36px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.18);
+      transform: translateY(-3px);
+    }
+
+    .btn-secondary svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      animation: fadeInUp 0.6s ease-out 1.0s both;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .trust-item svg {
+      width: 20px;
+      height: 20px;
+      color: var(--primary-light);
+    }
+
+    .trust-item strong {
+      color: #fff;
+      font-weight: 700;
+    }
+
+    /* Section commons */
+    .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .section-tag svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .section-title {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -0.5px;
+      line-height: 1.3;
+    }
+
+    .section-title span {
+      color: var(--primary);
+    }
+
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--text-light);
+      margin-top: 12px;
+      line-height: 1.7;
+    }
+
+    /* Carrier Logos Strip */
+    .carriers {
+      padding: 40px 60px;
+      background: var(--bg-gray);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .carriers-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .carrier-label {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .carrier-logos {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .carrier-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-light);
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+
+    .carrier-logo:hover {
+      opacity: 1;
+    }
+
+    .carrier-logo svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    /* Pricing Plans */
+    .pricing {
+      padding: 100px 60px;
+      background: var(--bg-gray);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: center;
+    }
+
+    .pricing-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px 32px;
+      border: 1px solid var(--border);
+      position: relative;
+      transition: all 0.4s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+    }
+
+    .pricing-card.featured {
+      border: 2px solid var(--primary);
+      padding: 48px 32px;
+      box-shadow: 0 20px 60px rgba(8, 145, 178, 0.15);
+      transform: scale(1.04);
+      z-index: 2;
+    }
+
+    .pricing-card.featured:hover {
+      transform: scale(1.04) translateY(-6px);
+      box-shadow: 0 24px 60px rgba(8, 145, 178, 0.22);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: #fff;
+      padding: 6px 24px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .pricing-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+
+    .pricing-speed {
+      font-size: 0.88rem;
+      color: var(--text-light);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pricing-speed svg {
+      width: 16px;
+      height: 16px;
+      color: var(--primary);
+    }
+
+    .pricing-price {
+      margin-bottom: 28px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pricing-price .label {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      margin-bottom: 4px;
+    }
+
+    .pricing-price .amount {
+      font-family: 'Inter', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.1;
+      letter-spacing: -1px;
+    }
+
+    .pricing-price .unit {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-light);
+      margin-left: 2px;
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 32px;
+    }
+
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.92rem;
+      color: var(--text);
+      padding: 8px 0;
+    }
+
+    .pricing-features li svg {
+      width: 18px;
+      height: 18px;
+      color: var(--success);
+      flex-shrink: 0;
+    }
+
+    .pricing-gift {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fef3c7;
+      padding: 10px 16px;
+      border-radius: 10px;
+      margin-bottom: 24px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #92400e;
+    }
+
+    .pricing-gift svg {
+      width: 18px;
+      height: 18px;
+      color: var(--warning);
+      flex-shrink: 0;
+    }
+
+    .pricing-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .pricing-btn.primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff;
+    }
+
+    .pricing-btn.primary:hover {
+      box-shadow: 0 8px 24px rgba(8, 145, 178, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .pricing-btn.outline {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .pricing-btn.outline:hover {
+      background: var(--primary-bg);
+      transform: translateY(-2px);
+    }
+
+    /* Benefits */
+    .benefits {
+      padding: 100px 60px;
+      background: #fff;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .benefit-card {
+      background: var(--bg-gray);
+      border-radius: 20px;
+      padding: 36px 28px;
+      text-align: center;
+      border: 1px solid var(--border);
+      transition: all 0.4s;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+      border-color: var(--primary);
+    }
+
+    .benefit-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--primary-bg) 0%, #cffafe 100%);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .benefit-icon svg {
+      width: 28px;
+      height: 28px;
+      color: var(--primary);
+    }
+
+    .benefit-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+
+    .benefit-desc {
+      font-size: 0.88rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    /* Installation Process */
+    .process {
+      padding: 100px 60px;
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .process::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(8, 145, 178, 0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .process .section-tag {
+      color: var(--primary-light);
+    }
+
+    .process .section-title {
+      color: #fff;
+    }
+
+    .process .section-title span {
+      color: var(--primary-light);
+    }
+
+    .process-steps {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 0;
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .process-step {
+      flex: 1;
+      text-align: center;
+      position: relative;
+      padding: 0 16px;
+    }
+
+    .step-connector {
+      position: absolute;
+      top: 32px;
+      left: calc(50% + 36px);
+      right: calc(-50% + 36px);
+      height: 2px;
+      background: rgba(8, 145, 178, 0.3);
+    }
+
+    .step-connector::after {
+      content: '';
+      position: absolute;
+      right: -4px;
+      top: -3px;
+      width: 8px;
+      height: 8px;
+      border-top: 2px solid var(--primary-light);
+      border-right: 2px solid var(--primary-light);
+      transform: rotate(45deg);
+    }
+
+    .process-step:last-child .step-connector {
+      display: none;
+    }
+
+    .step-circle {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .step-circle svg {
+      width: 28px;
+      height: 28px;
+      color: #fff;
+    }
+
+    .step-number {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 24px;
+      height: 24px;
+      background: var(--warning);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 0.72rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .step-desc {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.5;
+    }
+
+    /* Reviews */
+    .reviews {
+      padding: 100px 60px;
+      background: var(--bg-gray);
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .review-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 36px;
+      border: 1px solid var(--border);
+      transition: all 0.4s;
+    }
+
+    .review-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+    }
+
+    .review-stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 18px;
+    }
+
+    .review-stars svg {
+      width: 18px;
+      height: 18px;
+      color: var(--warning);
+      fill: var(--warning);
+    }
+
+    .review-text {
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    .review-avatar {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--primary-bg) 0%, #cffafe 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 0.95rem;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .review-name {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .review-plan {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      margin-top: 2px;
+    }
+
+    /* FAQ */
+    .faq {
+      padding: 100px 60px;
+      background: #fff;
+    }
+
+    .faq-list {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .faq-item:hover {
+      border-color: rgba(8, 145, 178, 0.3);
+    }
+
+    .faq-item.active {
+      border-color: var(--primary);
+      box-shadow: 0 4px 16px rgba(8, 145, 178, 0.1);
+    }
+
+    .faq-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      cursor: pointer;
+      background: #fff;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--dark);
+      font-family: 'Noto Sans KR', sans-serif;
+      gap: 16px;
+    }
+
+    .faq-question:hover {
+      color: var(--primary);
+    }
+
+    .faq-question .q-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: var(--primary-bg);
+      color: var(--primary);
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-right: 12px;
+    }
+
+    .faq-question .q-text {
+      flex: 1;
+    }
+
+    .faq-icon {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      transition: transform 0.3s;
+      color: var(--text-light);
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+      color: var(--primary);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out, padding 0.3s;
+    }
+
+    .faq-answer-inner {
+      padding: 0 24px 20px;
+      padding-left: 64px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      line-height: 1.8;
+    }
+
+    /* Consultation Form */
+    .consult {
+      padding: 100px 60px;
+      background: linear-gradient(180deg, var(--bg-gray) 0%, #fff 100%);
+    }
+
+    .consult-container {
+      max-width: 680px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 24px;
+      padding: 56px 48px;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .form-group label .required {
+      color: #ef4444;
+      margin-left: 2px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.92rem;
+      font-family: 'Noto Sans KR', sans-serif;
+      color: var(--dark);
+      background: var(--bg-gray);
+      transition: all 0.3s;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.1);
+      background: #fff;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: #94a3b8;
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-agreement {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 8px;
+      grid-column: 1 / -1;
+    }
+
+    .form-agreement input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--primary);
+    }
+
+    .form-agreement label {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      line-height: 1.5;
+      cursor: pointer;
+    }
+
+    .form-submit {
+      grid-column: 1 / -1;
+      margin-top: 8px;
+    }
+
+    .form-submit button {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      font-family: 'Noto Sans KR', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .form-submit button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(8, 145, 178, 0.35);
+    }
+
+    .form-submit button svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .form-note {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 72px 60px 36px;
+      background: var(--dark);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 56px;
+      max-width: 1100px;
+      margin: 0 auto 56px;
+    }
+
+    .footer-brand .logo {
+      margin-bottom: 18px;
+    }
+
+    .footer-brand .logo-icon {
+      background: rgba(8, 145, 178, 0.2);
+      border: 1px solid rgba(8, 145, 178, 0.3);
+    }
+
+    .footer-brand .logo-text {
+      color: #fff;
+    }
+
+    .footer-brand .logo-text span {
+      color: var(--primary-light);
+    }
+
+    .footer-brand p {
+      font-size: 0.88rem;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .footer-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.88rem;
+    }
+
+    .footer-contact-item svg {
+      width: 16px;
+      height: 16px;
+      color: var(--primary-light);
+      flex-shrink: 0;
+    }
+
+    .footer-links h4 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .footer-links a {
+      display: block;
+      color: rgba(255, 255, 255, 0.5);
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin-bottom: 10px;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary-light);
+    }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      color: rgba(255, 255, 255, 0.35);
+      font-size: 0.82rem;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-bottom-links a {
+      color: rgba(255, 255, 255, 0.35);
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: color 0.3s;
+    }
+
+    .footer-bottom-links a:hover {
+      color: var(--primary-light);
+    }
+
+    /* Scroll Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stagger-1 { transition-delay: 0.1s; }
+    .stagger-2 { transition-delay: 0.2s; }
+    .stagger-3 { transition-delay: 0.3s; }
+    .stagger-4 { transition-delay: 0.4s; }
+
+    /* Section decorative images */
+    .section-image {
+      display: block;
+      max-width: 100%;
+      border-radius: 16px;
+      object-fit: cover;
+    }
+
+    .pricing-section-img-wrap {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .pricing-section-img-wrap img {
+      width: 100%;
+      max-width: 600px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    }
+
+    .benefits-img-wrap {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .benefits-img-wrap img {
+      width: 100%;
+      max-width: 700px;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .process-img-wrap {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .process-img-wrap img {
+      width: 100%;
+      max-width: 600px;
+      height: 240px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      border: 2px solid rgba(8, 145, 178, 0.2);
+    }
+
+    .review-avatar img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .header { padding: 12px 40px; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 420px; }
+      .pricing-card.featured { transform: none; }
+      .pricing-card.featured:hover { transform: translateY(-6px); }
+      .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+      .reviews-grid { grid-template-columns: 1fr; max-width: 520px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .process-steps { flex-wrap: wrap; gap: 40px; }
+      .process-step { flex: none; width: 45%; }
+      .step-connector { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-btn { display: flex; }
+      .mobile-menu-overlay.active { display: flex; }
+
+      .header { padding: 10px 20px; }
+      .nav { display: none; }
+      .header-cta { display: none; }
+
+      .hero {
+        min-height: auto;
+        padding: 120px 20px 60px;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.82) 0%, rgba(15, 23, 42, 0.92) 100%),
+                    url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80') center/cover no-repeat;
+      }
+
+      .hero-title { font-size: 2rem; }
+      .hero-desc { font-size: 0.95rem; }
+      .hero-btns { flex-direction: column; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; text-align: center; }
+      .trust-strip { flex-direction: column; gap: 16px; align-items: center; }
+
+      .carriers { padding: 24px 20px; }
+      .carriers-inner { flex-direction: column; gap: 16px; }
+      .carrier-logos { gap: 24px; }
+
+      .pricing { padding: 60px 20px; }
+      .pricing-grid { max-width: 100%; }
+      .pricing-card { padding: 32px 24px; }
+      .pricing-card.featured { padding: 40px 24px; }
+
+      .benefits { padding: 60px 20px; }
+      .benefits-grid { grid-template-columns: 1fr; max-width: 380px; margin: 0 auto; }
+
+      .process { padding: 60px 20px; }
+      .process-steps { flex-direction: column; gap: 32px; }
+      .process-step { width: 100%; }
+      .step-connector { display: none; }
+
+      .reviews { padding: 60px 20px; }
+
+      .faq { padding: 60px 20px; }
+      .faq-question { padding: 16px 18px; font-size: 0.9rem; }
+      .faq-answer-inner { padding-left: 48px; }
+
+      .consult { padding: 60px 20px; }
+      .consult-container { padding: 36px 24px; }
+      .form-grid { grid-template-columns: 1fr; }
+
+      .section-title { font-size: 1.8rem; }
+
+      .footer { padding: 48px 20px 24px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <a href="#" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <circle cx="12" cy="12" r="6"/>
+          <circle cx="12" cy="12" r="2"/>
+        </svg>
+      </div>
+      <span class="logo-text">넷<span>플러스</span></span>
+    </a>
+    <nav class="nav">
+      <a href="#pricing" class="active">요금제</a>
+      <a href="#benefits">혜택</a>
+      <a href="#process">설치안내</a>
+      <a href="#reviews">고객후기</a>
+    </nav>
+    <a href="#consult" class="header-cta">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      무료 상담
+    </a>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu-overlay" id="mobileMenu">
+    <nav class="mobile-nav">
+      <a href="#pricing" onclick="toggleMobileMenu()">요금제</a>
+      <a href="#benefits" onclick="toggleMobileMenu()">혜택</a>
+      <a href="#process" onclick="toggleMobileMenu()">설치안내</a>
+      <a href="#reviews" onclick="toggleMobileMenu()">고객후기</a>
+      <a href="#faq" onclick="toggleMobileMenu()">자주 묻는 질문</a>
+      <a href="#consult" class="mobile-cta" onclick="toggleMobileMenu()">무료 상담 신청</a>
+    </nav>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+        전 통신사 공식 파트너
+      </div>
+      <h1 class="hero-title">초고속 인터넷,<br>가장 <span>합리적인 가격</span>으로</h1>
+      <p class="hero-desc">
+        <strong>KT, SKT, LG U+</strong> 전 통신사 비교 | <strong>당일 설치</strong> 가능 | 최대 <strong>30만원 사은품</strong>
+      </p>
+      <div class="hero-btns">
+        <a href="#pricing" class="btn-primary">
+          요금 비교하기
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a href="#consult" class="btn-secondary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          무료 상담 신청
+        </a>
+      </div>
+      <div class="trust-strip">
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          가입자 <strong>50,000+</strong>
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+          <strong>당일설치</strong> 가능
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          만족도 <strong>98%</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Carrier Logos -->
+  <div class="carriers">
+    <div class="carriers-inner">
+      <span class="carrier-label">공식 제휴 통신사</span>
+      <div class="carrier-logos">
+        <div class="carrier-logo">
+          <svg viewBox="0 0 32 32" fill="currentColor"><rect x="2" y="10" width="8" height="12" rx="2"/><rect x="12" y="6" width="8" height="20" rx="2"/><rect x="22" y="14" width="8" height="8" rx="2"/></svg>
+          KT
+        </div>
+        <div class="carrier-logo">
+          <svg viewBox="0 0 32 32" fill="currentColor"><circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="16" cy="16" r="5"/></svg>
+          SK broadband
+        </div>
+        <div class="carrier-logo">
+          <svg viewBox="0 0 32 32" fill="currentColor"><path d="M4 8h8v16H4zM14 4h8v24h-8zM24 12h4v8h-4z" rx="2"/></svg>
+          LG U+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pricing Plans -->
+  <section class="pricing" id="pricing">
+    <div class="section-header">
+      <div class="section-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+        </svg>
+        Pricing Plans
+      </div>
+      <h2 class="section-title">나에게 딱 맞는 <span>요금제</span></h2>
+      <p class="section-desc">합리적인 가격으로 초고속 인터넷을 만나보세요</p>
+    </div>
+    <div class="pricing-section-img-wrap reveal">
+      <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600&q=80" loading="lazy" alt="고성능 와이파이 공유기 장비">
+    </div>
+    <div class="pricing-grid">
+
+      <!-- Plan 1 -->
+      <div class="pricing-card animate-on-scroll stagger-1">
+        <div class="pricing-name">인터넷 단독</div>
+        <div class="pricing-speed">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+          500Mbps
+        </div>
+        <div class="pricing-price">
+          <div class="label">월 이용료</div>
+          <div class="amount">22,000<span class="unit">원</span></div>
+        </div>
+        <ul class="pricing-features">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            500Mbps 안정적 속도
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            설치비 무료
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Wi-Fi 공유기 무료 제공
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            24시간 기술 지원
+          </li>
+        </ul>
+        <div class="pricing-gift">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5" rx="1"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+          </svg>
+          사은품 10만원
+        </div>
+        <a href="#consult" class="pricing-btn outline">가입 상담하기</a>
+      </div>
+
+      <!-- Plan 2 (BEST) -->
+      <div class="pricing-card featured animate-on-scroll stagger-2">
+        <div class="pricing-badge">BEST</div>
+        <div class="pricing-name">인터넷+TV 결합</div>
+        <div class="pricing-speed">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+          1Gbps
+        </div>
+        <div class="pricing-price">
+          <div class="label">월 이용료</div>
+          <div class="amount">33,000<span class="unit">원</span></div>
+        </div>
+        <ul class="pricing-features">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            1Gbps 초고속 인터넷
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            TV 200+ 채널 포함
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            설치비 무료
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Wi-Fi 공유기 무료 제공
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            셋톱박스 무료 제공
+          </li>
+        </ul>
+        <div class="pricing-gift">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5" rx="1"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+          </svg>
+          사은품 20만원
+        </div>
+        <a href="#consult" class="pricing-btn primary">가입 상담하기</a>
+      </div>
+
+      <!-- Plan 3 -->
+      <div class="pricing-card animate-on-scroll stagger-3">
+        <div class="pricing-name">트리플 결합</div>
+        <div class="pricing-speed">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+          1Gbps + TV + 모바일
+        </div>
+        <div class="pricing-price">
+          <div class="label">월 이용료</div>
+          <div class="amount">49,000<span class="unit">원</span></div>
+        </div>
+        <ul class="pricing-features">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            1Gbps 초고속 인터넷
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            TV 200+ 채널 포함
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            모바일 데이터 결합 할인
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            설치비 무료
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            전 기기 무료 제공
+          </li>
+        </ul>
+        <div class="pricing-gift">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5" rx="1"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+          </svg>
+          사은품 30만원
+        </div>
+        <a href="#consult" class="pricing-btn outline">가입 상담하기</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="benefits" id="benefits">
+    <div class="section-header">
+      <div class="section-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+        </svg>
+        Benefits
+      </div>
+      <h2 class="section-title">넷플러스만의 <span>특별 혜택</span></h2>
+      <p class="section-desc">고객님께 드리는 넷플러스의 약속</p>
+    </div>
+    <div class="benefits-img-wrap reveal">
+      <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=500&q=80" loading="lazy" alt="가족이 함께 TV를 시청하는 홈 엔터테인먼트 장면">
+    </div>
+    <div class="benefits-grid">
+
+      <div class="benefit-card animate-on-scroll stagger-1">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <div class="benefit-title">현금 사은품 최대 30만원</div>
+        <div class="benefit-desc">가입 즉시 현금 사은품을 지급해 드립니다. 결합 상품일수록 더 큰 혜택!</div>
+      </div>
+
+      <div class="benefit-card animate-on-scroll stagger-2">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+        </div>
+        <div class="benefit-title">당일 설치 서비스</div>
+        <div class="benefit-desc">신청 당일 전문 기사가 방문하여 빠르고 정확하게 설치해 드립니다.</div>
+      </div>
+
+      <div class="benefit-card animate-on-scroll stagger-3">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <div class="benefit-title">위약금 지원 최대 20만원</div>
+        <div class="benefit-desc">기존 통신사 위약금을 최대 20만원까지 지원해 드려 부담 없이 갈아탈 수 있습니다.</div>
+      </div>
+
+      <div class="benefit-card animate-on-scroll stagger-4">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
+        <div class="benefit-title">전문 상담사 1:1 배정</div>
+        <div class="benefit-desc">전담 상담사가 가입부터 설치까지 1:1로 안내하여 최적의 요금제를 찾아드립니다.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Installation Process -->
+  <section class="process" id="process">
+    <div class="section-header">
+      <div class="section-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+        Process
+      </div>
+      <h2 class="section-title">간편한 <span>설치 과정</span></h2>
+      <p class="section-desc" style="color: rgba(255,255,255,0.5);">신청부터 개통까지, 4단계로 간편하게</p>
+    </div>
+    <div class="process-img-wrap reveal">
+      <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500&q=80" loading="lazy" alt="전문 기사가 인터넷 설치 작업을 진행하는 모습">
+    </div>
+    <div class="process-steps">
+
+      <div class="process-step animate-on-scroll stagger-1">
+        <div class="step-connector"></div>
+        <div class="step-circle">
+          <span class="step-number">1</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <div class="step-title">상담 신청</div>
+        <div class="step-desc">온라인 또는 전화로<br>간편하게 상담 신청</div>
+      </div>
+
+      <div class="process-step animate-on-scroll stagger-2">
+        <div class="step-connector"></div>
+        <div class="step-circle">
+          <span class="step-number">2</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+        </div>
+        <div class="step-title">맞춤 요금 안내</div>
+        <div class="step-desc">전담 상담사가<br>최적 요금제 비교 안내</div>
+      </div>
+
+      <div class="process-step animate-on-scroll stagger-3">
+        <div class="step-connector"></div>
+        <div class="step-circle">
+          <span class="step-number">3</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </div>
+        <div class="step-title">설치 예약</div>
+        <div class="step-desc">원하시는 날짜와 시간에<br>설치 일정 확정</div>
+      </div>
+
+      <div class="process-step animate-on-scroll stagger-4">
+        <div class="step-circle">
+          <span class="step-number">4</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <div class="step-title">당일 개통</div>
+        <div class="step-desc">전문 기사 방문 설치 후<br>바로 사용 가능</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Customer Reviews -->
+  <section class="reviews" id="reviews">
+    <div class="section-header">
+      <div class="section-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+        Reviews
+      </div>
+      <h2 class="section-title">고객님의 <span>생생한 후기</span></h2>
+      <p class="section-desc">넷플러스를 선택하신 분들의 이야기</p>
+    </div>
+    <div class="reviews-grid">
+
+      <div class="review-card animate-on-scroll stagger-1">
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="review-text">
+          이사하면서 인터넷 바꿨는데 사은품도 넉넉하고 설치 당일에 바로 와주셔서 편했어요. 속도도 빠르고 가격도 합리적이라 만족합니다.
+        </p>
+        <div class="review-author">
+          <div class="review-avatar"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80" loading="lazy" alt="고객 김OO 프로필 사진"></div>
+          <div>
+            <div class="review-name">김OO</div>
+            <div class="review-plan">인터넷+TV 결합</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card animate-on-scroll stagger-2">
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="review-text">
+          다른 곳보다 월 요금이 확실히 저렴해요. 속도도 빠르고 만족합니다. 트리플 결합으로 가족 모두 혜택을 받고 있어요.
+        </p>
+        <div class="review-author">
+          <div class="review-avatar"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" loading="lazy" alt="고객 이OO 프로필 사진"></div>
+          <div>
+            <div class="review-name">이OO</div>
+            <div class="review-plan">트리플 결합</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card animate-on-scroll stagger-3">
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="review-text">
+          상담사분이 친절하게 비교해주셔서 최적의 요금제를 찾을 수 있었어요. 위약금 지원까지 받아서 부담 없이 변경했습니다.
+        </p>
+        <div class="review-author">
+          <div class="review-avatar"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80" loading="lazy" alt="고객 박OO 프로필 사진"></div>
+          <div>
+            <div class="review-name">박OO</div>
+            <div class="review-plan">인터넷 단독</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="section-header">
+      <div class="section-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+        FAQ
+      </div>
+      <h2 class="section-title">자주 묻는 <span>질문</span></h2>
+      <p class="section-desc">궁금한 점을 빠르게 확인하세요</p>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="q-label">Q</span>
+          <span class="q-text">설치까지 얼마나 걸리나요?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            상담 완료 후 최소 1일, 최대 3일 이내에 설치가 완료됩니다. 지역 및 상황에 따라 당일 설치도 가능하며, 원하시는 날짜와 시간에 맞춰 예약할 수 있습니다.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="q-label">Q</span>
+          <span class="q-text">사은품은 언제 받을 수 있나요?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            설치 완료 후 3영업일 이내에 등록하신 계좌로 현금 사은품이 입금됩니다. 일부 상품의 경우 설치 확인 후 익월에 지급될 수 있으며, 상세 일정은 상담 시 안내드립니다.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="q-label">Q</span>
+          <span class="q-text">기존 약정이 있어도 가입 가능한가요?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            네, 가능합니다. 기존 통신사의 위약금을 최대 20만원까지 지원해 드리고 있어 부담 없이 변경하실 수 있습니다. 정확한 위약금 금액과 지원 범위는 상담 시 확인해 드립니다.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="q-label">Q</span>
+          <span class="q-text">이사 시 이전 설치도 가능한가요?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            네, 이전 설치 서비스를 무료로 제공하고 있습니다. 이사 예정일 3일 전까지 연락 주시면 이사 당일에 맞춰 설치 기사가 방문하여 새 주소지에서 바로 인터넷을 사용하실 수 있습니다.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="q-label">Q</span>
+          <span class="q-text">해지 위약금은 어떻게 되나요?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            약정 기간은 상품에 따라 2년 또는 3년이며, 약정 기간 내 해지 시 잔여 기간에 비례하여 위약금이 발생합니다. 정확한 위약금은 가입 시 상세히 안내드리며, 약정 만료 후에는 위약금 없이 자유롭게 해지 가능합니다.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Consultation Form -->
+  <section class="consult" id="consult">
+    <div class="section-header">
+      <div class="section-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+        </svg>
+        Consultation
+      </div>
+      <h2 class="section-title">무료 <span>상담 신청</span></h2>
+      <p class="section-desc">전문 상담사가 최적의 요금제를 찾아드립니다</p>
+    </div>
+    <div class="consult-container">
+      <form onsubmit="handleSubmit(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>이름 <span class="required">*</span></label>
+            <input type="text" placeholder="홍길동" required>
+          </div>
+          <div class="form-group">
+            <label>연락처 <span class="required">*</span></label>
+            <input type="tel" placeholder="010-0000-0000" required>
+          </div>
+          <div class="form-group">
+            <label>희망 상품 <span class="required">*</span></label>
+            <select required>
+              <option value="" disabled selected>상품을 선택해 주세요</option>
+              <option value="internet">인터넷 단독 (500Mbps)</option>
+              <option value="internet-tv">인터넷+TV 결합 (1Gbps)</option>
+              <option value="triple">트리플 결합 (인터넷+TV+모바일)</option>
+              <option value="consult">잘 모르겠어요 (상담 희망)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>설치 주소 <span class="required">*</span></label>
+            <input type="text" placeholder="설치 희망 주소" required>
+          </div>
+          <div class="form-group full">
+            <label>요청사항</label>
+            <textarea placeholder="추가 요청사항이 있으시면 입력해 주세요 (예: 희망 설치 일자, 기존 통신사 정보 등)"></textarea>
+          </div>
+          <div class="form-agreement">
+            <input type="checkbox" id="agree" required>
+            <label for="agree">개인정보 수집 및 이용에 동의합니다. 수집된 정보는 상담 목적으로만 사용됩니다.</label>
+          </div>
+          <div class="form-submit">
+            <button type="submit">
+              무료 상담 신청하기
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </div>
+          <div class="form-note">
+            평일 09:00~18:00 접수 시 당일 상담 가능 | 주말/공휴일은 익영업일 연락드립니다
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <div class="logo-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <circle cx="12" cy="12" r="6"/>
+              <circle cx="12" cy="12" r="2"/>
+            </svg>
+          </div>
+          <span class="logo-text">넷<span>플러스</span></span>
+        </a>
+        <p>
+          전 통신사 인터넷 가입 전문 플랫폼<br>
+          합리적인 가격과 풍성한 혜택으로 50,000+<br>
+          고객님의 선택을 받았습니다.
+        </p>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          1588-0000
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+          평일 09:00 - 18:00 / 주말 예약 상담
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+          </svg>
+          contact@netplus.co.kr
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>요금제</h4>
+        <a href="#pricing">인터넷 단독</a>
+        <a href="#pricing">인터넷+TV 결합</a>
+        <a href="#pricing">트리플 결합</a>
+        <a href="#pricing">요금 비교하기</a>
+      </div>
+      <div class="footer-links">
+        <h4>고객 지원</h4>
+        <a href="#faq">자주 묻는 질문</a>
+        <a href="#consult">상담 신청</a>
+        <a href="#process">설치 안내</a>
+        <a href="#reviews">고객 후기</a>
+      </div>
+      <div class="footer-links">
+        <h4>제휴 통신사</h4>
+        <a href="#">KT</a>
+        <a href="#">SK broadband</a>
+        <a href="#">LG U+</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 넷플러스. All rights reserved. 사업자등록번호: 123-45-67890</p>
+      <div class="footer-bottom-links">
+        <a href="#">개인정보처리방침</a>
+        <a href="#">이용약관</a>
+        <a href="#">사업자정보확인</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      var btn = document.querySelector('.mobile-menu-btn');
+      var overlay = document.getElementById('mobileMenu');
+      btn.classList.toggle('active');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : '';
+    }
+
+    // Header scroll effect
+    var header = document.getElementById('header');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // FAQ Accordion
+    function toggleFaq(btn) {
+      var item = btn.closest('.faq-item');
+      var answer = item.querySelector('.faq-answer');
+      var isActive = item.classList.contains('active');
+
+      // Close all other FAQ items
+      document.querySelectorAll('.faq-item').forEach(function(el) {
+        el.classList.remove('active');
+        el.querySelector('.faq-answer').style.maxHeight = null;
+      });
+
+      // Toggle current item
+      if (!isActive) {
+        item.classList.add('active');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    }
+
+    // Scroll animations with IntersectionObserver
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.animate-on-scroll').forEach(function(el) {
+      observer.observe(el);
+    });
+
+    // Auto-add scroll animation to section headers
+    document.querySelectorAll('.section-header').forEach(function(el) {
+      el.classList.add('animate-on-scroll');
+      observer.observe(el);
+    });
+
+    // Auto-add scroll animation to other elements
+    document.querySelectorAll('.consult-container').forEach(function(el) {
+      el.classList.add('animate-on-scroll');
+      observer.observe(el);
+    });
+
+    // Reveal animation observer for .reveal elements
+    var revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      revealObserver.observe(el);
+    });
+
+    // Apply .reveal to major sections for scroll entrance
+    document.querySelectorAll('.carriers, .faq, .faq-list').forEach(function(el) {
+      el.classList.add('reveal');
+      revealObserver.observe(el);
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+      anchor.addEventListener('click', function(e) {
+        var targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        var target = document.querySelector(targetId);
+        if (target) {
+          e.preventDefault();
+          var offset = 80;
+          var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Form submit handler
+    function handleSubmit(e) {
+      e.preventDefault();
+      var btn = e.target.querySelector('button[type="submit"]');
+      var originalText = btn.innerHTML;
+      btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 신청이 완료되었습니다!';
+      btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+      btn.disabled = true;
+
+      setTimeout(function() {
+        btn.innerHTML = originalText;
+        btn.style.background = '';
+        btn.disabled = false;
+        e.target.reset();
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

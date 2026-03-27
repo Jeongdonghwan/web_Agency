@@ -610,6 +610,18 @@
     .mobile-menu-overlay.active .mobile-nav a:nth-child(3) { transition-delay: 0.3s; }
     .mobile-menu-overlay.active .mobile-nav a:nth-child(4) { transition-delay: 0.4s; }
 
+    /* Scroll Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* Responsive */
     @media (max-width: 1024px) {
       .header {
@@ -747,103 +759,103 @@
 
   <section class="gallery-section">
     <div class="gallery-grid">
-      <div class="gallery-item large" onclick="openLightbox(this)">
-        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&q=80" alt="Nail Art 1">
+      <div class="gallery-item large reveal" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&q=80" loading="lazy" alt="프렌치 그라데이션 젤 네일 아트">
         <div class="gallery-overlay">
-          <span class="gallery-category">아트 네일</span>
-          <h3 class="gallery-title">로즈 글리터 아트</h3>
+          <span class="gallery-category">젤 네일</span>
+          <h3 class="gallery-title">프렌치 그라데이션</h3>
         </div>
       </div>
-      <div class="gallery-item" onclick="openLightbox(this)">
-        <img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=600&q=80" alt="Nail Art 2">
+      <div class="gallery-item reveal" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=600&q=80" loading="lazy" alt="클래식 레드 젤 네일">
         <div class="gallery-overlay">
           <span class="gallery-category">젤 네일</span>
           <h3 class="gallery-title">클래식 레드</h3>
         </div>
       </div>
-      <div class="gallery-item" onclick="openLightbox(this)">
-        <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600&q=80" alt="Nail Art 3">
-        <div class="gallery-overlay">
-          <span class="gallery-category">시즌 컬렉션</span>
-          <h3 class="gallery-title">윈터 원더랜드</h3>
-        </div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox(this)">
-        <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=600&q=80" alt="Nail Art 4">
+      <div class="gallery-item reveal" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1636018895032-aaab6a5c0b98?w=600&q=80" loading="lazy" alt="크리스탈 디자인 아트 네일">
         <div class="gallery-overlay">
           <span class="gallery-category">아트 네일</span>
-          <h3 class="gallery-title">마블 패턴</h3>
+          <h3 class="gallery-title">크리스탈 디자인</h3>
         </div>
       </div>
-      <div class="gallery-item" onclick="openLightbox(this)">
-        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=80" alt="Nail Art 5">
-        <div class="gallery-overlay">
-          <span class="gallery-category">웨딩</span>
-          <h3 class="gallery-title">브라이덜 화이트</h3>
-        </div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox(this)">
-        <img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=600&q=80" alt="Nail Art 6">
+      <div class="gallery-item reveal" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=600&q=80" loading="lazy" alt="미니멀 시크 젤 네일">
         <div class="gallery-overlay">
           <span class="gallery-category">젤 네일</span>
-          <h3 class="gallery-title">프렌치 팁</h3>
+          <h3 class="gallery-title">미니멀 시크</h3>
         </div>
       </div>
-      <div class="gallery-item large" onclick="openLightbox(this)">
-        <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=800&q=80" alt="Nail Art 7">
-        <div class="gallery-overlay">
-          <span class="gallery-category">시즌 컬렉션</span>
-          <h3 class="gallery-title">가을 단풍</h3>
-        </div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox(this)">
-        <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=600&q=80" alt="Nail Art 8">
+      <div class="gallery-item reveal" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600&q=80" loading="lazy" alt="글리터 아트 네일">
         <div class="gallery-overlay">
           <span class="gallery-category">아트 네일</span>
-          <h3 class="gallery-title">플라워 아트</h3>
+          <h3 class="gallery-title">글리터 아트</h3>
         </div>
       </div>
-      <div class="gallery-item" onclick="openLightbox(this)">
-        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=80" alt="Nail Art 9">
-        <div class="gallery-overlay">
-          <span class="gallery-category">젤 네일</span>
-          <h3 class="gallery-title">누드 그라데이션</h3>
-        </div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox(this)">
-        <img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=600&q=80" alt="Nail Art 10">
+      <div class="gallery-item reveal" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1604902396830-aca29e19b067?w=600&q=80" loading="lazy" alt="누드톤 웨딩 네일">
         <div class="gallery-overlay">
           <span class="gallery-category">웨딩</span>
-          <h3 class="gallery-title">펄 스톤 아트</h3>
+          <h3 class="gallery-title">누드톤 웨딩</h3>
         </div>
       </div>
-      <div class="gallery-item" onclick="openLightbox(this)">
-        <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600&q=80" alt="Nail Art 11">
+      <div class="gallery-item large reveal" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?w=800&q=80" loading="lazy" alt="컬러 컬렉션 시즌 네일">
+        <div class="gallery-overlay">
+          <span class="gallery-category">시즌 컬렉션</span>
+          <h3 class="gallery-title">컬러 컬렉션</h3>
+        </div>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1457972729786-0411a3b2b626?w=600&q=80" loading="lazy" alt="봄꽃 플라워 아트 네일">
+        <div class="gallery-overlay">
+          <span class="gallery-category">아트 네일</span>
+          <h3 class="gallery-title">봄꽃 플라워</h3>
+        </div>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1562322140-8baeececf08b?w=600&q=80" loading="lazy" alt="펄 스톤 웨딩 네일">
+        <div class="gallery-overlay">
+          <span class="gallery-category">웨딩</span>
+          <h3 class="gallery-title">펄 스톤</h3>
+        </div>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&q=80" loading="lazy" alt="레오파드 프린트 아트 네일">
         <div class="gallery-overlay">
           <span class="gallery-category">아트 네일</span>
           <h3 class="gallery-title">레오파드 프린트</h3>
         </div>
       </div>
-      <div class="gallery-item" onclick="openLightbox(this)">
-        <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=600&q=80" alt="Nail Art 12">
+      <div class="gallery-item reveal" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1571290274554-6a2eaa74a672?w=600&q=80" loading="lazy" alt="옴브레 스타일 젤 네일">
+        <div class="gallery-overlay">
+          <span class="gallery-category">젤 네일</span>
+          <h3 class="gallery-title">옴브레 스타일</h3>
+        </div>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80" loading="lazy" alt="홀리데이 스페셜 시즌 네일">
         <div class="gallery-overlay">
           <span class="gallery-category">시즌 컬렉션</span>
-          <h3 class="gallery-title">크리스마스 스페셜</h3>
+          <h3 class="gallery-title">홀리데이 스페셜</h3>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="instagram-section">
+  <section class="instagram-section reveal">
     <div class="instagram-card">
-      <div class="instagram-icon">📸</div>
+      <div class="instagram-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></div>
       <h2 class="instagram-title">Follow Us on Instagram</h2>
       <p class="instagram-handle">@nail_atelier_official</p>
       <a href="#" class="instagram-btn">인스타그램 팔로우</a>
     </div>
   </section>
 
-  <section class="cta-section">
+  <section class="cta-section reveal">
     <div class="cta-card">
       <h2 class="cta-title">나만의 네일 아트를 만들어보세요</h2>
       <p class="cta-desc">마음에 드는 디자인을 가지고 상담받으실 수 있습니다</p>
@@ -927,6 +939,20 @@
       overlay.classList.toggle('active');
       document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : '';
     }
+
+    // IntersectionObserver for scroll reveal animations
+    const revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      revealObserver.observe(el);
+    });
   </script>
 </body>
 </html>

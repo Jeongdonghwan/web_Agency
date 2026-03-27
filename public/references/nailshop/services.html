@@ -634,6 +634,17 @@
     .mobile-menu-overlay.active .mobile-nav a:nth-child(3) { transition-delay: 0.3s; }
     .mobile-menu-overlay.active .mobile-nav a:nth-child(4) { transition-delay: 0.4s; }
 
+    /* Scroll Reveal Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* Responsive */
     @media (max-width: 1024px) {
       .header {
@@ -756,9 +767,9 @@
   </section>
 
   <section class="services-section">
-    <div class="menu-category">
+    <div class="menu-category reveal">
       <div class="category-header">
-        <div class="category-icon">💅</div>
+        <div class="category-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 3C7.34 3 6 4.34 6 6v7c0 3.31 2.69 6 6 6s6-2.69 6-6V9h-2v4c0 2.21-1.79 4-4 4s-4-1.79-4-4V6c0-.55.45-1 1-1s1 .45 1 1v7h2V6c0-1.66-1.34-3-3-3z" fill="white"/><path d="M16 3v4h2V3h-2z" fill="white"/></svg></div>
         <h2 class="category-title">젤 네일</h2>
       </div>
       <div class="menu-grid">
@@ -793,9 +804,9 @@
       </div>
     </div>
 
-    <div class="menu-category">
+    <div class="menu-category reveal">
       <div class="category-header">
-        <div class="category-icon">🎨</div>
+        <div class="category-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10c1.38 0 2.5-1.12 2.5-2.5 0-.61-.23-1.2-.64-1.67-.08-.1-.13-.21-.13-.33 0-.28.22-.5.5-.5H16c3.31 0 6-2.69 6-6 0-4.96-4.49-9-10-9zM6.5 13c-.83 0-1.5-.67-1.5-1.5S5.67 10 6.5 10s1.5.67 1.5 1.5S7.33 13 6.5 13zm3-4C8.67 9 8 8.33 8 7.5S8.67 6 9.5 6s1.5.67 1.5 1.5S10.33 9 9.5 9zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 6 14.5 6s1.5.67 1.5 1.5S15.33 9 14.5 9zm3 4c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" fill="white"/></svg></div>
         <h2 class="category-title">네일 아트</h2>
       </div>
       <div class="menu-grid">
@@ -830,9 +841,9 @@
       </div>
     </div>
 
-    <div class="menu-category">
+    <div class="menu-category reveal">
       <div class="category-header">
-        <div class="category-icon">✨</div>
+        <div class="category-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8L12 2z" fill="white"/><path d="M5 5l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3z" fill="white" opacity="0.7"/><path d="M19 3l.8 2.4L22 6.2l-2.2.8L19 9.4l-.8-2.4L16 6.2l2.2-.8L19 3z" fill="white" opacity="0.7"/></svg></div>
         <h2 class="category-title">케어 서비스</h2>
       </div>
       <div class="menu-grid">
@@ -873,10 +884,10 @@
       <span class="section-tag">Special Menu</span>
       <h2 class="section-title">이달의 추천 메뉴</h2>
     </div>
-    <div class="special-grid">
+    <div class="special-grid reveal">
       <div class="special-card">
         <div class="special-image">
-          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=80" alt="겨울 스페셜">
+          <img src="https://images.unsplash.com/photo-1636018895032-aaab6a5c0b98?w=600&q=80" loading="lazy" alt="겨울 스페셜 글리터 네일 아트">
           <span class="special-badge">WINTER SPECIAL</span>
         </div>
         <div class="special-content">
@@ -887,7 +898,7 @@
       </div>
       <div class="special-card">
         <div class="special-image">
-          <img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=600&q=80" alt="커플 네일">
+          <img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=600&q=80" loading="lazy" alt="커플 네일 패키지 디자인">
           <span class="special-badge">COUPLE SET</span>
         </div>
         <div class="special-content">
@@ -898,7 +909,7 @@
       </div>
       <div class="special-card">
         <div class="special-image">
-          <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600&q=80" alt="풀케어">
+          <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600&q=80" loading="lazy" alt="토탈 뷰티 풀케어 네일">
           <span class="special-badge">FULL CARE</span>
         </div>
         <div class="special-content">
@@ -915,10 +926,10 @@
       <span class="section-tag">Our Artists</span>
       <h2 class="section-title">전문 네일 아티스트</h2>
     </div>
-    <div class="artists-grid">
+    <div class="artists-grid reveal">
       <div class="artist-card">
         <div class="artist-image">
-          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&q=80" alt="Artist 1">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&q=80" loading="lazy" alt="네일 아티스트 김예은">
         </div>
         <h3 class="artist-name">김예은</h3>
         <p class="artist-title">Chief Artist</p>
@@ -926,7 +937,7 @@
       </div>
       <div class="artist-card">
         <div class="artist-image">
-          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&q=80" alt="Artist 2">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&q=80" loading="lazy" alt="네일 아티스트 이수진">
         </div>
         <h3 class="artist-name">이수진</h3>
         <p class="artist-title">Senior Artist</p>
@@ -934,7 +945,7 @@
       </div>
       <div class="artist-card">
         <div class="artist-image">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&q=80" alt="Artist 3">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&q=80" loading="lazy" alt="네일 아티스트 박소현">
         </div>
         <h3 class="artist-name">박소현</h3>
         <p class="artist-title">Artist</p>
@@ -942,7 +953,7 @@
       </div>
       <div class="artist-card">
         <div class="artist-image">
-          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&q=80" alt="Artist 4">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&q=80" loading="lazy" alt="네일 아티스트 최민지">
         </div>
         <h3 class="artist-name">최민지</h3>
         <p class="artist-title">Artist</p>
@@ -952,7 +963,7 @@
   </section>
 
   <section class="cta-section">
-    <div class="cta-card">
+    <div class="cta-card reveal">
       <h2 class="cta-title">지금 바로 예약하세요</h2>
       <p class="cta-desc">온라인 예약 시 10% 할인 혜택을 드립니다</p>
       <a href="booking.html" class="cta-btn">예약하기</a>
@@ -994,6 +1005,20 @@
       overlay.classList.toggle('active');
       document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : '';
     }
+
+    // IntersectionObserver for scroll reveal animations
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => {
+      revealObserver.observe(el);
+    });
   </script>
 </body>
 </html>

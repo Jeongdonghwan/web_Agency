@@ -35,6 +35,18 @@
             overflow-x: hidden;
         }
 
+        /* Scroll Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* Intro Screen */
         .intro-screen {
             position: fixed;
@@ -307,7 +319,25 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 50%, #0f2847 100%);
+        }
+
+        .hero-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(5, 10, 18, 0.85) 0%, rgba(13, 27, 42, 0.75) 50%, rgba(15, 40, 71, 0.8) 100%);
+            z-index: 1;
         }
 
         .hero-bg::before {
@@ -319,11 +349,12 @@
             height: 100%;
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(30,144,255,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
             background-size: 100px 100px;
+            z-index: 2;
         }
 
         .hero-content {
             position: relative;
-            z-index: 2;
+            z-index: 3;
             text-align: center;
             max-width: 900px;
             padding: 0 40px;
@@ -499,6 +530,64 @@
             line-height: 1.8;
         }
 
+        /* Values About Layout */
+        .values-about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            max-width: 1400px;
+            margin: 0 auto 80px;
+            align-items: center;
+        }
+
+        .values-about-image {
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .values-about-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .values-about-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 1px solid rgba(30, 144, 255, 0.2);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
+        .values-about-text h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .values-about-text h3 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .values-about-text p {
+            font-size: 1.05rem;
+            color: var(--text-gray);
+            line-height: 1.9;
+            margin-bottom: 15px;
+        }
+
         .values-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -589,6 +678,13 @@
             height: 400px;
             overflow: hidden;
             cursor: pointer;
+        }
+
+        .business-card-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            display: block;
         }
 
         .business-card-bg {
@@ -698,6 +794,108 @@
         .business-card:hover .business-card-link {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* Team & Culture Section */
+        .team-culture {
+            padding: 120px 60px;
+            background: var(--bg-darker);
+        }
+
+        .team-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .team-image {
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .team-image img {
+            width: 100%;
+            height: 480px;
+            object-fit: cover;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .team-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(to top, rgba(5, 10, 18, 0.6), transparent);
+            pointer-events: none;
+            border-radius: 4px;
+        }
+
+        .team-text h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            line-height: 1.3;
+        }
+
+        .team-text h3 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .team-text p {
+            font-size: 1.05rem;
+            color: var(--text-gray);
+            line-height: 1.9;
+            margin-bottom: 15px;
+        }
+
+        .team-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .team-stat-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(30, 144, 255, 0.15);
+            padding: 25px 20px;
+            text-align: center;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .team-stat-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: var(--glow-cyan);
+            transform: translateY(-5px);
+        }
+
+        .team-stat-card .stat-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .team-stat-card .stat-text {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            letter-spacing: 0.05em;
         }
 
         /* Stats Section */
@@ -928,6 +1126,14 @@
             .footer-content {
                 grid-template-columns: 1fr 1fr;
             }
+
+            .values-about {
+                gap: 40px;
+            }
+
+            .team-layout {
+                gap: 40px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -966,7 +1172,8 @@
 
             .values,
             .business,
-            .stats {
+            .stats,
+            .team-culture {
                 padding: 80px 25px;
             }
 
@@ -980,8 +1187,43 @@
                 grid-template-columns: 1fr;
             }
 
+            .values-about {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .values-about-image img {
+                height: 280px;
+            }
+
+            .values-about-text h3 {
+                font-size: 1.6rem;
+            }
+
             .business-card {
                 height: 300px;
+            }
+
+            .business-card-img {
+                height: 120px;
+            }
+
+            .team-layout {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .team-image img {
+                height: 300px;
+            }
+
+            .team-text h3 {
+                font-size: 1.6rem;
+            }
+
+            .team-stats {
+                grid-template-columns: 1fr;
+                gap: 15px;
             }
 
             .stat-number {
@@ -1089,7 +1331,10 @@
         <div class="swiper hero-swiper">
             <div class="swiper-wrapper">
                 <div class="swiper-slide hero-slide">
-                    <div class="hero-bg"></div>
+                    <div class="hero-bg">
+                        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1600&q=80" alt="팀원들이 함께 기술 프로젝트를 진행하는 모습" class="hero-bg-image" loading="lazy" style="object-fit: cover;">
+                        <div class="hero-bg-overlay"></div>
+                    </div>
                     <div class="hero-content">
                         <p class="hero-subtitle">Leading Technology Innovation</p>
                         <h1 class="hero-title">미래를 설계하는<br><span>기술 혁신</span>의 파트너</h1>
@@ -1103,7 +1348,10 @@
                     </div>
                 </div>
                 <div class="swiper-slide hero-slide">
-                    <div class="hero-bg" style="background: linear-gradient(135deg, #0a1525 0%, #1a2d4a 50%, #0d1b2a 100%);"></div>
+                    <div class="hero-bg">
+                        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1600&q=80" alt="첨단 기술 환경에서 협업하는 전문가들" class="hero-bg-image" loading="lazy" style="object-fit: cover;">
+                        <div class="hero-bg-overlay" style="background: linear-gradient(135deg, rgba(10, 21, 37, 0.9) 0%, rgba(26, 45, 74, 0.8) 50%, rgba(13, 27, 42, 0.85) 100%);"></div>
+                    </div>
                     <div class="hero-content">
                         <p class="hero-subtitle">Smart Manufacturing</p>
                         <h1 class="hero-title">스마트 제조의<br><span>새로운 기준</span></h1>
@@ -1126,34 +1374,44 @@
 
     <!-- Values Section -->
     <section class="values">
-        <div class="section-header">
+        <div class="section-header reveal">
             <p class="section-tag">Core Values</p>
             <h2 class="section-title">TECHWAVE의 핵심 가치</h2>
             <p class="section-desc">우리는 끊임없는 혁신과 기술 발전을 통해 고객에게 최고의 가치를 전달합니다.</p>
         </div>
+        <div class="values-about reveal">
+            <div class="values-about-image">
+                <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&q=80" alt="첨단 기술과 혁신을 상징하는 이미지" loading="lazy" style="object-fit: cover; max-width: 500px; border-radius: 16px;">
+            </div>
+            <div class="values-about-text">
+                <h3>최첨단 기술로<br><span>더 나은 미래</span>를 설계합니다</h3>
+                <p>TECHWAVE는 2005년 설립 이래 끊임없는 연구개발과 기술 혁신을 통해 대한민국을 대표하는 IT 기술 기업으로 성장했습니다.</p>
+                <p>고객의 비즈니스 환경을 깊이 이해하고, 맞춤형 솔루션을 제공하여 디지털 전환의 성공적인 파트너가 되겠습니다.</p>
+            </div>
+        </div>
         <div class="values-grid">
-            <div class="value-card">
+            <div class="value-card reveal">
                 <div class="value-icon">
                     <i class="fas fa-lightbulb"></i>
                 </div>
                 <h3>혁신 Innovation</h3>
                 <p>끊임없는 연구개발로 시장을 선도하는 혁신적인 기술과 솔루션을 제공합니다.</p>
             </div>
-            <div class="value-card">
+            <div class="value-card reveal">
                 <div class="value-icon">
                     <i class="fas fa-shield-alt"></i>
                 </div>
                 <h3>신뢰 Trust</h3>
                 <p>투명한 경영과 정직한 소통으로 고객과 파트너사의 신뢰를 최우선으로 합니다.</p>
             </div>
-            <div class="value-card">
+            <div class="value-card reveal">
                 <div class="value-icon">
                     <i class="fas fa-users"></i>
                 </div>
                 <h3>협력 Collaboration</h3>
                 <p>열린 마음으로 협력하고, 함께 성장하는 파트너십을 추구합니다.</p>
             </div>
-            <div class="value-card">
+            <div class="value-card reveal">
                 <div class="value-icon">
                     <i class="fas fa-chart-line"></i>
                 </div>
@@ -1165,51 +1423,55 @@
 
     <!-- Business Section -->
     <section class="business">
-        <div class="section-header">
+        <div class="section-header reveal">
             <p class="section-tag">Business Area</p>
             <h2 class="section-title">사업분야</h2>
             <p class="section-desc">다양한 산업 분야에서 차별화된 기술력으로 최적의 솔루션을 제공합니다.</p>
         </div>
         <div class="business-grid">
-            <div class="business-card">
+            <div class="business-card reveal">
+                <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&q=80" alt="인공지능 시각화와 머신러닝 기술" class="business-card-img" loading="lazy" style="object-fit: cover;">
                 <div class="business-card-bg"></div>
                 <div class="business-card-content">
                     <p class="business-card-num">01</p>
-                    <h3>스마트 팩토리</h3>
-                    <p>AI와 IoT 기반의 지능형 생산 시스템으로 제조 혁신을 실현합니다.</p>
+                    <h3>AI / 데이터</h3>
+                    <p>인공지능과 빅데이터 분석 기술로 비즈니스 인사이트를 도출하고 혁신을 가속화합니다.</p>
                     <a href="business.html" class="business-card-link">
                         자세히 보기 <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
-            <div class="business-card">
+            <div class="business-card reveal">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&q=80" alt="클라우드 데이터센터와 네트워크 인프라" class="business-card-img" loading="lazy" style="object-fit: cover;">
                 <div class="business-card-bg"></div>
                 <div class="business-card-content">
                     <p class="business-card-num">02</p>
-                    <h3>산업 자동화</h3>
-                    <p>로봇 공학과 자동화 기술로 생산성과 효율성을 극대화합니다.</p>
+                    <h3>클라우드 솔루션</h3>
+                    <p>안정적이고 확장 가능한 클라우드 인프라로 비즈니스의 디지털 전환을 지원합니다.</p>
                     <a href="business.html" class="business-card-link">
                         자세히 보기 <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
-            <div class="business-card">
+            <div class="business-card reveal">
+                <img src="https://images.unsplash.com/photo-1563986768609-322da13575f2?w=400&q=80" alt="사이버 보안 기술과 데이터 보호" class="business-card-img" loading="lazy" style="object-fit: cover;">
                 <div class="business-card-bg"></div>
                 <div class="business-card-content">
                     <p class="business-card-num">03</p>
-                    <h3>에너지 솔루션</h3>
-                    <p>친환경 에너지 기술로 지속 가능한 미래를 함께 만들어갑니다.</p>
+                    <h3>보안 솔루션</h3>
+                    <p>최신 보안 기술로 기업의 핵심 자산과 데이터를 안전하게 보호합니다.</p>
                     <a href="business.html" class="business-card-link">
                         자세히 보기 <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
-            <div class="business-card">
+            <div class="business-card reveal">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&q=80" alt="전문 컨설턴트의 비즈니스 미팅 현장" class="business-card-img" loading="lazy" style="object-fit: cover;">
                 <div class="business-card-bg"></div>
                 <div class="business-card-content">
                     <p class="business-card-num">04</p>
-                    <h3>IT 인프라</h3>
-                    <p>클라우드와 보안 솔루션으로 안정적인 IT 환경을 구축합니다.</p>
+                    <h3>IT 컨설팅</h3>
+                    <p>풍부한 경험의 전문가가 최적의 IT 전략을 수립하고 실행을 지원합니다.</p>
                     <a href="business.html" class="business-card-link">
                         자세히 보기 <i class="fas fa-arrow-right"></i>
                     </a>
@@ -1218,22 +1480,55 @@
         </div>
     </section>
 
+    <!-- Team & Culture Section -->
+    <section class="team-culture">
+        <div class="section-header reveal">
+            <p class="section-tag">Team &amp; Culture</p>
+            <h2 class="section-title">팀 &amp; 문화</h2>
+            <p class="section-desc">TECHWAVE의 가장 큰 자산은 열정적이고 창의적인 구성원들입니다.</p>
+        </div>
+        <div class="team-layout">
+            <div class="team-image reveal">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" alt="TECHWAVE 팀원들이 함께 협업하며 아이디어를 논의하는 모습" loading="lazy" style="object-fit: cover;">
+            </div>
+            <div class="team-text reveal">
+                <h3>함께 성장하는<br><span>혁신의 문화</span></h3>
+                <p>TECHWAVE는 100명 이상의 각 분야 전문가들이 모여, 기술 혁신과 고객 가치 창출에 매진하고 있습니다. 자유로운 소통과 수평적 조직 문화를 바탕으로, 모든 구성원이 주도적으로 아이디어를 제안하고 실현할 수 있는 환경을 만들어갑니다.</p>
+                <p>지속적인 학습과 도전을 장려하며, 개인의 성장이 곧 회사의 성장이라는 믿음 아래 다양한 교육 프로그램과 글로벌 프로젝트 참여 기회를 제공합니다.</p>
+                <div class="team-stats">
+                    <div class="team-stat-card">
+                        <div class="stat-value">100+</div>
+                        <div class="stat-text">전문 인력</div>
+                    </div>
+                    <div class="team-stat-card">
+                        <div class="stat-value">50+</div>
+                        <div class="stat-text">글로벌 프로젝트</div>
+                    </div>
+                    <div class="team-stat-card">
+                        <div class="stat-value">98%</div>
+                        <div class="stat-text">고객 만족도</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Stats Section -->
     <section class="stats">
         <div class="stats-grid">
-            <div class="stat-item">
+            <div class="stat-item reveal">
                 <div class="stat-number" data-target="2005">2005</div>
                 <p class="stat-label">설립연도</p>
             </div>
-            <div class="stat-item">
+            <div class="stat-item reveal">
                 <div class="stat-number" data-target="350">0<span>+</span></div>
                 <p class="stat-label">전문 인력</p>
             </div>
-            <div class="stat-item">
+            <div class="stat-item reveal">
                 <div class="stat-number" data-target="1200">0<span>+</span></div>
                 <p class="stat-label">완료 프로젝트</p>
             </div>
-            <div class="stat-item">
+            <div class="stat-item reveal">
                 <div class="stat-number" data-target="98">0<span>%</span></div>
                 <p class="stat-label">고객 만족도</p>
             </div>
@@ -1277,10 +1572,10 @@
             <div class="footer-column">
                 <h4>사업분야</h4>
                 <ul>
-                    <li><a href="business.html">스마트 팩토리</a></li>
-                    <li><a href="business.html">산업 자동화</a></li>
-                    <li><a href="business.html">에너지 솔루션</a></li>
-                    <li><a href="business.html">IT 인프라</a></li>
+                    <li><a href="business.html">AI / 데이터</a></li>
+                    <li><a href="business.html">클라우드 솔루션</a></li>
+                    <li><a href="business.html">보안 솔루션</a></li>
+                    <li><a href="business.html">IT 컨설팅</a></li>
                 </ul>
             </div>
             <div class="footer-column footer-contact">
@@ -1386,15 +1681,34 @@
 
         // Intersection Observer for counter animation
         const statsSection = document.querySelector('.stats');
-        const observer = new IntersectionObserver((entries) => {
+        const counterObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     animateCounters();
-                    observer.unobserve(entry.target);
+                    counterObserver.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.5 });
-        observer.observe(statsSection);
+        counterObserver.observe(statsSection);
+
+        // Scroll Reveal Animation with IntersectionObserver
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        revealElements.forEach((el, index) => {
+            el.style.transitionDelay = `${index % 4 * 0.1}s`;
+            revealObserver.observe(el);
+        });
 
         // Scroll to Top
         function scrollToTop() {
