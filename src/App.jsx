@@ -618,7 +618,7 @@ const PortfolioSection = () => {
       id: 'lawfirm',
       category: 'professional',
       categoryLabel: '전문직',
-      title: '법무법인 정의',
+      title: '법무법인',
       desc: '권위와 신뢰를 전달하는 법률사무소 웹사이트',
       tags: ['로펌', '전문직', '상담'],
       image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80',
