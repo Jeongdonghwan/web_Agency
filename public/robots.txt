@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://jd8.co.kr/sitemap.xml

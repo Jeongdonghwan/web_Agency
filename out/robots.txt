@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+Disallow: /mockups/
+
+Sitemap: https://jd8.co.kr/sitemap.xml

@@ -1,0 +1,2020 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>루미에르 피부과 | Lumiere Dermatology</title>
+  <meta name="description" content="루미에르 피부과 - 피부과 전문의가 직접 진료하는 강남 프리미엄 피부과. 보톡스, 필러, 레이저토닝, 리프팅 등 맞춤 시술." />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet" />
+  <style>
+    /* ===== Reset & Base ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #2C2C2C;
+      background: #FAFAFA;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; border: none; font-family: inherit; }
+    input, select, textarea { font-family: inherit; }
+
+    /* ===== Utility ===== */
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+    .section-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #5B9EA6;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 4vw, 2.25rem);
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 16px;
+      color: #2C2C2C;
+    }
+    .section-desc {
+      font-size: 1rem;
+      color: #777;
+      max-width: 520px;
+      line-height: 1.8;
+    }
+
+    /* ===== Scroll Animations ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    /* ===== Header ===== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      transition: box-shadow 0.3s;
+    }
+    .header.scrolled {
+      box-shadow: 0 2px 24px rgba(0, 0, 0, 0.06);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #2C2C2C;
+      letter-spacing: -0.02em;
+    }
+    .logo span { color: #5B9EA6; }
+    .nav-list {
+      display: flex;
+      gap: 36px;
+    }
+    .nav-list a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #555;
+      transition: color 0.25s;
+      position: relative;
+    }
+    .nav-list a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: #5B9EA6;
+      transition: width 0.3s;
+    }
+    .nav-list a:hover { color: #5B9EA6; }
+    .nav-list a:hover::after { width: 100%; }
+    .nav-cta {
+      padding: 9px 22px;
+      background: #5B9EA6;
+      color: #fff !important;
+      border-radius: 24px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: background 0.25s, transform 0.25s;
+    }
+    .nav-cta:hover { background: #4a8a91; transform: translateY(-1px); }
+    .nav-cta::after { display: none !important; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #2C2C2C;
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile Nav */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 72px;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      padding: 24px;
+      transform: translateY(-10px);
+      opacity: 0;
+      transition: transform 0.3s, opacity 0.3s;
+      pointer-events: none;
+      z-index: 999;
+    }
+    .mobile-nav.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+    .mobile-nav a {
+      display: block;
+      padding: 14px 0;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #2C2C2C;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .mobile-nav a:last-child { border-bottom: none; }
+
+    /* ===== Hero ===== */
+    .hero {
+      padding: 160px 0 100px;
+      background: linear-gradient(135deg, #EEF5F6 0%, #FAFAFA 50%, #fff 100%);
+      position: relative;
+      overflow: hidden;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(91, 158, 166, 0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .hero-text { position: relative; z-index: 2; }
+    .hero-badge {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #5B9EA6;
+      background: rgba(91, 158, 166, 0.1);
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      letter-spacing: 0.05em;
+    }
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 3.1rem);
+      font-weight: 800;
+      line-height: 1.25;
+      color: #2C2C2C;
+      margin-bottom: 20px;
+      letter-spacing: -0.03em;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: #5B9EA6;
+    }
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: #777;
+      line-height: 1.8;
+      margin-bottom: 36px;
+      max-width: 440px;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 36px;
+      background: linear-gradient(135deg, #5B9EA6, #4a8a91);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 32px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 20px rgba(91, 158, 166, 0.3);
+    }
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(91, 158, 166, 0.4);
+    }
+    .hero-cta svg { width: 18px; height: 18px; }
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 48px;
+    }
+    .hero-stat-num {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #5B9EA6;
+    }
+    .hero-stat-label {
+      font-size: 0.8rem;
+      color: #999;
+      margin-top: 2px;
+    }
+
+    /* Hero Visual */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 480px;
+    }
+    .hero-visual-shape {
+      width: 380px;
+      height: 480px;
+      border-radius: 200px 200px 160px 160px;
+      background: linear-gradient(180deg, #d4e8ea 0%, #a4cdd2 40%, #5B9EA6 100%);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(91, 158, 166, 0.2);
+    }
+    .hero-visual-shape::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 50%, rgba(0,0,0,0.08) 100%);
+    }
+    .hero-visual-shape img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      z-index: 1;
+    }
+    .hero-visual-float {
+      position: absolute;
+      width: 140px;
+      padding: 16px 20px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      z-index: 3;
+    }
+    .hero-visual-float.top-left {
+      top: 40px;
+      left: -20px;
+    }
+    .hero-visual-float.bottom-right {
+      bottom: 60px;
+      right: -20px;
+      width: 160px;
+    }
+    .float-label {
+      font-size: 0.7rem;
+      color: #999;
+      margin-bottom: 4px;
+    }
+    .float-value {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #2C2C2C;
+    }
+    .float-value span { color: #5B9EA6; }
+
+    /* ===== Treatments ===== */
+    .treatments {
+      padding: 100px 0;
+      background: #fff;
+    }
+    .treatments-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .treatments-header .section-desc { margin: 0 auto; }
+    .treatments-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .treatment-card {
+      background: #FAFAFA;
+      border-radius: 20px;
+      padding: 36px 28px;
+      transition: transform 0.35s, box-shadow 0.35s;
+      border: 1px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    .treatment-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #5B9EA6, #89c4cb);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .treatment-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
+      border-color: rgba(91, 158, 166, 0.15);
+    }
+    .treatment-card:hover::before { opacity: 1; }
+    .treatment-icon {
+      width: 56px;
+      height: 56px;
+      background: #EEF5F6;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .treatment-icon svg {
+      width: 26px;
+      height: 26px;
+      stroke: #5B9EA6;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .treatment-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #2C2C2C;
+    }
+    .treatment-desc {
+      font-size: 0.88rem;
+      color: #888;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+    .treatment-price {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #5B9EA6;
+    }
+
+    /* ===== Featured Treatment ===== */
+    .featured-treatment {
+      padding: 100px 0;
+      background: #f4f9f9;
+    }
+    .featured-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .featured-image {
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      height: 480px;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
+    }
+    .featured-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .featured-image-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: #5B9EA6;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      letter-spacing: 0.04em;
+    }
+    .featured-content .section-label { display: block; }
+    .featured-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #2C2C2C;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    .featured-desc {
+      font-size: 0.95rem;
+      color: #666;
+      line-height: 1.85;
+      margin-bottom: 28px;
+    }
+    .featured-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .featured-detail-item {
+      background: #fff;
+      border-radius: 14px;
+      padding: 20px;
+      border: 1px solid #e8eff0;
+    }
+    .featured-detail-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #999;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+    .featured-detail-value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #2C2C2C;
+    }
+    .featured-detail-value.price { color: #5B9EA6; }
+    .featured-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 36px;
+      background: linear-gradient(135deg, #5B9EA6, #4a8a91);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 32px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 20px rgba(91, 158, 166, 0.3);
+    }
+    .featured-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(91, 158, 166, 0.4);
+    }
+    .featured-cta svg { width: 18px; height: 18px; }
+
+    /* ===== Clinic Interior ===== */
+    .clinic-interior {
+      padding: 80px 0;
+      background: #fff;
+    }
+    .interior-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .interior-header .section-desc { margin: 0 auto; }
+    .interior-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+    }
+    .interior-item {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      height: 280px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+    }
+    .interior-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .interior-item:hover img {
+      transform: scale(1.05);
+    }
+    .interior-item-label {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #2C2C2C;
+      z-index: 1;
+    }
+
+    /* ===== Before/After ===== */
+    .before-after {
+      padding: 100px 0;
+      background: #FAFAFA;
+    }
+    .before-after-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .before-after-header .section-desc { margin: 0 auto; }
+    .ba-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+    .ba-card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+    }
+
+    /* CSS-only slider comparison */
+    .ba-slider {
+      position: relative;
+      height: 300px;
+      overflow: hidden;
+      cursor: col-resize;
+    }
+    .ba-slider-before,
+    .ba-slider-after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .ba-slider-before img,
+    .ba-slider-after img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .ba-slider-before {
+      z-index: 1;
+      clip-path: inset(0 50% 0 0);
+      transition: clip-path 0.1s ease-out;
+    }
+    .ba-slider-after {
+      z-index: 0;
+    }
+    .ba-slider-handle {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 3px;
+      height: 100%;
+      background: #fff;
+      z-index: 3;
+      transform: translateX(-50%);
+      pointer-events: none;
+      transition: left 0.1s ease-out;
+    }
+    .ba-slider-handle::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px;
+      height: 44px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    }
+    .ba-slider-handle::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 16px;
+      height: 16px;
+      border-left: 2px solid #5B9EA6;
+      border-right: 2px solid #5B9EA6;
+    }
+    .ba-slider-label {
+      position: absolute;
+      bottom: 14px;
+      z-index: 4;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 5px 12px;
+      border-radius: 4px;
+      color: #555;
+    }
+    .ba-slider-label.before-label { left: 14px; }
+    .ba-slider-label.after-label { right: 14px; }
+    .ba-content { padding: 28px; }
+    .ba-content-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .ba-treatment-type {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #5B9EA6;
+      letter-spacing: 0.05em;
+    }
+    .ba-period {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #fff;
+      background: #5B9EA6;
+      padding: 3px 10px;
+      border-radius: 10px;
+    }
+    .ba-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #2C2C2C;
+    }
+    .ba-desc {
+      font-size: 0.88rem;
+      color: #888;
+      line-height: 1.7;
+    }
+
+    /* ===== Team ===== */
+    .team {
+      padding: 100px 0;
+      background: #fff;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 48px;
+    }
+    .team-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .team-header .section-desc { margin: 0 auto; }
+    .team-member {
+      background: #FAFAFA;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid #eef2f3;
+      transition: box-shadow 0.35s;
+    }
+    .team-member:hover {
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+    }
+    .team-photo {
+      width: 100%;
+      height: 360px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(160deg, #d4e8ea 0%, #a4cdd2 40%, #5B9EA6 100%);
+    }
+    .team-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .team-info {
+      padding: 32px 28px;
+    }
+    .team-name {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+      color: #2C2C2C;
+    }
+    .team-role {
+      font-size: 0.92rem;
+      color: #5B9EA6;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .team-specialties {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .team-specialty-badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #5B9EA6;
+      background: rgba(91, 158, 166, 0.1);
+      padding: 4px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.02em;
+    }
+    .team-credentials {
+      margin-bottom: 20px;
+    }
+    .team-credentials li {
+      padding: 8px 0;
+      font-size: 0.85rem;
+      color: #666;
+      border-bottom: 1px solid #eef2f3;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .team-credentials li:last-child { border-bottom: none; }
+    .team-credentials li::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      background: #5B9EA6;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .team-quote {
+      font-size: 0.88rem;
+      color: #888;
+      line-height: 1.8;
+      padding-left: 16px;
+      border-left: 2px solid #5B9EA6;
+      font-style: italic;
+    }
+
+    /* ===== Reviews ===== */
+    .reviews {
+      padding: 100px 0;
+      background: #f4f9f9;
+    }
+    .reviews-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .reviews-header .section-desc { margin: 0 auto; }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .review-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 32px 28px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+      border: 1px solid #eef2f3;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .review-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.07);
+    }
+    .review-stars {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 8px;
+    }
+    .review-stars svg {
+      width: 16px;
+      height: 16px;
+      fill: #F5B731;
+    }
+    .review-treatment {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #5B9EA6;
+      background: rgba(91, 158, 166, 0.1);
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 10px;
+      margin-bottom: 16px;
+    }
+    .review-text {
+      font-size: 0.92rem;
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid #f0f0f0;
+    }
+    .review-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #EEF5F6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #5B9EA6;
+      flex-shrink: 0;
+    }
+    .review-author-name {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #2C2C2C;
+    }
+    .review-author-age {
+      font-size: 0.78rem;
+      color: #999;
+      margin-top: 1px;
+    }
+
+    /* ===== Location ===== */
+    .location {
+      padding: 100px 0;
+      background: #FAFAFA;
+    }
+    .location-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .location-header .section-desc { margin: 0 auto; }
+    .location-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    .location-map {
+      border-radius: 20px;
+      overflow: hidden;
+      min-height: 360px;
+      position: relative;
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 4px;
+    }
+    .location-facility-img {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+    .location-facility-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .location-facility-img:hover img {
+      transform: scale(1.05);
+    }
+    .location-facility-label {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #2C2C2C;
+    }
+    .location-details {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .location-item {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+    }
+    .location-item-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #5B9EA6;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+    .location-item p {
+      font-size: 0.92rem;
+      color: #555;
+      line-height: 1.7;
+    }
+    .location-item a {
+      color: #5B9EA6;
+      font-weight: 600;
+    }
+    .hours-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .hours-table tr { border-bottom: 1px solid #f5f5f5; }
+    .hours-table tr:last-child { border-bottom: none; }
+    .hours-table td {
+      padding: 8px 0;
+      font-size: 0.88rem;
+      color: #666;
+    }
+    .hours-table td:first-child {
+      font-weight: 600;
+      color: #2C2C2C;
+      width: 100px;
+    }
+    .hours-table .sunday td { color: #e06060; }
+
+    /* ===== Reservation ===== */
+    .reservation {
+      padding: 100px 0;
+      background: linear-gradient(135deg, #5B9EA6 0%, #4a8a91 50%, #3d7980 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .reservation::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .reservation::after {
+      content: '';
+      position: absolute;
+      bottom: -80px;
+      left: -80px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .reservation-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    .reservation-text .section-label { color: rgba(255,255,255,0.6); }
+    .reservation-text .section-title { color: #fff; }
+    .reservation-text .section-desc { color: rgba(255,255,255,0.75); }
+    .reservation-benefits {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .reservation-benefits li {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.85);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .reservation-benefits li::before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      border: 1.5px solid rgba(255,255,255,0.4);
+      border-radius: 50%;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .reservation-benefits li::after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 4px;
+      border-left: 1.5px solid rgba(255,255,255,0.7);
+      border-bottom: 1.5px solid rgba(255,255,255,0.7);
+      transform: rotate(-45deg);
+    }
+    .reservation-form-wrap {
+      background: #fff;
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    }
+    .reservation-form-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 28px;
+      color: #2C2C2C;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #888;
+      margin-bottom: 6px;
+      letter-spacing: 0.03em;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1px solid #e8e8e8;
+      border-radius: 12px;
+      font-size: 0.92rem;
+      color: #2C2C2C;
+      background: #FAFAFA;
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: #5B9EA6;
+      box-shadow: 0 0 0 3px rgba(91, 158, 166, 0.1);
+      background: #fff;
+    }
+    .form-group input::placeholder { color: #bbb; }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .form-submit {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #5B9EA6, #4a8a91);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 12px;
+      transition: transform 0.25s, box-shadow 0.25s;
+      margin-top: 8px;
+    }
+    .form-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(91, 158, 166, 0.3);
+    }
+
+    /* ===== Floating Contact Bar ===== */
+    .quick-contact {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 900;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.08);
+      border-top: 1px solid rgba(0, 0, 0, 0.04);
+      padding: 12px 0;
+    }
+    .quick-contact-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .quick-contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 28px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: transform 0.25s, box-shadow 0.25s;
+      white-space: nowrap;
+    }
+    .quick-contact-btn:hover {
+      transform: translateY(-1px);
+    }
+    .quick-contact-btn svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+    .qc-phone {
+      background: #5B9EA6;
+      color: #fff;
+      box-shadow: 0 3px 12px rgba(91, 158, 166, 0.3);
+    }
+    .qc-phone:hover { box-shadow: 0 6px 20px rgba(91, 158, 166, 0.4); }
+    .qc-kakao {
+      background: #FEE500;
+      color: #3C1E1E;
+      box-shadow: 0 3px 12px rgba(254, 229, 0, 0.3);
+    }
+    .qc-kakao:hover { box-shadow: 0 6px 20px rgba(254, 229, 0, 0.4); }
+    .qc-reserve {
+      background: #2C2C2C;
+      color: #fff;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+    }
+    .qc-reserve:hover { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); }
+
+    /* Desktop: right sidebar style */
+    @media (min-width: 769px) {
+      .quick-contact {
+        bottom: auto;
+        top: 50%;
+        transform: translateY(-50%);
+        left: auto;
+        right: 0;
+        width: auto;
+        border-top: none;
+        border-left: 1px solid rgba(0, 0, 0, 0.04);
+        border-radius: 16px 0 0 16px;
+        padding: 16px 14px;
+        box-shadow: -4px 0 24px rgba(0, 0, 0, 0.06);
+      }
+      .quick-contact-inner {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .quick-contact-btn {
+        flex-direction: column;
+        gap: 4px;
+        padding: 12px 14px;
+        font-size: 0.7rem;
+        border-radius: 14px;
+        min-width: 68px;
+        text-align: center;
+      }
+      .quick-contact-btn svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    /* ===== Footer ===== */
+    .footer {
+      padding: 60px 0 40px;
+      background: #2C2C2C;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-logo {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-logo span { color: #5B9EA6; }
+    .footer-desc {
+      font-size: 0.85rem;
+      line-height: 1.8;
+      max-width: 320px;
+    }
+    .footer-col-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 0.08em;
+      margin-bottom: 18px;
+    }
+    .footer-col p,
+    .footer-col a {
+      display: block;
+      font-size: 0.85rem;
+      line-height: 2;
+      color: rgba(255, 255, 255, 0.45);
+    }
+    .footer-col a:hover { color: #5B9EA6; }
+    .footer-bottom {
+      padding-top: 28px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      text-align: center;
+      font-size: 0.8rem;
+    }
+
+    /* Extra bottom padding on mobile for quick-contact bar */
+    @media (max-width: 768px) {
+      .footer { padding-bottom: 80px; }
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      .mobile-nav { display: block; }
+      .nav { display: none; }
+
+      .hero { min-height: auto; padding: 120px 0 60px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-visual { min-height: 340px; }
+      .hero-visual-shape { width: 260px; height: 340px; }
+      .hero-visual-float { display: none; }
+      .hero-stats { gap: 24px; }
+      .hero-stat-num { font-size: 1.3rem; }
+
+      .treatments-grid { grid-template-columns: 1fr; gap: 16px; }
+      .treatment-card { padding: 28px 22px; }
+
+      .featured-inner { grid-template-columns: 1fr; gap: 36px; }
+      .featured-image { height: 300px; }
+
+      .interior-grid { grid-template-columns: 1fr; }
+      .interior-item { height: 220px; }
+
+      .ba-grid { grid-template-columns: 1fr; }
+      .ba-slider { height: 240px; }
+
+      .team-grid { grid-template-columns: 1fr; gap: 24px; }
+      .team-photo { height: 300px; }
+
+      .reviews-grid { grid-template-columns: 1fr; }
+
+      .location-grid { grid-template-columns: 1fr; }
+      .location-map { min-height: 240px; }
+
+      .reservation-inner { grid-template-columns: 1fr; gap: 40px; }
+      .reservation-form-wrap { padding: 28px; }
+      .form-row { grid-template-columns: 1fr; }
+
+      .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title { font-size: 1.7rem; }
+      .hero-stats { flex-direction: column; gap: 16px; }
+      .section-title { font-size: 1.5rem; }
+      .quick-contact-btn { padding: 10px 14px; font-size: 0.78rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="#" class="logo"><span>루미에르</span> 피부과</a>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="#treatments">시술안내</a></li>
+          <li><a href="#results">전후비교</a></li>
+          <li><a href="#team">의료진</a></li>
+          <li><a href="#reviews">후기</a></li>
+          <li><a href="#location">오시는길</a></li>
+          <li><a href="#reservation" class="nav-cta">예약</a></li>
+        </ul>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="메뉴 열기">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <nav class="mobile-nav" id="mobileNav">
+      <a href="#treatments">시술안내</a>
+      <a href="#results">전후비교</a>
+      <a href="#team">의료진</a>
+      <a href="#reviews">후기</a>
+      <a href="#location">오시는길</a>
+      <a href="#reservation">예약</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <span class="hero-badge reveal">피부과 전문 클리닉</span>
+          <h1 class="hero-title reveal reveal-delay-1">건강한 피부,<br /><em>정확한 진료</em></h1>
+          <p class="hero-subtitle reveal reveal-delay-2">
+            피부과 전문의가 직접 진료합니다.<br />
+            과학적 근거에 기반한 맞춤 시술로<br />
+            건강하고 자신감 있는 피부를 만들어 드립니다.
+          </p>
+          <a href="#reservation" class="hero-cta reveal reveal-delay-3">
+            상담 예약
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <div class="hero-stats reveal reveal-delay-4">
+            <div>
+              <div class="hero-stat-num">15+</div>
+              <div class="hero-stat-label">진료 경력 (년)</div>
+            </div>
+            <div>
+              <div class="hero-stat-num">30,000+</div>
+              <div class="hero-stat-label">누적 시술 건수</div>
+            </div>
+            <div>
+              <div class="hero-stat-num">98%</div>
+              <div class="hero-stat-label">환자 만족도</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual reveal reveal-delay-2">
+          <div class="hero-visual-shape">
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&q=80" alt="루미에르 피부과 전문의" loading="lazy" />
+          </div>
+          <div class="hero-visual-float top-left">
+            <div class="float-label">만족도</div>
+            <div class="float-value"><span>98</span>%</div>
+          </div>
+          <div class="hero-visual-float bottom-right">
+            <div class="float-label">전문 시술</div>
+            <div class="float-value">1:1 맞춤 진료</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Treatments -->
+  <section class="treatments" id="treatments">
+    <div class="container">
+      <div class="treatments-header">
+        <span class="section-label reveal">Treatments</span>
+        <h2 class="section-title reveal reveal-delay-1">시술 안내</h2>
+        <p class="section-desc reveal reveal-delay-2">과학적 근거에 기반한 안전하고 효과적인 시술을 제공합니다</p>
+      </div>
+      <div class="treatments-grid">
+        <!-- Card 1: 보톡스 -->
+        <div class="treatment-card reveal">
+          <div class="treatment-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2v6m0 8v6M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M2 12h6m8 0h6M4.93 19.07l4.24-4.24m5.66-5.66l4.24-4.24"/></svg>
+          </div>
+          <h3 class="treatment-name">보톡스</h3>
+          <p class="treatment-desc">미세한 주름 개선과 윤곽 교정에 효과적인 비수술 시술입니다. 자연스러운 결과를 추구합니다.</p>
+          <span class="treatment-price">5만원 ~ 20만원</span>
+        </div>
+        <!-- Card 2: 필러 -->
+        <div class="treatment-card reveal reveal-delay-1">
+          <div class="treatment-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 3c-1.5 0-3 .5-3 2v14c0 1.5 1.5 2 3 2s3-.5 3-2V5c0-1.5-1.5-2-3-2z"/><path d="M9 8h6M9 12h6M9 16h6"/></svg>
+          </div>
+          <h3 class="treatment-name">필러</h3>
+          <p class="treatment-desc">볼륨 보충과 깊은 주름 개선을 위한 시술입니다. 히알루론산 기반의 안전한 필러를 사용합니다.</p>
+          <span class="treatment-price">15만원 ~ 50만원</span>
+        </div>
+        <!-- Card 3: 레이저토닝 -->
+        <div class="treatment-card reveal reveal-delay-2">
+          <div class="treatment-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/></svg>
+          </div>
+          <h3 class="treatment-name">레이저토닝</h3>
+          <p class="treatment-desc">색소 침착과 기미 개선에 탁월한 효과를 보이는 레이저 시술입니다. 시술 후 일상 복귀가 빠릅니다.</p>
+          <span class="treatment-price">8만원 ~ 25만원</span>
+        </div>
+        <!-- Card 4: 피부재생 -->
+        <div class="treatment-card reveal reveal-delay-3">
+          <div class="treatment-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10"/><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M18 16l2 2m0 0l2 2m-2-2l2-2m-2 2l-2 2"/></svg>
+          </div>
+          <h3 class="treatment-name">피부재생</h3>
+          <p class="treatment-desc">손상된 피부 장벽을 복구하고 건강한 피부로 되돌려 드립니다. 줄기세포 배양액을 활용합니다.</p>
+          <span class="treatment-price">10만원 ~ 30만원</span>
+        </div>
+        <!-- Card 5: 리프팅 -->
+        <div class="treatment-card reveal reveal-delay-4">
+          <div class="treatment-icon">
+            <svg viewBox="0 0 24 24"><path d="M7 17l5-5 5 5"/><path d="M7 12l5-5 5 5"/></svg>
+          </div>
+          <h3 class="treatment-name">리프팅</h3>
+          <p class="treatment-desc">처진 피부를 끌어올려 탄력 있는 V라인을 만들어 드립니다. 실 리프팅과 HIFU 리프팅을 제공합니다.</p>
+          <span class="treatment-price">30만원 ~ 80만원</span>
+        </div>
+        <!-- Card 6: 여드름치료 -->
+        <div class="treatment-card reveal reveal-delay-5">
+          <div class="treatment-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 12h6M12 9v6"/><circle cx="12" cy="12" r="10"/></svg>
+          </div>
+          <h3 class="treatment-name">여드름치료</h3>
+          <p class="treatment-desc">근본적인 원인 분석을 통한 체계적인 여드름 치료 프로그램입니다. 흉터 관리까지 책임집니다.</p>
+          <span class="treatment-price">7만원 ~ 20만원</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Treatment -->
+  <section class="featured-treatment" id="featured">
+    <div class="container">
+      <div class="featured-inner">
+        <div class="featured-image reveal">
+          <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=600&q=80" alt="루미에르 피부과 리프팅 시술실" loading="lazy" />
+          <span class="featured-image-badge">BEST 시술</span>
+        </div>
+        <div class="featured-content">
+          <span class="section-label reveal">Featured Treatment</span>
+          <h2 class="featured-title reveal reveal-delay-1">울쎄라 리프팅</h2>
+          <p class="featured-desc reveal reveal-delay-2">
+            고강도 초음파(HIFU)를 활용하여 피부 깊은 SMAS층까지 에너지를 전달하는 비수술 리프팅 시술입니다.
+            절개 없이 처진 피부를 끌어올리고 콜라겐 생성을 촉진하여 시술 후 점진적으로 탄력이 개선됩니다.
+            FDA 승인을 받은 안전한 장비로 진행하며, 시술 직후부터 자연스러운 리프팅 효과를 체감할 수 있습니다.
+          </p>
+          <div class="featured-details reveal reveal-delay-3">
+            <div class="featured-detail-item">
+              <div class="featured-detail-label">시술 가격</div>
+              <div class="featured-detail-value price">50만원 ~</div>
+            </div>
+            <div class="featured-detail-item">
+              <div class="featured-detail-label">시술 시간</div>
+              <div class="featured-detail-value">약 40~60분</div>
+            </div>
+            <div class="featured-detail-item">
+              <div class="featured-detail-label">회복 기간</div>
+              <div class="featured-detail-value">당일 일상 복귀</div>
+            </div>
+            <div class="featured-detail-item">
+              <div class="featured-detail-label">지속 기간</div>
+              <div class="featured-detail-value">6~12개월</div>
+            </div>
+          </div>
+          <a href="#reservation" class="featured-cta reveal reveal-delay-4">
+            지금 상담받기
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clinic Interior -->
+  <section class="clinic-interior">
+    <div class="container">
+      <div class="interior-header">
+        <span class="section-label reveal">Our Clinic</span>
+        <h2 class="section-title reveal reveal-delay-1">클리닉 환경</h2>
+        <p class="section-desc reveal reveal-delay-2">쾌적하고 청결한 공간에서 편안한 진료를 받으실 수 있습니다</p>
+      </div>
+      <div class="interior-grid">
+        <div class="interior-item reveal">
+          <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?w=600&q=80" alt="루미에르 피부과 진료실 내부" loading="lazy" />
+          <div class="interior-item-label">청결한 진료 공간</div>
+        </div>
+        <div class="interior-item reveal reveal-delay-1">
+          <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=600&q=80" alt="루미에르 피부과 시술실 장비" loading="lazy" />
+          <div class="interior-item-label">최신 시술 장비</div>
+        </div>
+        <div class="interior-item reveal reveal-delay-2">
+          <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80" alt="피부 관리 전문 제품" loading="lazy" />
+          <div class="interior-item-label">전문 스킨케어 제품</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Before/After -->
+  <section class="before-after" id="results">
+    <div class="container">
+      <div class="before-after-header">
+        <span class="section-label reveal">Results</span>
+        <h2 class="section-title reveal reveal-delay-1">시술 전후 비교</h2>
+        <p class="section-desc reveal reveal-delay-2">실제 시술 결과를 통해 변화를 확인해 보세요. 슬라이더를 움직여 비교할 수 있습니다.</p>
+      </div>
+      <div class="ba-grid">
+        <!-- Card 1 -->
+        <div class="ba-card reveal">
+          <div class="ba-slider" data-slider>
+            <div class="ba-slider-before">
+              <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&q=80" alt="레이저토닝 시술 전 피부 상태" loading="lazy" />
+            </div>
+            <div class="ba-slider-after">
+              <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80" alt="레이저토닝 시술 후 개선된 피부" loading="lazy" />
+            </div>
+            <div class="ba-slider-handle"></div>
+            <span class="ba-slider-label before-label">Before</span>
+            <span class="ba-slider-label after-label">After</span>
+          </div>
+          <div class="ba-content">
+            <div class="ba-content-top">
+              <span class="ba-treatment-type">레이저토닝 5회</span>
+              <span class="ba-period">시술 후 6주</span>
+            </div>
+            <h3 class="ba-title">기미 및 색소 침착 개선</h3>
+            <p class="ba-desc">양쪽 볼에 넓게 퍼져 있던 기미와 색소 침착이 5회 레이저토닝 시술 후 눈에 띄게 밝아지고 균일한 피부톤을 되찾았습니다.</p>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="ba-card reveal reveal-delay-1">
+          <div class="ba-slider" data-slider>
+            <div class="ba-slider-before">
+              <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&q=80" alt="리프팅 시술 전 피부 상태" loading="lazy" />
+            </div>
+            <div class="ba-slider-after">
+              <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80" alt="리프팅 시술 후 개선된 피부" loading="lazy" />
+            </div>
+            <div class="ba-slider-handle"></div>
+            <span class="ba-slider-label before-label">Before</span>
+            <span class="ba-slider-label after-label">After</span>
+          </div>
+          <div class="ba-content">
+            <div class="ba-content-top">
+              <span class="ba-treatment-type">리프팅 + 보톡스</span>
+              <span class="ba-period">시술 후 4주</span>
+            </div>
+            <h3 class="ba-title">턱선 리프팅 및 주름 개선</h3>
+            <p class="ba-desc">탄력이 떨어진 턱선과 목 주름에 실 리프팅과 보톡스를 병행하여 자연스럽게 개선하였습니다.</p>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="ba-card reveal">
+          <div class="ba-slider" data-slider>
+            <div class="ba-slider-before">
+              <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&q=80" alt="여드름 치료 전 피부 상태" loading="lazy" />
+            </div>
+            <div class="ba-slider-after">
+              <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80" alt="여드름 치료 후 개선된 피부" loading="lazy" />
+            </div>
+            <div class="ba-slider-handle"></div>
+            <span class="ba-slider-label before-label">Before</span>
+            <span class="ba-slider-label after-label">After</span>
+          </div>
+          <div class="ba-content">
+            <div class="ba-content-top">
+              <span class="ba-treatment-type">여드름 집중 관리</span>
+              <span class="ba-period">시술 후 8주</span>
+            </div>
+            <h3 class="ba-title">여드름 흉터 및 피부결 개선</h3>
+            <p class="ba-desc">반복되는 여드름과 울퉁불퉁한 흉터를 체계적인 복합 시술로 매끈하고 건강한 피부결로 개선하였습니다.</p>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="ba-card reveal reveal-delay-1">
+          <div class="ba-slider" data-slider>
+            <div class="ba-slider-before">
+              <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&q=80" alt="필러 시술 전 피부 상태" loading="lazy" />
+            </div>
+            <div class="ba-slider-after">
+              <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80" alt="필러 시술 후 개선된 피부" loading="lazy" />
+            </div>
+            <div class="ba-slider-handle"></div>
+            <span class="ba-slider-label before-label">Before</span>
+            <span class="ba-slider-label after-label">After</span>
+          </div>
+          <div class="ba-content">
+            <div class="ba-content-top">
+              <span class="ba-treatment-type">필러 + 피부재생</span>
+              <span class="ba-period">시술 후 2주</span>
+            </div>
+            <h3 class="ba-title">팔자주름 및 볼륨 개선</h3>
+            <p class="ba-desc">깊어진 팔자주름과 꺼진 볼 부위에 히알루론산 필러와 피부재생 시술을 병행하여 자연스러운 볼륨을 회복하였습니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="team" id="team">
+    <div class="container">
+      <div class="team-header">
+        <span class="section-label reveal">Medical Team</span>
+        <h2 class="section-title reveal reveal-delay-1">의료진 소개</h2>
+        <p class="section-desc reveal reveal-delay-2">풍부한 경험과 전문성을 갖춘 피부과 전문의가 직접 진료합니다</p>
+      </div>
+      <div class="team-grid">
+        <!-- Doctor 1 -->
+        <div class="team-member reveal">
+          <div class="team-photo">
+            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&q=80" alt="김서연 원장 - 피부과 전문의" loading="lazy" />
+          </div>
+          <div class="team-info">
+            <h3 class="team-name">김서연 원장</h3>
+            <p class="team-role">피부과 전문의 / 대표원장</p>
+            <div class="team-specialties">
+              <span class="team-specialty-badge">리프팅</span>
+              <span class="team-specialty-badge">보톡스/필러</span>
+              <span class="team-specialty-badge">색소질환</span>
+            </div>
+            <ul class="team-credentials">
+              <li>서울대학교 의과대학 졸업</li>
+              <li>전 삼성서울병원 피부과 전문의</li>
+              <li>대한피부과학회 정회원</li>
+              <li>대한미용피부외과학회 학술이사</li>
+              <li>피부과 전문의 경력 15년</li>
+              <li>레이저 및 피부 시술 논문 다수 게재</li>
+            </ul>
+            <p class="team-quote">
+              "환자 한 분 한 분의 피부 상태와 고민을 깊이 이해하고, 과학적으로 검증된 최선의 치료를 제공하는 것이 저의 진료 철학입니다."
+            </p>
+          </div>
+        </div>
+        <!-- Doctor 2 -->
+        <div class="team-member reveal reveal-delay-1">
+          <div class="team-photo">
+            <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=600&q=80" alt="박민준 원장 - 피부과 전문의" loading="lazy" />
+          </div>
+          <div class="team-info">
+            <h3 class="team-name">박민준 원장</h3>
+            <p class="team-role">피부과 전문의</p>
+            <div class="team-specialties">
+              <span class="team-specialty-badge">여드름/흉터</span>
+              <span class="team-specialty-badge">피부재생</span>
+              <span class="team-specialty-badge">레이저</span>
+            </div>
+            <ul class="team-credentials">
+              <li>연세대학교 의과대학 졸업</li>
+              <li>전 서울아산병원 피부과 전공의</li>
+              <li>대한피부과학회 정회원</li>
+              <li>대한레이저의학회 정회원</li>
+              <li>피부과 전문의 경력 12년</li>
+              <li>여드름 및 흉터 치료 전문</li>
+            </ul>
+            <p class="team-quote">
+              "피부는 몸의 거울입니다. 표면적인 증상뿐 아니라 근본적인 원인을 찾아 치료하여 건강한 피부로 되돌리는 것을 목표로 합니다."
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Reviews -->
+  <section class="reviews" id="reviews">
+    <div class="container">
+      <div class="reviews-header">
+        <span class="section-label reveal">Reviews</span>
+        <h2 class="section-title reveal reveal-delay-1">환자 후기</h2>
+        <p class="section-desc reveal reveal-delay-2">루미에르 피부과를 방문하신 환자분들의 솔직한 후기입니다</p>
+      </div>
+      <div class="reviews-grid">
+        <!-- Review 1 -->
+        <div class="review-card reveal">
+          <div class="review-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <span class="review-treatment">레이저토닝</span>
+          <p class="review-text">오랫동안 고민이었던 기미가 5회 시술 후 확실히 옅어졌습니다. 원장님이 피부 상태를 꼼꼼하게 확인하시고 시술 강도를 조절해 주셔서 붉어짐도 거의 없었습니다. 시술 과정이나 주의사항도 친절하게 설명해 주셔서 안심하고 받을 수 있었습니다.</p>
+          <div class="review-author">
+            <div class="review-avatar">김</div>
+            <div>
+              <div class="review-author-name">김**, 30대</div>
+              <div class="review-author-age">레이저토닝 5회 완료</div>
+            </div>
+          </div>
+        </div>
+        <!-- Review 2 -->
+        <div class="review-card reveal reveal-delay-1">
+          <div class="review-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <span class="review-treatment">리프팅</span>
+          <p class="review-text">울쎄라 리프팅 후 2주가 지나니 턱선이 확실히 달라진 게 느껴집니다. 시술 전에 걱정이 많았는데, 상담 단계에서부터 시술 원리와 예상 결과를 자세히 설명해 주셨습니다. 자연스러운 변화가 정말 마음에 듭니다. 주변에 적극 추천하고 있습니다.</p>
+          <div class="review-author">
+            <div class="review-avatar">이</div>
+            <div>
+              <div class="review-author-name">이**, 40대</div>
+              <div class="review-author-age">울쎄라 리프팅 시술</div>
+            </div>
+          </div>
+        </div>
+        <!-- Review 3 -->
+        <div class="review-card reveal reveal-delay-2">
+          <div class="review-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <span class="review-treatment">여드름치료</span>
+          <p class="review-text">반복되는 성인 여드름으로 여러 병원을 다녀봤지만 여기서 처음으로 근본적인 원인 분석을 해 주셨습니다. 3개월 집중 치료 후 여드름이 현저히 줄었고, 흉터도 많이 개선되었습니다. 유지 관리법까지 상세하게 알려주셔서 감사합니다.</p>
+          <div class="review-author">
+            <div class="review-avatar">박</div>
+            <div>
+              <div class="review-author-name">박**, 20대</div>
+              <div class="review-author-age">여드름 집중 치료 3개월</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location -->
+  <section class="location" id="location">
+    <div class="container">
+      <div class="location-header">
+        <span class="section-label reveal">Location</span>
+        <h2 class="section-title reveal reveal-delay-1">오시는 길</h2>
+        <p class="section-desc reveal reveal-delay-2">편리한 강남역 인근에 위치하여 방문이 편리합니다</p>
+      </div>
+      <div class="location-grid">
+        <div class="location-map reveal">
+          <div class="location-facility-img">
+            <img src="https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=600&q=80" alt="루미에르 피부과 대기실" loading="lazy" />
+            <span class="location-facility-label">쾌적한 대기 공간</span>
+          </div>
+          <div class="location-facility-img">
+            <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&q=80" alt="루미에르 피부과 건물 외관" loading="lazy" />
+            <span class="location-facility-label">강남역 도보 3분</span>
+          </div>
+        </div>
+        <div class="location-details reveal reveal-delay-1">
+          <div class="location-item">
+            <div class="location-item-title">주소</div>
+            <p>서울특별시 강남구 테헤란로 123<br />루미에르빌딩 4층</p>
+          </div>
+          <div class="location-item">
+            <div class="location-item-title">진료시간</div>
+            <table class="hours-table">
+              <tr><td>월 - 금</td><td>10:00 - 19:00</td></tr>
+              <tr><td>토요일</td><td>10:00 - 15:00</td></tr>
+              <tr class="sunday"><td>일 / 공휴일</td><td>휴진</td></tr>
+              <tr><td>점심시간</td><td>13:00 - 14:00</td></tr>
+            </table>
+          </div>
+          <div class="location-item">
+            <div class="location-item-title">연락처</div>
+            <p>
+              전화: <a href="tel:02-1234-5678">02-1234-5678</a><br />
+              강남역 2번 출구에서 도보 3분
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reservation -->
+  <section class="reservation" id="reservation">
+    <div class="container">
+      <div class="reservation-inner">
+        <div class="reservation-text">
+          <span class="section-label reveal">Reservation</span>
+          <h2 class="section-title reveal reveal-delay-1">온라인 예약</h2>
+          <p class="section-desc reveal reveal-delay-2">
+            간편하게 온라인으로 상담을 예약하세요.<br />
+            접수 후 확인 전화를 드립니다.
+          </p>
+          <ul class="reservation-benefits reveal reveal-delay-3">
+            <li>1:1 맞춤 상담 제공</li>
+            <li>예약 후 대기 시간 최소화</li>
+            <li>초진 상담 무료</li>
+          </ul>
+        </div>
+        <div class="reservation-form-wrap reveal reveal-delay-2">
+          <h3 class="reservation-form-title">상담 예약 신청</h3>
+          <form id="reservationForm" onsubmit="return false;">
+            <div class="form-group">
+              <label for="name">이름</label>
+              <input type="text" id="name" placeholder="성함을 입력해 주세요" />
+            </div>
+            <div class="form-group">
+              <label for="phone">연락처</label>
+              <input type="tel" id="phone" placeholder="010-0000-0000" />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="treatment">희망 시술</label>
+                <select id="treatment">
+                  <option value="" disabled selected>시술 선택</option>
+                  <option value="botox">보톡스</option>
+                  <option value="filler">필러</option>
+                  <option value="laser">레이저토닝</option>
+                  <option value="regen">피부재생</option>
+                  <option value="lifting">리프팅</option>
+                  <option value="acne">여드름치료</option>
+                  <option value="consult">기타 상담</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="date">희망 날짜</label>
+                <input type="date" id="date" />
+              </div>
+            </div>
+            <button type="submit" class="form-submit">예약 신청하기</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <div class="footer-logo"><span>루미에르</span> 피부과</div>
+          <p class="footer-desc">
+            피부과 전문의가 직접 진료하는 프리미엄 피부과입니다. 과학적 근거에 기반한 안전하고 효과적인 시술을 제공합니다.
+          </p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">진료 안내</div>
+          <p>월 - 금: 10:00 - 19:00</p>
+          <p>토요일: 10:00 - 15:00</p>
+          <p>일 / 공휴일: 휴진</p>
+          <p>점심시간: 13:00 - 14:00</p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">연락처</div>
+          <a href="tel:02-1234-5678">02-1234-5678</a>
+          <p>서울 강남구 테헤란로 123</p>
+          <p>루미에르빌딩 4층</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Copyright 2026 루미에르 피부과. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Quick Contact Bar -->
+  <div class="quick-contact" id="quickContact">
+    <div class="container quick-contact-inner">
+      <a href="tel:02-1234-5678" class="quick-contact-btn qc-phone">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        전화 상담
+      </a>
+      <a href="#" class="quick-contact-btn qc-kakao" onclick="alert('카카오톡 상담 준비 중입니다.'); return false;">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.58 2 11c0 2.83 1.82 5.32 4.56 6.73l-.94 3.49c-.1.37.32.65.63.43l4.1-2.73c.55.05 1.1.08 1.65.08 5.5 0 10-3.58 10-8s-4.5-8-10-8z"/></svg>
+        카카오톡
+      </a>
+      <a href="#reservation" class="quick-contact-btn qc-reserve">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        온라인 예약
+      </a>
+    </div>
+  </div>
+
+  <script>
+    /* ===== Header Scroll Effect ===== */
+    (function () {
+      var header = document.getElementById('header');
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 20) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      });
+    })();
+
+    /* ===== Mobile Menu ===== */
+    (function () {
+      var hamburger = document.getElementById('hamburger');
+      var mobileNav = document.getElementById('mobileNav');
+      var mobileLinks = mobileNav.querySelectorAll('a');
+
+      hamburger.addEventListener('click', function () {
+        hamburger.classList.toggle('active');
+        mobileNav.classList.toggle('open');
+      });
+
+      mobileLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
+          hamburger.classList.remove('active');
+          mobileNav.classList.remove('open');
+        });
+      });
+    })();
+
+    /* ===== IntersectionObserver Scroll Animations ===== */
+    (function () {
+      var reveals = document.querySelectorAll('.reveal');
+
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.12,
+          rootMargin: '0px 0px -40px 0px'
+        });
+
+        reveals.forEach(function (el) {
+          observer.observe(el);
+        });
+      } else {
+        reveals.forEach(function (el) {
+          el.classList.add('visible');
+        });
+      }
+    })();
+
+    /* ===== Before/After Slider ===== */
+    (function () {
+      var sliders = document.querySelectorAll('[data-slider]');
+      sliders.forEach(function (slider) {
+        var beforeEl = slider.querySelector('.ba-slider-before');
+        var handleEl = slider.querySelector('.ba-slider-handle');
+        var isDragging = false;
+
+        function updateSlider(x) {
+          var rect = slider.getBoundingClientRect();
+          var offsetX = x - rect.left;
+          var percent = Math.max(0, Math.min(100, (offsetX / rect.width) * 100));
+          beforeEl.style.clipPath = 'inset(0 ' + (100 - percent) + '% 0 0)';
+          handleEl.style.left = percent + '%';
+        }
+
+        slider.addEventListener('mousedown', function (e) {
+          isDragging = true;
+          updateSlider(e.clientX);
+        });
+        document.addEventListener('mousemove', function (e) {
+          if (isDragging) {
+            e.preventDefault();
+            updateSlider(e.clientX);
+          }
+        });
+        document.addEventListener('mouseup', function () {
+          isDragging = false;
+        });
+
+        slider.addEventListener('touchstart', function (e) {
+          isDragging = true;
+          updateSlider(e.touches[0].clientX);
+        }, { passive: true });
+        slider.addEventListener('touchmove', function (e) {
+          if (isDragging) {
+            updateSlider(e.touches[0].clientX);
+          }
+        }, { passive: true });
+        slider.addEventListener('touchend', function () {
+          isDragging = false;
+        });
+      });
+    })();
+
+    /* ===== Reservation Form ===== */
+    (function () {
+      var form = document.getElementById('reservationForm');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = document.getElementById('name').value.trim();
+        var phone = document.getElementById('phone').value.trim();
+        var treatment = document.getElementById('treatment').value;
+        var date = document.getElementById('date').value;
+
+        if (!name || !phone || !treatment || !date) {
+          alert('모든 항목을 입력해 주세요.');
+          return;
+        }
+
+        alert(name + '님, 예약 신청이 완료되었습니다.\n확인 후 연락드리겠습니다.');
+        form.reset();
+      });
+    })();
+  </script>
+
+</body>
+</html>

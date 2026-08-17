@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>르 메종 Le Maison | Fine Dining Restaurant</title>
+  <meta name="description" content="르 메종 - 맛과 공간의 조화. 미슐랭 추천 파인다이닝 레스토랑. 제철 식재료로 완성하는 프렌치 코스 요리." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --charcoal: #1C1C1C;
+      --gold: #C9A86C;
+      --cream: #FAF7F2;
+      --gold-light: #D4B87A;
+      --gold-dark: #B8944F;
+      --charcoal-light: #2A2A2A;
+      --overlay: rgba(28, 28, 28, 0.7);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      color: var(--charcoal);
+      background-color: var(--cream);
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.3s ease;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ===== SECTION COMMON ===== */
+    .section-label {
+      display: inline-block;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      color: var(--charcoal);
+      margin-bottom: 20px;
+    }
+
+    .section-divider {
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+      margin-bottom: 32px;
+    }
+
+    .section-divider.center {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ===== SCROLL FADE-IN ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-in-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .fade-in-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 20px 0;
+      transition: background-color 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .header.scrolled {
+      background-color: var(--charcoal);
+      padding: 12px 0;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .logo-main {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 2px;
+    }
+
+    .logo-sub {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.65rem;
+      color: var(--gold);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-top: -2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.85);
+      letter-spacing: 1px;
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 8px;
+      z-index: 1100;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Mobile Menu Overlay */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--charcoal);
+      z-index: 1050;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .mobile-menu.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .mobile-menu a {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: rgba(255, 255, 255, 0.9);
+      letter-spacing: 2px;
+      transition: color 0.3s ease;
+    }
+
+    .mobile-menu a:hover {
+      color: var(--gold);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80') center center / cover no-repeat;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(28, 28, 28, 0.5) 0%,
+        rgba(28, 28, 28, 0.65) 50%,
+        rgba(28, 28, 28, 0.8) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      color: #fff;
+      padding: 0 24px;
+    }
+
+    .hero-label {
+      display: inline-block;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.8rem;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.3s forwards;
+    }
+
+    .hero-title {
+      font-size: 4rem;
+      font-weight: 700;
+      letter-spacing: 4px;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.6s forwards;
+    }
+
+    .hero-subtitle {
+      font-size: 0.9rem;
+      letter-spacing: 4px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 48px;
+      font-weight: 300;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.9s forwards;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      padding: 16px 48px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      transition: background-color 0.4s ease, color 0.4s ease;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.2s forwards;
+    }
+
+    .hero-cta:hover {
+      background-color: var(--gold);
+      color: var(--charcoal);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.5s forwards;
+    }
+
+    .hero-scroll span {
+      display: block;
+      width: 1px;
+      height: 50px;
+      background: var(--gold);
+      margin: 0 auto 8px;
+      animation: scrollLine 2s ease infinite;
+    }
+
+    .hero-scroll p {
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scrollLine {
+      0% { transform: scaleY(0); transform-origin: top; }
+      50% { transform: scaleY(1); transform-origin: top; }
+      51% { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ===== BRAND STORY ===== */
+    .brand-story {
+      padding: 120px 0;
+      background: var(--cream);
+    }
+
+    .brand-story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .brand-story-text .section-title {
+      font-size: 2.2rem;
+    }
+
+    .brand-story-text p {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 2;
+      margin-bottom: 20px;
+    }
+
+    .brand-story-text .philosophy-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--gold-dark);
+      border-left: 2px solid var(--gold);
+      padding-left: 20px;
+      margin: 32px 0;
+      line-height: 1.8;
+    }
+
+    .brand-story-image {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-story-image img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+    }
+
+    .brand-story-image::after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: -20px;
+      bottom: -20px;
+      border: 1px solid var(--gold);
+      z-index: -1;
+    }
+
+    /* ===== MENU ===== */
+    .menu-section {
+      padding: 120px 0;
+      background: #fff;
+    }
+
+    .menu-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+
+    .menu-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--cream);
+    }
+
+    .menu-card-image {
+      position: relative;
+      width: 100%;
+      height: 280px;
+      overflow: hidden;
+    }
+
+    .menu-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .menu-card:hover .menu-card-image img {
+      transform: scale(1.08);
+    }
+
+    .menu-card-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50%;
+      background: linear-gradient(to top, rgba(28, 28, 28, 0.6), transparent);
+    }
+
+    .menu-card-body {
+      padding: 24px;
+    }
+
+    .menu-card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: 8px;
+    }
+
+    .menu-card-desc {
+      font-size: 0.82rem;
+      color: #888;
+      line-height: 1.7;
+      margin-bottom: 16px;
+      min-height: 48px;
+    }
+
+    .menu-card-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    /* ===== CHEF ===== */
+    .chef-section {
+      padding: 120px 0;
+      background: var(--charcoal);
+      color: #fff;
+    }
+
+    .chef-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .chef-portrait {
+      position: relative;
+    }
+
+    .chef-portrait img {
+      width: 100%;
+      height: 550px;
+      object-fit: cover;
+      filter: grayscale(20%);
+    }
+
+    .chef-portrait::before {
+      content: '';
+      position: absolute;
+      top: -15px;
+      left: -15px;
+      width: 100px;
+      height: 100px;
+      border-top: 2px solid var(--gold);
+      border-left: 2px solid var(--gold);
+      z-index: 1;
+    }
+
+    .chef-portrait::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      right: -15px;
+      width: 100px;
+      height: 100px;
+      border-bottom: 2px solid var(--gold);
+      border-right: 2px solid var(--gold);
+    }
+
+    .chef-text .section-label {
+      color: var(--gold);
+    }
+
+    .chef-text .section-title {
+      color: #fff;
+      font-size: 2.2rem;
+    }
+
+    .chef-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .chef-role {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 2px;
+      margin-bottom: 32px;
+    }
+
+    .chef-text p {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 2;
+      margin-bottom: 20px;
+    }
+
+    .chef-signature {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--gold);
+      margin-top: 24px;
+    }
+
+    /* ===== GALLERY ===== */
+    .gallery-section {
+      padding: 120px 0;
+      background: var(--cream);
+    }
+
+    .gallery-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      height: 300px;
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(28, 28, 28, 0);
+      transition: background 0.4s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .gallery-item:hover::after {
+      background: rgba(28, 28, 28, 0.2);
+    }
+
+    /* ===== RESERVATION CTA ===== */
+    .reservation-section {
+      padding: 120px 0;
+      background: var(--charcoal);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .reservation-section::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 400px;
+      border: 1px solid rgba(201, 168, 108, 0.1);
+      border-radius: 50%;
+    }
+
+    .reservation-section::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      border: 1px solid rgba(201, 168, 108, 0.05);
+      border-radius: 50%;
+    }
+
+    .reservation-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .reservation-content .section-label {
+      color: var(--gold);
+    }
+
+    .reservation-content .section-title {
+      color: #fff;
+      font-size: 2.8rem;
+      margin-bottom: 16px;
+    }
+
+    .reservation-content .section-divider {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 40px;
+    }
+
+    .reservation-phone {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--gold);
+      letter-spacing: 3px;
+      margin-bottom: 24px;
+    }
+
+    .reservation-info {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 2;
+      margin-bottom: 40px;
+    }
+
+    .reservation-info span {
+      display: block;
+    }
+
+    .reservation-btn {
+      display: inline-block;
+      padding: 18px 56px;
+      background: var(--gold);
+      color: var(--charcoal);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.4s ease, transform 0.3s ease;
+    }
+
+    .reservation-btn:hover {
+      background-color: var(--gold-light);
+      transform: translateY(-2px);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding: 60px 0 40px;
+      background: #111;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-col h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--gold);
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    .footer-col p {
+      font-size: 0.85rem;
+      line-height: 2;
+    }
+
+    .footer-logo .logo-main {
+      font-size: 1.4rem;
+      margin-bottom: 4px;
+    }
+
+    .footer-logo .logo-sub {
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .footer-logo p {
+      font-size: 0.82rem;
+      line-height: 1.8;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 24px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .hero-title {
+        font-size: 2.2rem;
+        letter-spacing: 2px;
+      }
+
+      .hero-subtitle {
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+      }
+
+      .hero-cta {
+        padding: 14px 36px;
+        font-size: 0.8rem;
+      }
+
+      .brand-story-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .brand-story-image {
+        order: -1;
+      }
+
+      .brand-story-image img {
+        height: 350px;
+      }
+
+      .brand-story-image::after {
+        display: none;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+      }
+
+      .brand-story-text .section-title {
+        font-size: 1.8rem;
+      }
+
+      .menu-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .menu-card-image {
+        height: 200px;
+      }
+
+      .chef-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .chef-portrait img {
+        height: 400px;
+      }
+
+      .chef-portrait::before,
+      .chef-portrait::after {
+        display: none;
+      }
+
+      .chef-text .section-title {
+        font-size: 1.8rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .gallery-item {
+        height: 250px;
+      }
+
+      .reservation-content .section-title {
+        font-size: 2rem;
+      }
+
+      .reservation-phone {
+        font-size: 1.5rem;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .menu-card-image {
+        height: 240px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="#hero" class="logo">
+        <span class="logo-main">르 메종</span>
+        <span class="logo-sub">Le Maison</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#brand-story">브랜드 스토리</a>
+        <a href="#menu">메뉴</a>
+        <a href="#gallery">갤러리</a>
+        <a href="#reservation">예약</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="메뉴 열기">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#brand-story" class="mobile-nav-link">브랜드 스토리</a>
+    <a href="#menu" class="mobile-nav-link">메뉴</a>
+    <a href="#gallery" class="mobile-nav-link">갤러리</a>
+    <a href="#reservation" class="mobile-nav-link">예약</a>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-label">Fine Dining</span>
+      <h1 class="hero-title">맛과 공간의 조화</h1>
+      <p class="hero-subtitle">SINCE 2010 &nbsp;|&nbsp; 미슐랭 추천 &nbsp;|&nbsp; 예약제 운영</p>
+      <a href="#reservation" class="hero-cta">예약하기</a>
+    </div>
+    <div class="hero-scroll">
+      <span></span>
+      <p>Scroll</p>
+    </div>
+  </section>
+
+  <!-- ===== BRAND STORY ===== -->
+  <section class="brand-story" id="brand-story">
+    <div class="container">
+      <div class="brand-story-grid">
+        <div class="brand-story-text fade-in-left">
+          <span class="section-label">Our Philosophy</span>
+          <h2 class="section-title">르 메종의 철학</h2>
+          <div class="section-divider"></div>
+          <p>
+            르 메종은 2010년, 서울 한남동의 조용한 골목에서 시작되었습니다.
+            '집'을 뜻하는 이름처럼, 격식 있으면서도 편안한 공간에서
+            최고의 미식 경험을 선사하고자 합니다.
+          </p>
+          <p class="philosophy-quote">
+            "자연이 주는 최고의 식재료를 존중하고,
+            계절의 변화를 접시 위에 담아내는 것.
+            그것이 르 메종의 요리 철학입니다."
+          </p>
+          <p>
+            매일 아침, 전국 각지의 산지에서 직송받는 제철 식재료만을 사용합니다.
+            강원도 횡성의 한우, 제주 해녀가 채취한 해산물,
+            남해 유기농 농장의 채소까지.
+            르 메종은 대한민국 땅이 품은 최상의 재료를
+            프렌치 기법으로 재해석합니다.
+          </p>
+        </div>
+        <div class="brand-story-image fade-in-right">
+          <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb51f3a?w=800&q=80" alt="르 메종 인테리어" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MENU ===== -->
+  <section class="menu-section" id="menu">
+    <div class="container">
+      <div class="menu-header fade-in">
+        <span class="section-label">Signature Menu</span>
+        <h2 class="section-title">시그니처 메뉴</h2>
+        <div class="section-divider center"></div>
+      </div>
+      <div class="menu-grid">
+        <!-- Menu Item 1 -->
+        <div class="menu-card fade-in">
+          <div class="menu-card-image">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=800&q=80" alt="횡성 한우 안심 스테이크" />
+            <div class="menu-card-overlay"></div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-card-name">횡성 한우 안심 스테이크</h3>
+            <p class="menu-card-desc">48개월 숙성 횡성 한우 안심, 트러플 소스, 계절 채소 가니쉬</p>
+            <span class="menu-card-price">120,000원</span>
+          </div>
+        </div>
+        <!-- Menu Item 2 -->
+        <div class="menu-card fade-in">
+          <div class="menu-card-image">
+            <img src="https://images.unsplash.com/photo-1534604973900-c43ab4c2e0ab?w=800&q=80" alt="제주 전복 리소토" />
+            <div class="menu-card-overlay"></div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-card-name">제주 전복 리소토</h3>
+            <p class="menu-card-desc">제주산 전복, 사프란 리소토, 감태 크럼블, 유자 에센스</p>
+            <span class="menu-card-price">85,000원</span>
+          </div>
+        </div>
+        <!-- Menu Item 3 -->
+        <div class="menu-card fade-in">
+          <div class="menu-card-image">
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80" alt="계절 채소 테린" />
+            <div class="menu-card-overlay"></div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-card-name">계절 채소 테린</h3>
+            <p class="menu-card-desc">남해 유기농 채소, 허브 비네그레트, 에디블 플라워</p>
+            <span class="menu-card-price">45,000원</span>
+          </div>
+        </div>
+        <!-- Menu Item 4 -->
+        <div class="menu-card fade-in">
+          <div class="menu-card-image">
+            <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=800&q=80" alt="디저트 - 골든 파르페" />
+            <div class="menu-card-overlay"></div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-card-name">골든 파르페</h3>
+            <p class="menu-card-desc">발로나 초콜릿, 금박 장식, 바닐라 크림, 캐러멜 소스</p>
+            <span class="menu-card-price">55,000원</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CHEF ===== -->
+  <section class="chef-section" id="chef">
+    <div class="container">
+      <div class="chef-grid">
+        <div class="chef-portrait fade-in-left">
+          <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=80" alt="박준호 셰프" />
+        </div>
+        <div class="chef-text fade-in-right">
+          <span class="section-label">Head Chef</span>
+          <h2 class="section-title">셰프 소개</h2>
+          <div class="section-divider"></div>
+          <h3 class="chef-name">박준호 셰프</h3>
+          <p class="chef-role">Executive Chef / 총괄 셰프</p>
+          <p>
+            파리 르 코르동 블루를 졸업한 후, 프랑스 미슐랭 3스타 레스토랑에서
+            10년간 수련하며 프렌치 요리의 정수를 익혔습니다.
+            2010년 귀국 후 르 메종을 오픈하며, 한국 제철 식재료와
+            프렌치 테크닉의 완벽한 조화를 추구하고 있습니다.
+          </p>
+          <p>
+            "재료 본연의 맛을 최대한 살리되,
+            새로운 감동을 줄 수 있는 한 접시를 만드는 것이 제 목표입니다.
+            매일 달라지는 자연의 선물에서 영감을 받아,
+            손님 한 분 한 분을 위한 특별한 요리를 준비합니다."
+          </p>
+          <p class="chef-signature">- Junho Park</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GALLERY ===== -->
+  <section class="gallery-section" id="gallery">
+    <div class="container">
+      <div class="gallery-header fade-in">
+        <span class="section-label">Gallery</span>
+        <h2 class="section-title">갤러리</h2>
+        <div class="section-divider center"></div>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item fade-in">
+          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80" alt="르 메종 다이닝 홀" />
+        </div>
+        <div class="gallery-item fade-in">
+          <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80" alt="프라이빗 룸" />
+        </div>
+        <div class="gallery-item fade-in">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80" alt="시그니처 요리" />
+        </div>
+        <div class="gallery-item fade-in">
+          <img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=800&q=80" alt="와인 셀러" />
+        </div>
+        <div class="gallery-item fade-in">
+          <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb51f3a?w=800&q=80" alt="바 카운터" />
+        </div>
+        <div class="gallery-item fade-in">
+          <img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=800&q=80" alt="테이블 세팅" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== RESERVATION ===== -->
+  <section class="reservation-section" id="reservation">
+    <div class="container">
+      <div class="reservation-content fade-in">
+        <span class="section-label">Reservation</span>
+        <h2 class="section-title">예약 문의</h2>
+        <div class="section-divider"></div>
+        <p class="reservation-phone">02-1234-5678</p>
+        <div class="reservation-info">
+          <span>런치 12:00 - 15:00 (라스트 오더 14:00)</span>
+          <span>디너 18:00 - 22:00 (라스트 오더 21:00)</span>
+          <span>매주 월요일 휴무</span>
+          <span>온라인 예약은 최소 3일 전까지 가능합니다</span>
+        </div>
+        <a href="tel:02-1234-5678" class="reservation-btn">전화 예약하기</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-logo">
+          <span class="logo-main">르 메종</span>
+          <span class="logo-sub">Le Maison</span>
+          <p>맛과 공간의 조화를 추구하는<br />프리미엄 파인다이닝 레스토랑</p>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p>
+            서울특별시 용산구 한남대로 42길 18<br />
+            르 메종 빌딩 1-2층<br />
+            전화 : 02-1234-5678<br />
+            이메일 : info@lemaison.kr
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Hours</h4>
+          <p>
+            런치 12:00 - 15:00<br />
+            디너 18:00 - 22:00<br />
+            매주 월요일 휴무<br />
+            공휴일 정상 영업
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Copyright 2010-2026 Le Maison. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    (function() {
+      // Header scroll effect
+      var header = document.getElementById('header');
+      var scrollThreshold = 80;
+
+      function handleScroll() {
+        if (window.scrollY > scrollThreshold) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      }
+
+      window.addEventListener('scroll', handleScroll, { passive: true });
+
+      // Mobile menu
+      var hamburger = document.getElementById('hamburger');
+      var mobileMenu = document.getElementById('mobileMenu');
+      var mobileLinks = mobileMenu.querySelectorAll('a');
+
+      hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+      });
+
+      mobileLinks.forEach(function(link) {
+        link.addEventListener('click', function() {
+          hamburger.classList.remove('active');
+          mobileMenu.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      });
+
+      // IntersectionObserver for fade-in animations
+      var fadeElements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right');
+
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.15,
+          rootMargin: '0px 0px -50px 0px'
+        });
+
+        fadeElements.forEach(function(el) {
+          observer.observe(el);
+        });
+      } else {
+        // Fallback for older browsers
+        fadeElements.forEach(function(el) {
+          el.classList.add('visible');
+        });
+      }
+
+      // Smooth scroll for all anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          var target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            var headerHeight = header.offsetHeight;
+            var targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

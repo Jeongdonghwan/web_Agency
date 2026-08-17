@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회사소개 - 글로벌트레이드</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #F8F9FA;
+      color: #1A1A2E;
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(26, 26, 46, 0.08);
+    }
+
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0F3460;
+      letter-spacing: 1px;
+      text-decoration: none;
+    }
+
+    .logo span { color: #C9A227; }
+
+    .nav { display: flex; gap: 40px; }
+
+    .nav a {
+      text-decoration: none;
+      color: #1A1A2E;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav a:hover, .nav a.active { color: #0F3460; }
+
+    .header-btn {
+      background: linear-gradient(135deg, #0F3460 0%, #16213E 100%);
+      color: #fff;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    /* Page Hero */
+    .page-hero {
+      height: 60vh;
+      min-height: 400px;
+      background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80') center/cover;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(15, 52, 96, 0.9) 0%, rgba(22, 33, 62, 0.85) 100%);
+    }
+
+    .page-hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      color: #fff;
+    }
+
+    .page-tag {
+      display: inline-block;
+      background: rgba(201, 162, 39, 0.2);
+      color: #C9A227;
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(201, 162, 39, 0.3);
+    }
+
+    .page-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .page-desc {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    /* CEO Message */
+    .ceo-section {
+      padding: 100px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .ceo-grid {
+      display: grid;
+      grid-template-columns: 350px 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .ceo-image {
+      position: relative;
+    }
+
+    .ceo-image img {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(15, 52, 96, 0.15);
+    }
+
+    .ceo-badge {
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #C9A227 0%, #B8860B 100%);
+      color: #fff;
+      padding: 16px 32px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .ceo-badge h4 {
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+
+    .ceo-badge p {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    .ceo-content h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2rem;
+      color: #0F3460;
+      margin-bottom: 24px;
+    }
+
+    .ceo-content p {
+      font-size: 1.05rem;
+      color: #666;
+      line-height: 2;
+      margin-bottom: 20px;
+    }
+
+    .ceo-signature {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.2rem;
+      color: #0F3460;
+      font-weight: 600;
+      margin-top: 32px;
+    }
+
+    /* Timeline */
+    .timeline-section {
+      padding: 100px 60px;
+      background: #fff;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      background: rgba(15, 52, 96, 0.1);
+      color: #0F3460;
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.5rem;
+      color: #1A1A2E;
+      font-weight: 700;
+    }
+
+    .timeline {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, #C9A227, #0F3460);
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      display: flex;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .timeline-item:nth-child(odd) {
+      flex-direction: row-reverse;
+      text-align: right;
+    }
+
+    .timeline-content {
+      width: calc(50% - 40px);
+      background: #F8F9FA;
+      padding: 24px;
+      border-radius: 12px;
+    }
+
+    .timeline-year {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.5rem;
+      color: #C9A227;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .timeline-title {
+      font-size: 1.1rem;
+      color: #1A1A2E;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .timeline-text {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      top: 30px;
+      width: 16px;
+      height: 16px;
+      background: #C9A227;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 3px #C9A227;
+    }
+
+    /* Global Network */
+    .network-section {
+      padding: 100px 60px;
+      background: linear-gradient(135deg, #0F3460 0%, #16213E 100%);
+    }
+
+    .network-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .network-tag {
+      display: inline-block;
+      background: rgba(201, 162, 39, 0.2);
+      color: #C9A227;
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    .network-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.5rem;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .network-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .network-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 32px 24px;
+      text-align: center;
+      transition: all 0.4s;
+    }
+
+    .network-card:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-8px);
+    }
+
+    .network-flag {
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+
+    .network-country {
+      font-size: 1rem;
+      color: #fff;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .network-city {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Footer */
+    .footer {
+      padding: 60px;
+      background: #0F3460;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.5rem;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .footer-logo span { color: #C9A227; }
+
+    .footer-nav {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 24px;
+    }
+
+    .footer-nav a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    .footer-nav a:hover { color: #C9A227; }
+
+    .footer p {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.85rem;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      background: rgba(77, 171, 247, 0.1);
+      border: 1px solid rgba(77, 171, 247, 0.3);
+      border-radius: 8px;
+      cursor: pointer;
+      gap: 5px;
+      padding: 0;
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: #4dabf7;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    .mobile-menu-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 22, 40, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 99;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .mobile-menu-overlay.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+    }
+
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .mobile-nav a {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s;
+    }
+
+    .mobile-nav a:hover {
+      color: #4dabf7;
+    }
+
+    .mobile-menu-overlay.active .mobile-nav a {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(1) { transition-delay: 0.1s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(2) { transition-delay: 0.2s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(3) { transition-delay: 0.3s; }
+    .mobile-menu-overlay.active .mobile-nav a:nth-child(4) { transition-delay: 0.4s; }
+
+    @media (max-width: 768px) {
+      .mobile-menu-btn { display: flex; }
+      .mobile-menu-overlay { display: none; }
+      .mobile-menu-overlay.active { display: flex; }
+      .header { padding: 16px 24px; }
+      .nav { display: none; }
+      .page-title { font-size: 2.5rem; }
+      .ceo-section { padding: 60px 24px; }
+      .ceo-grid { grid-template-columns: 1fr; gap: 60px; }
+      .ceo-image { max-width: 300px; margin: 0 auto; }
+      .timeline-section { padding: 60px 24px; }
+      .timeline::before { left: 20px; }
+      .timeline-item, .timeline-item:nth-child(odd) { flex-direction: row; text-align: left; }
+      .timeline-content { width: calc(100% - 60px); margin-left: 40px; }
+      .timeline-dot { left: 20px; }
+      .network-section { padding: 60px 24px; }
+      .network-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="logo">GLOBAL<span>TRADE</span></a>
+    <nav class="nav">
+      <a href="about.html" class="active">회사소개</a>
+      <a href="services.html">사업영역</a>
+      <a href="contact.html">문의하기</a>
+    </nav>
+    <a href="contact.html" class="header-btn">파트너 문의</a>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <div class="mobile-menu-overlay" id="mobileMenu">
+    <nav class="mobile-nav">
+      <a href="index.html">홈</a>
+      <a href="about.html">회사소개</a>
+      <a href="services.html">사업영역</a>
+      <a href="contact.html">문의하기</a>
+    </nav>
+  </div>
+
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <span class="page-tag">ABOUT US</span>
+      <h1 class="page-title">회사 소개</h1>
+      <p class="page-desc">신뢰와 전문성으로 글로벌 무역을 선도합니다</p>
+    </div>
+  </section>
+
+  <section class="ceo-section">
+    <div class="ceo-grid">
+      <div class="ceo-image">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80" alt="CEO">
+        <div class="ceo-badge">
+          <h4>김글로벌</h4>
+          <p>대표이사 / CEO</p>
+        </div>
+      </div>
+      <div class="ceo-content">
+        <h2>CEO 인사말</h2>
+        <p>
+          안녕하십니까, 글로벌트레이드 대표이사 김글로벌입니다.
+        </p>
+        <p>
+          2004년 창업 이후 20년간 글로벌트레이드는 '신뢰'와 '전문성'을 최우선 가치로
+          삼아 대한민국 중소기업의 해외 진출을 지원해 왔습니다.
+        </p>
+        <p>
+          급변하는 국제 무역 환경 속에서도 우리는 50개 이상의 글로벌 파트너사와의
+          네트워크를 바탕으로 고객사에게 최적의 솔루션을 제공하고 있습니다.
+        </p>
+        <p>
+          앞으로도 글로벌트레이드는 고객사의 성공적인 해외 비즈니스를 위해
+          끊임없이 노력하겠습니다. 감사합니다.
+        </p>
+        <p class="ceo-signature">
+          글로벌트레이드 대표이사 김글로벌
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="timeline-section">
+    <div class="section-header">
+      <span class="section-tag">HISTORY</span>
+      <h2 class="section-title">연혁</h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <span class="timeline-year">2024</span>
+          <h3 class="timeline-title">동남아시아 지사 설립</h3>
+          <p class="timeline-text">베트남 호치민, 태국 방콕 지사 개설</p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <span class="timeline-year">2020</span>
+          <h3 class="timeline-title">누적 거래액 1조원 달성</h3>
+          <p class="timeline-text">글로벌 파트너사 50개 돌파</p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <span class="timeline-year">2015</span>
+          <h3 class="timeline-title">유럽 지사 설립</h3>
+          <p class="timeline-text">독일 프랑크푸르트 지사 개설</p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <span class="timeline-year">2010</span>
+          <h3 class="timeline-title">중국 진출</h3>
+          <p class="timeline-text">상해, 광저우 사무소 개설</p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <span class="timeline-year">2004</span>
+          <h3 class="timeline-title">회사 설립</h3>
+          <p class="timeline-text">서울 강남 본사 설립</p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="network-section">
+    <div class="network-header">
+      <span class="network-tag">GLOBAL NETWORK</span>
+      <h2 class="network-title">글로벌 네트워크</h2>
+    </div>
+    <div class="network-grid">
+      <div class="network-card">
+        <div class="network-flag">🇺🇸</div>
+        <h3 class="network-country">미국</h3>
+        <p class="network-city">LA, 뉴욕</p>
+      </div>
+      <div class="network-card">
+        <div class="network-flag">🇩🇪</div>
+        <h3 class="network-country">독일</h3>
+        <p class="network-city">프랑크푸르트</p>
+      </div>
+      <div class="network-card">
+        <div class="network-flag">🇨🇳</div>
+        <h3 class="network-country">중국</h3>
+        <p class="network-city">상해, 광저우</p>
+      </div>
+      <div class="network-card">
+        <div class="network-flag">🇯🇵</div>
+        <h3 class="network-country">일본</h3>
+        <p class="network-city">도쿄, 오사카</p>
+      </div>
+      <div class="network-card">
+        <div class="network-flag">🇻🇳</div>
+        <h3 class="network-country">베트남</h3>
+        <p class="network-city">호치민</p>
+      </div>
+      <div class="network-card">
+        <div class="network-flag">🇹🇭</div>
+        <h3 class="network-country">태국</h3>
+        <p class="network-city">방콕</p>
+      </div>
+      <div class="network-card">
+        <div class="network-flag">🇸🇬</div>
+        <h3 class="network-country">싱가포르</h3>
+        <p class="network-city">싱가포르</p>
+      </div>
+      <div class="network-card">
+        <div class="network-flag">🇦🇪</div>
+        <h3 class="network-country">UAE</h3>
+        <p class="network-city">두바이</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-logo">GLOBAL<span>TRADE</span></div>
+    <nav class="footer-nav">
+      <a href="index.html">홈</a>
+      <a href="about.html">회사소개</a>
+      <a href="services.html">사업영역</a>
+      <a href="contact.html">문의하기</a>
+    </nav>
+    <p>© 2024 GLOBALTRADE. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      const btn = document.querySelector('.mobile-menu-btn');
+      const overlay = document.getElementById('mobileMenu');
+      btn.classList.toggle('active');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : '';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>글로벌트레이드 - Global Trading Company</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #F8F9FA;
+      color: #1A1A2E;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(26, 26, 46, 0.08);
+    }
+
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0F3460;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #C9A227;
+    }
+
+    .nav {
+      display: flex;
+      gap: 40px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: #1A1A2E;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: color 0.3s;
+    }
+
+    .nav a:hover {
+      color: #0F3460;
+    }
+
+    .header-btn {
+      background: linear-gradient(135deg, #0F3460 0%, #16213E 100%);
+      color: #fff;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .header-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(15, 52, 96, 0.3);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0F3460 0%, #16213E 100%);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 60%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=1200&q=80') center/cover;
+      clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, #0F3460 0%, rgba(15, 52, 96, 0.7) 50%, rgba(15, 52, 96, 0.4) 100%);
+      clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 0 60px;
+      max-width: 650px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(201, 162, 39, 0.2);
+      color: #C9A227;
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(201, 162, 39, 0.3);
+    }
+
+    .hero-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: #fff;
+      margin-bottom: 24px;
+    }
+
+    .hero-title span {
+      color: #C9A227;
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #C9A227 0%, #B8860B 100%);
+      color: #fff;
+      border: none;
+      padding: 16px 36px;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(201, 162, 39, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      padding: 16px 36px;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-secondary:hover {
+      border-color: #C9A227;
+      color: #C9A227;
+    }
+
+    /* Stats Bar */
+    .stats-bar {
+      background: #fff;
+      padding: 40px 60px;
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+      border-bottom: 1px solid rgba(26, 26, 46, 0.08);
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #0F3460;
+      margin-bottom: 8px;
+    }
+
+    .stat-number span {
+      color: #C9A227;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: #666;
+      font-weight: 500;
+    }
+
+    /* Services */
+    .services {
+      padding: 100px 60px;
+      background: #F8F9FA;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      background: rgba(15, 52, 96, 0.1);
+      color: #0F3460;
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.5rem;
+      color: #1A1A2E;
+      font-weight: 700;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: #fff;
+      padding: 40px 30px;
+      border-radius: 8px;
+      text-align: center;
+      transition: all 0.4s;
+      border: 1px solid rgba(26, 26, 46, 0.08);
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(15, 52, 96, 0.1);
+      border-color: #C9A227;
+    }
+
+    .service-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #0F3460 0%, #16213E 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 28px;
+    }
+
+    .service-card:hover .service-icon {
+      background: linear-gradient(135deg, #C9A227 0%, #B8860B 100%);
+    }
+
+    .service-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1A1A2E;
+      margin-bottom: 12px;
+    }
+
+    .service-desc {
+      font-size: 0.85rem;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    /* Footer hint */
+    .footer-hint {
+      padding: 40px;
+      background: #0F3460;
+      text-align: center;
+    }
+
+    .footer-hint p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">GLOBAL<span>TRADE</span></div>
+    <nav class="nav">
+      <a href="#">회사소개</a>
+      <a href="#">사업영역</a>
+      <a href="#">글로벌네트워크</a>
+      <a href="#">뉴스룸</a>
+      <a href="#">문의하기</a>
+    </nav>
+    <button class="header-btn">파트너 문의</button>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-tag">GLOBAL TRADING PARTNER</span>
+      <h1 class="hero-title">
+        세계를 잇는<br>
+        <span>신뢰</span>의 파트너
+      </h1>
+      <p class="hero-desc">
+        20년의 무역 전문성으로 아시아, 유럽, 미주를 연결합니다.<br>
+        글로벌트레이드와 함께 새로운 비즈니스 기회를 만나세요.
+      </p>
+      <div class="hero-btns">
+        <button class="btn-primary">사업영역 보기</button>
+        <button class="btn-secondary">회사소개서</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-number">20<span>+</span></div>
+      <div class="stat-label">Years of Experience</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">50<span>+</span></div>
+      <div class="stat-label">Global Partners</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">30<span>+</span></div>
+      <div class="stat-label">Countries</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">1,200<span>+</span></div>
+      <div class="stat-label">Projects Completed</div>
+    </div>
+  </div>
+
+  <section class="services">
+    <div class="section-header">
+      <span class="section-tag">OUR SERVICES</span>
+      <h2 class="section-title">사업 영역</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🚢</div>
+        <h3 class="service-title">수출입 대행</h3>
+        <p class="service-desc">복잡한 수출입 절차를 원스톱으로 처리해드립니다</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📦</div>
+        <h3 class="service-title">물류 솔루션</h3>
+        <p class="service-desc">최적화된 물류 네트워크로 비용 절감을 실현합니다</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌏</div>
+        <h3 class="service-title">해외시장 진출</h3>
+        <p class="service-desc">현지 네트워크를 활용한 시장 진출을 지원합니다</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📋</div>
+        <h3 class="service-title">통관 서비스</h3>
+        <p class="service-desc">신속하고 정확한 통관 업무를 대행합니다</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-hint">
+    <p>© 2024 GLOBALTRADE. All rights reserved.</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "/robots.txt/route": "app/robots.txt/route.js",
+  "/page": "app/page.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js",
+  "/blog/page": "app/blog/page.js",
+  "/homepage/[slug]/page": "app/homepage/[slug]/page.js",
+  "/blog/[slug]/page": "app/blog/[slug]/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/rss.xml/route": "app/rss.xml/route.js",
+  "/homepage/page": "app/homepage/page.js",
+  "/homepage/category/[category]/page": "app/homepage/category/[category]/page.js"
+}

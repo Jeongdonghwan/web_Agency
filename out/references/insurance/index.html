@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>보험의 정석 - 내게 맞는 보험 무료 비교</title>
+<meta name="description" content="보험의 정석에서 내게 맞는 보험을 1분 만에 비교하세요. 전문 상담사 배정, 보험료 최대 30% 절약, 무료 비교 분석 서비스를 제공합니다.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<style>
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --white: #FFFFFF;
+  --blue: #1A56DB;
+  --blue-hover: #1648C0;
+  --light-blue: #EFF6FF;
+  --dark: #1F2937;
+  --gray-100: #F3F4F6;
+  --gray-200: #E5E7EB;
+  --gray-300: #D1D5DB;
+  --gray-400: #9CA3AF;
+  --gray-500: #6B7280;
+  --gray-600: #4B5563;
+  --gold: #F59E0B;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  color: var(--dark);
+  line-height: 1.6;
+  background: var(--white);
+  overflow-x: hidden;
+}
+
+/* Scroll Animations */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== HEADER ===== */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 68px;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
+
+.header-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--blue);
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+
+.logo span {
+  color: var(--dark);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.header-phone {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gray-600);
+  text-decoration: none;
+}
+
+.header-phone strong {
+  color: var(--dark);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  background: var(--blue);
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--blue-hover);
+}
+
+/* ===== HERO ===== */
+.hero {
+  padding: 120px 24px 80px;
+  background: linear-gradient(170deg, rgba(26, 86, 219, 0.72) 0%, rgba(16, 64, 160, 0.78) 100%),
+              url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1600&q=80') center/cover no-repeat;
+  position: relative;
+}
+
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.hero-content {
+  flex: 1;
+}
+
+.hero-content h1 {
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--white);
+  margin-bottom: 12px;
+  letter-spacing: -1px;
+}
+
+.hero-content p {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 32px;
+}
+
+.benefit-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 0;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  backdrop-filter: blur(4px);
+}
+
+.badge svg {
+  flex-shrink: 0;
+}
+
+/* Form Styles */
+.form-card {
+  flex: 0 0 420px;
+  background: var(--white);
+  border-radius: 16px;
+  padding: 36px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--gray-200);
+}
+
+.form-card h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--dark);
+}
+
+.form-card > p {
+  font-size: 14px;
+  color: var(--gray-500);
+  margin-bottom: 24px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  font-size: 15px;
+  font-family: inherit;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--dark);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.1);
+}
+
+.form-group input::placeholder {
+  color: var(--gray-400);
+}
+
+.form-privacy {
+  font-size: 12px;
+  color: var(--gray-400);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.btn-submit {
+  width: 100%;
+  height: 52px;
+  background: var(--blue);
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: inherit;
+}
+
+.btn-submit:hover {
+  background: var(--blue-hover);
+}
+
+/* ===== SECTION COMMON ===== */
+.section {
+  padding: 80px 24px;
+}
+
+.section-gray {
+  background: var(--gray-100);
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.section-title h2 {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.section-title p {
+  font-size: 16px;
+  color: var(--gray-500);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ===== INSURANCE TYPES ===== */
+.types-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.type-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 16px;
+  padding: 0;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+}
+
+.type-card-img {
+  width: 100%;
+  height: 140px;
+  overflow: hidden;
+}
+
+.type-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.type-card:hover .type-card-img img {
+  transform: scale(1.08);
+}
+
+.type-card-body {
+  padding: 24px;
+}
+
+.type-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.type-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+  background: var(--light-blue);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.type-icon svg {
+  width: 32px;
+  height: 32px;
+  color: var(--blue);
+}
+
+.type-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--dark);
+}
+
+.type-card p {
+  font-size: 14px;
+  color: var(--gray-500);
+  line-height: 1.6;
+}
+
+/* ===== WHY US TABLE ===== */
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.comparison-table thead th {
+  padding: 20px 24px;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 2px solid var(--gray-200);
+}
+
+.comparison-table thead th:first-child {
+  text-align: left;
+  background: var(--gray-100);
+  color: var(--gray-600);
+}
+
+.comparison-table thead th:nth-child(2) {
+  color: var(--gray-500);
+  background: var(--gray-100);
+}
+
+.comparison-table thead th:nth-child(3) {
+  color: var(--blue);
+  background: var(--light-blue);
+}
+
+.comparison-table tbody td {
+  padding: 18px 24px;
+  font-size: 15px;
+  text-align: center;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.comparison-table tbody td:first-child {
+  text-align: left;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.comparison-table tbody td:nth-child(2) {
+  color: var(--gray-400);
+}
+
+.comparison-table tbody td:nth-child(3) {
+  color: var(--blue);
+  font-weight: 600;
+  background: rgba(239, 246, 255, 0.5);
+}
+
+.table-check {
+  color: var(--blue);
+  font-weight: 700;
+}
+
+.table-x {
+  color: var(--gray-400);
+}
+
+/* ===== PROCESS ===== */
+.process-steps {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.step {
+  flex: 1;
+  text-align: center;
+  position: relative;
+  padding: 0 16px;
+}
+
+.step-number {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 16px;
+  background: var(--blue);
+  color: var(--white);
+  font-size: 22px;
+  font-weight: 800;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--dark);
+}
+
+.step p {
+  font-size: 14px;
+  color: var(--gray-500);
+  line-height: 1.5;
+}
+
+.step-arrow {
+  position: absolute;
+  top: 28px;
+  right: -12px;
+  color: var(--gray-300);
+}
+
+/* ===== REVIEWS ===== */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.review-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 16px;
+  padding: 28px;
+}
+
+.review-stars {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 12px;
+}
+
+.review-stars svg {
+  width: 18px;
+  height: 18px;
+  color: var(--gold);
+  fill: var(--gold);
+}
+
+.review-card blockquote {
+  font-size: 15px;
+  color: var(--gray-600);
+  line-height: 1.7;
+  margin-bottom: 16px;
+  font-style: normal;
+}
+
+.review-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.review-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.review-author {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.review-meta {
+  font-size: 13px;
+  color: var(--gray-400);
+  margin-top: 2px;
+}
+
+/* ===== CONSULTATION IMAGE ===== */
+.consultation-image-section {
+  padding: 0 24px 60px;
+  text-align: center;
+}
+
+.consultation-image-section img {
+  max-width: 600px;
+  width: 100%;
+  border-radius: 16px;
+  display: block;
+  margin: 0 auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== TRUST BADGES ===== */
+.trust-section {
+  padding: 60px 24px;
+  background: var(--gray-100);
+  border-top: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.trust-badges {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.trust-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.trust-icon {
+  width: 56px;
+  height: 56px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trust-icon svg {
+  width: 28px;
+  height: 28px;
+  color: var(--blue);
+}
+
+.trust-badge strong {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.trust-badge span {
+  font-size: 13px;
+  color: var(--gray-500);
+  margin-top: -8px;
+}
+
+/* ===== FINAL CTA ===== */
+.final-cta {
+  padding: 80px 24px;
+  background: linear-gradient(135deg, #1A56DB 0%, #1040A0 100%);
+  text-align: center;
+}
+
+.final-cta h2 {
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.final-cta > .container > p {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 40px;
+}
+
+.final-form {
+  max-width: 500px;
+  margin: 0 auto;
+  background: var(--white);
+  border-radius: 16px;
+  padding: 36px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.final-cta-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.final-cta-image {
+  flex: 0 0 340px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.final-cta-image img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+  display: block;
+}
+
+.final-form h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  padding: 48px 24px;
+  background: var(--dark);
+  color: var(--gray-400);
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-company {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.footer-info {
+  font-size: 13px;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.footer-divider {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 20px 0;
+}
+
+.footer-disclaimer {
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--gray-500);
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .header-phone {
+    display: none;
+  }
+
+  .hero {
+    padding: 88px 20px 48px;
+  }
+
+  .hero-inner {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .hero-content h1 {
+    font-size: 28px;
+  }
+
+  .hero-content p {
+    font-size: 16px;
+  }
+
+  .benefit-badges {
+    gap: 8px;
+  }
+
+  .badge {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .form-card {
+    flex: none;
+    width: 100%;
+    padding: 24px;
+  }
+
+  .section {
+    padding: 56px 20px;
+  }
+
+  .section-title h2 {
+    font-size: 24px;
+  }
+
+  .types-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .type-card {
+    padding: 0;
+  }
+
+  .type-card-img {
+    height: 120px;
+  }
+
+  .type-card-body {
+    padding: 20px 16px;
+  }
+
+  .comparison-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .comparison-table thead th,
+  .comparison-table tbody td {
+    padding: 14px 16px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .process-steps {
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .step {
+    max-width: 300px;
+  }
+
+  .step-arrow {
+    display: none;
+  }
+
+  .reviews-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .trust-badges {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .final-cta {
+    padding: 56px 20px;
+  }
+
+  .final-cta h2 {
+    font-size: 26px;
+  }
+
+  .final-cta-content {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .final-cta-image {
+    flex: none;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .final-cta-image img {
+    height: 220px;
+  }
+
+  .final-form {
+    padding: 24px;
+    width: 100%;
+  }
+
+  .footer {
+    padding: 36px 20px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="logo">보험의 <span>정석</span></a>
+    <div class="header-right">
+      <a href="tel:1588-0000" class="header-phone">상담전화 <strong>1588-0000</strong></a>
+      <a href="#cta" class="btn-primary">무료 상담</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content fade-up">
+      <h1>내게 맞는 보험,<br>1분이면 충분합니다</h1>
+      <p>복잡한 보험 비교, 전문가가 대신 해드립니다.</p>
+      <div class="benefit-badges">
+        <div class="badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A56DB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          전문 상담사 배정
+        </div>
+        <div class="badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A56DB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          보험료 최대 30% 절약
+        </div>
+        <div class="badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A56DB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          무료 비교 분석
+        </div>
+      </div>
+    </div>
+    <div class="form-card fade-up">
+      <h3>무료 보험 상담 신청</h3>
+      <p>간단한 정보만 입력하시면 전문 상담사가 연락드립니다.</p>
+      <form id="heroForm" onsubmit="handleSubmit(event, 'hero')">
+        <div class="form-group">
+          <label for="hero-name">이름</label>
+          <input type="text" id="hero-name" name="name" placeholder="홍길동" required>
+        </div>
+        <div class="form-group">
+          <label for="hero-phone">연락처</label>
+          <input type="tel" id="hero-phone" name="phone" placeholder="010-0000-0000" required>
+        </div>
+        <div class="form-group">
+          <label for="hero-type">관심 보험</label>
+          <select id="hero-type" name="type" required>
+            <option value="" disabled selected>보험 종류를 선택하세요</option>
+            <option value="life">생명보험</option>
+            <option value="auto">자동차보험</option>
+            <option value="health">건강보험</option>
+            <option value="fire">화재보험</option>
+            <option value="etc">기타</option>
+          </select>
+        </div>
+        <p class="form-privacy">개인정보 수집 및 이용에 동의하며, 상담 목적으로만 활용됩니다.</p>
+        <button type="submit" class="btn-submit">무료 상담 신청하기</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INSURANCE TYPES ===== -->
+<section class="section reveal">
+  <div class="container">
+    <div class="section-title fade-up">
+      <h2>보험 종류별 맞춤 비교</h2>
+      <p>다양한 보험 상품을 한눈에 비교하고 최적의 플랜을 찾으세요.</p>
+    </div>
+    <div class="types-grid">
+      <div class="type-card fade-up">
+        <div class="type-card-img">
+          <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400&q=80" alt="가족 보호를 상징하는 이미지" loading="lazy">
+        </div>
+        <div class="type-card-body">
+          <div class="type-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <h3>생명보험</h3>
+          <p>사망, 장해 등 예기치 못한 상황에 대비하여 가족의 생활을 보장합니다.</p>
+        </div>
+      </div>
+      <div class="type-card fade-up">
+        <div class="type-card-img">
+          <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=400&q=80" alt="도로 위를 달리는 자동차" loading="lazy">
+        </div>
+        <div class="type-card-body">
+          <div class="type-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="22" height="12" rx="3"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>
+          </div>
+          <h3>자동차보험</h3>
+          <p>대인, 대물, 자차 등 운전 중 발생할 수 있는 사고에 대해 종합적으로 보장합니다.</p>
+        </div>
+      </div>
+      <div class="type-card fade-up">
+        <div class="type-card-img">
+          <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&q=80" alt="건강과 의료를 상징하는 이미지" loading="lazy">
+        </div>
+        <div class="type-card-body">
+          <div class="type-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <h3>건강보험</h3>
+          <p>질병, 수술, 입원비 등 의료비 부담을 줄여주는 실속형 보장 상품입니다.</p>
+        </div>
+      </div>
+      <div class="type-card fade-up">
+        <div class="type-card-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&q=80" alt="안전한 주택 건물 외관" loading="lazy">
+        </div>
+        <div class="type-card-body">
+          <div class="type-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <h3>화재보험</h3>
+          <p>화재, 폭발, 자연재해 등으로 인한 건물 및 재산 피해를 보장합니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY US ===== -->
+<section class="section section-gray reveal">
+  <div class="container">
+    <div class="section-title fade-up">
+      <h2>왜 보험의 정석인가요?</h2>
+      <p>일반 보험 가입과 보험의 정석 서비스를 비교해 보세요.</p>
+    </div>
+    <div class="fade-up">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>비교 항목</th>
+            <th>일반 가입</th>
+            <th>보험의 정석</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>보험료 투명성</td>
+            <td class="table-x">단일 상품만 안내</td>
+            <td class="table-check">여러 보험사 비교 후 최저가 안내</td>
+          </tr>
+          <tr>
+            <td>전문가 매칭</td>
+            <td class="table-x">담당자 지정 불가</td>
+            <td class="table-check">관심 분야 전문 상담사 1:1 배정</td>
+          </tr>
+          <tr>
+            <td>사후 관리 서비스</td>
+            <td class="table-x">가입 후 관리 없음</td>
+            <td class="table-check">정기 리뷰 및 플랜 최적화 제공</td>
+          </tr>
+          <tr>
+            <td>상담 비용</td>
+            <td class="table-x">별도 수수료 발생 가능</td>
+            <td class="table-check">완전 무료 상담</td>
+          </tr>
+          <tr>
+            <td>상담 소요 시간</td>
+            <td class="table-x">직접 방문 필요</td>
+            <td class="table-check">비대면으로 간편하게 완료</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROCESS ===== -->
+<section class="section reveal">
+  <div class="container">
+    <div class="section-title fade-up">
+      <h2>간편한 3단계 프로세스</h2>
+      <p>복잡한 절차 없이, 3단계만으로 맞춤 보험을 찾으세요.</p>
+    </div>
+    <div class="process-steps fade-up">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>무료 상담 신청</h3>
+        <p>간단한 정보를 입력하고 무료 상담을 신청합니다.</p>
+        <svg class="step-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>전문가 매칭</h3>
+        <p>관심 보험 분야의 전문 상담사가 배정됩니다.</p>
+        <svg class="step-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>맞춤 플랜 제안</h3>
+        <p>여러 보험사 상품을 비교 분석하여 최적 플랜을 제안합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REVIEWS ===== -->
+<section class="section section-gray reveal">
+  <div class="container">
+    <div class="section-title fade-up">
+      <h2>고객 후기</h2>
+      <p>보험의 정석을 통해 보험을 비교한 고객님들의 이야기입니다.</p>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card fade-up">
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <blockquote>보험 가입 시 여러 회사를 직접 비교하기 어려웠는데, 상담사분이 꼼꼼하게 비교해 주셔서 월 보험료를 많이 절약할 수 있었습니다. 사후 관리까지 해주셔서 매우 만족합니다.</blockquote>
+        <div class="review-profile">
+          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80" alt="고객 김*호 프로필 사진" loading="lazy" class="review-avatar">
+          <div>
+            <div class="review-author">김*호</div>
+            <div class="review-meta">자동차보험 비교 상담</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card fade-up">
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <blockquote>건강보험 갱신 시기에 맞춰 상담을 받았는데, 기존 보험의 부족한 부분을 정확히 짚어주시고 더 나은 조건의 상품을 추천해 주셨습니다. 전문적이고 신뢰할 수 있는 서비스입니다.</blockquote>
+        <div class="review-profile">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" alt="고객 이*영 프로필 사진" loading="lazy" class="review-avatar">
+          <div>
+            <div class="review-author">이*영</div>
+            <div class="review-meta">건강보험 갱신 상담</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card fade-up">
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <blockquote>처음으로 보험에 가입하면서 어떤 상품이 좋은지 전혀 몰랐는데, 상담사분이 쉽게 설명해 주시고 제 상황에 딱 맞는 플랜을 찾아주셨습니다. 주변에도 추천하고 있습니다.</blockquote>
+        <div class="review-profile">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80" alt="고객 박*진 프로필 사진" loading="lazy" class="review-avatar">
+          <div>
+            <div class="review-author">박*진</div>
+            <div class="review-meta">생명보험 신규 가입 상담</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONSULTATION IMAGE ===== -->
+<section class="consultation-image-section reveal">
+  <img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=600&q=80" alt="전문 상담사가 고객과 보험 상담을 진행하는 모습" loading="lazy">
+</section>
+
+<!-- ===== TRUST BADGES ===== -->
+<section class="trust-section reveal">
+  <div class="trust-badges fade-up">
+    <div class="trust-badge">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <strong>금융감독원 등록</strong>
+      <span>정식 등록 보험대리점</span>
+    </div>
+    <div class="trust-badge">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <strong>개인정보보호 인증</strong>
+      <span>ISMS-P 인증 획득</span>
+    </div>
+    <div class="trust-badge">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <strong>10만+ 상담 완료</strong>
+      <span>누적 상담 건수 기준</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="final-cta" id="cta">
+  <div class="container">
+    <h2 class="fade-up">지금 바로 무료 상담 받으세요</h2>
+    <p class="fade-up">보험 전문가가 직접 비교 분석하여 최적의 플랜을 안내해 드립니다.</p>
+    <div class="final-cta-content fade-up">
+      <div class="final-cta-image">
+        <img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=600&q=80" alt="전문 상담사와 고객이 보험 상담을 진행하는 모습" loading="lazy">
+      </div>
+      <div class="final-form">
+        <h3>무료 상담 신청</h3>
+        <form id="ctaForm" onsubmit="handleSubmit(event, 'cta')">
+          <div class="form-group">
+            <label for="cta-name">이름</label>
+            <input type="text" id="cta-name" name="name" placeholder="홍길동" required>
+          </div>
+          <div class="form-group">
+            <label for="cta-phone">연락처</label>
+            <input type="tel" id="cta-phone" name="phone" placeholder="010-0000-0000" required>
+          </div>
+          <div class="form-group">
+            <label for="cta-type">관심 보험</label>
+            <select id="cta-type" name="type" required>
+              <option value="" disabled selected>보험 종류를 선택하세요</option>
+              <option value="life">생명보험</option>
+              <option value="auto">자동차보험</option>
+              <option value="health">건강보험</option>
+              <option value="fire">화재보험</option>
+              <option value="etc">기타</option>
+            </select>
+          </div>
+          <p class="form-privacy">개인정보 수집 및 이용에 동의하며, 상담 목적으로만 활용됩니다.</p>
+          <button type="submit" class="btn-submit">무료 상담 신청하기</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-company">보험의 정석</div>
+    <div class="footer-info">
+      대표: 홍길동 | 사업자등록번호: 123-45-67890<br>
+      주소: 서울특별시 강남구 테헤란로 123, 보험빌딩 10층<br>
+      대표전화: 1588-0000 | 이메일: info@insuranceguide.co.kr
+    </div>
+    <hr class="footer-divider">
+    <div class="footer-disclaimer">
+      보험의 정석은 보험업법에 의거하여 금융감독원에 등록된 보험대리점으로, 고객에게 보험 상품에 대한 비교 및 안내 서비스를 제공합니다.
+      본 서비스는 보험 상품의 직접 판매가 아닌 비교 분석 및 상담 서비스이며, 최종 보험 계약은 해당 보험회사와 직접 체결됩니다.
+      보험 상품별 보장 내용 및 보험료는 가입 조건에 따라 달라질 수 있으므로, 반드시 약관 및 상품설명서를 확인하시기 바랍니다.
+      상담 과정에서 수집된 개인정보는 개인정보보호법에 따라 안전하게 관리되며, 상담 목적 이외의 용도로 사용되지 않습니다.
+    </div>
+  </div>
+</footer>
+
+<script>
+// IntersectionObserver for scroll animations
+document.addEventListener('DOMContentLoaded', function() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  document.querySelectorAll('.fade-up, .reveal').forEach(function(el) {
+    observer.observe(el);
+  });
+});
+
+// Phone number auto-formatting
+function formatPhone(input) {
+  var value = input.value.replace(/[^0-9]/g, '');
+  if (value.length > 3 && value.length <= 7) {
+    value = value.slice(0, 3) + '-' + value.slice(3);
+  } else if (value.length > 7) {
+    value = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7, 11);
+  }
+  input.value = value;
+}
+
+document.querySelectorAll('input[type="tel"]').forEach(function(input) {
+  input.addEventListener('input', function() {
+    formatPhone(this);
+  });
+});
+
+// Form submission handler
+function handleSubmit(event, formId) {
+  event.preventDefault();
+  var form = event.target;
+  var name = form.querySelector('input[name="name"]').value;
+  var phone = form.querySelector('input[name="phone"]').value;
+  var type = form.querySelector('select[name="type"]').value;
+
+  var phonePattern = /^010-\d{4}-\d{4}$/;
+  if (!phonePattern.test(phone)) {
+    alert('올바른 연락처 형식을 입력해 주세요. (예: 010-1234-5678)');
+    return;
+  }
+
+  var btn = form.querySelector('.btn-submit');
+  btn.textContent = '신청 완료';
+  btn.disabled = true;
+  btn.style.background = '#059669';
+
+  setTimeout(function() {
+    alert('상담 신청이 완료되었습니다.\n전문 상담사가 곧 연락드리겠습니다.');
+    form.reset();
+    btn.textContent = '무료 상담 신청하기';
+    btn.disabled = false;
+    btn.style.background = '';
+  }, 1500);
+}
+</script>
+
+</body>
+</html>

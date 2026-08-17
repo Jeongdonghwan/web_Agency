@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>프로그램 - FIT STUDIO</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #0F0F0F;
+      color: #fff;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 15, 15, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 2rem;
+      letter-spacing: 3px;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: #FF6B35;
+    }
+
+    .nav {
+      display: flex;
+      gap: 36px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: #FF6B35;
+    }
+
+    .header-btn {
+      background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+      color: #fff;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .header-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+    }
+
+    /* Page Header */
+    .page-header {
+      padding: 160px 60px 100px;
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.15) 0%, rgba(15, 15, 15, 1) 100%);
+      text-align: center;
+      position: relative;
+    }
+
+    .page-tag {
+      display: inline-block;
+      background: rgba(255, 107, 53, 0.15);
+      color: #FF6B35;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      border: 1px solid rgba(255, 107, 53, 0.3);
+    }
+
+    .page-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 5rem;
+      color: #fff;
+      letter-spacing: 4px;
+      margin-bottom: 20px;
+    }
+
+    .page-desc {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.6);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Programs Section */
+    .programs-section {
+      padding: 100px 60px;
+    }
+
+    .program-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto 120px;
+    }
+
+    .program-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .program-block.reverse {
+      direction: rtl;
+    }
+
+    .program-block.reverse > * {
+      direction: ltr;
+    }
+
+    .program-image {
+      position: relative;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      border-radius: 20px;
+    }
+
+    .program-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .program-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.2) 0%, transparent 50%);
+    }
+
+    .program-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      z-index: 1;
+    }
+
+    .program-content {
+      padding: 20px 0;
+    }
+
+    .program-number {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 6rem;
+      color: rgba(255, 107, 53, 0.2);
+      line-height: 1;
+      margin-bottom: -20px;
+    }
+
+    .program-name {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 3rem;
+      color: #fff;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+
+    .program-desc {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.9;
+      margin-bottom: 30px;
+    }
+
+    .program-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .feature-text {
+      font-size: 0.9rem;
+      color: #fff;
+    }
+
+    .program-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+      color: #fff;
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .program-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4);
+    }
+
+    /* Schedule Section */
+    .schedule-section {
+      padding: 100px 60px;
+      background: #1A1A1A;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      color: #FF6B35;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 3rem;
+      color: #fff;
+      letter-spacing: 3px;
+    }
+
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.1);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .schedule-day {
+      background: #0F0F0F;
+      text-align: center;
+      padding: 20px 10px;
+    }
+
+    .day-name {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.2rem;
+      color: #FF6B35;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+    }
+
+    .schedule-item {
+      background: rgba(255, 107, 53, 0.1);
+      border: 1px solid rgba(255, 107, 53, 0.2);
+      border-radius: 8px;
+      padding: 12px 8px;
+      margin-bottom: 8px;
+    }
+
+    .schedule-time {
+      font-size: 0.7rem;
+      color: #FF6B35;
+      margin-bottom: 4px;
+    }
+
+    .schedule-class {
+      font-size: 0.75rem;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 120px 60px;
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.2) 0%, rgba(15, 15, 15, 1) 100%);
+      text-align: center;
+    }
+
+    .cta-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 4rem;
+      color: #fff;
+      letter-spacing: 4px;
+      margin-bottom: 20px;
+    }
+
+    .cta-desc {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 40px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+      color: #fff;
+      padding: 20px 60px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4);
+    }
+
+    /* Footer */
+    .footer {
+      background: #0A0A0A;
+      padding: 80px 60px 40px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+
+    .footer-brand .logo {
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+
+    .footer-brand p {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+
+    .footer-links h4 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      color: #FF6B35;
+      margin-bottom: 24px;
+    }
+
+    .footer-links a {
+      display: block;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-bottom p {
+      color: rgba(255,255,255,0.3);
+      font-size: 0.8rem;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 1001;
+      padding: 8px;
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #FF6B35;
+      margin: 3px 0;
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    .mobile-menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 15, 15, 0.98);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .mobile-menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-nav {
+      text-align: center;
+    }
+
+    .mobile-nav a {
+      display: block;
+      font-family: 'Bebas Neue', cursive;
+      font-size: 2.5rem;
+      font-weight: 400;
+      color: #fff;
+      text-decoration: none;
+      padding: 16px 0;
+      letter-spacing: 3px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+    }
+
+    .mobile-menu-overlay.active .mobile-nav a {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mobile-nav a:nth-child(1) { transition-delay: 0.1s; }
+    .mobile-nav a:nth-child(2) { transition-delay: 0.15s; }
+    .mobile-nav a:nth-child(3) { transition-delay: 0.2s; }
+    .mobile-nav a:nth-child(4) { transition-delay: 0.25s; }
+    .mobile-nav a:nth-child(5) { transition-delay: 0.3s; }
+
+    .mobile-nav a:hover {
+      color: #FF6B35;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .program-block {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .program-block.reverse {
+        direction: ltr;
+      }
+
+      .schedule-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 15px 20px;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: flex;
+      }
+
+      .page-header,
+      .programs-section,
+      .schedule-section,
+      .cta-section {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .page-title {
+        font-size: 3rem;
+      }
+
+      .program-name {
+        font-size: 2rem;
+      }
+
+      .program-features {
+        grid-template-columns: 1fr;
+      }
+
+      .schedule-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .cta-title {
+        font-size: 2.5rem;
+      }
+
+      .footer {
+        padding: 60px 20px 30px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="logo">FIT<span>STUDIO</span></a>
+    <nav class="nav">
+      <a href="programs.html" class="active">프로그램</a>
+      <a href="trainers.html">트레이너</a>
+      <a href="programs.html">시설안내</a>
+      <a href="pricing.html">이용요금</a>
+      <a href="pricing.html">커뮤니티</a>
+    </nav>
+    <a href="pricing.html" class="header-btn">무료 체험</a>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <div class="mobile-menu-overlay">
+    <nav class="mobile-nav">
+      <a href="programs.html" onclick="toggleMobileMenu()">프로그램</a>
+      <a href="trainers.html" onclick="toggleMobileMenu()">트레이너</a>
+      <a href="programs.html" onclick="toggleMobileMenu()">시설안내</a>
+      <a href="pricing.html" onclick="toggleMobileMenu()">이용요금</a>
+      <a href="pricing.html" onclick="toggleMobileMenu()">무료 체험</a>
+    </nav>
+  </div>
+
+  <section class="page-header">
+    <span class="page-tag">Our Programs</span>
+    <h1 class="page-title">FITNESS PROGRAMS</h1>
+    <p class="page-desc">
+      전문 트레이너와 함께하는 체계적인 프로그램으로<br>
+      당신의 목표를 현실로 만들어 드립니다.
+    </p>
+  </section>
+
+  <section class="programs-section">
+    <div class="program-block">
+      <div class="program-image">
+        <span class="program-badge">Popular</span>
+        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&q=80" alt="Weight Training">
+      </div>
+      <div class="program-content">
+        <div class="program-number">01</div>
+        <h2 class="program-name">WEIGHT TRAINING</h2>
+        <p class="program-desc">
+          체계적인 근력 운동 프로그램으로 효과적인 근육 발달과 체형 교정을 도와드립니다.
+          개인의 목표와 체력 수준에 맞춘 맞춤형 프로그램으로 진행됩니다.
+        </p>
+        <div class="program-features">
+          <div class="feature-item">
+            <div class="feature-icon">💪</div>
+            <span class="feature-text">1:1 맞춤 프로그램</span>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">📊</div>
+            <span class="feature-text">체성분 분석</span>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🎯</div>
+            <span class="feature-text">목표 설정 상담</span>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">📱</div>
+            <span class="feature-text">운동 기록 앱</span>
+          </div>
+        </div>
+        <a href="pricing.html" class="program-btn">프로그램 신청</a>
+      </div>
+    </div>
+
+    <div class="program-block reverse">
+      <div class="program-image">
+        <span class="program-badge">Hot</span>
+        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80" alt="Group Fitness">
+      </div>
+      <div class="program-content">
+        <div class="program-number">02</div>
+        <h2 class="program-name">GROUP FITNESS</h2>
+        <p class="program-desc">
+          에너지 넘치는 그룹 클래스로 함께 운동하는 즐거움을 느껴보세요.
+          스피닝, 에어로빅, HIIT 등 다양한 클래스가 준비되어 있습니다.
+        </p>
+        <div class="program-features">
+          <div class="feature-item">
+            <div class="feature-icon">👥</div>
+            <span class="feature-text">소규모 그룹 진행</span>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🎵</div>
+            <span class="feature-text">신나는 음악</span>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🔥</div>
+            <span class="feature-text">고강도 칼로리 소모</span>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">😊</div>
+            <span class="feature-text">커뮤니티 형성</span>
+          </div>
+        </div>
+        <a href="pricing.html" class="program-btn">프로그램 신청</a>
+      </div>
+    </div>
+
+    <div class="program-block">
+      <div class="program-image">
+        <span class="program-badge">New</span>
+        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80" alt="Yoga & Pilates">
+      </div>
+      <div class="program-content">
+        <div class="program-number">03</div>
+        <h2 class="program-name">YOGA & PILATES</h2>
+        <p class="program-desc">
+          몸과 마음의 균형을 찾는 요가와 필라테스 프로그램입니다.
+          유연성 향상과 코어 강화, 스트레스 해소에 효과적입니다.
+        </p>
+        <div class="program-features">
+          <div class="feature-item">
+            <div class="feature-icon">🧘</div>
+            <span class="feature-text">명상 & 호흡</span>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🌿</div>
+            <span class="feature-text">스트레스 해소</span>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">⚖️</div>
+            <span class="feature-text">밸런스 향상</span>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">💆</div>
+            <span class="feature-text">유연성 증가</span>
+          </div>
+        </div>
+        <a href="pricing.html" class="program-btn">프로그램 신청</a>
+      </div>
+    </div>
+
+    <div class="program-block reverse">
+      <div class="program-image">
+        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80" alt="Personal Training">
+      </div>
+      <div class="program-content">
+        <div class="program-number">04</div>
+        <h2 class="program-name">PERSONAL TRAINING</h2>
+        <p class="program-desc">
+          전문 트레이너의 1:1 맞춤 지도로 최대의 효과를 경험하세요.
+          개인의 목표와 체력 수준에 따른 완벽한 맞춤형 프로그램을 제공합니다.
+        </p>
+        <div class="program-features">
+          <div class="feature-item">
+            <div class="feature-icon">👤</div>
+            <span class="feature-text">1:1 전담 트레이너</span>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">📋</div>
+            <span class="feature-text">식단 컨설팅</span>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">📈</div>
+            <span class="feature-text">주간 리포트</span>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🏆</div>
+            <span class="feature-text">목표 달성 보장</span>
+          </div>
+        </div>
+        <a href="pricing.html" class="program-btn">프로그램 신청</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="schedule-section">
+    <div class="section-header">
+      <span class="section-tag">Weekly Schedule</span>
+      <h2 class="section-title">CLASS SCHEDULE</h2>
+    </div>
+    <div class="schedule-grid">
+      <div class="schedule-day">
+        <div class="day-name">MON</div>
+        <div class="schedule-item">
+          <div class="schedule-time">07:00</div>
+          <div class="schedule-class">Morning Yoga</div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time">12:00</div>
+          <div class="schedule-class">HIIT</div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time">19:00</div>
+          <div class="schedule-class">Spinning</div>
+        </div>
+      </div>
+      <div class="schedule-day">
+        <div class="day-name">TUE</div>
+        <div class="schedule-item">
+          <div class="schedule-time">08:00</div>
+          <div class="schedule-class">Pilates</div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time">18:00</div>
+          <div class="schedule-class">Body Pump</div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time">20:00</div>
+          <div class="schedule-class">Zumba</div>
+        </div>
+      </div>
+      <div class="schedule-day">
+        <div class="day-name">WED</div>
+        <div class="schedule-item">
+          <div class="schedule-time">07:00</div>
+          <div class="schedule-class">Morning Yoga</div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time">12:00</div>
+          <div class="schedule-class">Core Training</div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time">19:00</div>
+          <div class="schedule-class">Boxing</div>
+        </div>
+      </div>
+      <div class="schedule-day">
+        <div class="day-name">THU</div>
+        <div class="schedule-item">
+          <div class="schedule-time">08:00</div>
+          <div class="schedule-class">Pilates</div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time">18:00</div>
+          <div class="schedule-class">Spinning</div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time">20:00</div>
+          <div class="schedule-class">HIIT</div>
+        </div>
+      </div>
+      <div class="schedule-day">
+        <div class="day-name">FRI</div>
+        <div class="schedule-item">
+          <div class="schedule-time">07:00</div>
+          <div class="schedule-class">Morning Yoga</div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time">12:00</div>
+          <div class="schedule-class">Body Pump</div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time">19:00</div>
+          <div class="schedule-class">Zumba</div>
+        </div>
+      </div>
+      <div class="schedule-day">
+        <div class="day-name">SAT</div>
+        <div class="schedule-item">
+          <div class="schedule-time">10:00</div>
+          <div class="schedule-class">Weekend Special</div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time">14:00</div>
+          <div class="schedule-class">Pilates</div>
+        </div>
+      </div>
+      <div class="schedule-day">
+        <div class="day-name">SUN</div>
+        <div class="schedule-item">
+          <div class="schedule-time">10:00</div>
+          <div class="schedule-class">Yoga Flow</div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time">14:00</div>
+          <div class="schedule-class">Recovery</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2 class="cta-title">START YOUR JOURNEY TODAY</h2>
+    <p class="cta-desc">첫 방문 무료 체험으로 FIT STUDIO를 경험해보세요</p>
+    <a href="pricing.html" class="cta-btn">무료 체험 신청</a>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">FIT<span>STUDIO</span></a>
+        <p>
+          최고의 시설과 전문 트레이너가 함께하는<br>
+          프리미엄 피트니스 센터
+        </p>
+      </div>
+      <div class="footer-links">
+        <h4>PROGRAMS</h4>
+        <a href="programs.html">Weight Training</a>
+        <a href="programs.html">Group Fitness</a>
+        <a href="programs.html">Yoga & Pilates</a>
+        <a href="programs.html">Personal Training</a>
+      </div>
+      <div class="footer-links">
+        <h4>ABOUT</h4>
+        <a href="trainers.html">트레이너</a>
+        <a href="programs.html">시설안내</a>
+        <a href="pricing.html">이용요금</a>
+        <a href="#">공지사항</a>
+      </div>
+      <div class="footer-links">
+        <h4>CONTACT</h4>
+        <a href="#">02-1234-5678</a>
+        <a href="#">서울시 강남구 테헤란로 123</a>
+        <a href="#">AM 06:00 - PM 11:00</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 FIT STUDIO. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      const btn = document.querySelector('.mobile-menu-btn');
+      const overlay = document.querySelector('.mobile-menu-overlay');
+      btn.classList.toggle('active');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : '';
+    }
+  </script>
+</body>
+</html>

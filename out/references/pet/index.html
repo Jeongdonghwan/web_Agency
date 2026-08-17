@@ -1,0 +1,1766 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>해피펫 동물병원 | HappyPet Animal Hospital</title>
+  <meta name="description" content="해피펫 동물병원 - 반려동물 전문 수의사가 직접 진료하는 따뜻한 동물병원. 일반진료, 예방접종, 수술, 건강검진까지 믿을 수 있는 진료를 약속합니다." />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet" />
+  <style>
+    /* ===== Reset & Base ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #2C2C2C;
+      background: #FAFAFA;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; border: none; font-family: inherit; }
+    input, select, textarea { font-family: inherit; }
+
+    /* ===== Utility ===== */
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+    .section-padding { padding: 100px 0; }
+    .section-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #14B8A6;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 4vw, 2.25rem);
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 16px;
+      color: #2C2C2C;
+    }
+    .section-desc {
+      font-size: 1rem;
+      color: #777;
+      max-width: 560px;
+      line-height: 1.8;
+    }
+    .text-center { text-align: center; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+
+    /* ===== Scroll Animations ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+    .reveal-delay-6 { transition-delay: 0.6s; }
+
+    /* ===== Header ===== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      transition: box-shadow 0.3s;
+    }
+    .header.scrolled {
+      box-shadow: 0 2px 24px rgba(0, 0, 0, 0.06);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #2C2C2C;
+      letter-spacing: -0.02em;
+    }
+    .logo svg { flex-shrink: 0; }
+    .logo span { color: #14B8A6; }
+    .nav-list {
+      display: flex;
+      gap: 32px;
+    }
+    .nav-list a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #555;
+      transition: color 0.25s;
+      position: relative;
+    }
+    .nav-list a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: #14B8A6;
+      transition: width 0.3s;
+    }
+    .nav-list a:hover { color: #14B8A6; }
+    .nav-list a:hover::after { width: 100%; }
+    .header-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #14B8A6;
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .header-cta:hover {
+      background: #0E9A8A;
+      transform: translateY(-1px);
+    }
+
+    /* Mobile Menu */
+    .mobile-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      padding: 4px;
+    }
+    .mobile-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #2C2C2C;
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .mobile-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .mobile-toggle.active span:nth-child(2) { opacity: 0; }
+    .mobile-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* ===== Hero ===== */
+    .hero {
+      padding-top: 72px;
+      background: linear-gradient(160deg, #F0FDFA 0%, #CCFBF1 30%, #99F6E4 60%, #E0F7FA 100%);
+      position: relative;
+      overflow: hidden;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(20, 184, 166, 0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      left: -5%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(254, 243, 199, 0.5) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      padding: 80px 0;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(20, 184, 166, 0.2);
+      border-radius: 50px;
+      padding: 8px 18px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #14B8A6;
+      margin-bottom: 24px;
+      backdrop-filter: blur(8px);
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.25;
+      color: #1A1A1A;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+    .hero h1 .highlight {
+      color: #14B8A6;
+      position: relative;
+    }
+    .hero h1 .highlight::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: rgba(254, 243, 199, 0.8);
+      z-index: -1;
+      border-radius: 4px;
+    }
+    .hero-text {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: 36px;
+      max-width: 480px;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #14B8A6;
+      color: #fff;
+      padding: 16px 36px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+      box-shadow: 0 4px 16px rgba(20, 184, 166, 0.3);
+    }
+    .btn-primary:hover {
+      background: #0E9A8A;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(20, 184, 166, 0.4);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      color: #2C2C2C;
+      padding: 16px 36px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-illustration {
+      width: 100%;
+      max-width: 480px;
+      aspect-ratio: 1;
+      background: linear-gradient(145deg, rgba(255,255,255,0.6) 0%, rgba(20,184,166,0.08) 100%);
+      border-radius: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      box-shadow: 0 20px 60px rgba(20, 184, 166, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-illustration::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 80px;
+      height: 80px;
+      background: rgba(254, 243, 199, 0.5);
+      border-radius: 50%;
+    }
+    .hero-illustration svg {
+      filter: drop-shadow(0 4px 12px rgba(20, 184, 166, 0.15));
+    }
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    .hero-stat strong {
+      display: block;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #14B8A6;
+    }
+    .hero-stat span {
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    /* ===== Services ===== */
+    .services {
+      background: #fff;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .service-card {
+      background: #FAFAFA;
+      border-radius: 20px;
+      padding: 36px 28px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #14B8A6, #5EEAD4);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(20, 184, 166, 0.12);
+    }
+    .service-card:hover::before {
+      opacity: 1;
+    }
+    .service-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #F0FDFA, #CCFBF1);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .service-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #2C2C2C;
+    }
+    .service-card p {
+      font-size: 0.9rem;
+      color: #777;
+      line-height: 1.7;
+    }
+    .service-card .service-tag {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #14B8A6;
+      background: rgba(20, 184, 166, 0.08);
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    /* ===== Doctors ===== */
+    .doctors {
+      background: linear-gradient(180deg, #FAFAFA, #F0FDFA);
+    }
+    .doctors-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 48px;
+    }
+    .doctor-card {
+      background: #fff;
+      border-radius: 24px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+    .doctor-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(20, 184, 166, 0.1);
+    }
+    .doctor-photo {
+      width: 100%;
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .doctor-photo svg {
+      opacity: 0.5;
+    }
+    .doctor-card:nth-child(1) .doctor-photo {
+      background: linear-gradient(135deg, #CCFBF1, #99F6E4);
+    }
+    .doctor-card:nth-child(2) .doctor-photo {
+      background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+    }
+    .doctor-card:nth-child(3) .doctor-photo {
+      background: linear-gradient(135deg, #E0F7FA, #B2EBF2);
+    }
+    .doctor-info {
+      padding: 28px;
+    }
+    .doctor-info h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .doctor-info .position {
+      font-size: 0.85rem;
+      color: #14B8A6;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .doctor-credentials {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .doctor-credentials li {
+      font-size: 0.83rem;
+      color: #777;
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.6;
+    }
+    .doctor-credentials li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      background: #14B8A6;
+      border-radius: 50%;
+    }
+
+    /* ===== Gallery ===== */
+    .gallery {
+      background: #fff;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .gallery-item {
+      border-radius: 20px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
+    }
+    .gallery-item:nth-child(1) {
+      background: linear-gradient(135deg, #F0FDFA 0%, #CCFBF1 50%, #99F6E4 100%);
+    }
+    .gallery-item:nth-child(2) {
+      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 50%, #FCD34D 100%);
+    }
+    .gallery-item:nth-child(3) {
+      background: linear-gradient(135deg, #E0F7FA 0%, #B2EBF2 50%, #80DEEA 100%);
+    }
+    .gallery-item:nth-child(4) {
+      background: linear-gradient(135deg, #CCFBF1 0%, #5EEAD4 50%, #2DD4BF 100%);
+    }
+    .gallery-item:nth-child(5) {
+      background: linear-gradient(135deg, #F0FDFA 0%, #E0F2FE 50%, #BAE6FD 100%);
+    }
+    .gallery-item:nth-child(6) {
+      background: linear-gradient(135deg, #FEF3C7 0%, #CCFBF1 50%, #99F6E4 100%);
+    }
+    .gallery-item-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 24px;
+    }
+    .gallery-item-inner svg {
+      opacity: 0.35;
+    }
+    .gallery-item-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.35);
+    }
+
+    /* ===== Hours ===== */
+    .hours {
+      background: linear-gradient(180deg, #FAFAFA, #fff);
+    }
+    .hours-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-top: 48px;
+      align-items: start;
+    }
+    .hours-table-wrap {
+      background: #fff;
+      border-radius: 24px;
+      padding: 36px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+    .hours-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .hours-table th,
+    .hours-table td {
+      padding: 14px 16px;
+      text-align: left;
+      font-size: 0.92rem;
+    }
+    .hours-table thead th {
+      font-weight: 700;
+      color: #2C2C2C;
+      border-bottom: 2px solid #14B8A6;
+      font-size: 0.85rem;
+    }
+    .hours-table tbody tr {
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .hours-table tbody tr:last-child {
+      border-bottom: none;
+    }
+    .hours-table tbody td:first-child {
+      font-weight: 600;
+      color: #2C2C2C;
+    }
+    .hours-table tbody td:last-child {
+      color: #555;
+    }
+    .hours-table .sunday td {
+      color: #EF4444;
+    }
+    .hours-table .sunday td:first-child {
+      color: #EF4444;
+    }
+    .hours-table .saturday td {
+      color: #14B8A6;
+    }
+    .hours-table .saturday td:first-child {
+      color: #14B8A6;
+    }
+    .hours-notice {
+      background: #FEF3C7;
+      border-radius: 16px;
+      padding: 32px;
+    }
+    .hours-notice h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: #92400E;
+    }
+    .hours-notice ul {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .hours-notice li {
+      font-size: 0.88rem;
+      color: #92400E;
+      line-height: 1.6;
+      padding-left: 18px;
+      position: relative;
+    }
+    .hours-notice li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 6px;
+      height: 6px;
+      background: #D97706;
+      border-radius: 50%;
+    }
+    .hours-info-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .hours-info-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .hours-info-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #F0FDFA, #CCFBF1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .hours-info-card h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .hours-info-card p {
+      font-size: 0.85rem;
+      color: #777;
+      line-height: 1.6;
+    }
+
+    /* ===== Location ===== */
+    .location {
+      background: #fff;
+    }
+    .location-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-top: 48px;
+      align-items: start;
+    }
+    .map-placeholder {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: linear-gradient(145deg, #F0FDFA, #E0F7FA);
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      border: 1px solid rgba(20, 184, 166, 0.1);
+    }
+    .map-placeholder span {
+      font-size: 0.9rem;
+      color: #999;
+      font-weight: 500;
+    }
+    .location-details {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .location-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .location-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #F0FDFA, #CCFBF1);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .location-item h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .location-item p {
+      font-size: 0.88rem;
+      color: #777;
+      line-height: 1.6;
+    }
+    .location-transport {
+      margin-top: 8px;
+      background: #F0FDFA;
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .location-transport h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #14B8A6;
+    }
+    .location-transport ul {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .location-transport li {
+      font-size: 0.85rem;
+      color: #555;
+      padding-left: 18px;
+      position: relative;
+      line-height: 1.6;
+    }
+    .location-transport li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 6px;
+      height: 6px;
+      background: #14B8A6;
+      border-radius: 50%;
+    }
+
+    /* ===== Reservation Form ===== */
+    .reservation {
+      background: linear-gradient(180deg, #FAFAFA, #F0FDFA);
+    }
+    .reservation-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin-top: 48px;
+      align-items: start;
+    }
+    .reservation-info {
+      padding-top: 12px;
+    }
+    .reservation-info h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+    .reservation-info p {
+      font-size: 0.95rem;
+      color: #777;
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+    .reservation-benefits {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .reservation-benefit {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .benefit-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #CCFBF1, #99F6E4);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .reservation-benefit h4 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .reservation-benefit p {
+      font-size: 0.83rem;
+      color: #999;
+      margin-bottom: 0;
+      line-height: 1.5;
+    }
+    .form-card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #2C2C2C;
+      margin-bottom: 8px;
+    }
+    .form-group label .required {
+      color: #14B8A6;
+      margin-left: 2px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border: 1.5px solid #e5e5e5;
+      border-radius: 14px;
+      font-size: 0.9rem;
+      color: #2C2C2C;
+      background: #FAFAFA;
+      transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #14B8A6;
+      box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
+      background: #fff;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: #bbb;
+    }
+    .form-group select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 40px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-submit {
+      width: 100%;
+      background: linear-gradient(135deg, #14B8A6, #0E9A8A);
+      color: #fff;
+      padding: 16px;
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      transition: transform 0.2s, box-shadow 0.25s;
+      box-shadow: 0 4px 16px rgba(20, 184, 166, 0.3);
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .form-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(20, 184, 166, 0.4);
+    }
+    .form-notice {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #aaa;
+      margin-top: 14px;
+    }
+
+    /* ===== Footer ===== */
+    .footer {
+      background: #1A1A1A;
+      padding: 60px 0 40px;
+      color: #aaa;
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 48px;
+    }
+    .footer-brand .logo {
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-brand p {
+      font-size: 0.85rem;
+      line-height: 1.8;
+      color: #888;
+      margin-bottom: 20px;
+    }
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+    .footer-social a {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.25s;
+    }
+    .footer-social a:hover {
+      background: #14B8A6;
+    }
+    .footer-col h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 18px;
+      letter-spacing: 0.05em;
+    }
+    .footer-col ul {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-col a {
+      font-size: 0.85rem;
+      color: #888;
+      transition: color 0.25s;
+    }
+    .footer-col a:hover { color: #14B8A6; }
+    .footer-bottom {
+      margin-top: 48px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-bottom p {
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-text { margin-left: auto; margin-right: auto; }
+      .hero-buttons { justify-content: center; }
+      .hero-visual { display: none; }
+      .hero-stats { justify-content: center; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .doctors-grid { grid-template-columns: repeat(2, 1fr); }
+      .doctors-grid .doctor-card:last-child {
+        grid-column: 1 / -1;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      .hours-wrapper { grid-template-columns: 1fr; }
+      .location-wrapper { grid-template-columns: 1fr; }
+      .reservation-wrapper { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 36px; }
+    }
+    @media (max-width: 768px) {
+      .section-padding { padding: 72px 0; }
+      .nav-list, .header-cta { display: none; }
+      .mobile-toggle { display: flex; }
+      .mobile-menu {
+        position: fixed;
+        top: 72px;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(12px);
+        padding: 24px;
+        transform: translateY(-110%);
+        transition: transform 0.35s ease;
+        z-index: 999;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      }
+      .mobile-menu.open { transform: translateY(0); }
+      .mobile-menu a {
+        display: block;
+        padding: 14px 0;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #2C2C2C;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .mobile-menu a:last-child { border-bottom: none; }
+      .mobile-menu .mobile-cta {
+        display: block;
+        text-align: center;
+        margin-top: 16px;
+        background: #14B8A6;
+        color: #fff;
+        padding: 14px;
+        border-radius: 14px;
+        font-weight: 600;
+      }
+      .services-grid { grid-template-columns: 1fr; }
+      .doctors-grid { grid-template-columns: 1fr; }
+      .doctors-grid .doctor-card:last-child {
+        max-width: none;
+      }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .hero { min-height: auto; padding-top: 72px; padding-bottom: 0; }
+      .hero-inner { padding: 60px 0; }
+      .hero-stats { flex-direction: column; gap: 16px; align-items: center; }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .form-card { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="15" fill="#F0FDFA" stroke="#14B8A6" stroke-width="1.5"/>
+          <path d="M10 11.5C10 10.12 11.12 9 12.5 9C13.88 9 15 10.12 15 11.5C15 12.88 13.88 14 12.5 14C11.12 14 10 12.88 10 11.5Z" fill="#14B8A6"/>
+          <path d="M17 11.5C17 10.12 18.12 9 19.5 9C20.88 9 22 10.12 22 11.5C22 12.88 20.88 14 19.5 14C18.12 14 17 12.88 17 11.5Z" fill="#14B8A6"/>
+          <path d="M8 16.5C8 15.12 8.9 14 10 14C11.1 14 12 15.12 12 16.5C12 17.88 11.1 19 10 19C8.9 19 8 17.88 8 16.5Z" fill="#14B8A6" opacity="0.7"/>
+          <path d="M20 16.5C20 15.12 20.9 14 22 14C23.1 14 24 15.12 24 16.5C24 17.88 23.1 19 22 19C20.9 19 20 17.88 20 16.5Z" fill="#14B8A6" opacity="0.7"/>
+          <path d="M16 24C19.5 24 22 21.5 22 19C22 16 19.5 15 16 15C12.5 15 10 16 10 19C10 21.5 12.5 24 16 24Z" fill="#14B8A6" opacity="0.5"/>
+        </svg>
+        <span>해피펫</span> 동물병원
+      </a>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="#services">진료 서비스</a></li>
+          <li><a href="#doctors">의료진</a></li>
+          <li><a href="#gallery">시설 안내</a></li>
+          <li><a href="#hours">진료 시간</a></li>
+          <li><a href="#location">오시는 길</a></li>
+        </ul>
+      </nav>
+      <a href="#reservation" class="header-cta">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 2.5H3C2.17 2.5 1.5 3.17 1.5 4V13C1.5 13.83 2.17 14.5 3 14.5H13C13.83 14.5 14.5 13.83 14.5 13V4C14.5 3.17 13.83 2.5 13 2.5Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M1.5 6.5H14.5M5 1.5V3.5M11 1.5V3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        진료 예약
+      </a>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="메뉴 열기">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#services" onclick="closeMobile()">진료 서비스</a>
+    <a href="#doctors" onclick="closeMobile()">의료진</a>
+    <a href="#gallery" onclick="closeMobile()">시설 안내</a>
+    <a href="#hours" onclick="closeMobile()">진료 시간</a>
+    <a href="#location" onclick="closeMobile()">오시는 길</a>
+    <a href="#reservation" class="mobile-cta" onclick="closeMobile()">진료 예약</a>
+  </div>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero" id="hero">
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge reveal">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L10.2 5.5L15 6.2L11.5 9.6L12.4 14.4L8 12.1L3.6 14.4L4.5 9.6L1 6.2L5.8 5.5L8 1Z" fill="#14B8A6"/></svg>
+          반려동물 전문 진료 동물병원
+        </div>
+        <h1 class="reveal reveal-delay-1">
+          소중한 가족에게<br/>
+          <span class="highlight">따뜻한 진료</span>를<br/>
+          약속합니다
+        </h1>
+        <p class="hero-text reveal reveal-delay-2">
+          해피펫 동물병원은 15년 이상의 경험을 갖춘 수의사들이<br/>
+          반려동물의 건강을 최우선으로 생각하며,<br/>
+          보호자와 반려동물 모두가 편안한 진료 환경을 제공합니다.
+        </p>
+        <div class="hero-buttons reveal reveal-delay-3">
+          <a href="#reservation" class="btn-primary">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M15 3H3C2.17 3 1.5 3.67 1.5 4.5V15C1.5 15.83 2.17 16.5 3 16.5H15C15.83 16.5 16.5 15.83 16.5 15V4.5C16.5 3.67 15.83 3 15 3Z" stroke="currentColor" stroke-width="1.3"/><path d="M1.5 7.5H16.5M6 1.5V4.5M12 1.5V4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            온라인 예약하기
+          </a>
+          <a href="tel:02-1234-5678" class="btn-secondary">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M16.5 12.69V14.94C16.5 15.48 16.08 15.93 15.54 15.99C14.76 16.08 13.98 16.05 13.23 15.9C11.16 15.42 9.24 14.43 7.62 13.02C6.12 11.7 4.89 10.11 4.05 8.31C3.54 7.14 3.21 5.88 3.06 4.59C3 4.05 3.42 3.57 3.96 3.51H6.21C6.69 3.51 7.11 3.84 7.2 4.32C7.35 5.07 7.59 5.79 7.92 6.48L6.63 7.77C7.74 9.78 9.39 11.43 11.4 12.54L12.69 11.25C13.38 11.58 14.1 11.82 14.85 11.97C15.33 12.06 15.66 12.48 15.66 12.96L16.5 12.69Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            02-1234-5678
+          </a>
+        </div>
+        <div class="hero-stats reveal reveal-delay-4">
+          <div class="hero-stat">
+            <strong>15+</strong>
+            <span>진료 경력 (년)</span>
+          </div>
+          <div class="hero-stat">
+            <strong>30,000+</strong>
+            <span>누적 진료 건수</span>
+          </div>
+          <div class="hero-stat">
+            <strong>98%</strong>
+            <span>보호자 만족도</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual reveal reveal-delay-2">
+        <div class="hero-illustration">
+          <!-- Paw Print SVG -->
+          <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+            <ellipse cx="42" cy="35" rx="11" ry="14" fill="#14B8A6" opacity="0.7"/>
+            <ellipse cx="78" cy="35" rx="11" ry="14" fill="#14B8A6" opacity="0.7"/>
+            <ellipse cx="26" cy="58" rx="10" ry="12" fill="#14B8A6" opacity="0.5"/>
+            <ellipse cx="94" cy="58" rx="10" ry="12" fill="#14B8A6" opacity="0.5"/>
+            <path d="M60 100C78 100 90 88 90 74C90 58 78 50 60 50C42 50 30 58 30 74C30 88 42 100 60 100Z" fill="#14B8A6" opacity="0.35"/>
+          </svg>
+          <!-- Stethoscope SVG -->
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none" style="position:absolute;bottom:30px;right:30px;">
+            <path d="M25 20C25 14 30 10 36 10H44C50 10 55 14 55 20V40C55 50 48 58 40 58C32 58 25 50 25 40V20Z" stroke="#0E9A8A" stroke-width="2.5" fill="none"/>
+            <circle cx="60" cy="52" r="8" stroke="#0E9A8A" stroke-width="2.5" fill="none"/>
+            <path d="M55 42V52" stroke="#0E9A8A" stroke-width="2.5"/>
+            <circle cx="60" cy="52" r="3" fill="#14B8A6"/>
+            <line x1="20" y1="10" x2="20" y2="25" stroke="#0E9A8A" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="60" y1="10" x2="60" y2="25" stroke="#0E9A8A" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <!-- Heart SVG -->
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" style="position:absolute;top:40px;left:30px;">
+            <path d="M20 35L17.1 32.4C9.6 25.6 4 20.5 4 14.3C4 9.2 8 5 13 5C15.7 5 18.4 6.3 20 8.3C21.6 6.3 24.3 5 27 5C32 5 36 9.2 36 14.3C36 20.5 30.4 25.6 22.9 32.4L20 35Z" fill="#14B8A6" opacity="0.25"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Services ===== -->
+  <section class="services section-padding" id="services">
+    <div class="container">
+      <div class="text-center reveal">
+        <span class="section-label">Services</span>
+        <h2 class="section-title">전문 진료 서비스</h2>
+        <p class="section-desc mx-auto">반려동물의 건강한 삶을 위해 체계적이고 전문적인 진료 서비스를 제공합니다. 첨단 의료 장비와 풍부한 임상 경험으로 최선의 진료를 약속합니다.</p>
+      </div>
+      <div class="services-grid">
+        <!-- Card 1: 일반진료 -->
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M14 3.5C14 3.5 7 7 7 13.5C7 17.36 10.14 20.5 14 20.5C17.86 20.5 21 17.36 21 13.5C21 7 14 3.5 14 3.5Z" stroke="#14B8A6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 24.5V20.5" stroke="#14B8A6" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M10.5 24.5H17.5" stroke="#14B8A6" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M14 10V17M10.5 13.5H17.5" stroke="#14B8A6" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>일반 진료</h3>
+          <p>내과, 피부과, 안과, 치과 등 반려동물의 다양한 질환에 대해 정확한 진단과 맞춤 치료를 제공합니다.</p>
+          <span class="service-tag">내과 / 피부과 / 안과 / 치과</span>
+        </div>
+        <!-- Card 2: 예방접종 -->
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M17.5 3.5L21 7L17.5 10.5" stroke="#14B8A6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M21 7H14C10.14 7 7 10.14 7 14V14" stroke="#14B8A6" stroke-width="1.8" stroke-linecap="round"/>
+              <rect x="5.5" y="14" width="8" height="10.5" rx="2" stroke="#14B8A6" stroke-width="1.8"/>
+              <path d="M9.5 14V11.5" stroke="#14B8A6" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M8 17.5H11" stroke="#14B8A6" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M8 20H11" stroke="#14B8A6" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>예방 접종</h3>
+          <p>종합백신, 광견병, 켄넬코프 등 연령과 종에 맞는 체계적인 예방접종 프로그램을 운영합니다.</p>
+          <span class="service-tag">종합백신 / 광견병 / 켄넬코프</span>
+        </div>
+        <!-- Card 3: 수술 -->
+        <div class="service-card reveal reveal-delay-3">
+          <div class="service-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M7 14H21" stroke="#14B8A6" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M14 7V21" stroke="#14B8A6" stroke-width="1.8" stroke-linecap="round"/>
+              <rect x="4" y="4" width="20" height="20" rx="4" stroke="#14B8A6" stroke-width="1.8"/>
+              <circle cx="14" cy="14" r="3" stroke="#14B8A6" stroke-width="1.2" stroke-dasharray="2 2"/>
+            </svg>
+          </div>
+          <h3>외과 수술</h3>
+          <p>중성화 수술, 종양 제거, 정형외과 등 최신 수술 장비와 안전한 마취 시스템으로 수술을 진행합니다.</p>
+          <span class="service-tag">중성화 / 종양 / 정형외과</span>
+        </div>
+        <!-- Card 4: 건강검진 -->
+        <div class="service-card reveal reveal-delay-4">
+          <div class="service-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <rect x="5" y="3.5" width="18" height="21" rx="3" stroke="#14B8A6" stroke-width="1.8"/>
+              <path d="M9.5 9H18.5" stroke="#14B8A6" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M9.5 13H18.5" stroke="#14B8A6" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M9.5 17H14.5" stroke="#14B8A6" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M18 17L19.5 18.5L22.5 15" stroke="#14B8A6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>건강 검진</h3>
+          <p>혈액검사, 방사선, 초음파 등 종합 건강검진을 통해 질병을 조기에 발견하고 예방합니다.</p>
+          <span class="service-tag">혈액검사 / X-ray / 초음파</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Doctors ===== -->
+  <section class="doctors section-padding" id="doctors">
+    <div class="container">
+      <div class="text-center reveal">
+        <span class="section-label">Veterinarians</span>
+        <h2 class="section-title">믿을 수 있는 의료진</h2>
+        <p class="section-desc mx-auto">풍부한 임상 경험과 전문 자격을 갖춘 수의사들이 반려동물의 건강을 책임집니다.</p>
+      </div>
+      <div class="doctors-grid">
+        <!-- Doctor 1 -->
+        <div class="doctor-card reveal reveal-delay-1">
+          <div class="doctor-photo">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+              <circle cx="32" cy="24" r="12" stroke="#0E9A8A" stroke-width="2"/>
+              <path d="M12 52C12 42 21 36 32 36C43 36 52 42 52 52" stroke="#0E9A8A" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="doctor-info">
+            <h3>김태현 원장</h3>
+            <p class="position">대표 원장 / 내과 전문</p>
+            <ul class="doctor-credentials">
+              <li>서울대학교 수의과대학 졸업</li>
+              <li>수의내과학 석사</li>
+              <li>前 서울대학교 동물병원 전공의</li>
+              <li>대한수의사회 정회원</li>
+              <li>임상 경력 18년</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Doctor 2 -->
+        <div class="doctor-card reveal reveal-delay-2">
+          <div class="doctor-photo">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+              <circle cx="32" cy="24" r="12" stroke="#92400E" stroke-width="2"/>
+              <path d="M12 52C12 42 21 36 32 36C43 36 52 42 52 52" stroke="#92400E" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="doctor-info">
+            <h3>이수진 부원장</h3>
+            <p class="position">부원장 / 외과 전문</p>
+            <ul class="doctor-credentials">
+              <li>건국대학교 수의과대학 졸업</li>
+              <li>수의외과학 박사</li>
+              <li>前 건국대학교 부속동물병원 외과 과장</li>
+              <li>반려동물 정형외과 전문의</li>
+              <li>임상 경력 15년</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Doctor 3 -->
+        <div class="doctor-card reveal reveal-delay-3">
+          <div class="doctor-photo">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+              <circle cx="32" cy="24" r="12" stroke="#0891B2" stroke-width="2"/>
+              <path d="M12 52C12 42 21 36 32 36C43 36 52 42 52 52" stroke="#0891B2" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="doctor-info">
+            <h3>박준영 수의사</h3>
+            <p class="position">진료 수의사 / 영상의학 전문</p>
+            <ul class="doctor-credentials">
+              <li>충남대학교 수의과대학 졸업</li>
+              <li>수의영상의학 전공</li>
+              <li>前 VIP동물의료센터 영상의학과</li>
+              <li>초음파 진단 전문</li>
+              <li>임상 경력 10년</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Gallery ===== -->
+  <section class="gallery section-padding" id="gallery">
+    <div class="container">
+      <div class="text-center reveal">
+        <span class="section-label">Facilities</span>
+        <h2 class="section-title">최신 시설 안내</h2>
+        <p class="section-desc mx-auto">반려동물과 보호자 모두가 편안하게 방문하실 수 있도록 쾌적하고 안전한 진료 환경을 갖추고 있습니다.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal reveal-delay-1">
+          <div class="gallery-item-inner">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="10" width="28" height="20" rx="3" stroke="#0E9A8A" stroke-width="2"/><path d="M6 16H34" stroke="#0E9A8A" stroke-width="2"/><circle cx="20" cy="24" r="4" stroke="#0E9A8A" stroke-width="1.5"/></svg>
+            <span class="gallery-item-label">대기실</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal reveal-delay-2">
+          <div class="gallery-item-inner">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="8" y="6" width="24" height="28" rx="3" stroke="#92400E" stroke-width="2"/><path d="M14 14H26M14 20H26M14 26H22" stroke="#92400E" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span class="gallery-item-label">진료실</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal reveal-delay-3">
+          <div class="gallery-item-inner">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="14" stroke="#0891B2" stroke-width="2"/><path d="M20 12V20H28" stroke="#0891B2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 6H26" stroke="#0891B2" stroke-width="2" stroke-linecap="round"/></svg>
+            <span class="gallery-item-label">수술실</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal reveal-delay-4">
+          <div class="gallery-item-inner">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="12" width="28" height="18" rx="3" stroke="#14B8A6" stroke-width="2"/><path d="M16 12V8H24V12" stroke="#14B8A6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="21" r="4" stroke="#14B8A6" stroke-width="1.5"/></svg>
+            <span class="gallery-item-label">영상의학실</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal reveal-delay-5">
+          <div class="gallery-item-inner">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M10 30V14L20 6L30 14V30H10Z" stroke="#0E9A8A" stroke-width="2" stroke-linejoin="round"/><rect x="16" y="22" width="8" height="8" stroke="#0E9A8A" stroke-width="1.5"/><path d="M14 18H26" stroke="#0E9A8A" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span class="gallery-item-label">입원실</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal reveal-delay-6">
+          <div class="gallery-item-inner">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M8 32H32" stroke="#14B8A6" stroke-width="2" stroke-linecap="round"/><rect x="12" y="16" width="16" height="16" rx="2" stroke="#14B8A6" stroke-width="2"/><path d="M18 16V12C18 10.9 18.9 10 20 10C21.1 10 22 10.9 22 12V16" stroke="#14B8A6" stroke-width="2"/><circle cx="20" cy="24" r="2" fill="#14B8A6"/></svg>
+            <span class="gallery-item-label">약국</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Hours ===== -->
+  <section class="hours section-padding" id="hours">
+    <div class="container">
+      <div class="text-center reveal">
+        <span class="section-label">Hours</span>
+        <h2 class="section-title">진료 시간 안내</h2>
+        <p class="section-desc mx-auto">보호자와 반려동물의 편의를 위해 넉넉한 진료 시간을 운영하고 있습니다.</p>
+      </div>
+      <div class="hours-wrapper">
+        <div class="reveal reveal-delay-1">
+          <div class="hours-table-wrap">
+            <table class="hours-table">
+              <thead>
+                <tr>
+                  <th>요일</th>
+                  <th>진료 시간</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>월요일</td>
+                  <td>09:30 - 19:30</td>
+                </tr>
+                <tr>
+                  <td>화요일</td>
+                  <td>09:30 - 19:30</td>
+                </tr>
+                <tr>
+                  <td>수요일</td>
+                  <td>09:30 - 19:30</td>
+                </tr>
+                <tr>
+                  <td>목요일</td>
+                  <td>09:30 - 19:30</td>
+                </tr>
+                <tr>
+                  <td>금요일</td>
+                  <td>09:30 - 19:30</td>
+                </tr>
+                <tr class="saturday">
+                  <td>토요일</td>
+                  <td>09:30 - 15:00</td>
+                </tr>
+                <tr class="sunday">
+                  <td>일요일 / 공휴일</td>
+                  <td>휴진</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="hours-notice" style="margin-top:20px;">
+            <h4>안내 사항</h4>
+            <ul>
+              <li>점심시간: 13:00 - 14:00 (점심시간 중 응급 진료 가능)</li>
+              <li>마지막 접수는 진료 종료 30분 전까지입니다</li>
+              <li>수술 및 특수 검사는 사전 예약이 필요합니다</li>
+              <li>야간 응급 상황 시 대표 전화로 연락해 주세요</li>
+            </ul>
+          </div>
+        </div>
+        <div class="hours-info-cards reveal reveal-delay-2">
+          <div class="hours-info-card">
+            <div class="hours-info-icon">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M19.5 11.69V14.94C19.5 15.48 19.08 15.93 18.54 15.99C17.76 16.08 16.98 16.05 16.23 15.9C14.16 15.42 12.24 14.43 10.62 13.02C9.12 11.7 7.89 10.11 7.05 8.31C6.54 7.14 6.21 5.88 6.06 4.59C6 4.05 6.42 3.57 6.96 3.51H9.21C9.69 3.51 10.11 3.84 10.2 4.32C10.35 5.07 10.59 5.79 10.92 6.48L9.63 7.77C10.74 9.78 12.39 11.43 14.4 12.54L15.69 11.25C16.38 11.58 17.1 11.82 17.85 11.97C18.33 12.06 18.66 12.48 18.66 12.96L19.5 11.69Z" stroke="#14B8A6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h4>전화 상담</h4>
+              <p>02-1234-5678로 전화 주시면 친절하게 안내해 드립니다. 진료 관련 궁금한 점을 미리 상담받으실 수 있습니다.</p>
+            </div>
+          </div>
+          <div class="hours-info-card">
+            <div class="hours-info-icon">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M19 3H3C1.9 3 1 3.9 1 5V17C1 18.1 1.9 19 3 19H19C20.1 19 21 18.1 21 17V5C21 3.9 20.1 3 19 3Z" stroke="#14B8A6" stroke-width="1.5"/><path d="M1 7L11 13L21 7" stroke="#14B8A6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h4>온라인 예약</h4>
+              <p>홈페이지 예약 폼을 통해 24시간 언제든 편리하게 예약하실 수 있습니다. 접수 후 확인 연락을 드립니다.</p>
+            </div>
+          </div>
+          <div class="hours-info-card">
+            <div class="hours-info-icon">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="#14B8A6" stroke-width="1.5"/><path d="M11 6V11L14.5 13" stroke="#14B8A6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h4>응급 진료</h4>
+              <p>야간 및 휴일 응급 상황 발생 시 대표 전화로 연락해 주시면 응급 진료 안내를 받으실 수 있습니다.</p>
+            </div>
+          </div>
+          <div class="hours-info-card">
+            <div class="hours-info-icon">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 19L11 3L19 19H3Z" stroke="#14B8A6" stroke-width="1.5" stroke-linejoin="round"/><path d="M11 12V9" stroke="#14B8A6" stroke-width="1.5" stroke-linecap="round"/><circle cx="11" cy="15" r="0.8" fill="#14B8A6"/></svg>
+            </div>
+            <div>
+              <h4>주차 안내</h4>
+              <p>건물 지하 1~2층에 전용 주차장이 있으며, 진료 시간 동안 무료 주차가 가능합니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Location ===== -->
+  <section class="location section-padding" id="location">
+    <div class="container">
+      <div class="text-center reveal">
+        <span class="section-label">Location</span>
+        <h2 class="section-title">오시는 길</h2>
+        <p class="section-desc mx-auto">교통이 편리한 위치에 자리잡고 있어 쉽게 방문하실 수 있습니다.</p>
+      </div>
+      <div class="location-wrapper">
+        <div class="reveal reveal-delay-1">
+          <div class="map-placeholder">
+            <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+              <path d="M28 6C19.16 6 12 13.16 12 22C12 34 28 50 28 50C28 50 44 34 44 22C44 13.16 36.84 6 28 6Z" stroke="#14B8A6" stroke-width="2.5" fill="none"/>
+              <circle cx="28" cy="22" r="6" stroke="#14B8A6" stroke-width="2" fill="rgba(20,184,166,0.15)"/>
+            </svg>
+            <span>지도 영역</span>
+          </div>
+        </div>
+        <div class="location-details reveal reveal-delay-2">
+          <div class="location-item">
+            <div class="location-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2C6.69 2 4 4.69 4 8C4 13 10 18 10 18C10 18 16 13 16 8C16 4.69 13.31 2 10 2Z" stroke="#14B8A6" stroke-width="1.5"/><circle cx="10" cy="8" r="2.5" stroke="#14B8A6" stroke-width="1.5"/></svg>
+            </div>
+            <div>
+              <h4>주소</h4>
+              <p>서울특별시 강남구 테헤란로 123, 해피펫빌딩 2층</p>
+            </div>
+          </div>
+          <div class="location-item">
+            <div class="location-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M17 13.69V15.94C17 16.48 16.58 16.93 16.04 16.99C15.26 17.08 14.48 17.05 13.73 16.9C11.66 16.42 9.74 15.43 8.12 14.02C6.62 12.7 5.39 11.11 4.55 9.31C4.04 8.14 3.71 6.88 3.56 5.59C3.5 5.05 3.92 4.57 4.46 4.51H6.71C7.19 4.51 7.61 4.84 7.7 5.32C7.85 6.07 8.09 6.79 8.42 7.48L7.13 8.77C8.24 10.78 9.89 12.43 11.9 13.54L13.19 12.25C13.88 12.58 14.6 12.82 15.35 12.97C15.83 13.06 16.16 13.48 16.16 13.96L17 13.69Z" stroke="#14B8A6" stroke-width="1.5"/></svg>
+            </div>
+            <div>
+              <h4>연락처</h4>
+              <p>대표전화: 02-1234-5678<br/>팩스: 02-1234-5679</p>
+            </div>
+          </div>
+          <div class="location-item">
+            <div class="location-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="#14B8A6" stroke-width="1.5"/><path d="M10 5V10L13 12.5" stroke="#14B8A6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h4>진료 시간</h4>
+              <p>평일 09:30 - 19:30 / 토요일 09:30 - 15:00<br/>일요일 및 공휴일 휴진</p>
+            </div>
+          </div>
+          <div class="location-transport">
+            <h4>대중교통 안내</h4>
+            <ul>
+              <li>지하철 2호선 강남역 3번 출구에서 도보 5분</li>
+              <li>지하철 분당선 한티역 1번 출구에서 도보 8분</li>
+              <li>버스 정류장 '테헤란로 사거리' 하차 후 도보 2분</li>
+              <li>건물 지하 전용 주차장 이용 가능 (진료 시 무료)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Reservation ===== -->
+  <section class="reservation section-padding" id="reservation">
+    <div class="container">
+      <div class="text-center reveal">
+        <span class="section-label">Reservation</span>
+        <h2 class="section-title">온라인 진료 예약</h2>
+        <p class="section-desc mx-auto">아래 양식을 작성해 주시면 빠르게 예약 확인 연락을 드리겠습니다.</p>
+      </div>
+      <div class="reservation-wrapper">
+        <div class="reservation-info reveal reveal-delay-1">
+          <h3>편리하고 빠른<br/>온라인 예약 시스템</h3>
+          <p>전화 연결이 어려우시거나, 진료 시간 외에도 편리하게 예약하실 수 있습니다. 예약 접수 후 담당 직원이 확인 전화를 드려 최종 예약을 확정합니다.</p>
+          <div class="reservation-benefits">
+            <div class="reservation-benefit">
+              <div class="benefit-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="#14B8A6" stroke-width="1.5"/><path d="M10 5V10L13 12.5" stroke="#14B8A6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <h4>24시간 접수 가능</h4>
+                <p>언제든지 온라인으로 예약을 접수하실 수 있습니다</p>
+              </div>
+            </div>
+            <div class="reservation-benefit">
+              <div class="benefit-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M17 5L8 14L3 9" stroke="#14B8A6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <h4>빠른 확인 연락</h4>
+                <p>접수 후 1시간 이내 확인 연락을 드립니다</p>
+              </div>
+            </div>
+            <div class="reservation-benefit">
+              <div class="benefit-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 18C14.4 18 18 14.4 18 10C18 5.6 14.4 2 10 2C5.6 2 2 5.6 2 10C2 14.4 5.6 18 10 18Z" stroke="#14B8A6" stroke-width="1.5"/><path d="M7 10L9 12L13 8" stroke="#14B8A6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <h4>대기 시간 단축</h4>
+                <p>사전 예약으로 대기 없이 바로 진료 가능합니다</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <div class="form-card">
+            <form id="reservationForm" onsubmit="handleSubmit(event)">
+              <div class="form-group">
+                <label>보호자명 <span class="required">*</span></label>
+                <input type="text" placeholder="보호자 성함을 입력해 주세요" required />
+              </div>
+              <div class="form-group">
+                <label>연락처 <span class="required">*</span></label>
+                <input type="tel" placeholder="010-0000-0000" required />
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>반려동물 종류 <span class="required">*</span></label>
+                  <select required>
+                    <option value="" disabled selected>선택해 주세요</option>
+                    <option value="dog">개</option>
+                    <option value="cat">고양이</option>
+                    <option value="other">기타</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>진료 종류 <span class="required">*</span></label>
+                  <select required>
+                    <option value="" disabled selected>선택해 주세요</option>
+                    <option value="general">일반 진료</option>
+                    <option value="vaccination">예방 접종</option>
+                    <option value="surgery">외과 수술</option>
+                    <option value="checkup">건강 검진</option>
+                    <option value="dental">치과 진료</option>
+                    <option value="skin">피부과 진료</option>
+                    <option value="other">기타 상담</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>희망 날짜 <span class="required">*</span></label>
+                <input type="date" required />
+              </div>
+              <div class="form-group">
+                <label>추가 요청사항</label>
+                <textarea rows="3" placeholder="증상이나 요청사항을 간단히 적어주세요"></textarea>
+              </div>
+              <button type="submit" class="form-submit">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M15 3H3C2.17 3 1.5 3.67 1.5 4.5V15C1.5 15.83 2.17 16.5 3 16.5H15C15.83 16.5 16.5 15.83 16.5 15V4.5C16.5 3.67 15.83 3 15 3Z" stroke="currentColor" stroke-width="1.3"/><path d="M1.5 7.5H16.5M6 1.5V4.5M12 1.5V4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                예약 신청하기
+              </button>
+              <p class="form-notice">예약 접수 후 확인 연락을 드립니다. 개인정보는 진료 예약 목적으로만 사용됩니다.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="logo">
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="15" fill="rgba(20,184,166,0.15)" stroke="#14B8A6" stroke-width="1.5"/>
+              <path d="M10 11.5C10 10.12 11.12 9 12.5 9C13.88 9 15 10.12 15 11.5C15 12.88 13.88 14 12.5 14C11.12 14 10 12.88 10 11.5Z" fill="#14B8A6"/>
+              <path d="M17 11.5C17 10.12 18.12 9 19.5 9C20.88 9 22 10.12 22 11.5C22 12.88 20.88 14 19.5 14C18.12 14 17 12.88 17 11.5Z" fill="#14B8A6"/>
+              <path d="M8 16.5C8 15.12 8.9 14 10 14C11.1 14 12 15.12 12 16.5C12 17.88 11.1 19 10 19C8.9 19 8 17.88 8 16.5Z" fill="#14B8A6" opacity="0.7"/>
+              <path d="M20 16.5C20 15.12 20.9 14 22 14C23.1 14 24 15.12 24 16.5C24 17.88 23.1 19 22 19C20.9 19 20 17.88 20 16.5Z" fill="#14B8A6" opacity="0.7"/>
+              <path d="M16 24C19.5 24 22 21.5 22 19C22 16 19.5 15 16 15C12.5 15 10 16 10 19C10 21.5 12.5 24 16 24Z" fill="#14B8A6" opacity="0.5"/>
+            </svg>
+            <span>해피펫</span> 동물병원
+          </div>
+          <p>소중한 반려동물의 건강한 삶을 위해 최선을 다하는 해피펫 동물병원입니다. 따뜻한 마음으로 진료합니다.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="블로그">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="3" width="12" height="12" rx="2" stroke="#aaa" stroke-width="1.2"/><path d="M6 7H12M6 9.5H10M6 12H8" stroke="#aaa" stroke-width="1" stroke-linecap="round"/></svg>
+            </a>
+            <a href="#" aria-label="인스타그램">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2.5" y="2.5" width="13" height="13" rx="3.5" stroke="#aaa" stroke-width="1.2"/><circle cx="9" cy="9" r="3.5" stroke="#aaa" stroke-width="1.2"/><circle cx="13" cy="5" r="0.8" fill="#aaa"/></svg>
+            </a>
+            <a href="#" aria-label="카카오톡">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 3C5.13 3 2 5.58 2 8.75C2 10.72 3.3 12.44 5.3 13.4L4.5 16L7.6 14.2C8.06 14.27 8.52 14.3 9 14.3C12.87 14.3 16 11.72 16 8.55C16 5.58 12.87 3 9 3Z" stroke="#aaa" stroke-width="1.2"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>진료 서비스</h4>
+          <ul>
+            <li><a href="#services">일반 진료</a></li>
+            <li><a href="#services">예방 접종</a></li>
+            <li><a href="#services">외과 수술</a></li>
+            <li><a href="#services">건강 검진</a></li>
+            <li><a href="#services">치과 진료</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>병원 안내</h4>
+          <ul>
+            <li><a href="#doctors">의료진 소개</a></li>
+            <li><a href="#gallery">시설 안내</a></li>
+            <li><a href="#hours">진료 시간</a></li>
+            <li><a href="#location">오시는 길</a></li>
+            <li><a href="#reservation">진료 예약</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>연락처</h4>
+          <ul>
+            <li><a href="tel:02-1234-5678">02-1234-5678</a></li>
+            <li><a href="mailto:info@happypet.co.kr">info@happypet.co.kr</a></li>
+            <li><a>서울 강남구 테헤란로 123</a></li>
+            <li><a>해피펫빌딩 2층</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Copyright 2024 해피펫 동물병원. All rights reserved.</p>
+        <p>사업자등록번호: 123-45-67890 | 대표: 김태현</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JavaScript ===== -->
+  <script>
+    /* ---- IntersectionObserver: scroll reveal ---- */
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        els.forEach(function (el) { observer.observe(el); });
+      } else {
+        els.forEach(function (el) { el.classList.add('visible'); });
+      }
+    })();
+
+    /* ---- Header scroll shadow ---- */
+    (function () {
+      var header = document.getElementById('header');
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 10) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      });
+    })();
+
+    /* ---- Mobile menu toggle ---- */
+    var mobileToggle = document.getElementById('mobileToggle');
+    var mobileMenu = document.getElementById('mobileMenu');
+    mobileToggle.addEventListener('click', function () {
+      mobileToggle.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+    });
+    function closeMobile() {
+      mobileToggle.classList.remove('active');
+      mobileMenu.classList.remove('open');
+    }
+
+    /* ---- Form submission handler ---- */
+    function handleSubmit(e) {
+      e.preventDefault();
+      var btn = e.target.querySelector('.form-submit');
+      var originalText = btn.innerHTML;
+      btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M15 5L7 13L3 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> 예약이 접수되었습니다';
+      btn.style.background = '#0E9A8A';
+      btn.disabled = true;
+      setTimeout(function () {
+        btn.innerHTML = originalText;
+        btn.style.background = '';
+        btn.disabled = false;
+        e.target.reset();
+      }, 3000);
+    }
+
+    /* ---- Set min date for date input ---- */
+    (function () {
+      var dateInput = document.querySelector('input[type="date"]');
+      if (dateInput) {
+        var today = new Date();
+        var yyyy = today.getFullYear();
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var dd = String(today.getDate()).padStart(2, '0');
+        dateInput.setAttribute('min', yyyy + '-' + mm + '-' + dd);
+      }
+    })();
+  </script>
+</body>
+</html>

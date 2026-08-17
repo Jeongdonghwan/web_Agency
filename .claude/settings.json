@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(node -e ' *)",
+      "Read(//tmp/**)",
+      "PowerShell($files = 'kids-cafe','book-cafe','workshop-space','party-room','studio-rental','picture-studio'; foreach \\($f in $files\\) { $raw = [IO.File]::ReadAllText\\(\"c:\\\\side_Prj\\\\web_Agency\\\\content\\\\industries\\\\$f.md\"\\); $idx = $raw.IndexOf\\('---', 4\\); $body = $raw.Substring\\($idx + 3\\); $count = \\($body -replace '\\\\s',''\\).Length; Write-Output \"$f : $count\" })",
+      "PowerShell(python \"C:\\\\Users\\\\jdhwa\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--side-Prj-web-Agency\\\\f03cf8a6-0bd8-4762-8450-58b879777c32\\\\scratchpad\\\\qa_check.py\")",
+      "PowerShell(python \"C:\\\\Users\\\\jdhwa\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--side-Prj-web-Agency\\\\f03cf8a6-0bd8-4762-8450-58b879777c32\\\\scratchpad\\\\qa_check_service7.py\")",
+      "Bash(grep -o '<h1>.\\\\{0,80\\\\}' out/homepage/dental-clinic/index.html)",
+      "Bash(grep -o '<h1>.\\\\{0,80\\\\}' out/homepage/category/medical/index.html)",
+      "Bash(git add *)",
+      "Bash(git commit -m 'Next.js 14 전환 + 업종별 홈페이지 제작 SEO 페이지 207종 + 블로그 구축 *)"
+    ]
+  }
+}
