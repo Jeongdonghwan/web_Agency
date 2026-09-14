@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import taxonomy from '../data/taxonomy.json';
+// @ts-ignore - 공유 ESM 모듈 (한글 슬러그 규칙의 단일 출처)
+import { koSlugOf } from './koslug.mjs';
 
 const INDUSTRIES_DIR = path.join(process.cwd(), 'content', 'industries');
 
@@ -16,7 +18,8 @@ export interface IndustryFeature {
 }
 
 export interface IndustryMeta {
-  slug: string;
+  slug: string;      // 영문 내부 id (파일명)
+  urlSlug: string;   // 한글 URL 슬러그: "카페-홈페이지제작"
   name: string;
   category: string;
   categoryName: string;
@@ -60,6 +63,7 @@ function parseIndustryFile(filePath: string): Industry {
   const categoryName = getCategory(category)?.name || category;
   return {
     slug,
+    urlSlug: koSlugOf(String(data.name || '')),
     name: String(data.name || ''),
     category,
     categoryName,
@@ -91,12 +95,34 @@ export function getAllIndustries(): Industry[] {
     .map((f) => parseIndustryFile(path.join(INDUSTRIES_DIR, f)))
     .filter((i) => !i.draft)
     .sort((a, b) => a.name.localeCompare(b.name, 'ko'));
+  // 한글 URL 슬러그 충돌은 페이지 덮어쓰기로 이어지므로 빌드를 중단시킨다
+  const seen = new Map<string, string>();
+  for (const i of cache) {
+    if (seen.has(i.urlSlug)) {
+      throw new Error(`urlSlug 충돌: ${seen.get(i.urlSlug)} ↔ ${i.slug} (${i.urlSlug})`);
+    }
+    seen.set(i.urlSlug, i.slug);
+  }
   return cache;
 }
 
 export function getIndustryBySlug(slug: string): Industry | undefined {
   return getAllIndustries().find((i) => i.slug === slug);
 }
+
+// 한글 URL 슬러그로 조회 (인코딩된 파라미터가 올 수 있어 디코딩 후 비교)
+export function getIndustryByUrlSlug(urlSlug: string): Industry | undefined {
+  let key = urlSlug;
+  try {
+    key = decodeURIComponent(urlSlug);
+  } catch {}
+  return getAllIndustries().find((i) => i.urlSlug === key);
+}
+
+// 업종 페이지 절대경로 (링크용은 미인코딩, canonical/사이트맵용은 encodeURIComponent 적용해 사용)
+export const industryPath = (ind: { urlSlug: string }) => `/homepage/${ind.urlSlug}/`;
+export const industryEncodedPath = (ind: { urlSlug: string }) =>
+  `/homepage/${encodeURIComponent(ind.urlSlug)}/`;
 
 export function getIndustriesByCategory(category: string): Industry[] {
   return getAllIndustries().filter((i) => i.category === category);

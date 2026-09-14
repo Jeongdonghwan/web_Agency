@@ -58,7 +58,7 @@ export default function IndustryHubPage() {
               <p className="category-desc">{cat.description}</p>
               <div className="industry-grid">
                 {industries.map((ind) => (
-                  <Link key={ind.slug} href={`/homepage/${ind.slug}/`}>
+                  <Link key={ind.slug} href={`/homepage/${ind.urlSlug}/`}>
                     {ind.name}
                   </Link>
                 ))}

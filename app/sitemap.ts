@@ -28,7 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 업종 페이지
   for (const ind of getAllIndustries()) {
     entries.push({
-      url: `${SITE_URL}/homepage/${ind.slug}/`,
+      url: `${SITE_URL}/homepage/${encodeURIComponent(ind.urlSlug)}/`,
       lastModified: ind.updatedAt ? new Date(ind.updatedAt) : now,
       changeFrequency: 'monthly',
       priority: 0.8,

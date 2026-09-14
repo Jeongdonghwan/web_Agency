@@ -12,7 +12,8 @@
       "Bash(git add *)",
       "Bash(git commit -m 'Next.js 14 전환 + 업종별 홈페이지 제작 SEO 페이지 207종 + 블로그 구축 *)",
       "Bash(git rm *)",
-      "Bash(git commit -q -m '빌드 산출물\\(.next, out\\) gitignore 처리 *)"
+      "Bash(git commit -q -m '빌드 산출물\\(.next, out\\) gitignore 처리 *)",
+      "Bash(npx -y serve out -l 3100)"
     ]
   }
 }

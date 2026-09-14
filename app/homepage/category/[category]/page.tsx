@@ -63,7 +63,7 @@ export default function CategoryPage({ params }: { params: { category: string } 
           </p>
           <div className="industry-grid">
             {industries.map((ind) => (
-              <Link key={ind.slug} href={`/homepage/${ind.slug}/`}>
+              <Link key={ind.slug} href={`/homepage/${ind.urlSlug}/`}>
                 {ind.name}
               </Link>
             ))}

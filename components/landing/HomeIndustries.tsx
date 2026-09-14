@@ -15,7 +15,7 @@ const HomeIndustries = () => {
         <p className="section-subtitle">우리 업종에 필요한 기능과 디자인, 미리 확인하세요</p>
         <div className="industry-grid">
           {popular.map((ind) => (
-            <Link key={ind.slug} href={`/homepage/${ind.slug}/`}>
+            <Link key={ind.slug} href={`/homepage/${ind.urlSlug}/`}>
               {ind.name}
             </Link>
           ))}

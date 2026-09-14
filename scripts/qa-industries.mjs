@@ -4,6 +4,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import matter from 'gray-matter';
+import { koSlugOf } from '../lib/koslug.mjs';
 
 const ROOT = process.cwd();
 const INDUSTRIES_DIR = path.join(ROOT, 'content', 'industries');
@@ -96,6 +97,13 @@ for (const file of files) {
   const totalChars = bodyChars + fmText.length;
   if (bodyChars < MIN_BODY_CHARS) ctx(`본문 ${bodyChars}자 (${MIN_BODY_CHARS}자 미만)`);
   if (totalChars < MIN_TOTAL_CHARS) ctx(`전체 텍스트 ${totalChars}자 (${MIN_TOTAL_CHARS}자 미만)`);
+
+  // 한글 URL 슬러그 충돌 (name 기반 → 페이지 덮어쓰기 방지)
+  if (data.name) {
+    const ko = koSlugOf(String(data.name));
+    if (titles.has('KOSLUG:' + ko)) ctx(`한글 urlSlug '${ko}'가 ${titles.get('KOSLUG:' + ko)}와 충돌`);
+    titles.set('KOSLUG:' + ko, file);
+  }
 
   // 중복 title/description
   if (data.title) {

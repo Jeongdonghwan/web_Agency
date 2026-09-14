@@ -91,7 +91,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
             <h2>관련 업종 홈페이지 제작</h2>
             <div className="related-grid">
               {industries.map((ind: any) => (
-                <Link key={ind.slug} href={`/homepage/${ind.slug}/`}>
+                <Link key={ind.slug} href={`/homepage/${ind.urlSlug}/`}>
                   {ind.name} 홈페이지 제작
                   <span>{ind.categoryName}</span>
                 </Link>

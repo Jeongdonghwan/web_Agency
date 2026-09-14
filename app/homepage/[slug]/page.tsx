@@ -3,7 +3,9 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import {
   getAllIndustries,
-  getIndustryBySlug,
+  getIndustryByUrlSlug,
+  industryPath,
+  industryEncodedPath,
 } from '../../../lib/industries';
 import { getPostsByIndustry } from '../../../lib/posts';
 import { markdownToHtml } from '../../../lib/markdown';
@@ -14,21 +16,22 @@ import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd } from '../../../lib/jso
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return getAllIndustries().map((i) => ({ slug: i.slug }));
+  // 한글 슬러그로 정적 생성: /homepage/카페-홈페이지제작/
+  return getAllIndustries().map((i) => ({ slug: i.urlSlug }));
 }
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const ind = getIndustryBySlug(params.slug);
+  const ind = getIndustryByUrlSlug(params.slug);
   if (!ind) return {};
   return {
     title: { absolute: ind.title },
     description: ind.description,
     keywords: ind.keywords,
-    alternates: { canonical: `/homepage/${ind.slug}/` },
+    alternates: { canonical: industryEncodedPath(ind) },
     openGraph: {
       title: ind.title,
       description: ind.description,
-      url: `/homepage/${ind.slug}/`,
+      url: industryEncodedPath(ind),
     },
     twitter: {
       title: ind.title,
@@ -38,13 +41,13 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 }
 
 export default async function IndustryPage({ params }: { params: { slug: string } }) {
-  const ind = getIndustryBySlug(params.slug);
+  const ind = getIndustryByUrlSlug(params.slug);
   if (!ind) notFound();
 
   const html = await markdownToHtml(ind.content);
   const demos = ind.references.map(getPortfolioById).filter(Boolean);
   const related = ind.relatedIndustries
-    .map((slug) => getIndustryBySlug(slug))
+    .map((slug) => getAllIndustries().find((i) => i.slug === slug))
     .filter(Boolean);
   const posts = [
     ...new Map(
@@ -52,7 +55,7 @@ export default async function IndustryPage({ params }: { params: { slug: string 
     ).values(),
   ].slice(0, 4);
 
-  const path = `/homepage/${ind.slug}/`;
+  const path = industryEncodedPath(ind);
 
   return (
     <main className="content-page">
@@ -158,7 +161,7 @@ export default async function IndustryPage({ params }: { params: { slug: string 
             <h2>함께 보면 좋은 페이지</h2>
             <div className="related-grid">
               {related.map((r: any) => (
-                <Link key={r.slug} href={`/homepage/${r.slug}/`}>
+                <Link key={r.slug} href={industryPath(r)}>
                   {r.name} 홈페이지 제작
                   <span>{r.categoryName}</span>
                 </Link>

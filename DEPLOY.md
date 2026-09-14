@@ -44,6 +44,22 @@ server {
 sudo nginx -t && sudo systemctl reload nginx
 ```
 
+### 업종 URL 한글화 리다이렉트 (2026-09 적용)
+
+업종 페이지 URL이 영문(`/homepage/cafe/`) → 한글(`/homepage/카페-홈페이지제작/`)로 변경됨.
+기존 색인 보존을 위해 저장소의 `nginx-redirects.conf`(자동 생성: `node scripts/gen-redirects.mjs`)를
+server 블록 안에 include 해야 한다:
+
+```nginx
+server {
+    ...
+    include /var/www/webagency/nginx-redirects.conf;   # root 지시어 근처에 추가
+    ...
+}
+```
+
+업종을 추가/삭제하면 `node scripts/gen-redirects.mjs` 재실행 후 커밋하고, 서버에서 pull + `nginx -s reload`.
+
 ## 평상시 배포 (콘텐츠 추가/수정 후)
 
 ```bash
