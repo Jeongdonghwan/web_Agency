@@ -32,6 +32,13 @@ const PortfolioSection = () => {
           ))}
         </div>
       </div>
+
+      <p className="lp-pf-note">
+        여기 있는 것은 공개 가능한 사례의 일부입니다. 고객사 요청으로 공개하지 못하는 사이트가 훨씬 많습니다.<br />
+        <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer">
+          우리 업종 사례가 궁금하다면, 카톡으로 요청해주세요 →
+        </a>
+      </p>
     </section>
   );
 };
