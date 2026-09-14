@@ -11,6 +11,7 @@ const HomeIndustries = () => {
   return (
     <section className="home-industries" id="industries">
       <div className="section-container">
+        <p className="sec-eyebrow">05 · INDUSTRY</p>
         <h2 className="section-title">업종별 홈페이지 제작</h2>
         <p className="section-subtitle">우리 업종에 필요한 기능과 디자인, 미리 확인하세요</p>
         <div className="industry-grid">

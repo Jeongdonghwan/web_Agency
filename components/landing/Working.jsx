@@ -13,6 +13,7 @@ const WorkingSection = () => {
   return (
     <section className="working" id="working" ref={sectionRef}>
       <div className="section-container">
+        <p className="sec-eyebrow">01 · WHY JD8</p>
         <h2 className="section-title scroll-animate">만들고 끝나는 홈페이지가 아니라,<br />일하는 홈페이지를 만듭니다</h2>
         <p className="section-subtitle scroll-animate stagger-1">JD8이 모든 제작에 기본으로 담는 세 가지</p>
 

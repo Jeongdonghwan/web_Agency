@@ -29,6 +29,7 @@ const PortfolioSection = () => {
   return (
     <section className="portfolio" id="portfolio" ref={sectionRef}>
       <div className="section-container">
+        <p className="sec-eyebrow">04 · PORTFOLIO</p>
         <h2 className="section-title scroll-animate">포트폴리오</h2>
         <p className="section-subtitle scroll-animate stagger-1">다양한 업종의 실제 제작 사례</p>
 

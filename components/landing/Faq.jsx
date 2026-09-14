@@ -12,6 +12,7 @@ const FAQSection = () => {
   return (
     <section className="faq" id="faq">
       <div className="section-container">
+        <p className="sec-eyebrow">09 · FAQ</p>
         <h2 className="section-title">자주 묻는 질문</h2>
         <p className="section-subtitle">궁금한 점을 미리 확인하세요</p>
 

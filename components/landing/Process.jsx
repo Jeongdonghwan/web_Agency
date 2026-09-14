@@ -16,6 +16,7 @@ const ProcessSection = () => {
   return (
     <section className="process" id="process">
       <div className="section-container">
+        <p className="sec-eyebrow">06 · PROCESS</p>
         <h2 className="section-title">제작 과정</h2>
         <p className="section-subtitle">간단하고 빠른 4단계</p>
 

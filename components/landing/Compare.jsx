@@ -9,6 +9,7 @@ const CompareSection = () => {
   return (
     <section className="compare" id="compare">
       <div className="section-container">
+        <p className="sec-eyebrow">03 · PRICE</p>
         <h2 className="section-title">300만원 가치의 홈페이지를 <br /> 30만원에</h2>
         <p className="section-subtitle">똑같은 퀄리티, 합리적인 가격</p>
 

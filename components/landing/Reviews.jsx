@@ -25,6 +25,7 @@ const ReviewsSection = () => {
   return (
     <section className="reviews" id="reviews">
       <div className="section-container">
+        <p className="sec-eyebrow">07 · REVIEWS</p>
         <h2 className="section-title">고객 후기</h2>
         <p className="section-subtitle">실제 고객님들의 생생한 리뷰</p>
       </div>

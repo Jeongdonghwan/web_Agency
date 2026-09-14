@@ -9,6 +9,7 @@ const LatestPosts = () => {
   return (
     <section className="home-posts-section">
       <div className="section-container">
+        <p className="sec-eyebrow">08 · INSIGHT</p>
         <h2 className="section-title">홈페이지 제작 인사이트</h2>
         <p className="section-subtitle">비용, 검색 노출, 준비물 — 사장님들이 가장 많이 묻는 것들을 정리했습니다</p>
 

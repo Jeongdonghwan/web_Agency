@@ -21,6 +21,7 @@ const IncludesSection = () => {
   return (
     <section className="includes" id="includes" ref={sectionRef}>
       <div className="section-container">
+        <p className="sec-eyebrow">02 · ALL-IN-ONE</p>
         <h2 className="section-title scroll-animate">30만원에 이 모든 게 포함</h2>
         <p className="section-subtitle scroll-animate stagger-1">추가 비용 없이 올인원 패키지</p>
 
