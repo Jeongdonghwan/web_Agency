@@ -5,7 +5,6 @@ import LatestPosts from '../components/landing/LatestPosts';
 import IncludesSection from '../components/landing/Includes';
 import CompareSection from '../components/landing/Compare';
 import PortfolioSection from '../components/landing/Portfolio';
-import HomeIndustries from '../components/landing/HomeIndustries';
 import ProcessSection from '../components/landing/Process';
 import ReviewsSection from '../components/landing/Reviews';
 import FAQSection from '../components/landing/Faq';
@@ -25,7 +24,6 @@ export default function HomePage() {
       <PortfolioSection />
       <IncludesSection />
       <CompareSection />
-      <HomeIndustries />
       <ProcessSection />
       <ReviewsSection />
       <LatestPosts />
