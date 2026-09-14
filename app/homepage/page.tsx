@@ -86,7 +86,7 @@ export default function IndustryHubPage() {
           <p>어떤 업종이든 제작 가능합니다. 무료 상담으로 우리 업종에 맞는 구성을 안내받아 보세요.</p>
           <div className="cta-actions">
             <a href="/#contact" className="primary">무료 상담 신청</a>
-            <a href="http://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="ghost">카톡 문의</a>
+            <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="ghost">카톡 문의</a>
           </div>
         </div>
       </div>

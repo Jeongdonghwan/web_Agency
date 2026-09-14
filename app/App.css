@@ -1715,15 +1715,17 @@ body {
 }
 
 .floating-btn.kakao {
-  width: 56px;
-  height: 56px;
+  padding: 15px 22px;
+  gap: 8px;
   background: #FEE500;
   color: #3C1E1E;
+  font-size: 0.9375rem;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .kakao-label {
-  display: none;
+  display: inline;
+  white-space: nowrap;
 }
 
 .floating-btn.kakao:hover {

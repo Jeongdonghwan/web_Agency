@@ -75,7 +75,7 @@ export default function CategoryPage({ params }: { params: { category: string } 
           <p>평균 7일, 합리적인 가격으로 제작해드립니다. 부담 없이 견적부터 확인해보세요.</p>
           <div className="cta-actions">
             <a href="/#contact" className="primary">무료 상담 신청</a>
-            <a href="http://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="ghost">카톡 문의</a>
+            <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="ghost">카톡 문의</a>
           </div>
         </div>
       </div>

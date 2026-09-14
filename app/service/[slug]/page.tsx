@@ -129,7 +129,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
           <div className="cta-actions">
             <a href="/#contact" className="primary">무료 상담 신청</a>
             <a href="tel:1566-3046" className="ghost">전화 상담 1566-3046</a>
-            <a href="http://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="ghost">카톡 문의</a>
+            <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="ghost">카톡 문의</a>
           </div>
         </div>
       </div>

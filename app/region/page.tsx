@@ -72,7 +72,7 @@ export default function RegionHubPage() {
           <p>전국 어디든 제작 가능합니다. 부담 없이 문의해주세요.</p>
           <div className="cta-actions">
             <a href="/#contact" className="primary">무료 상담 신청</a>
-            <a href="http://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="ghost">카톡 문의</a>
+            <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="ghost">카톡 문의</a>
           </div>
         </div>
       </div>

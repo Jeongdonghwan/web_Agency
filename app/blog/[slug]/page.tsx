@@ -120,7 +120,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
           <p>JD8이 업종에 맞는 홈페이지를 평균 7일 안에 만들어드립니다.</p>
           <div className="cta-actions">
             <a href="/#contact" className="primary">무료 상담 신청</a>
-            <a href="http://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="ghost">카톡 문의</a>
+            <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="ghost">카톡 문의</a>
           </div>
         </div>
       </div>

@@ -612,6 +612,67 @@
   color: #fff;
 }
 
+/* ----- 메인 문의 섹션: 카카오 패널 ----- */
+.contact-kakao {
+  text-align: center;
+}
+
+.contact-kakao .contact-kakao-icon {
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: #fee500;
+  color: #3c1e1e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-kakao h3 {
+  font-size: 1.35rem;
+  color: #fff;
+  margin-bottom: 10px;
+  word-break: keep-all;
+}
+
+.contact-kakao p {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 26px;
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+.submit-button.kakao-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #fee500;
+  color: #3c1e1e;
+  text-decoration: none;
+  border-radius: 12px;
+}
+
+.submit-button.kakao-submit:hover {
+  background: #ffd700;
+  transform: translateY(-2px);
+}
+
+.contact-phone-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.contact-phone-link:hover {
+  color: #fff;
+}
+
 /* ----- 푸터 링크 컬럼 ----- */
 .footer-links {
   display: flex;

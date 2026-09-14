@@ -8,7 +8,7 @@ export const COMPANY = {
   phone: '1566-3046',
   bizNumber: '503-87-03619',
   address: '경기도 용인시 기흥구 금화로 3, 제이20호',
-  kakaoChannel: 'http://pf.kakao.com/_Izxnxgn',
+  kakaoChannel: 'https://pf.kakao.com/_Izxnxgn',
 };
 
 export const DEFAULT_TITLE = '고퀄리티 반응형 홈페이지제작 JD8 에이전시';

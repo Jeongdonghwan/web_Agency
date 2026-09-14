@@ -56,7 +56,7 @@ const HeroSection = () => {
               무료 상담 신청하기
               <span className="cta-arrow">→</span>
             </button>
-            <a href="http://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="cta-button kakao-cta">
+            <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="cta-button kakao-cta">
               <KakaoIcon size={18} />
               카톡 간편문의
             </a>

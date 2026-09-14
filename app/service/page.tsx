@@ -57,7 +57,7 @@ export default function ServiceHubPage() {
           <p>목적만 말씀해주세요. 상담에서 가장 합리적인 구성을 제안해드립니다.</p>
           <div className="cta-actions">
             <a href="/#contact" className="primary">무료 상담 신청</a>
-            <a href="http://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="ghost">카톡 문의</a>
+            <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="ghost">카톡 문의</a>
           </div>
         </div>
       </div>
