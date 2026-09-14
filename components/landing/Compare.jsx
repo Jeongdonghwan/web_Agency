@@ -34,6 +34,11 @@ const CompareSection = () => {
             <div className="compare-cell us highlight">기본 포함</div>
           </div>
           <div className="compare-row">
+            <div className="compare-cell label">검색 최적화(SEO)</div>
+            <div className="compare-cell competitor">별도 비용 or 없음</div>
+            <div className="compare-cell us highlight">기본 세팅 + 등록 안내</div>
+          </div>
+          <div className="compare-row">
             <div className="compare-cell label">유지보수</div>
             <div className="compare-cell competitor">느리거나 안됨</div>
             <div className="compare-cell us highlight">빠르고 가능</div>

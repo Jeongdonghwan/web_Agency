@@ -3,13 +3,22 @@
 import { useState, useEffect } from 'react';
 import { CheckCircleIcon, KakaoIcon } from './icons';
 
-// Hero 섹션
+// 히어로 로테이터 업종 목록
+const ROTATOR_WORDS = ['카페', '치과', '헬스장', '법무법인', '쇼핑몰', '학원', '미용실', '펜션', '공장', '동물병원'];
+
+// Hero 섹션 — 성과 중심 카피 + 업종 로테이터
 const HeroSection = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [wordIdx, setWordIdx] = useState(0);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const t = setInterval(() => setWordIdx((i) => (i + 1) % ROTATOR_WORDS.length), 2200);
+    return () => clearInterval(t);
   }, []);
 
   const scrollToContact = () => {
@@ -31,40 +40,48 @@ const HeroSection = () => {
       {/* 배경 레이어 */}
       <div className="hero-bg-image"></div>
       <div className="hero-overlay"></div>
+      <div className="hero-orb orb-1" aria-hidden="true"></div>
+      <div className="hero-orb orb-2" aria-hidden="true"></div>
 
       <div className={`hero-content ${isVisible ? 'animate-in' : ''}`}>
         <div className="hero-text">
           <p className="hero-subtitle">
-            <span className="hero-badge">PREMIUM</span>
-            홈페이지 제작 전문
+            <span className="hero-badge">SEARCH-READY</span>
+            검색되고, 문의가 들어오는 홈페이지
           </p>
           <h1 className="hero-title">
-            <span className="line">아직도 <span className="strike-through">100만원</span> <span className="strike-through">200만원</span></span>
-            <span className="line">비싸게 만드세요?</span>
-            <span className="line">매월 선착순 홈페이지 제작</span>
+            <span className="line">예쁘기만 한 홈페이지는</span>
+            <span className="line">매출을 만들지 못합니다</span>
           </h1>
+          <p className="hero-rotator" aria-live="off">
+            JD8은{' '}
+            <span className="rotator-box">
+              <span key={wordIdx} className="rotator-word">{ROTATOR_WORDS[wordIdx]}</span>
+            </span>{' '}
+            홈페이지도 검색되게 만듭니다
+          </p>
           <div className="hero-price-box glass" onClick={scrollToContact} style={{cursor:'pointer'}}>
-            <span className="price-amount">??<span className="price-unit">만원</span></span>
-            <span className="price-suffix">지금 바로 확인하기 →</span>
+            <span className="price-amount">30<span className="price-unit">만원부터</span></span>
+            <span className="price-suffix">기본 SEO·반응형·문의 동선 포함 →</span>
           </div>
           <p className="hero-desc">
-            복잡한 견적, 숨겨진 비용 없이<br />
-            합리적인 가격을 지금 바로 확인하세요
+            네이버·구글 검색에 잡히는 구조와<br />
+            카톡 문의로 이어지는 동선까지, 7일이면 충분합니다
           </p>
           <div className="hero-cta-group">
-            <button className="cta-button primary" onClick={scrollToContact}>
-              무료 상담 신청하기
-              <span className="cta-arrow">→</span>
-            </button>
             <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="cta-button kakao-cta">
               <KakaoIcon size={18} />
               카톡 간편문의
             </a>
+            <button className="cta-button primary" onClick={scrollToContact}>
+              무료 상담 신청하기
+              <span className="cta-arrow">→</span>
+            </button>
           </div>
           <div className="hero-trust">
             <span className="trust-item"><CheckCircleIcon size={14} /> 500+ 제작 완료</span>
             <span className="trust-divider">·</span>
-            <span className="trust-item"><CheckCircleIcon size={14} /> 100% 만족 보장</span>
+            <span className="trust-item"><CheckCircleIcon size={14} /> 업종별 가이드 207종</span>
             <span className="trust-divider">·</span>
             <span className="trust-item"><CheckCircleIcon size={14} /> 평균 7일 완성</span>
           </div>

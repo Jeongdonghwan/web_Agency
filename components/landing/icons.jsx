@@ -65,6 +65,28 @@ export const ClockIcon = ({ size = 32 }) => (
   </svg>
 );
 
+export const BookIcon = ({ size = 32 }) => (
+  <svg viewBox="0 0 24 24" width={size} height={size} fill="none">
+    <path d="M4 4h7v16H6c-1.1 0-2-.9-2-2V4z" fill="currentColor" opacity="0.2"/>
+    <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H6V4h5v8l2.5-1.5L16 12V4h2v16z" fill="currentColor"/>
+  </svg>
+);
+
+export const TargetIcon = ({ size = 40 }) => (
+  <svg viewBox="0 0 24 24" width={size} height={size} fill="none">
+    <circle cx="12" cy="12" r="10" fill="var(--icon-secondary)" opacity="0.3"/>
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-13c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z" fill="var(--icon-primary)"/>
+    <circle cx="12" cy="12" r="1.5" fill="var(--icon-primary)"/>
+  </svg>
+);
+
+export const ChatIcon = ({ size = 40 }) => (
+  <svg viewBox="0 0 24 24" width={size} height={size} fill="none">
+    <path d="M4 4h16c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H8l-4 4V6c0-1.1.9-2 2-2z" fill="var(--icon-secondary)" opacity="0.3"/>
+    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12zM7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z" fill="var(--icon-primary)"/>
+  </svg>
+);
+
 export const CheckCircleIcon = ({ size = 16 }) => (
   <svg viewBox="0 0 24 24" width={size} height={size} fill="none">
     <circle cx="12" cy="12" r="10" fill="var(--icon-secondary)" opacity="0.4"/>

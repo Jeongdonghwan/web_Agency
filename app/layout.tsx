@@ -4,6 +4,7 @@ import './content-pages.css';
 import Header from '../components/landing/Header';
 import Footer from '../components/landing/Footer';
 import FloatingButtons from '../components/landing/FloatingButtons';
+import ScrollProgress from '../components/landing/ScrollProgress';
 import JsonLd from '../components/seo/JsonLd';
 import { organizationJsonLd, webSiteJsonLd } from '../lib/jsonld';
 import { SITE_URL, SITE_NAME, DEFAULT_TITLE, DEFAULT_DESCRIPTION, OG_IMAGE } from '../lib/site';
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko">
       <body>
         <JsonLd data={[organizationJsonLd(), webSiteJsonLd()]} />
+        <ScrollProgress />
         <Header />
         {children}
         <Footer />

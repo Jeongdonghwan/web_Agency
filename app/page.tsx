@@ -1,5 +1,7 @@
 import HeroSection from '../components/landing/Hero';
 import StatsSection from '../components/landing/Stats';
+import WorkingSection from '../components/landing/Working';
+import LatestPosts from '../components/landing/LatestPosts';
 import IncludesSection from '../components/landing/Includes';
 import CompareSection from '../components/landing/Compare';
 import PortfolioSection from '../components/landing/Portfolio';
@@ -19,12 +21,14 @@ export default function HomePage() {
       <JsonLd data={faqPageJsonLd(landingFaqs)} />
       <HeroSection />
       <StatsSection />
+      <WorkingSection />
       <IncludesSection />
       <CompareSection />
       <PortfolioSection />
       <HomeIndustries />
       <ProcessSection />
       <ReviewsSection />
+      <LatestPosts />
       <FAQSection />
       <ContactSection />
     </main>
