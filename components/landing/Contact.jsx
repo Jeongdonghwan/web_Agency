@@ -1,54 +1,27 @@
-import { CheckCircleIcon, KakaoIcon, PhoneIcon } from './icons';
+import { KakaoIcon } from './icons';
 
-// 문의 섹션 — 입력 폼 없이 카카오톡 상담 단일 동선
+// V4 최종 CTA 밴드 — 카카오 단일 동선 (id="contact" 유지: 전 사이트 /#contact 링크의 도착지)
 const ContactSection = () => {
   return (
-    <section className="contact" id="contact">
-      <div className="section-container">
-        <div className="contact-wrapper">
-          <div className="contact-info">
-            <h2 className="contact-title">무료 상담 신청</h2>
-            <p className="contact-desc">
-              카카오톡으로 편하게 물어보세요<br />
-              <strong>빠르게</strong> 답변드립니다
-            </p>
-            <div className="contact-benefits">
-              <div className="benefit-item">
-                <span className="benefit-icon"><CheckCircleIcon size={18} /></span>
-                <span>부담 없는 무료 상담</span>
-              </div>
-              <div className="benefit-item">
-                <span className="benefit-icon"><CheckCircleIcon size={18} /></span>
-                <span>견적 후 결정해도 OK</span>
-              </div>
-              <div className="benefit-item">
-                <span className="benefit-icon"><CheckCircleIcon size={18} /></span>
-                <span>카카오톡 빠른 응대</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="contact-form contact-kakao">
-            <div className="contact-kakao-icon"><KakaoIcon size={52} /></div>
-            <h3>카카오톡으로 바로 상담하세요</h3>
-            <p>
-              업종과 원하시는 스타일만 말씀해주시면<br />
-              구성과 견적을 바로 안내해드립니다.
-            </p>
-            <a
-              href="https://pf.kakao.com/_Izxnxgn"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="submit-button kakao-submit"
-            >
-              <KakaoIcon size={20} /> 카톡 문의하기
-            </a>
-            <a href="tel:1566-3046" className="contact-phone-link">
-              <PhoneIcon /> 전화 상담 1566-3046
-            </a>
-          </div>
-        </div>
+    <section className="lp-cta" id="contact">
+      <div className="lp-ink i2" aria-hidden="true" style={{ opacity: 0.3 }}></div>
+      <h2 className="lp-cta-big">
+        홈페이지에 생각과 고민을<br />
+        <span className="accent">카톡 한 통</span>으로 보내주세요
+      </h2>
+      <p className="lp-cta-sub">
+        업종과 원하시는 방향만 말씀해주시면 구성과 견적을 바로 안내해드립니다.<br />
+        준비된 자료가 없어도 괜찮습니다. 견적 확인은 무료입니다.
+      </p>
+      <div className="lp-center">
+        <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="lp-pill kakao-pill">
+          <KakaoIcon size={20} /> 카톡으로 무료 상담 받기
+          <span className="lp-pill-arrow">→</span>
+        </a>
       </div>
+      <p className="lp-cta-tel">
+        전화가 편하시다면 <a href="tel:1566-3046">1566-3046</a> (평일·주말 상담 가능)
+      </p>
     </section>
   );
 };

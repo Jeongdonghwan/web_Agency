@@ -1,4 +1,4 @@
-// 고객 후기 섹션 — 무한 마퀴 (CSS 애니메이션, JS 불필요)
+// V4 고객 후기 — 무한 마퀴
 const reviews = [
   { name: '김*호 대표', business: '카페 운영', content: '30만원에 이 퀄리티라니 솔직히 놀랐습니다. 다른 곳은 100만원 넘게 불렀는데...' },
   { name: '이*영 실장', business: '인테리어 업체', content: '요청사항 빠르게 반영해주시고, 3일 만에 완성됐어요. 카톡 응대도 빠르셨습니다.' },
@@ -10,30 +10,22 @@ const reviews = [
   { name: '윤*혁 대표', business: 'PT 스튜디오', content: '빠른 작업에 퀄리티까지 좋아서 주변에 많이 추천하고 있습니다.' },
 ];
 
-const ReviewCard = ({ review }) => (
-  <div className="review-card marquee-card">
-    <div className="review-rating">★★★★★</div>
-    <p className="review-content">"{review.content}"</p>
-    <div className="review-author">
-      <span className="review-name">{review.name}</span>
-      <span className="review-business">{review.business}</span>
-    </div>
-  </div>
-);
-
 const ReviewsSection = () => {
   return (
-    <section className="reviews" id="reviews">
-      <div className="section-container">
-        <p className="sec-eyebrow">07 · REVIEWS</p>
-        <h2 className="section-title">고객 후기</h2>
-        <p className="section-subtitle">실제 고객님들의 생생한 리뷰</p>
+    <section className="lp-reviews" id="reviews">
+      <div className="lp-container">
+        <span className="lp-eyebrow">REVIEWS</span>
+        <h2 className="lp-h2">먼저 만든 사장님들의 이야기</h2>
       </div>
 
-      <div className="reviews-marquee" aria-label="고객 후기 목록">
-        <div className="marquee-track">
-          {[...reviews, ...reviews].map((review, i) => (
-            <ReviewCard key={i} review={review} />
+      <div className="lp-rv-marquee" aria-label="고객 후기 목록">
+        <div className="lp-rv-track">
+          {[...reviews, ...reviews].map((r, i) => (
+            <div className="lp-rv-card" key={i}>
+              <div className="lp-rv-stars">★★★★★</div>
+              <p className="lp-rv-text">"{r.content}"</p>
+              <p className="lp-rv-who"><b>{r.name}</b>{r.business}</p>
+            </div>
           ))}
         </div>
       </div>

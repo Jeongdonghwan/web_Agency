@@ -1,32 +1,31 @@
 'use client';
 
 import { useIntersectionObserver, useCountUp } from './hooks';
-import { ProjectIcon, StarIcon, ClockIcon, BookIcon } from './icons';
 
-// 실적 통계 섹션 (4항목 카운트업)
+// V4 숫자 스트립
 const StatsSection = () => {
   const [ref, isVisible] = useIntersectionObserver();
 
-  const projectCount = useCountUp(500, 2000, isVisible);
-  const guideCount = useCountUp(207, 2000, isVisible);
-  const satisfactionRate = useCountUp(100, 2000, isVisible);
+  const projects = useCountUp(500, 1800, isVisible);
+  const guides = useCountUp(207, 1800, isVisible);
+  const days = useCountUp(7, 1400, isVisible);
+  const rate = useCountUp(100, 1800, isVisible);
 
   const items = [
-    { icon: <ProjectIcon size={36} />, value: `${projectCount}+`, label: '제작 완료' },
-    { icon: <BookIcon size={36} />, value: `${guideCount}종`, label: '업종별 제작 가이드' },
-    { icon: <ClockIcon size={36} />, value: '7일', label: '평균 제작기간' },
-    { icon: <StarIcon size={36} />, value: `${satisfactionRate}%`, label: '고객 만족도' },
+    { num: <>{projects}<em>+</em></>, label: '누적 제작' },
+    { num: <>{guides}<em>종</em></>, label: '업종별 제작 가이드' },
+    { num: <>{days}<em>일</em></>, label: '평균 완성 기간' },
+    { num: <>{rate}<em>%</em></>, label: '고객 만족도' },
   ];
 
   return (
-    <section className="stats" ref={ref}>
-      <div className="section-container">
-        <div className="stats-grid stats-grid-4">
-          {items.map((item, i) => (
-            <div key={i} className={`stat-item ${isVisible ? 'animate-in' : ''}`} style={{ animationDelay: `${i * 0.1}s` }}>
-              <div className="stat-icon">{item.icon}</div>
-              <span className="stat-number">{item.value}</span>
-              <span className="stat-label">{item.label}</span>
+    <section className="lp-strip" ref={ref}>
+      <div className="lp-container">
+        <div className="lp-strip-grid">
+          {items.map((it, i) => (
+            <div key={i}>
+              <span className="lp-stat-num">{it.num}</span>
+              <span className="lp-stat-label">{it.label}</span>
             </div>
           ))}
         </div>

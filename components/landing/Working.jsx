@@ -1,54 +1,67 @@
 'use client';
 
 import { useRef } from 'react';
-import Link from 'next/link';
 import { useScrollAnimation } from './hooks';
-import { SearchIcon, ChatIcon, TargetIcon } from './icons';
 
-// "홈페이지가 일하게 만듭니다" — 매출·고객·검색 3카드
+// V4 쇼케이스 — 그라데이션 목업 카드 3종 (검색·노출·문의)
 const WorkingSection = () => {
-  const sectionRef = useRef(null);
-  useScrollAnimation(sectionRef);
+  const ref = useRef(null);
+  useScrollAnimation(ref);
 
   return (
-    <section className="working" id="working" ref={sectionRef}>
-      <div className="section-container">
-        <p className="sec-eyebrow">01 · WHY JD8</p>
-        <h2 className="section-title scroll-animate">만들고 끝나는 홈페이지가 아니라,<br />일하는 홈페이지를 만듭니다</h2>
-        <p className="section-subtitle scroll-animate stagger-1">JD8이 모든 제작에 기본으로 담는 세 가지</p>
+    <section className="lp-showcase" id="working" ref={ref}>
+      <div className="lp-container">
+        <span className="lp-eyebrow scroll-animate">WHY JD8</span>
+        <h2 className="lp-h2 scroll-animate stagger-1">
+          만들고 끝나는 홈페이지가 아니라<br />일하는 홈페이지를 만듭니다
+        </h2>
+        <p className="lp-sub scroll-animate stagger-2">검색 → 방문 → 문의. 이 흐름이 설계된 홈페이지만 매출에 기여합니다.</p>
 
-        <div className="working-grid">
-          <div className="working-card scroll-animate stagger-1">
-            <div className="working-icon"><SearchIcon /></div>
-            <h3>검색에 잡히는 구조</h3>
-            <p>
-              네이버·구글 검색봇이 읽기 좋은 제목 구조와 메타 정보를 기본 세팅하고,
-              완성 후 서치어드바이저 등록까지 안내합니다. 동네이름+업종 검색은
-              광고 없이도 노려볼 수 있는 시장입니다.
-            </p>
-            <Link href="/blog/naver-seo-guide/" className="working-link">네이버 노출 가이드 보기 →</Link>
+        <div className="lp-show-grid">
+          {/* 1. 검색 구조 */}
+          <div className="lp-show-card g1 scroll-animate stagger-1">
+            <div className="lp-mock">
+              <p className="lp-mock-head">검색 구조 진단</p>
+              <p className="lp-mock-big">95<em>점 / 100</em></p>
+              <div className="lp-mock-row"><span className="lp-mock-dot"></span><span className="lp-mock-bar"></span><span className="lp-mock-chip">통과</span></div>
+              <div className="lp-mock-row"><span className="lp-mock-dot"></span><span className="lp-mock-bar short"></span><span className="lp-mock-bar"></span></div>
+              <div className="lp-mock-row"><span className="lp-mock-dot"></span><span className="lp-mock-bar"></span></div>
+              <div className="lp-mock-row"><span className="lp-mock-dot"></span><span className="lp-mock-bar short"></span></div>
+            </div>
+            <div className="lp-show-caption">
+              <h3>검색엔진이 읽기 쉬운 구조부터 설계해<br />노출될 이유가 있는 홈페이지를 만듭니다</h3>
+              <span>기본 SEO 세팅 · 네이버 서치어드바이저 등록 안내</span>
+            </div>
           </div>
 
-          <div className="working-card scroll-animate stagger-2">
-            <div className="working-icon"><ChatIcon /></div>
-            <h3>문의로 이어지는 동선</h3>
-            <p>
-              들어온 방문자가 헤매지 않도록 첫 화면부터 카톡·전화 버튼을 배치하고,
-              업종에 맞는 문의 흐름을 설계합니다. 방문이 많아도 문의가 없다면
-              동선의 문제입니다.
-            </p>
-            <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="working-link">카톡으로 경험해보기 →</a>
+          {/* 2. 지역 검색 노출 */}
+          <div className="lp-show-card g2 scroll-animate stagger-2">
+            <div className="lp-mock">
+              <div className="lp-mock-query"><span className="q-dot"></span>"동네이름 + 업종" 검색 결과는?</div>
+              <div className="lp-mock-row"><span className="lp-mock-dot"></span><span className="lp-mock-bar"></span><span className="lp-mock-chip">내 홈페이지</span></div>
+              <div className="lp-mock-row"><span className="lp-mock-dot"></span><span className="lp-mock-bar"></span></div>
+              <div className="lp-mock-row"><span className="lp-mock-dot"></span><span className="lp-mock-bar short"></span></div>
+              <div className="lp-mock-row"><span className="lp-mock-dot"></span><span className="lp-mock-bar"></span></div>
+            </div>
+            <div className="lp-show-caption">
+              <h3>광고 없이도 잡을 수 있는<br />지역+업종 검색을 먼저 공략합니다</h3>
+              <span>경쟁 약한 검색부터 선점 · 지역 페이지 연계</span>
+            </div>
           </div>
 
-          <div className="working-card scroll-animate stagger-3">
-            <div className="working-icon"><TargetIcon /></div>
-            <h3>업종에 맞는 설계</h3>
-            <p>
-              카페와 치과, 공장의 홈페이지는 담아야 할 것이 다릅니다.
-              JD8은 207개 업종을 연구해 업종별 필수 기능과 구성을 정리해두었고,
-              그 기준으로 제작합니다.
-            </p>
-            <Link href="/homepage/" className="working-link">업종별 가이드 207종 보기 →</Link>
+          {/* 3. 문의 전환 */}
+          <div className="lp-show-card g3 scroll-animate stagger-3">
+            <div className="lp-mock">
+              <p className="lp-mock-head">이번 주 들어온 문의</p>
+              <p className="lp-mock-big">+12<em>건</em></p>
+              <div className="lp-mock-row"><span className="lp-mock-dot" style={{background:'#fee500'}}></span><span className="lp-mock-bar"></span><span className="lp-mock-chip">카톡</span></div>
+              <div className="lp-mock-row"><span className="lp-mock-dot" style={{background:'#fee500'}}></span><span className="lp-mock-bar short"></span><span className="lp-mock-chip">카톡</span></div>
+              <div className="lp-mock-row"><span className="lp-mock-dot"></span><span className="lp-mock-bar"></span><span className="lp-mock-chip">전화</span></div>
+            </div>
+            <div className="lp-show-caption">
+              <h3>방문자가 헤매지 않도록<br />카톡·전화 문의 동선을 설계합니다</h3>
+              <span>첫 화면 고정 문의 버튼 · 업종별 전환 동선</span>
+            </div>
           </div>
         </div>
       </div>

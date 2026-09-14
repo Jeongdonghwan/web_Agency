@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { getPopularIndustries, getAllIndustries } from '../../lib/industries';
 
-// 메인 랜딩 업종 섹션 (서버 컴포넌트 — 내부링크 확보용)
+// V4 업종 그리드
 const HomeIndustries = () => {
   const popular = getPopularIndustries(12);
   const total = getAllIndustries().length;
@@ -9,21 +9,28 @@ const HomeIndustries = () => {
   if (popular.length === 0) return null;
 
   return (
-    <section className="home-industries" id="industries">
-      <div className="section-container">
-        <p className="sec-eyebrow">05 · INDUSTRY</p>
-        <h2 className="section-title">업종별 홈페이지 제작</h2>
-        <p className="section-subtitle">우리 업종에 필요한 기능과 디자인, 미리 확인하세요</p>
-        <div className="industry-grid">
+    <section className="lp-industries" id="industries">
+      <div className="lp-container">
+        <span className="lp-eyebrow">INDUSTRY</span>
+        <h2 className="lp-h2">우리 업종은 어떻게 만들까요?</h2>
+        <p className="lp-sub">
+          {total}개 업종을 연구해 업종별 필수 기능·디자인·FAQ를 정리해두었습니다.
+        </p>
+
+        <div className="lp-ind-grid">
           {popular.map((ind) => (
             <Link key={ind.slug} href={`/homepage/${ind.urlSlug}/`}>
               {ind.name}
             </Link>
           ))}
         </div>
-        <Link href="/homepage/" className="view-all">
-          {total}개 업종 전체보기 →
-        </Link>
+
+        <div className="lp-center">
+          <Link href="/homepage/" className="lp-pill">
+            {total}개 업종 전체보기
+            <span className="lp-pill-arrow">→</span>
+          </Link>
+        </div>
       </div>
     </section>
   );

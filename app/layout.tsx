@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import './App.css';
 import './content-pages.css';
+import './landing.css';
 import Header from '../components/landing/Header';
 import Footer from '../components/landing/Footer';
 import FloatingButtons from '../components/landing/FloatingButtons';

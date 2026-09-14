@@ -1,40 +1,43 @@
 'use client';
 
 import { useState } from 'react';
-import { useIntersectionObserver } from './hooks';
+import { KakaoIcon } from './icons';
 import { landingFaqs } from '../../data/landing-faqs';
 
-// FAQ 섹션
+// V4 FAQ — 좌측 고정 타이틀 + 우측 아코디언 (2단)
 const FAQSection = () => {
-  const [openIndex, setOpenIndex] = useState(null);
-  const [ref, isVisible] = useIntersectionObserver();
+  const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="faq" id="faq">
-      <div className="section-container">
-        <p className="sec-eyebrow">09 · FAQ</p>
-        <h2 className="section-title">자주 묻는 질문</h2>
-        <p className="section-subtitle">궁금한 점을 미리 확인하세요</p>
+    <section className="lp-faq" id="faq">
+      <div className="lp-container">
+        <div className="lp-faq-grid">
+          <div className="lp-faq-left">
+            <span className="lp-eyebrow">FAQ</span>
+            <h2 className="lp-h2">이런 내용이<br />궁금하셨나요?</h2>
+            <p className="lp-sub">사장님들이 가장 많이 물어보시는 질문들을 정리했습니다.</p>
+            <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="lp-pill">
+              <KakaoIcon size={18} /> 궁금한 내용이 더 있어요
+              <span className="lp-pill-arrow">→</span>
+            </a>
+          </div>
 
-        <div className={`faq-list ${isVisible ? 'animate-in' : ''}`} ref={ref}>
-          {landingFaqs.map((faq, index) => (
-            <div
-              key={index}
-              className={`faq-item ${openIndex === index ? 'open' : ''}`}
-              style={{ animationDelay: `${index * 0.08}s` }}
-            >
-              <button
-                className="faq-question"
-                onClick={() => setOpenIndex(openIndex === index ? null : index)}
-              >
-                <span>{faq.q}</span>
-                <span className="faq-icon">{openIndex === index ? '−' : '+'}</span>
-              </button>
-              <div className="faq-answer">
-                <p>{faq.a}</p>
+          <div className="lp-faq-list">
+            {landingFaqs.map((faq, index) => (
+              <div key={index} className={`lp-faq-item ${openIndex === index ? 'open' : ''}`}>
+                <button
+                  className="lp-faq-q"
+                  onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                >
+                  <span>{faq.q}</span>
+                  <span className="lp-faq-plus">+</span>
+                </button>
+                <div className="lp-faq-a">
+                  <p>{faq.a}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

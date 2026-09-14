@@ -17,14 +17,14 @@ import { faqPageJsonLd } from '../lib/jsonld';
 // 메인 랜딩 페이지 (서버 컴포넌트 — 빌드 시 완성 HTML로 프리렌더)
 export default function HomePage() {
   return (
-    <main className="landing-page">
+    <main className="lp">
       <JsonLd data={faqPageJsonLd(landingFaqs)} />
       <HeroSection />
       <StatsSection />
       <WorkingSection />
+      <PortfolioSection />
       <IncludesSection />
       <CompareSection />
-      <PortfolioSection />
       <HomeIndustries />
       <ProcessSection />
       <ReviewsSection />
