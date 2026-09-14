@@ -67,6 +67,20 @@ export default function IndustryHubPage() {
           );
         })}
 
+        <section className="content-section">
+          <h2>업종이 아니라 목적·지역으로 찾고 계신가요?</h2>
+          <div className="related-grid">
+            <Link href="/service/">
+              목적별 제작 서비스
+              <span>랜딩페이지 · 회사소개 · 쇼핑몰 · 리뉴얼</span>
+            </Link>
+            <Link href="/region/">
+              지역별 홈페이지 제작
+              <span>서울 · 경기 · 전국 주요 도시</span>
+            </Link>
+          </div>
+        </section>
+
         <div className="cta-banner">
           <h2>내 업종이 목록에 없나요?</h2>
           <p>어떤 업종이든 제작 가능합니다. 무료 상담으로 우리 업종에 맞는 구성을 안내받아 보세요.</p>

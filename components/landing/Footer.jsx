@@ -18,6 +18,8 @@ const Footer = () => {
           <nav className="footer-links" aria-label="사이트 링크">
             <p className="footer-links-title">바로가기</p>
             <Link href="/homepage/">업종별 홈페이지 제작</Link>
+            <Link href="/service/">제작 서비스</Link>
+            <Link href="/region/">지역별 홈페이지 제작</Link>
             <Link href="/blog/">블로그</Link>
             <a href="/references/index.html">레퍼런스</a>
           </nav>

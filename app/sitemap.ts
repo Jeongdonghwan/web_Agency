@@ -2,6 +2,8 @@ import type { MetadataRoute } from 'next';
 import { SITE_URL } from '../lib/site';
 import { getAllIndustries, getActiveCategories } from '../lib/industries';
 import { getAllPosts } from '../lib/posts';
+import { getAllServices, serviceEncodedPath } from '../lib/services';
+import { getAllRegions, regionEncodedPath } from '../lib/regions';
 import { portfolios } from '../data/portfolios';
 
 // 빌드 시 out/sitemap.xml 로 생성됨 (output: 'export')
@@ -33,6 +35,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     });
+  }
+
+  // 제작 서비스
+  if (getAllServices().length > 0) {
+    entries.push({ url: `${SITE_URL}/service/`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 });
+    for (const s of getAllServices()) {
+      entries.push({
+        url: `${SITE_URL}${serviceEncodedPath(s)}`,
+        lastModified: s.updatedAt ? new Date(s.updatedAt) : now,
+        changeFrequency: 'monthly',
+        priority: 0.9,
+      });
+    }
+  }
+
+  // 지역 페이지
+  if (getAllRegions().length > 0) {
+    entries.push({ url: `${SITE_URL}/region/`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 });
+    for (const r of getAllRegions()) {
+      entries.push({
+        url: `${SITE_URL}${regionEncodedPath(r)}`,
+        lastModified: r.updatedAt ? new Date(r.updatedAt) : now,
+        changeFrequency: 'monthly',
+        priority: 0.7,
+      });
+    }
   }
 
   // 블로그 글

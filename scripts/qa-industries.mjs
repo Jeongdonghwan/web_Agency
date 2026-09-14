@@ -151,6 +151,90 @@ for (let i = 0; i < docs.length; i++) {
   }
 }
 
+// ===== 서비스/지역 컬렉션 검증 (frontmatter + 분량 + 컬렉션 내 유사도) =====
+function checkCollection(dirName, label, opts = {}) {
+  const dir = path.join(ROOT, 'content', dirName);
+  if (!fs.existsSync(dir)) return;
+  const colFiles = fs.readdirSync(dir).filter((f) => f.endsWith('.md'));
+  const colDocs = [];
+  const urlSlugs = new Map();
+  const colTitles = new Map();
+  const colDescs = new Map();
+
+  for (const file of colFiles) {
+    const id = `${dirName}/${file}`;
+    let data, content;
+    try {
+      ({ data, content } = matter(fs.readFileSync(path.join(dir, file), 'utf-8')));
+    } catch (e) {
+      errors.push(`${id}: frontmatter 파싱 실패 - ${e.message.split('\n')[0]}`);
+      continue;
+    }
+    const ctx = (msg) => errors.push(`${id}: ${msg}`);
+    const name = file.replace(/\.md$/, '');
+    if (data.slug && data.slug !== name) ctx(`slug(${data.slug})와 파일명 불일치`);
+    if (!data.urlSlug) ctx('urlSlug 누락');
+    else {
+      if (urlSlugs.has(data.urlSlug)) ctx(`urlSlug가 ${urlSlugs.get(data.urlSlug)}와 충돌`);
+      urlSlugs.set(data.urlSlug, file);
+    }
+    if (!data.name) ctx('name 누락');
+    if (!data.title) ctx('title 누락');
+    else if (data.title.length > 60) ctx(`title ${data.title.length}자 (60자 초과)`);
+    if (!data.description) ctx('description 누락');
+    else if (data.description.length < 80 || data.description.length > 160)
+      ctx(`description ${data.description.length}자 (80~160자 범위 밖)`);
+    if (!Array.isArray(data.keywords) || data.keywords.length < 2) ctx('keywords 2개 이상 필요');
+    if (!Array.isArray(data.painPoints) || data.painPoints.length < 3) ctx('painPoints 3개 이상 필요');
+    if (!Array.isArray(data.features) || data.features.length < 4) ctx('features 4개 이상 필요');
+    if (!Array.isArray(data.faq) || data.faq.length < 4) ctx('faq 4개 이상 필요');
+    if (!data.publishedAt) ctx('publishedAt 누락');
+    for (const rel of data.relatedIndustries || []) {
+      if (!files.includes(`${rel}.md`)) ctx(`relatedIndustries '${rel}' 업종 파일 없음`);
+    }
+    for (const rel of data.relatedServices || []) {
+      if (!fs.existsSync(path.join(ROOT, 'content', 'services', `${rel}.md`))) ctx(`relatedServices '${rel}' 없음`);
+    }
+    for (const rel of data.relatedRegions || []) {
+      if (!fs.existsSync(path.join(ROOT, 'content', 'regions', `${rel}.md`))) ctx(`relatedRegions '${rel}' 없음`);
+    }
+    if (data.title) {
+      if (colTitles.has(data.title)) ctx(`title이 ${colTitles.get(data.title)}와 중복`);
+      colTitles.set(data.title, file);
+    }
+    if (data.description) {
+      if (colDescs.has(data.description)) ctx(`description이 ${colDescs.get(data.description)}와 중복`);
+      colDescs.set(data.description, file);
+    }
+    const bodyChars = stripText(content).length;
+    const fmText =
+      stripText((data.painPoints || []).join('')) +
+      stripText((data.features || []).map((f) => `${f?.name}${f?.desc}`).join('')) +
+      stripText((data.faq || []).map((f) => `${f?.q}${f?.a}`).join(''));
+    if (bodyChars < MIN_BODY_CHARS) ctx(`본문 ${bodyChars}자 (${MIN_BODY_CHARS}자 미만)`);
+    if (bodyChars + fmText.length < MIN_TOTAL_CHARS) ctx(`전체 텍스트 ${bodyChars + fmText.length}자 (${MIN_TOTAL_CHARS}자 미만)`);
+
+    // 지역 페이지는 지역명 치환 복제를 잡기 위해 지역명(name)을 제거한 텍스트로 유사도 비교
+    let simText = stripText(content) + stripText((data.painPoints || []).join('')) + stripText((data.faq || []).map((f) => f?.a).join(''));
+    if (opts.stripName && data.name) simText = simText.split(String(data.name).replace(/\s/g, '')).join('');
+    colDocs.push({ file: id, grams: toGrams(simText) });
+  }
+
+  let colMax = 0, colPair = '';
+  for (let i = 0; i < colDocs.length; i++) {
+    for (let j = i + 1; j < colDocs.length; j++) {
+      const sim = jaccard(colDocs[i].grams, colDocs[j].grams);
+      if (sim > colMax) { colMax = sim; colPair = `${colDocs[i].file} ↔ ${colDocs[j].file}`; }
+      if (sim > SIM_FAIL) errors.push(`유사도 ${(sim * 100).toFixed(1)}%: ${colDocs[i].file} ↔ ${colDocs[j].file}`);
+      else if (sim > SIM_WARN) warnings.push(`유사도 ${(sim * 100).toFixed(1)}%: ${colDocs[i].file} ↔ ${colDocs[j].file}`);
+    }
+  }
+  console.log(`${label}: ${colFiles.length}개` + (colDocs.length >= 2 ? ` (최대 유사도 ${(colMax * 100).toFixed(1)}%: ${colPair})` : ''));
+}
+
+checkCollection('services', '서비스 콘텐츠');
+checkCollection('regions', '지역 콘텐츠', { stripName: true });
+
 console.log(`검사 대상: ${files.length}개 업종 콘텐츠`);
 if (docs.length >= 2) console.log(`최대 유사도: ${(maxSim * 100).toFixed(1)}% (${maxPair})`);
 if (warnings.length) {
