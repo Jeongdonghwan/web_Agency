@@ -1808,36 +1808,10 @@
         </div>
         <div class="reservation-form-wrap reveal reveal-delay-2">
           <h3 class="reservation-form-title">상담 예약 신청</h3>
-          <form id="reservationForm" onsubmit="return false;">
-            <div class="form-group">
-              <label for="name">이름</label>
-              <input type="text" id="name" placeholder="성함을 입력해 주세요" />
-            </div>
-            <div class="form-group">
-              <label for="phone">연락처</label>
-              <input type="tel" id="phone" placeholder="010-0000-0000" />
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="treatment">희망 시술</label>
-                <select id="treatment">
-                  <option value="" disabled selected>시술 선택</option>
-                  <option value="botox">보톡스</option>
-                  <option value="filler">필러</option>
-                  <option value="laser">레이저토닝</option>
-                  <option value="regen">피부재생</option>
-                  <option value="lifting">리프팅</option>
-                  <option value="acne">여드름치료</option>
-                  <option value="consult">기타 상담</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="date">희망 날짜</label>
-                <input type="date" id="date" />
-              </div>
-            </div>
-            <button type="submit" class="form-submit">예약 신청하기</button>
-          </form>
+          <div class="jd-cta-buttons" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;padding:12px 0;">
+        <a href="http://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#FEE500;color:#191919;font-weight:700;padding:16px 34px;border-radius:12px;text-decoration:none;font-size:1.05rem;min-width:180px;">💬 카톡 문의하기</a>
+        <a href="/#contact" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#111827;color:#ffffff;font-weight:700;padding:16px 34px;border-radius:12px;text-decoration:none;font-size:1.05rem;min-width:180px;">지금 문의하기 →</a>
+      </div>
         </div>
       </div>
     </div>
@@ -1995,25 +1969,7 @@
       });
     })();
 
-    /* ===== Reservation Form ===== */
-    (function () {
-      var form = document.getElementById('reservationForm');
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var name = document.getElementById('name').value.trim();
-        var phone = document.getElementById('phone').value.trim();
-        var treatment = document.getElementById('treatment').value;
-        var date = document.getElementById('date').value;
-
-        if (!name || !phone || !treatment || !date) {
-          alert('모든 항목을 입력해 주세요.');
-          return;
-        }
-
-        alert(name + '님, 예약 신청이 완료되었습니다.\n확인 후 연락드리겠습니다.');
-        form.reset();
-      });
-    })();
+    /* Reservation form은 문의 버튼으로 대체됨 */
   </script>
 
 </body>

@@ -940,69 +940,10 @@
                 <h2 class="form-title">상담 문의하기</h2>
                 <p class="form-subtitle">궁금한 사항이 있으시면 문의해 주세요. 빠른 시일 내에 답변 드리겠습니다.</p>
 
-                <form>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>이름 <span class="required">*</span></label>
-                            <input type="text" placeholder="이름을 입력하세요" required>
-                        </div>
-                        <div class="form-group">
-                            <label>회사명</label>
-                            <input type="text" placeholder="회사명을 입력하세요">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>이메일 <span class="required">*</span></label>
-                            <input type="email" placeholder="example@email.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label>연락처 <span class="required">*</span></label>
-                            <input type="tel" placeholder="010-0000-0000" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>문의 분야 <span class="required">*</span></label>
-                        <select required>
-                            <option value="">선택해 주세요</option>
-                            <option value="residential">주거시설</option>
-                            <option value="commercial">상업시설</option>
-                            <option value="industrial">산업시설</option>
-                            <option value="remodeling">리모델링</option>
-                            <option value="other">기타 문의</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>예상 규모</label>
-                        <select>
-                            <option value="">선택해 주세요</option>
-                            <option value="small">소규모 (100평 미만)</option>
-                            <option value="medium">중규모 (100~500평)</option>
-                            <option value="large">대규모 (500평 이상)</option>
-                            <option value="undecided">미정</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>문의 내용 <span class="required">*</span></label>
-                        <textarea placeholder="문의하실 내용을 상세히 적어주세요." required></textarea>
-                    </div>
-
-                    <div class="privacy-check">
-                        <input type="checkbox" id="privacy" required>
-                        <label for="privacy">
-                            <a href="#">개인정보처리방침</a>에 동의합니다. (필수)
-                        </label>
-                    </div>
-
-                    <button type="submit" class="submit-btn">
-                        <i class="fas fa-paper-plane"></i>
-                        문의하기
-                    </button>
-                </form>
+                <div class="jd-cta-buttons" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;padding:12px 0;">
+        <a href="http://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#FEE500;color:#191919;font-weight:700;padding:16px 34px;border-radius:12px;text-decoration:none;font-size:1.05rem;min-width:180px;">💬 카톡 문의하기</a>
+        <a href="/#contact" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#111827;color:#ffffff;font-weight:700;padding:16px 34px;border-radius:12px;text-decoration:none;font-size:1.05rem;min-width:180px;">지금 문의하기 →</a>
+      </div>
             </div>
 
             <!-- Contact Info -->
@@ -1291,11 +1232,7 @@
             }
         });
 
-        // Form submission
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('문의가 성공적으로 접수되었습니다. 빠른 시일 내에 연락드리겠습니다.');
-        });
+        // 문의 폼은 문의 버튼으로 대체됨
     </script>
 </body>
 </html>
