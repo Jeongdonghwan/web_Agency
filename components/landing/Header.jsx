@@ -62,6 +62,7 @@ const Header = () => {
               {item.label}
             </Link>
           ))}
+          <a href="/references/index.html" className="nav-link">레퍼런스</a>
         </nav>
 
         <a
@@ -109,6 +110,7 @@ const Header = () => {
             {item.label}
           </Link>
         ))}
+        <a href="/references/index.html" className="mobile-nav-link">레퍼런스</a>
         <a
           className="mobile-cta"
           href="/#contact"

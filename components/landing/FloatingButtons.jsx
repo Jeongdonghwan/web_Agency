@@ -6,13 +6,15 @@ import { KakaoIcon } from './icons';
 
 // 플로팅 버튼들 (카카오톡 + 상담) — 홈이 아니면 /#contact로 이동
 const FloatingButtons = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === '/';
+  // 홈은 히어로 CTA가 있어 스크롤 후 노출, 업종/서비스/지역/블로그 등 내부 페이지는 즉시 노출
+  const isVisible = !isHome || scrolled;
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsVisible(window.scrollY > 500);
+      setScrolled(window.scrollY > 500);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
