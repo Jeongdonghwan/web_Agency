@@ -7,9 +7,11 @@ import {
   getDongByUrlSlug,
   getDongsByRegionSlug,
   buildDongContent,
+  industryNote,
   dongPath,
   dongEncodedPath,
 } from '../../../lib/dongs';
+import { portfolios } from '../../../data/portfolios';
 import { getIndustryBySlug, industryPath } from '../../../lib/industries';
 import { getAllServices, servicePath } from '../../../lib/services';
 import { markdownToHtml } from '../../../lib/markdown';
@@ -252,22 +254,57 @@ function DongPage({ dong }: { dong: any }) {
           <section className="content-section" key={i}>
             <h2>{p.heading}</h2>
             <p style={{ lineHeight: 1.85, color: 'var(--text)' }}>{p.body}</p>
+            {i === 1 && (
+              <p className="mid-cta">
+                지금 {dong.dong}에서 상담 가능 —{' '}
+                <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer">
+                  카톡으로 무료 견적 받기 →
+                </a>
+              </p>
+            )}
           </section>
         ))}
 
         {industries.length > 0 && (
           <section className="content-section">
-            <h2>{dong.dong}에서 많이 찾는 업종별 안내</h2>
-            <div className="related-grid">
-              {industries.map((ind: any) => (
-                <Link key={ind.slug} href={industryPath(ind)}>
-                  {ind.name} 홈페이지 제작
-                  <span>{ind.categoryName}</span>
-                </Link>
+            <h2>{dong.dong}에서 이런 업종이 홈페이지를 만듭니다</h2>
+            <div className="static-faq">
+              {industries.map((ind: any, i: number) => (
+                <div className="qa" key={ind.slug}>
+                  <h3>{ind.name}</h3>
+                  <p>
+                    {industryNote(dong.dong, ind.name, i, c.hash)}{' '}
+                    <Link href={industryPath(ind)} style={{ color: 'var(--accent)', fontWeight: 700 }}>
+                      {ind.name} 홈페이지 제작 가이드 →
+                    </Link>
+                  </p>
+                </div>
               ))}
             </div>
           </section>
         )}
+
+        <section className="content-section">
+          <h2>{dong.dong} 홈페이지 제작 화면 미리보기</h2>
+          <div className="demo-cards">
+            {c.showcase.map((idx: number) => {
+              const demo = portfolios[idx];
+              return (
+                <a key={demo.id} href={demo.link} target="_blank" rel="noopener noreferrer" className="demo-card">
+                  <img
+                    src={demo.image}
+                    alt={`${dong.dong} 홈페이지제작 예시 - ${demo.title} (${demo.categoryLabel})`}
+                    loading="lazy"
+                  />
+                  <div className="demo-body">
+                    <strong>{demo.title}</strong>
+                    <p>{demo.desc}</p>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        </section>
 
         <section className="content-section">
           <h2>{dong.dong} 홈페이지제작 자주 묻는 질문</h2>

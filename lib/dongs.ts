@@ -119,6 +119,19 @@ export interface DongContent {
   description: string;
   paragraphs: { heading: string; body: string }[];
   faq: { q: string; a: string }[];
+  hash: number;          // 페이지 내 회전 선택용
+  showcase: number[];    // data/portfolios 인덱스 3개 (제작 화면 미리보기)
+}
+
+// 업종별 h3 소절 문구 (동·업종 조합으로 회전)
+export function industryNote(dong: string, industryName: string, i: number, hash: number): string {
+  const t = [
+    `${dong}에서 ${industryName}을 찾는 손님은 위치·가격·후기부터 검색합니다. 첫 화면에서 이 세 가지가 바로 보이도록 구성합니다.`,
+    `예약과 상담 문의가 곧 매출인 업종입니다. ${dong} 상권에 맞춰 카톡·전화로 이어지는 문의 동선을 설계합니다.`,
+    `비교가 많은 업종일수록 정돈된 공식 홈페이지가 신뢰를 만듭니다. 시설·가격·후기를 한 화면에 정리해드립니다.`,
+    `방문 전 검색 비중이 특히 높은 업종으로, "${dong}+업종" 검색어 대응 구조가 효과를 봅니다.`,
+  ];
+  return t[(hash + i) % 4];
 }
 
 export function buildDongContent(e: DongEntry): DongContent {
@@ -155,7 +168,7 @@ export function buildDongContent(e: DongEntry): DongContent {
     { q: `${gu}의 다른 동에서도 제작 가능한가요?`, a: `물론입니다. ${gu} 전 지역은 물론 서울·전국 어디든 같은 방식으로 제작해드립니다. 페이지 하단의 인근 지역 안내에서 해당 동을 선택하실 수 있습니다.` },
   ];
 
-  const faq = [faqBank[h % 6], faqBank[(h + 2) % 6], faqBank[(h + 4) % 6]];
+  const faq = [0, 1, 2, 3, 4].map((i) => faqBank[(h + i) % 6]);
 
   const descs = [
     `${dong} 홈페이지제작은 JD8. ${gu} ${dong}의 소상공인과 기업을 위한 맞춤 홈페이지를 30만원부터, 평균 7일에 제작합니다. 반응형·기본 SEO·카톡 문의 동선 포함.`,
@@ -176,5 +189,7 @@ export function buildDongContent(e: DongEntry): DongContent {
       { heading: `비용과 기간`, body: prices[h % 3] },
     ],
     faq,
+    hash: h,
+    showcase: [h % 20, (h + 7) % 20, (h + 13) % 20],
   };
 }
