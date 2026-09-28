@@ -51,13 +51,24 @@ export const faqPageJsonLd = (faqs: { q: string; a: string }[]) => ({
   })),
 });
 
-export const serviceJsonLd = (opts: { name: string; description: string; path: string }) => ({
+export const serviceJsonLd = (opts: {
+  name: string;
+  description: string;
+  path: string;
+  area?: { name: string; containedIn: string }; // 지역 서비스: Place + 상위 행정구역
+}) => ({
   '@context': 'https://schema.org',
   '@type': 'Service',
   serviceType: opts.name,
   description: opts.description,
   url: `${SITE_URL}${opts.path}`,
-  areaServed: { '@type': 'Country', name: '대한민국' },
+  areaServed: opts.area
+    ? {
+        '@type': 'Place',
+        name: opts.area.name,
+        containedInPlace: { '@type': 'AdministrativeArea', name: opts.area.containedIn },
+      }
+    : { '@type': 'Country', name: '대한민국' },
   provider: { '@id': `${SITE_URL}/#organization` },
 });
 

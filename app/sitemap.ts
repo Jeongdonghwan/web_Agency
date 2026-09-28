@@ -4,6 +4,7 @@ import { getAllIndustries, getActiveCategories } from '../lib/industries';
 import { getAllPosts } from '../lib/posts';
 import { getAllServices, serviceEncodedPath } from '../lib/services';
 import { getAllRegions, regionEncodedPath } from '../lib/regions';
+import { getAllDongs, dongEncodedPath } from '../lib/dongs';
 import { portfolios } from '../data/portfolios';
 
 // 빌드 시 out/sitemap.xml 로 생성됨 (output: 'export')
@@ -61,6 +62,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.7,
       });
     }
+  }
+
+  // 서울 동 단위 페이지
+  for (const d of getAllDongs()) {
+    entries.push({
+      url: `${SITE_URL}${dongEncodedPath(d)}`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    });
   }
 
   // 블로그 글

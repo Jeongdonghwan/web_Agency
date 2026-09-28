@@ -1,0 +1,179 @@
+{
+  "gus": [
+    {
+      "gu": "종로구",
+      "region": "seoul-jongno",
+      "traits": "경복궁과 인사동, 대학로가 공존하는 서울의 역사·문화 중심지로, 갤러리와 공방, 전통찻집, 게스트하우스 등 외국인 관광객을 상대하는 업종이 밀집해 있습니다",
+      "industries": ["gallery", "law-firm", "korean-restaurant", "guesthouse"],
+      "dongs": ["삼청동", "가회동", "혜화동", "명륜동", "이화동", "동숭동", "창신동", "숭인동", "부암동", "평창동", "구기동", "무악동", "교남동", "사직동", "청운동", "효자동"]
+    },
+    {
+      "gu": "중구",
+      "region": "seoul-junggu",
+      "traits": "명동·을지로·충무로로 이어지는 서울 도심 상권의 핵심으로, 오피스 수요와 관광 수요, 인쇄·제조 소공인이 한 지역에 얽혀 있는 독특한 상권입니다",
+      "industries": ["sme-company", "korean-restaurant", "hotel", "printing"],
+      "dongs": ["명동", "을지로", "충무로", "회현동", "소공동", "필동", "장충동", "광희동", "신당동", "황학동", "중림동", "만리동"]
+    },
+    {
+      "gu": "용산구",
+      "region": "seoul-yongsan",
+      "traits": "한남동·이태원의 글로벌 상권과 용산역 일대 개발이 맞물리며 프리미엄 다이닝, 바, 부티크 호텔, 하이엔드 인테리어 수요가 꾸준히 늘고 있는 지역입니다",
+      "industries": ["restaurant", "bar", "hotel", "interior-design"],
+      "dongs": ["한남동", "이태원동", "후암동", "남영동", "청파동", "효창동", "용문동", "원효로", "이촌동", "서빙고동", "보광동", "한강로", "용산동"]
+    },
+    {
+      "gu": "성동구",
+      "region": "seoul-seongdong",
+      "traits": "성수동을 중심으로 카페, 브랜드 쇼룸, 디자인 스튜디오가 폭발적으로 늘어난 서울의 대표 신흥 상권이자, 준공업지역 특유의 공장·제조 기반이 여전히 살아있는 지역입니다",
+      "industries": ["cafe", "design-studio", "fashion-mall", "factory"],
+      "dongs": ["성수동", "왕십리", "마장동", "사근동", "행당동", "응봉동", "금호동", "옥수동", "송정동", "용답동"]
+    },
+    {
+      "gu": "광진구",
+      "region": "seoul-gwangjin",
+      "traits": "건대입구 상권의 빠른 트렌드 회전과 대학가 소비가 특징으로, 주점·외식업과 스터디카페, 피트니스 같은 청년 고객 업종의 경쟁이 치열한 지역입니다",
+      "industries": ["bar", "study-cafe", "fitness-center", "chicken-shop"],
+      "dongs": ["중곡동", "능동", "구의동", "광장동", "자양동", "화양동", "군자동"]
+    },
+    {
+      "gu": "동대문구",
+      "region": "seoul-dongdaemun",
+      "traits": "청량리 재개발과 경동시장·약령시, 원단·의류 도매 기반이 공존하는 지역으로, 도소매 유통과 전통 시장 상인, 대학가(경희대·시립대) 수요가 섞여 있습니다",
+      "industries": ["wholesale", "textile", "korean-restaurant", "oriental-clinic"],
+      "dongs": ["신설동", "용두동", "제기동", "전농동", "답십리동", "장안동", "청량리", "회기동", "휘경동", "이문동"]
+    },
+    {
+      "gu": "중랑구",
+      "region": "seoul-jungnang",
+      "traits": "상봉·망우 일대 재개발로 새 주민 유입이 이어지는 주거 중심 지역으로, 생활 밀착형 서비스와 학원, 정비·수리 업종의 지역 검색 수요가 꾸준합니다",
+      "industries": ["car-repair", "snack-bar", "math-academy", "real-estate-agency"],
+      "dongs": ["면목동", "상봉동", "중화동", "묵동", "망우동", "신내동"]
+    },
+    {
+      "gu": "성북구",
+      "region": "seoul-seongbuk",
+      "traits": "성신여대·고려대 대학가와 길음뉴타운·장위뉴타운의 주거 수요가 함께 있는 지역으로, 카페·베이커리와 학원, 한의원 같은 동네 단골 업종이 강세입니다",
+      "industries": ["cafe", "math-academy", "oriental-clinic", "bakery"],
+      "dongs": ["성북동", "삼선동", "동선동", "돈암동", "안암동", "보문동", "정릉동", "길음동", "종암동", "월곡동", "장위동", "석관동"]
+    },
+    {
+      "gu": "강북구",
+      "region": "seoul-gangbuk",
+      "traits": "수유역 먹자골목과 우이신설선 라인을 따라 생활 상권이 이어지는 지역으로, 북한산 입구 상권(우이동)의 등산·나들이 수요라는 고유한 손님층도 갖고 있습니다",
+      "industries": ["snack-bar", "oriental-clinic", "real-estate-agency", "fitness-center"],
+      "dongs": ["미아동", "번동", "수유동", "우이동", "삼양동"]
+    },
+    {
+      "gu": "도봉구",
+      "region": "seoul-dobong",
+      "traits": "창동역 일대 개발과 아레나 상권 형성으로 변화가 진행 중인 주거 밀집 지역으로, 학원과 병의원, 생활 서비스 업종의 동네 검색 의존도가 높습니다",
+      "industries": ["math-academy", "skin-care-shop", "car-repair", "oriental-clinic"],
+      "dongs": ["쌍문동", "방학동", "창동", "도봉동"]
+    },
+    {
+      "gu": "노원구",
+      "region": "seoul-nowon",
+      "traits": "중계동 은행사거리라는 서울 최대급 학원가를 품은 교육 특화 지역으로, 학부모 대상 업종(학원·병의원·스터디카페)의 검색 경쟁이 유난히 치열합니다",
+      "industries": ["math-academy", "english-academy", "dental-clinic", "study-cafe"],
+      "dongs": ["월계동", "공릉동", "하계동", "중계동", "상계동"]
+    },
+    {
+      "gu": "은평구",
+      "region": "seoul-eunpyeong",
+      "traits": "은평뉴타운의 젊은 가족 수요와 연신내·불광 구상권이 대비를 이루는 지역으로, 유아교육과 소아과, 베이커리 등 가족 단위 업종이 강한 곳입니다",
+      "industries": ["bakery", "kids-academy", "real-estate-agency", "pediatric-clinic"],
+      "dongs": ["녹번동", "불광동", "갈현동", "구산동", "대조동", "응암동", "역촌동", "신사동", "증산동", "수색동", "진관동"]
+    },
+    {
+      "gu": "서대문구",
+      "region": "seoul-seodaemun",
+      "traits": "신촌·이대 대학가와 연희동 주택가 상권이 공존하는 지역으로, 어학원과 스터디카페, 감성 카페, 게스트하우스처럼 청년·유학 수요 업종이 두드러집니다",
+      "industries": ["cafe", "study-cafe", "language-school", "guesthouse"],
+      "dongs": ["신촌", "연희동", "홍제동", "홍은동", "남가좌동", "북가좌동", "북아현동", "충정로", "천연동", "창천동"]
+    },
+    {
+      "gu": "마포구",
+      "region": "seoul-mapo",
+      "traits": "홍대·연남·망원으로 이어지는 서울 대표 크리에이티브 상권으로, 카페와 스튜디오, 공방, 소규모 브랜드가 몰려 있어 감각적인 웹 존재감이 곧 경쟁력인 지역입니다",
+      "industries": ["cafe", "photo-studio", "design-studio", "bar"],
+      "dongs": ["서교동", "동교동", "합정동", "연남동", "망원동", "성산동", "상암동", "공덕동", "아현동", "도화동", "용강동", "대흥동", "염리동", "신수동", "창전동", "상수동"]
+    },
+    {
+      "gu": "양천구",
+      "region": "seoul-yangcheon",
+      "traits": "목동 학원가로 대표되는 교육 중심 지역으로, 학부모가 의사결정자인 학원·교습소·소아과 업종의 온라인 비교가 특히 활발한 곳입니다",
+      "industries": ["math-academy", "english-academy", "pediatric-clinic", "study-cafe"],
+      "dongs": ["목동", "신월동", "신정동"]
+    },
+    {
+      "gu": "강서구",
+      "region": "seoul-gangseo",
+      "traits": "마곡지구에 대기업·연구소가 들어서며 오피스 상권이 급성장한 지역으로, 기업 수요와 화곡·등촌의 주거 수요가 함께 커지고 있습니다",
+      "industries": ["it-company", "moving-company", "dental-clinic", "cafe"],
+      "dongs": ["마곡동", "화곡동", "등촌동", "염창동", "가양동", "발산동", "공항동", "방화동"]
+    },
+    {
+      "gu": "구로구",
+      "region": "seoul-guro",
+      "traits": "구로디지털단지(G밸리)의 IT·벤처 기업과 구로공구상가의 제조·유통 기반이 공존하는 지역으로, B2B 회사소개형 홈페이지 수요가 서울에서 손꼽히게 많습니다",
+      "industries": ["it-company", "factory", "machine-parts", "chinese-restaurant"],
+      "dongs": ["구로동", "신도림동", "고척동", "개봉동", "오류동", "가리봉동", "항동", "온수동"]
+    },
+    {
+      "gu": "금천구",
+      "region": "seoul-geumcheon",
+      "traits": "가산디지털단지의 IT·패션 기업과 지식산업센터가 밀집한 산업 중심 지역으로, 입주 기업의 회사소개·쇼핑몰 제작 수요가 꾸준히 발생합니다",
+      "industries": ["factory", "fashion-mall", "it-company", "wholesale"],
+      "dongs": ["가산동", "독산동", "시흥동"]
+    },
+    {
+      "gu": "영등포구",
+      "region": "seoul-yeongdeungpo",
+      "traits": "여의도 금융가와 영등포역 상권, 문래동 창작촌이 공존하는 지역으로, 금융·법률 전문직부터 공장 개조 카페까지 업종 스펙트럼이 넓습니다",
+      "industries": ["financial-consulting", "sme-company", "law-firm", "restaurant"],
+      "dongs": ["영등포동", "여의도", "당산동", "도림동", "문래동", "양평동", "신길동", "대림동"]
+    },
+    {
+      "gu": "동작구",
+      "region": "seoul-dongjak",
+      "traits": "노량진 수험가와 사당·이수 상권을 품은 지역으로, 공무원·자격증 학원과 스터디카페, 수험생 대상 식음료 업종의 검색 수요가 특징적입니다",
+      "industries": ["study-cafe", "civil-exam-academy", "cafe", "real-estate-agency"],
+      "dongs": ["노량진", "상도동", "흑석동", "사당동", "대방동", "신대방동"]
+    },
+    {
+      "gu": "관악구",
+      "region": "seoul-gwanak",
+      "traits": "서울대와 고시촌, 1인 가구 비율 최상위라는 특성이 겹치는 지역으로, 혼밥·배달 친화 외식업과 스터디카페, 헬스장 등 청년 1인 가구 업종이 강세입니다",
+      "industries": ["civil-exam-academy", "study-cafe", "chicken-shop", "pt-studio"],
+      "dongs": ["봉천동", "신림동", "남현동"]
+    },
+    {
+      "gu": "서초구",
+      "region": "seoul-seocho",
+      "traits": "법원·검찰청을 중심으로 법률 사무소가 전국에서 가장 밀집한 지역이자, 반포·잠원의 프리미엄 주거 상권으로 전문직과 고급 서비스 업종의 격전지입니다",
+      "industries": ["law-firm", "tax-accountant", "dermatology", "art-academy"],
+      "dongs": ["서초동", "잠원동", "반포동", "방배동", "양재동", "내곡동", "우면동"]
+    },
+    {
+      "gu": "강남구",
+      "region": "seoul-gangnam",
+      "traits": "테헤란로의 기업, 압구정·청담의 뷰티·의료, 대치동 학원가까지 서울에서 가장 경쟁이 치열한 상권으로, 어느 업종이든 온라인 첫인상이 곧 기본기입니다",
+      "industries": ["dermatology", "plastic-surgery", "law-firm", "marketing-agency"],
+      "dongs": ["역삼동", "개포동", "청담동", "삼성동", "대치동", "신사동", "논현동", "압구정동", "세곡동", "일원동", "수서동", "도곡동"]
+    },
+    {
+      "gu": "송파구",
+      "region": "seoul-songpa",
+      "traits": "잠실 롯데타운과 문정 법조타운, 가락시장을 품은 지역으로, 대형 상권과 주거 단지, 유통·법무 수요가 고루 분포한 서울 동남권의 중심입니다",
+      "industries": ["dental-clinic", "fitness-center", "cafe", "math-academy"],
+      "dongs": ["잠실동", "신천동", "풍납동", "송파동", "석촌동", "삼전동", "가락동", "문정동", "장지동", "방이동", "오금동", "거여동", "마천동"]
+    },
+    {
+      "gu": "강동구",
+      "region": "seoul-gangdong",
+      "traits": "고덕·강일 신규 입주로 젊은 가족이 빠르게 늘고 있는 지역으로, 소아과·학원·베이커리처럼 신도시형 가족 업종의 개업과 검색 수요가 함께 증가하고 있습니다",
+      "industries": ["pediatric-clinic", "fitness-center", "bakery", "real-estate-agency"],
+      "dongs": ["명일동", "고덕동", "상일동", "길동", "둔촌동", "암사동", "성내동", "천호동", "강일동"]
+    }
+  ]
+}
