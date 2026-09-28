@@ -1,5 +1,6 @@
 import seoulData from '../data/seoul-dongs.json';
 import ggData from '../data/gg-dongs.json';
+import cityData from '../data/city-dongs.json';
 import { getAllRegions } from './regions';
 
 // 서울·경기·인천 동 단위 페이지 — 데이터 기반 생성 (md 파일 없이 조합)
@@ -30,9 +31,10 @@ let cache: DongEntry[] | null = null;
 export function getAllDongs(): DongEntry[] {
   if (cache) return cache;
 
-  const allGus = [
+  const allGus: any[] = [
     ...seoulData.gus.map((g: any) => ({ ...g, province: '서울' })),
     ...ggData.gus,
+    ...cityData.gus,
   ];
 
   // 동명 중복(예: 신사동 강남/은평, 정자동 수원/성남) 파악 — 중복이면 양쪽 모두 구/시 접두
@@ -45,9 +47,11 @@ export function getAllDongs(): DongEntry[] {
   for (const g of allGus) {
     const guShort = g.gu.replace(/(시|구|군)$/, '');
     const regionLabel =
-      g.province === '서울' ? `서울 ${g.gu}` : g.province === '인천' ? '인천광역시' : `경기 ${g.gu}`;
+      g.regionLabel ||
+      (g.province === '서울' ? `서울 ${g.gu}` : g.province === '인천' ? '인천광역시' : `경기 ${g.gu}`);
     const containedIn =
-      g.province === '서울' ? `서울특별시 ${g.gu}` : g.province === '인천' ? '인천광역시' : `경기도 ${g.gu}`;
+      g.containedIn ||
+      (g.province === '서울' ? `서울특별시 ${g.gu}` : g.province === '인천' ? '인천광역시' : `경기도 ${g.gu}`);
     for (const d of g.dongs) {
       const dup = (counts.get(d) || 0) > 1;
       entries.push({
