@@ -1,0 +1,100 @@
+{
+  "gus": [
+    {
+      "gu": "수원시", "province": "경기", "region": "gg-suwon",
+      "traits": "삼성전자 본사를 배후로 한 영통·광교의 신상권과 인계동 유흥·외식 상권, 행궁동 관광 상권이 뚜렷하게 나뉘는 경기 남부 최대 도시입니다",
+      "industries": ["cafe", "dental-clinic", "math-academy", "restaurant"],
+      "dongs": ["인계동", "영통동", "광교동", "매탄동", "권선동", "정자동", "화서동", "행궁동", "망포동", "원천동", "호매실동", "세류동", "우만동", "조원동", "천천동", "고색동"]
+    },
+    {
+      "gu": "성남시", "province": "경기", "region": "gg-seongnam",
+      "traits": "판교 테크노밸리의 IT 기업과 분당 서현·정자의 성숙한 주거 상권, 구시가지 모란·수진의 전통 상권이 공존하는 도시입니다",
+      "industries": ["it-company", "saas", "dermatology", "study-cafe"],
+      "dongs": ["판교동", "정자동", "서현동", "야탑동", "이매동", "수내동", "분당동", "구미동", "운중동", "삼평동", "백현동", "성남동", "태평동", "신흥동", "수진동", "단대동", "위례동"]
+    },
+    {
+      "gu": "용인시", "province": "경기", "region": "gg-yongin",
+      "traits": "수지·죽전의 교육열 높은 주거 상권과 동백·기흥의 신도시 상권, 처인구의 개발 수요가 이어지는 인구 100만의 대도시입니다",
+      "industries": ["math-academy", "pediatric-clinic", "cafe", "fitness-center"],
+      "dongs": ["죽전동", "보정동", "동백동", "신갈동", "풍덕천동", "상현동", "성복동", "동천동", "마북동", "구갈동", "영덕동", "김량장동", "역북동", "서천동", "보라동"]
+    },
+    {
+      "gu": "고양시", "province": "경기", "region": "gg-goyang",
+      "traits": "일산 라페스타·웨스턴돔 상권과 킨텍스 전시 수요, 삼송·원흥의 신규 입주 상권까지 서북부 생활권의 중심 도시입니다",
+      "industries": ["cafe", "kids-academy", "skin-care-shop", "real-estate-agency"],
+      "dongs": ["장항동", "백석동", "마두동", "주엽동", "대화동", "정발산동", "탄현동", "식사동", "행신동", "화정동", "삼송동", "원흥동", "지축동", "토당동", "성사동"]
+    },
+    {
+      "gu": "화성시", "province": "경기", "region": "gg-hwaseong",
+      "traits": "동탄 신도시의 폭발적인 인구 유입과 향남·봉담의 택지지구, 서부의 제조 산업단지가 함께 크는 전국 최고 성장 도시입니다",
+      "industries": ["pediatric-clinic", "math-academy", "cafe", "factory"],
+      "dongs": ["동탄", "반송동", "청계동", "영천동", "오산동", "병점동", "진안동", "반월동", "봉담", "향남", "남양", "새솔동"]
+    },
+    {
+      "gu": "부천시", "province": "경기", "region": "gg-bucheon",
+      "traits": "중동·상동 신도시 상권과 부천역 구도심 상권이 나뉘고, 서울 접근성이 좋아 생활 서비스와 학원, 병의원 수요가 두터운 도시입니다",
+      "industries": ["dental-clinic", "math-academy", "snack-bar", "fitness-center"],
+      "dongs": ["중동", "상동", "심곡동", "원미동", "역곡동", "송내동", "소사본동", "괴안동", "범박동", "옥길동", "오정동", "원종동", "고강동", "약대동", "도당동"]
+    },
+    {
+      "gu": "안산시", "province": "경기", "region": "gg-ansan",
+      "traits": "반월·시화 국가산업단지의 제조 기반과 중앙역 상권, 다문화 상권(원곡동)이라는 독특한 구성을 가진 서해안 산업 도시입니다",
+      "industries": ["factory", "machine-parts", "car-repair", "chicken-shop"],
+      "dongs": ["고잔동", "사동", "본오동", "초지동", "선부동", "원곡동", "와동", "월피동", "성포동", "부곡동", "신길동", "대부동"]
+    },
+    {
+      "gu": "안양시", "province": "경기", "region": "gg-anyang",
+      "traits": "평촌 학원가와 범계·평촌 중심상업지구, 안양역 구도심 상권이 축을 이루며 교육·의료 업종의 검색 경쟁이 활발한 도시입니다",
+      "industries": ["math-academy", "english-academy", "dental-clinic", "cafe"],
+      "dongs": ["평촌동", "호계동", "관양동", "비산동", "안양동", "석수동", "박달동"]
+    },
+    {
+      "gu": "평택시", "province": "경기", "region": "gg-pyeongtaek",
+      "traits": "삼성 반도체 캠퍼스와 미군기지 이전으로 인구와 상권이 빠르게 커지는 도시로, 고덕신도시와 소사벌 일대의 개업 수요가 왕성합니다",
+      "industries": ["restaurant", "pediatric-clinic", "real-estate-agency", "fitness-center"],
+      "dongs": ["비전동", "동삭동", "세교동", "지제동", "용이동", "고덕동", "서정동", "이충동", "송탄", "팽성", "안중", "청북"]
+    },
+    {
+      "gu": "시흥시", "province": "경기", "region": "gg-siheung",
+      "traits": "배곧신도시와 정왕 시화공단, 장현지구 입주가 이어지며 신도시 가족 업종과 산업단지 B2B 수요가 함께 자라는 도시입니다",
+      "industries": ["kids-academy", "pediatric-clinic", "factory", "cafe"],
+      "dongs": ["정왕동", "배곧", "은행동", "대야동", "신천동", "장현동", "능곡동", "월곶동", "목감동"]
+    },
+    {
+      "gu": "김포시", "province": "경기", "region": "gg-gimpo",
+      "traits": "한강신도시(장기·구래·운양)의 젊은 가족 인구가 급증한 도시로, 학원·소아과·카페 등 신도시형 업종의 개업이 활발합니다",
+      "industries": ["kids-academy", "math-academy", "cafe", "dental-clinic"],
+      "dongs": ["장기동", "구래동", "마산동", "운양동", "풍무동", "사우동", "북변동", "고촌", "통진"]
+    },
+    {
+      "gu": "광명시", "province": "경기", "region": "gg-gwangmyeong",
+      "traits": "KTX 광명역세권 개발과 철산·하안의 성숙한 주거 상권이 함께 있는 도시로, 서울 서남권 생활권과 겹쳐 검색 경쟁이 서울 못지않습니다",
+      "industries": ["dental-clinic", "math-academy", "cafe", "real-estate-agency"],
+      "dongs": ["철산동", "하안동", "광명동", "소하동", "일직동"]
+    },
+    {
+      "gu": "하남시", "province": "경기", "region": "gg-hanam",
+      "traits": "미사강변도시와 위례, 감일지구의 입주로 인구가 급증했고 스타필드를 중심으로 광역 상권까지 형성된 성장 도시입니다",
+      "industries": ["cafe", "pediatric-clinic", "fitness-center", "interior-design"],
+      "dongs": ["미사", "덕풍동", "신장동", "창우동", "위례동", "감일동"]
+    },
+    {
+      "gu": "파주시", "province": "경기", "region": "gg-paju",
+      "traits": "운정신도시의 가족 인구와 출판단지·헤이리의 문화 산업, 전원주택 수요가 공존하는 경기 북부의 성장축입니다",
+      "industries": ["kids-academy", "cafe", "house-builder", "pension"],
+      "dongs": ["운정", "금촌동", "교하동", "야당동", "문산"]
+    },
+    {
+      "gu": "의정부시", "province": "경기", "region": "gg-uijeongbu",
+      "traits": "경기 북부의 행정·상업 중심으로 의정부역 상권과 민락2지구 신상권이 축을 이루고, 북부 생활권 전체의 검색 수요를 흡수합니다",
+      "industries": ["dental-clinic", "math-academy", "snack-bar", "real-estate-agency"],
+      "dongs": ["의정부동", "민락동", "호원동", "신곡동", "금오동", "가능동", "녹양동", "장암동", "낙양동"]
+    },
+    {
+      "gu": "인천", "province": "인천", "region": "gg-incheon",
+      "traits": "송도·청라·영종 경제자유구역의 신도시 상권과 부평·구월의 전통 상권, 항만·공단의 B2B 수요까지 폭넓게 분포한 광역시입니다",
+      "industries": ["logistics", "factory", "cafe", "dental-clinic"],
+      "dongs": ["송도동", "청라동", "구월동", "부평동", "주안동", "간석동", "계산동", "작전동", "삼산동", "연수동", "논현동", "만수동", "서창동", "검단", "영종"]
+    }
+  ]
+}

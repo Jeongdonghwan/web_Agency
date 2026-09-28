@@ -1,14 +1,18 @@
-import dongsData from '../data/seoul-dongs.json';
+import seoulData from '../data/seoul-dongs.json';
+import ggData from '../data/gg-dongs.json';
 import { getAllRegions } from './regions';
 
-// 서울 동 단위 페이지 — 데이터 기반 생성 (md 파일 없이 조합)
+// 서울·경기·인천 동 단위 페이지 — 데이터 기반 생성 (md 파일 없이 조합)
 // 콘텐츠는 문장 뱅크를 동별 해시로 회전 조합해 같은 구 안에서도 구성이 달라진다.
 
 export interface DongEntry {
   dong: string;          // 송파동
-  gu: string;            // 송파구
-  guShort: string;       // 송파
-  guRegionSlug: string;  // seoul-songpa (기존 구 페이지 md slug)
+  gu: string;            // 송파구 / 수원시 / 인천
+  guShort: string;       // 송파 / 수원 / 인천
+  province: string;      // 서울 / 경기 / 인천
+  regionLabel: string;   // 서울 송파구 / 경기 수원시 / 인천광역시
+  containedIn: string;   // 서울특별시 송파구 / 경기도 수원시 / 인천광역시
+  guRegionSlug: string;  // seoul-songpa (기존 시/구 페이지 md slug)
   traits: string;
   industries: string[];
   urlSlug: string;       // 송파동-홈페이지제작 (중복 동명은 구-동-홈페이지제작)
@@ -26,21 +30,33 @@ let cache: DongEntry[] | null = null;
 export function getAllDongs(): DongEntry[] {
   if (cache) return cache;
 
-  // 동명 중복(예: 신사동 강남/은평) 파악
+  const allGus = [
+    ...seoulData.gus.map((g: any) => ({ ...g, province: '서울' })),
+    ...ggData.gus,
+  ];
+
+  // 동명 중복(예: 신사동 강남/은평, 정자동 수원/성남) 파악 — 중복이면 양쪽 모두 구/시 접두
   const counts = new Map<string, number>();
-  for (const g of dongsData.gus) {
+  for (const g of allGus) {
     for (const d of g.dongs) counts.set(d, (counts.get(d) || 0) + 1);
   }
 
   const entries: DongEntry[] = [];
-  for (const g of dongsData.gus) {
-    const guShort = g.gu.replace(/구$/, '');
+  for (const g of allGus) {
+    const guShort = g.gu.replace(/(시|구|군)$/, '');
+    const regionLabel =
+      g.province === '서울' ? `서울 ${g.gu}` : g.province === '인천' ? '인천광역시' : `경기 ${g.gu}`;
+    const containedIn =
+      g.province === '서울' ? `서울특별시 ${g.gu}` : g.province === '인천' ? '인천광역시' : `경기도 ${g.gu}`;
     for (const d of g.dongs) {
       const dup = (counts.get(d) || 0) > 1;
       entries.push({
         dong: d,
         gu: g.gu,
         guShort,
+        province: g.province,
+        regionLabel,
+        containedIn,
         guRegionSlug: g.region,
         traits: g.traits,
         industries: g.industries,
@@ -114,7 +130,7 @@ export function buildDongContent(e: DongEntry): DongContent {
   const approaches = [
     `JD8은 ${dong} 홈페이지제작 시 "${dong}+업종" 검색어를 제목과 메타 구조에 반영하고, 완성 후 네이버 서치어드바이저 등록까지 안내합니다. 동 단위 검색은 경쟁 문서가 적어, 기본기를 갖춘 홈페이지가 비교적 빠르게 자리 잡는 영역입니다.`,
     `제작은 전 과정 비대면으로 진행됩니다. ${dong} 매장에 방문하실 필요 없이 카톡으로 자료를 주고받으면 평균 7일 안에 완성되고, 완성 후에는 ${dong} 지역 검색에 잡히도록 검색엔진 등록 절차를 함께 안내해드립니다.`,
-    `같은 ${gu}라도 업종이 다르면 담아야 할 내용이 다릅니다. JD8은 207개 업종별 제작 가이드를 바탕으로, ${dong}의 우리 가게에 맞는 페이지 구조와 문의 동선을 처음부터 제안해드립니다.`,
+    `같은 ${gu} 안에서도 업종이 다르면 담아야 할 내용이 다릅니다. JD8은 207개 업종별 제작 가이드를 바탕으로, ${dong}의 우리 가게에 맞는 페이지 구조와 문의 동선을 처음부터 제안해드립니다.`,
     `JD8의 ${dong} 홈페이지제작은 보여주기용이 아니라 문의를 받기 위한 설계입니다. 첫 화면의 카톡·전화 버튼, 오시는 길, 대표 서비스 소개까지 방문자가 바로 연락하게 되는 순서로 배치합니다.`,
   ];
 
@@ -148,7 +164,7 @@ export function buildDongContent(e: DongEntry): DongContent {
       { heading: `${dong} 홈페이지제작, 왜 필요할까요?`, body: intros[h % 5] },
       {
         heading: `${gu} 상권을 아는 제작`,
-        body: `${gu}는 ${e.traits}. ${dong} 역시 이 흐름 안에 있어, 지역 특성과 업종을 함께 고려한 홈페이지 구성이 효과적입니다.`,
+        body: `${gu} 지역은 ${e.traits}. ${dong} 역시 이 흐름 안에 있어, 지역 특성과 업종을 함께 고려한 홈페이지 구성이 효과적입니다.`,
       },
       { heading: `JD8이 ${dong}에서 일하는 방식`, body: approaches[h % 4] },
       { heading: `비용과 기간`, body: prices[h % 3] },

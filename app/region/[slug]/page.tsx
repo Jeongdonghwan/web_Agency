@@ -223,7 +223,7 @@ function DongPage({ dong }: { dong: any }) {
               name: `${dong.dong} 홈페이지제작`,
               description: c.description,
               path,
-              area: { name: dong.dong, containedIn: `서울특별시 ${dong.gu}` },
+              area: { name: dong.dong, containedIn: dong.containedIn },
             }),
           ]}
         />
@@ -243,7 +243,7 @@ function DongPage({ dong }: { dong: any }) {
         </nav>
 
         <header className="page-header">
-          <span className="page-eyebrow">서울 {dong.gu}</span>
+          <span className="page-eyebrow">{dong.regionLabel}</span>
           <h1>{dong.dong} 홈페이지제작</h1>
           <p className="page-lead">{c.description}</p>
         </header>
