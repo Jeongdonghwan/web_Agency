@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { ogMeta } from '../../lib/site';
 import Link from 'next/link';
 import { getActiveCategories, getIndustriesByCategory, getAllIndustries } from '../../lib/industries';
 import JsonLd from '../../components/seo/JsonLd';
@@ -9,11 +10,7 @@ export const metadata: Metadata = {
   description:
     '카페, 병원, 학원, 법률사무소부터 제조업까지 — 200여 개 업종별 홈페이지 제작 가이드. 업종 특성에 맞는 필수 기능과 디자인, 제작 비용까지 JD8이 안내해드립니다.',
   alternates: { canonical: '/homepage/' },
-  openGraph: {
-    title: '업종별 홈페이지 제작 | JD8',
-    description: '200여 개 업종별 홈페이지 제작 가이드 — 우리 업종에 필요한 기능과 디자인을 확인하세요.',
-    url: '/homepage/',
-  },
+  ...ogMeta('업종별 홈페이지 제작 | JD8', '200여 개 업종별 홈페이지 제작 가이드 — 우리 업종에 필요한 기능과 디자인을 확인하세요.', '/homepage/'),
 };
 
 export default function IndustryHubPage() {

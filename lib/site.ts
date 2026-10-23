@@ -18,3 +18,10 @@ export const OG_IMAGE = '/images/og-image.png';
 
 // 절대 URL 생성 (trailingSlash 정책과 일치하도록 사용처에서 슬래시 포함 경로 전달)
 export const absUrl = (path: string) => `${SITE_URL}${path}`;
+
+// Next.js는 openGraph/twitter를 얕게 병합한다 — 페이지가 openGraph를 지정하면 layout의 images가
+// 통째로 사라진다. 페이지 메타는 반드시 이 헬퍼로 만들 것.
+export const ogMeta = (title: string, description: string, url: string, extra: Record<string, unknown> = {}) => ({
+  openGraph: { type: 'website' as const, siteName: SITE_NAME, locale: 'ko_KR', title, description, url, images: [OG_IMAGE], ...extra },
+  twitter: { card: 'summary_large_image' as const, title, description, images: [OG_IMAGE] },
+});

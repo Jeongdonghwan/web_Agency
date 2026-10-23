@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { ogMeta } from '../../../lib/site';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllRegions, getRegionByUrlSlug, regionPath, regionEncodedPath } from '../../../lib/regions';
@@ -16,7 +17,7 @@ import { getIndustryBySlug, industryPath } from '../../../lib/industries';
 import { getAllServices, servicePath } from '../../../lib/services';
 import { markdownToHtml } from '../../../lib/markdown';
 import JsonLd from '../../../components/seo/JsonLd';
-import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd } from '../../../lib/jsonld';
+import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd, itemListJsonLd } from '../../../lib/jsonld';
 
 export const dynamicParams = false;
 
@@ -36,8 +37,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
       description: doc.description,
       keywords: doc.keywords,
       alternates: { canonical: regionEncodedPath(doc) },
-      openGraph: { title: doc.title, description: doc.description, url: regionEncodedPath(doc) },
-      twitter: { title: doc.title, description: doc.description },
+      ...ogMeta(doc.title, doc.description, regionEncodedPath(doc)),
     };
   }
   const dong = getDongByUrlSlug(params.slug);
@@ -48,8 +48,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     description: c.description,
     keywords: [`${dong.dong} 홈페이지제작`, `${dong.dong} 홈페이지 제작`, `${dong.gu} 홈페이지제작`, `${dong.dong} 웹사이트 제작`],
     alternates: { canonical: dongEncodedPath(dong) },
-    openGraph: { title: c.title, description: c.description, url: dongEncodedPath(dong) },
-    twitter: { title: c.title, description: c.description },
+    ...ogMeta(c.title, c.description, dongEncodedPath(dong)),
   };
 }
 
@@ -227,6 +226,14 @@ function DongPage({ dong }: { dong: any }) {
               path,
               area: { name: dong.dong, containedIn: dong.containedIn },
             }),
+            itemListJsonLd(
+              `${dong.dong} 홈페이지 제작 화면 미리보기`,
+              c.showcase.map((idx: number) => ({
+                name: portfolios[idx].title,
+                url: portfolios[idx].link,
+                image: portfolios[idx].image,
+              })),
+            ),
           ]}
         />
 

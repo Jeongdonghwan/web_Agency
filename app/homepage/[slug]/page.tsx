@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { ogMeta } from '../../../lib/site';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import {
@@ -28,15 +29,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     description: ind.description,
     keywords: ind.keywords,
     alternates: { canonical: industryEncodedPath(ind) },
-    openGraph: {
-      title: ind.title,
-      description: ind.description,
-      url: industryEncodedPath(ind),
-    },
-    twitter: {
-      title: ind.title,
-      description: ind.description,
-    },
+    ...ogMeta(ind.title, ind.description, industryEncodedPath(ind)),
   };
 }
 

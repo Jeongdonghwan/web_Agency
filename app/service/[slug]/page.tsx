@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { ogMeta } from '../../../lib/site';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllServices, getServiceByUrlSlug, servicePath, serviceEncodedPath } from '../../../lib/services';
@@ -21,8 +22,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     description: doc.description,
     keywords: doc.keywords,
     alternates: { canonical: serviceEncodedPath(doc) },
-    openGraph: { title: doc.title, description: doc.description, url: serviceEncodedPath(doc) },
-    twitter: { title: doc.title, description: doc.description },
+    ...ogMeta(doc.title, doc.description, serviceEncodedPath(doc)),
   };
 }
 

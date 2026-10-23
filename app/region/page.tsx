@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { ogMeta } from '../../lib/site';
 import Link from 'next/link';
 import { getAllRegions, regionPath } from '../../lib/regions';
 import JsonLd from '../../components/seo/JsonLd';
@@ -9,11 +10,7 @@ export const metadata: Metadata = {
   description:
     '서울 전 지역과 경기 주요 도시, 광역시까지 — 지역별 홈페이지 제작 안내. 상담부터 완성까지 비대면으로 진행되어 전국 어디서든 평균 7일 안에 받아보실 수 있습니다.',
   alternates: { canonical: '/region/' },
-  openGraph: {
-    title: '지역별 홈페이지 제작 | JD8',
-    description: '서울·경기·전국 주요 도시 홈페이지 제작 안내.',
-    url: '/region/',
-  },
+  ...ogMeta('지역별 홈페이지 제작 | JD8', '서울·경기·전국 주요 도시 홈페이지 제작 안내.', '/region/'),
 };
 
 // 표시 그룹: slug 접두로 구분하지 않고 name 기준 정렬된 전체 목록을 시·도 그룹으로 묶는다

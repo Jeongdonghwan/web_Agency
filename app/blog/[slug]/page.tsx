@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { ogMeta } from '../../../lib/site';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllPosts, getPostBySlug, getAdjacentPosts } from '../../../lib/posts';
@@ -20,18 +21,11 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     title: post.title,
     description: post.description,
     alternates: { canonical: `/blog/${post.slug}/` },
-    openGraph: {
+    ...ogMeta(post.title, post.description, `/blog/${post.slug}/`, {
       type: 'article',
-      title: post.title,
-      description: post.description,
-      url: `/blog/${post.slug}/`,
       publishedTime: post.date,
       modifiedTime: post.updatedAt,
-    },
-    twitter: {
-      title: post.title,
-      description: post.description,
-    },
+    }),
   };
 }
 

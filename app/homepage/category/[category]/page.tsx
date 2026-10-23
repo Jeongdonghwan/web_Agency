@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { ogMeta } from '../../../../lib/site';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getActiveCategories, getCategory, getIndustriesByCategory } from '../../../../lib/industries';
@@ -18,11 +19,7 @@ export function generateMetadata({ params }: { params: { category: string } }): 
     title: `${cat.name} 홈페이지 제작 - 업종별 가이드`,
     description: `${cat.name} 업종 홈페이지 제작 가이드. ${cat.description}`,
     alternates: { canonical: `/homepage/category/${cat.slug}/` },
-    openGraph: {
-      title: `${cat.name} 홈페이지 제작 | JD8`,
-      description: cat.description,
-      url: `/homepage/category/${cat.slug}/`,
-    },
+    ...ogMeta(`${cat.name} 홈페이지 제작 | JD8`, cat.description, `/homepage/category/${cat.slug}/`),
   };
 }
 

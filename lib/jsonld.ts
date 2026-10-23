@@ -72,6 +72,20 @@ export const serviceJsonLd = (opts: {
   provider: { '@id': `${SITE_URL}/#organization` },
 });
 
+// 캐러셀 후보. image는 실제 콘텐츠 썸네일일 때만 — 로고/기본 이미지를 넣으면 심사 탈락
+export const itemListJsonLd = (name: string, items: { name: string; url: string; image?: string }[]) => ({
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name,
+  itemListElement: items.slice(0, 20).map((it, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: it.name,
+    url: it.url.startsWith('http') ? it.url : `${SITE_URL}${it.url}`,
+    ...(it.image ? { image: it.image.startsWith('http') ? it.image : `${SITE_URL}${it.image}` } : {}),
+  })),
+});
+
 export const articleJsonLd = (opts: {
   title: string;
   description: string;
