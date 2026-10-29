@@ -21,7 +21,11 @@ export const absUrl = (path: string) => `${SITE_URL}${path}`;
 
 // Next.js는 openGraph/twitter를 얕게 병합한다 — 페이지가 openGraph를 지정하면 layout의 images가
 // 통째로 사라진다. 페이지 메타는 반드시 이 헬퍼로 만들 것.
-export const ogMeta = (title: string, description: string, url: string, extra: Record<string, unknown> = {}) => ({
-  openGraph: { type: 'website' as const, siteName: SITE_NAME, locale: 'ko_KR', title, description, url, images: [OG_IMAGE], ...extra },
-  twitter: { card: 'summary_large_image' as const, title, description, images: [OG_IMAGE] },
-});
+// image: 페이지 전용 썸네일 경로(1200×630). 없으면 공통 OG_IMAGE.
+export const ogMeta = (title: string, description: string, url: string, extra: Record<string, unknown> = {}, image?: string) => {
+  const images = image ? [{ url: image, width: 1200, height: 630, alt: title }] : [OG_IMAGE];
+  return {
+    openGraph: { type: 'website' as const, siteName: SITE_NAME, locale: 'ko_KR', title, description, url, images, ...extra },
+    twitter: { card: 'summary_large_image' as const, title, description, images },
+  };
+};

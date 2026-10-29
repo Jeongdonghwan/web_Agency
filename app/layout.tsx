@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   keywords: ['홈페이지 제작', '웹사이트 제작', '랜딩페이지', '반응형 웹', '저렴한 홈페이지', '소상공인 홈페이지', 'JD8'],
   authors: [{ name: 'JD8 에이전시' }],
   robots: { index: true, follow: true },
-  alternates: { canonical: '/' },
+  alternates: { canonical: '/', types: { 'application/rss+xml': '/rss.xml' } },
   icons: { icon: '/favicon.svg' },
   openGraph: {
     type: 'website',
