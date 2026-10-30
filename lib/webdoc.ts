@@ -61,14 +61,25 @@ export interface GroupDoc {
   group: string;
 }
 
-export type WebdocPage = (CoreDoc | GroupDoc | IndustryDoc | ServiceDoc) & { order: number; wave: number; openDate: string };
+export type WebdocPage = (CoreDoc | GroupDoc | IndustryDoc | ServiceDoc) & { order: number; openDate: string };
 
-// ---- 단계 오픈: 오픈일 D0 25% → D2 50% → D4 75% → D6 100% (post-launch 스킬 고정 기준) ----
-// 서버가 하루 두 번 빌드하므로 날짜만으로 자동으로 열린다. 열린 페이지는 닫지 않는다(LAUNCH 를 뒤로 옮기지 말 것).
-// 페이지를 추가할 때는 이미 열린 페이지가 첫 묶음(25%) 안에 남는지 확인할 것 — 순서가 밀리면 닫힐 수 있다.
-export const LAUNCH = '2026-10-29';
-const PLAN = [0.25, 0.5, 0.75, 1];
-const EVERY_DAYS = 2;
+// ---- 단계 오픈: data/webdoc/schedule.json (scripts/webdoc_schedule.py 로 관리) ----
+// 묶음마다 오픈일·일정(2주: 25→40→55→70→85→100%)·slug 순서가 고정돼 있다. 서버가 하루 두 번 빌드하므로 날짜만 지나면 자동 공개.
+// 일정에 없는 slug(데이터에 새로 추가한 업종·서비스)는 열리지 않는다 → `python scripts/webdoc_schedule.py --new-batch <오픈일>`.
+// 열린 페이지는 닫지 않는다: 묶음의 launch 를 뒤로 옮기거나 slugs 순서를 바꾸지 말 것.
+interface Batch { launch: string; days: number[]; plan: number[]; slugs: string[] }
+function loadSchedule(): Map<string, string> {
+  const file = path.join(process.cwd(), 'data', 'webdoc', 'schedule.json');
+  const open = new Map<string, string>(); // slug → 공개일
+  if (!fs.existsSync(file)) return open;
+  for (const b of (JSON.parse(fs.readFileSync(file, 'utf-8')).batches as Batch[])) {
+    b.slugs.forEach((slug, i) => {
+      const wave = b.plan.findIndex((r) => i < Math.ceil(b.slugs.length * r));
+      if (!open.has(slug)) open.set(slug, addDays(b.launch, b.days[wave]));
+    });
+  }
+  return open;
+}
 
 const addDays = (iso: string, d: number) => new Date(Date.parse(iso) + d * 864e5).toISOString().slice(0, 10);
 export const todayKst = () => process.env.WEBDOC_TODAY || new Date(Date.now() + 9 * 36e5).toISOString().slice(0, 10);
@@ -148,10 +159,9 @@ export function getAllWebdocPages(): WebdocPage[] {
     }
   }
   const all = [...core, ...groups, ...industries, ...services];
-  return (cache = all.map((p, order) => {
-    const wave = PLAN.findIndex((r) => order < Math.ceil(all.length * r));
-    return { ...p, order, wave, openDate: addDays(LAUNCH, wave * EVERY_DAYS) };
-  }));
+  const schedule = loadSchedule();
+  // 일정에 없는 페이지는 openDate 를 먼 미래로 — 목록·사이트맵·라우트 어디에도 나오지 않는다
+  return (cache = all.map((p, order) => ({ ...p, order, openDate: schedule.get(p.slug) || '9999-12-31' })));
 }
 
 export const getOpenWebdocPages = () => getAllWebdocPages().filter((p) => p.openDate <= todayKst());
