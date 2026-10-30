@@ -798,3 +798,4 @@
   .wd-table th:last-child { display: none; }
 }
 .wd-p { line-height: 1.85; margin: 0 0 14px; color: var(--text); }
+.wd-disclaimer { margin: 14px 0 0; font-size: 0.78rem; opacity: 0.75; }

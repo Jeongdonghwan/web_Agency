@@ -6,8 +6,13 @@ import {
   getOpenWebdocPages,
   getOpenCore,
   getOpenIndustries,
+  getOpenServices,
+  getOpenGroups,
   getWebdocPage,
   buildIndustryContent,
+  buildServiceContent,
+  buildGroupContent,
+  DISCLAIMER,
   webdocPath,
   webdocEncodedPath,
   webdocOg,
@@ -15,6 +20,8 @@ import {
   WEBDOC_HUB,
   type CoreDoc,
   type IndustryDoc,
+  type ServiceDoc,
+  type GroupDoc,
   type WebdocPage,
 } from '../../../lib/webdoc';
 import { markdownToHtml } from '../../../lib/markdown';
@@ -33,7 +40,11 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const p = getWebdocPage(params.slug);
   if (!p) return {};
-  const m = p.kind === 'core' ? p : buildIndustryContent(p);
+  const m =
+    p.kind === 'core' ? p
+    : p.kind === 'industry' ? buildIndustryContent(p)
+    : p.kind === 'service' ? buildServiceContent(p)
+    : { ...buildGroupContent(p, getOpenIndustries().filter((i) => i.group === p.group)), keywords: [`${p.group} 업체 홍보`, `${p.group} 웹문서`] };
   const path = webdocEncodedPath(p.slug);
   return {
     title: { absolute: m.title },
@@ -49,7 +60,10 @@ const card = (p: WebdocPage) => ({ name: pageName(p), url: webdocPath(p.slug), i
 export default async function WebdocPage({ params }: { params: { slug: string } }) {
   const p = getWebdocPage(params.slug);
   if (!p) notFound();
-  return p.kind === 'core' ? <CorePage doc={p as CoreDoc & WebdocPage} /> : <IndustryPage ind={p as IndustryDoc & WebdocPage} />;
+  if (p.kind === 'core') return <CorePage doc={p as CoreDoc & WebdocPage} />;
+  if (p.kind === 'service') return <ServicePage svc={p as ServiceDoc & WebdocPage} />;
+  if (p.kind === 'group') return <GroupPage g={p as GroupDoc & WebdocPage} />;
+  return <IndustryPage ind={p as IndustryDoc & WebdocPage} />;
 }
 
 function Crumbs({ name }: { name: string }) {
@@ -102,6 +116,7 @@ function Cta({ title, text }: { title: string; text?: string }) {
         <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="primary">카톡으로 구성안 받기</a>
         <a href="tel:1566-3046" className="ghost">전화 상담 1566-3046</a>
       </div>
+      <p className="wd-disclaimer">{DISCLAIMER}</p>
     </div>
   );
 }
@@ -115,7 +130,7 @@ function RelatedGrid({ title, pages }: { title: string; pages: WebdocPage[] }) {
         {pages.map((r) => (
           <Link key={r.slug} href={webdocPath(r.slug)}>
             {pageName(r)}
-            <span>{r.kind === 'core' ? '웹문서 제작' : r.group}</span>
+            <span>{r.kind === 'core' || r.kind === 'group' ? '웹문서 제작' : r.group}</span>
           </Link>
         ))}
       </div>
@@ -283,6 +298,166 @@ function IndustryPage({ ind }: { ind: IndustryDoc & WebdocPage }) {
         <RelatedGrid title={`${ind.group} 다른 업종`} pages={siblings} />
         <RelatedGrid title="웹문서 제작 안내" pages={core.slice(0, 4)} />
         <Cta title={`${ind.name} 웹문서, 구성안부터 받아보세요`} text={c.ctaText} />
+      </div>
+    </main>
+  );
+}
+
+/* ===== 서비스 페이지 ("변기막힘 업체 홍보") ===== */
+function ServicePage({ svc }: { svc: ServiceDoc & WebdocPage }) {
+  const c = buildServiceContent(svc);
+  const parent = getOpenIndustries().find((o) => o.slug === svc.parent.slug);
+  const siblings = getOpenServices().filter((o) => o.parent.slug === svc.parent.slug && o.slug !== svc.slug).slice(0, 8);
+  const group = getOpenGroups().find((g) => g.group === svc.group);
+  const path = webdocEncodedPath(svc.slug);
+  const related: WebdocPage[] = [...(parent ? [parent] : []), ...siblings];
+  return (
+    <main className="content-page">
+      <div className="content-container">
+        <JsonLd
+          data={[
+            breadcrumbJsonLd([
+              { name: '홈', path: '/' },
+              { name: '웹문서 대량제작', path: WEBDOC_HUB },
+              ...(parent ? [{ name: pageName(parent), path: webdocEncodedPath(parent.slug) }] : []),
+              { name: c.label, path },
+            ]),
+            faqPageJsonLd(c.faq),
+            serviceJsonLd({ name: `${svc.name} 웹문서 제작`, description: c.description, path }),
+            itemListJsonLd(`${svc.parent.name} 서비스별 웹문서`, related.map(card)),
+          ]}
+        />
+        <nav className="breadcrumb" aria-label="브레드크럼">
+          <Link href="/">홈</Link>
+          <span className="sep">›</span>
+          <Link href={WEBDOC_HUB}>웹문서 대량제작</Link>
+          <span className="sep">›</span>
+          {parent && (
+            <>
+              <Link href={webdocPath(parent.slug)}>{pageName(parent)}</Link>
+              <span className="sep">›</span>
+            </>
+          )}
+          <span>{c.label}</span>
+        </nav>
+        <header className="page-header">
+          <span className="page-eyebrow">
+            {svc.group} · {svc.parent.name}
+          </span>
+          <h1>{c.h1}</h1>
+          <p className="page-lead">{c.description}</p>
+        </header>
+        <Summary items={c.summary} />
+
+        <section className="content-section">
+          <h2>{c.whatH2}</h2>
+          {c.what.map((t) => (
+            <p key={t} className="wd-p">
+              {t}
+            </p>
+          ))}
+        </section>
+
+        <section className="content-section">
+          <h2>{c.pageH2}</h2>
+          <p className="wd-p">{c.page}</p>
+          <table className="wd-table">
+            <thead>
+              <tr>
+                <th>검색어 예시</th>
+                <th>페이지 주소 예시</th>
+              </tr>
+            </thead>
+            <tbody>
+              {c.examples.map((k) => (
+                <tr key={k}>
+                  <td>{k}</td>
+                  <td>/{k.replace(/\s+/g, '-')}/</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <PageCalculator regions={c.regions.length} services={c.mods} label="검색어 형태" title={c.calcTitle} />
+        </section>
+
+        <section className="content-section">
+          <h2>{c.serpH2}</h2>
+          <p className="wd-p">{c.serpText}</p>
+          <SerpMock query={c.examples[0]} items={c.examples.slice(1, 3)} desc={c.serpDesc} />
+        </section>
+
+        <section className="content-section">
+          <h2>{c.incH2}</h2>
+          <div className="feature-grid">
+            {c.features.map((f) => (
+              <div className="feature-card" key={f.h}>
+                <h3>{f.h}</h3>
+                <p>{f.p}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="content-section">
+          <h2>{c.bundleH2}</h2>
+          <p className="wd-p">{c.bundle}</p>
+        </section>
+
+        <Faq title={`${svc.name} 웹문서 자주 묻는 질문`} faq={c.faq} />
+        <RelatedGrid title={`${svc.parent.name} 서비스별 웹문서`} pages={related} />
+        {group && <RelatedGrid title="같은 업종군 안내" pages={[group]} />}
+        <Cta title={`${svc.name} 웹문서, 구성안부터 받아보세요`} />
+      </div>
+    </main>
+  );
+}
+
+/* ===== 업종군 허브 ("하수구·배관 업체 웹문서") ===== */
+function GroupPage({ g }: { g: GroupDoc & WebdocPage }) {
+  const industries = getOpenIndustries().filter((i) => i.group === g.group);
+  const c = buildGroupContent(g, industries);
+  const path = webdocEncodedPath(g.slug);
+  const otherGroups = getOpenGroups().filter((o) => o.slug !== g.slug);
+  return (
+    <main className="content-page">
+      <div className="content-container">
+        <JsonLd
+          data={[
+            breadcrumbJsonLd([
+              { name: '홈', path: '/' },
+              { name: '웹문서 대량제작', path: WEBDOC_HUB },
+              { name: c.h1, path },
+            ]),
+            serviceJsonLd({ name: c.h1, description: c.description, path }),
+            itemListJsonLd(c.h1, industries.map(card)),
+          ]}
+        />
+        <Crumbs name={c.h1} />
+        <header className="page-header">
+          <span className="page-eyebrow">업종군 안내</span>
+          <h1>{c.h1}</h1>
+          <p className="page-lead">{c.description}</p>
+        </header>
+        <Summary items={c.summary} />
+        {c.intro && <p className="wd-p">{c.intro}</p>}
+        <section className="content-section">
+          <h2>{g.group} 업종별 웹문서 구성</h2>
+          <div className="static-faq">
+            {c.cards.map((k) => (
+              <div className="qa" key={k.slug}>
+                <h3>
+                  <Link href={webdocPath(k.slug)}>{k.name}</Link>
+                </h3>
+                <p>
+                  {k.pain} 대표 서비스: {k.services.join(', ')}.
+                </p>
+              </div>
+            ))}
+          </div>
+          <PageCalculator title={`${g.group} 업체는 페이지가 몇 개 필요할까?`} />
+        </section>
+        <RelatedGrid title="다른 업종군" pages={otherGroups} />
+        <Cta title={`${g.group} 업체 웹문서, 구성안부터 받아보세요`} />
       </div>
     </main>
   );

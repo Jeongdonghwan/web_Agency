@@ -20,10 +20,17 @@ export interface CoreDoc {
   content: string;
 }
 
+export interface ServiceItem {
+  name: string;
+  searches: string[];
+  note: string;
+}
+
 export interface Industry {
   name: string;
   group: string;
-  services: string[];
+  services: string[]; // 서비스 이름만 (조합기 문장용)
+  serviceItems: ServiceItem[]; // 서비스별 검색어·특징 (서비스 페이지용)
   searches: string[];
   urgent: boolean;
   season: string;
@@ -38,10 +45,27 @@ export interface IndustryDoc extends Industry {
   slug: string;
 }
 
-export type WebdocPage = (CoreDoc | IndustryDoc) & { order: number; wave: number; openDate: string };
+// 서비스 페이지: 업종의 서비스 하나 = 페이지 하나 ("변기막힘 업체 홍보")
+export interface ServiceDoc extends ServiceItem {
+  kind: 'service';
+  slug: string;
+  group: string;
+  parent: IndustryDoc;
+}
+
+// 업종군 허브: "하수구·배관 업체 웹문서"
+export interface GroupDoc {
+  kind: 'group';
+  slug: string;
+  name: string;
+  group: string;
+}
+
+export type WebdocPage = (CoreDoc | GroupDoc | IndustryDoc | ServiceDoc) & { order: number; wave: number; openDate: string };
 
 // ---- 단계 오픈: 오픈일 D0 25% → D2 50% → D4 75% → D6 100% (post-launch 스킬 고정 기준) ----
 // 서버가 하루 두 번 빌드하므로 날짜만으로 자동으로 열린다. 열린 페이지는 닫지 않는다(LAUNCH 를 뒤로 옮기지 말 것).
+// 페이지를 추가할 때는 이미 열린 페이지가 첫 묶음(25%) 안에 남는지 확인할 것 — 순서가 밀리면 닫힐 수 있다.
 export const LAUNCH = '2026-10-29';
 const PLAN = [0.25, 0.5, 0.75, 1];
 const EVERY_DAYS = 2;
@@ -78,33 +102,52 @@ function loadCore(): CoreDoc[] {
   return docs.sort((a, b) => (a.slug === main ? -1 : b.slug === main ? 1 : a.name.localeCompare(b.name, 'ko')));
 }
 
-function loadIndustries(): IndustryDoc[] {
+type RawIndustry = Omit<Industry, 'services' | 'serviceItems'> & { services: (string | ServiceItem)[] };
+
+function loadRaw(): Industry[] {
   const file = path.join(process.cwd(), 'data', 'webdoc', 'industries.json');
   if (!fs.existsSync(file)) return [];
-  const list: Industry[] = JSON.parse(fs.readFileSync(file, 'utf-8'));
-  // 업종군 라운드로빈 — 각 묶음에 여러 업종군이 고르게 들어가게
-  const groups = new Map<string, Industry[]>();
+  return (JSON.parse(fs.readFileSync(file, 'utf-8')) as RawIndustry[]).map((it) => {
+    const items = it.services.map((x) => (typeof x === 'string' ? { name: x, searches: [], note: '' } : x));
+    // 업종명과 같은 서비스는 뒤로 (문장 속 "커튼 같은 작업" 방지)
+    const ordered = [...items.filter((x) => x.name !== it.name), ...items.filter((x) => x.name === it.name)];
+    return { ...it, services: ordered.map((x) => x.name), serviceItems: ordered };
+  });
+}
+
+// 업종군 라운드로빈 — 각 묶음에 여러 업종군이 고르게 들어가게
+function roundRobin<T extends { group: string }>(list: T[]): T[] {
+  const groups = new Map<string, T[]>();
   for (const i of list) groups.set(i.group, [...(groups.get(i.group) || []), i]);
   const order = [...GROUP_PRIORITY.filter((g) => groups.has(g)), ...[...groups.keys()].filter((g) => !GROUP_PRIORITY.includes(g))];
-  const out: IndustryDoc[] = [];
-  for (let k = 0; out.length < list.length; k++) {
-    for (const g of order) {
-      const it = groups.get(g)![k];
-      if (it) out.push({ ...it, services: [...it.services.filter((x) => x !== it.name), ...it.services.filter((x) => x === it.name)], kind: 'industry', slug: `${it.name}-홍보` });
-    }
-  }
+  const out: T[] = [];
+  for (let k = 0; out.length < list.length; k++) for (const g of order) if (groups.get(g)![k]) out.push(groups.get(g)![k]);
   return out;
 }
+
+export const groupSlug = (group: string) => `${group.replace(/·/g, '-')}-업체-웹문서`;
 
 let cache: WebdocPage[] | null = null;
 export function getAllWebdocPages(): WebdocPage[] {
   if (cache) return cache;
-  const all = [...loadCore(), ...loadIndustries()];
-  const seen = new Set<string>();
-  for (const p of all) {
-    if (seen.has(p.slug)) throw new Error(`webdoc slug 충돌: ${p.slug}`);
-    seen.add(p.slug);
+  const core = loadCore();
+  const industries: IndustryDoc[] = roundRobin(loadRaw()).map((it) => ({ ...it, kind: 'industry', slug: `${it.name}-홍보` }));
+  const groups: GroupDoc[] = [...new Set(industries.map((i) => i.group))].map((g) => ({ kind: 'group', slug: groupSlug(g), name: `${g} 업체 웹문서`, group: g }));
+  const taken = new Set<string>([...core.map((c) => c.slug), ...groups.map((g) => g.slug), ...industries.map((i) => i.slug)]);
+  // 서비스 페이지: 업종마다 k번째 서비스를 돌아가며 — 앞 묶음에 모든 업종의 대표 서비스가 들어가게
+  const services: ServiceDoc[] = [];
+  const maxK = Math.max(0, ...industries.map((i) => i.serviceItems.length));
+  for (let k = 0; k < maxK; k++) {
+    for (const ind of industries) {
+      const sv = ind.serviceItems[k];
+      if (!sv || !sv.note || sv.name === ind.name) continue;
+      const slug = `${sv.name}-홍보`;
+      if (taken.has(slug)) continue;
+      taken.add(slug);
+      services.push({ ...sv, kind: 'service', slug, group: ind.group, parent: ind });
+    }
   }
+  const all = [...core, ...groups, ...industries, ...services];
   return (cache = all.map((p, order) => {
     const wave = PLAN.findIndex((r) => order < Math.ceil(all.length * r));
     return { ...p, order, wave, openDate: addDays(LAUNCH, wave * EVERY_DAYS) };
@@ -113,7 +156,9 @@ export function getAllWebdocPages(): WebdocPage[] {
 
 export const getOpenWebdocPages = () => getAllWebdocPages().filter((p) => p.openDate <= todayKst());
 export const getOpenCore = () => getOpenWebdocPages().filter((p): p is CoreDoc & WebdocPage => p.kind === 'core');
+export const getOpenGroups = () => getOpenWebdocPages().filter((p): p is GroupDoc & WebdocPage => p.kind === 'group');
 export const getOpenIndustries = () => getOpenWebdocPages().filter((p): p is IndustryDoc & WebdocPage => p.kind === 'industry');
+export const getOpenServices = () => getOpenWebdocPages().filter((p): p is ServiceDoc & WebdocPage => p.kind === 'service');
 export const getWebdocPage = (slug: string) => {
   let key = slug;
   try {
@@ -126,12 +171,13 @@ export const WEBDOC_HUB = '/웹문서/';
 export const webdocPath = (slug: string) => `/웹문서/${slug}/`;
 export const webdocEncodedPath = (slug: string) => `/${encodeURIComponent('웹문서')}/${encodeURIComponent(slug)}/`;
 export const webdocOg = (slug: string) => `/og/webdoc/${slug}.jpg`;
+export const DISCLAIMER = '※ 검색 등록을 지원하며 실제 검색 노출 및 순위는 검색엔진의 정책과 평가에 따라 달라집니다.';
 // 사무소형 업종군은 '업체·작업·출동' 대신 '사무소·상담' 어휘
 const OFFICE_GROUPS = ['회생·채무', '법률·전문직', '대출·금융'];
 export const isOffice = (group: string) => OFFICE_GROUPS.includes(group);
 export const industryTitle = (name: string, group: string) =>
   group === '법률·전문직' ? `${name} 홍보` : group === '회생·채무' ? `${name} 사무소 홍보` : `${name} 업체 홍보`;
-export const pageName = (p: WebdocPage) => (p.kind === 'core' ? p.name : industryTitle(p.name, p.group));
+export const pageName = (p: WebdocPage) => (p.kind === 'core' || p.kind === 'group' ? p.name : industryTitle(p.name, p.group));
 const OFFICE_WORDS: [RegExp, string][] = [
   [/작업 사진·사례/g, '상담 사례·안내 자료'], [/작업 사진과 사례/g, '상담 사례와 안내 자료'], [/작업 사진/g, '상담 안내 자료'],
   [/작업 기록/g, '상담 사례'], [/현장 사진/g, '상담 사례'], [/작업 과정/g, '상담 절차'], [/실제 사진·사례/g, '실제 상담 사례'],
@@ -270,7 +316,8 @@ function faqFor(ind: IndustryDoc, regions: string[]) {
 
 export function buildIndustryContent(ind: IndustryDoc) {
   const c = composeIndustry(ind);
-  return isOffice(ind.group) ? officeize(c) : c;
+  if (!isOffice(ind.group)) return c;
+  return LEGAL_GROUPS.includes(ind.group) ? legalize(officeize(c)) : officeize(c);
 }
 
 function composeIndustry(ind: IndustryDoc) {
@@ -330,5 +377,130 @@ function composeIndustry(ind: IndustryDoc) {
     calcTitle: `${n} 업체는 페이지가 몇 개 필요할까?`,
     ctaText: pick([`${n} 영업 지역과 서비스만 알려주시면 페이지 구성안을 먼저 보여드립니다. 전 과정 비대면.`, `출장 가는 지역과 ${ind.services[0]} 등 서비스 목록을 보내주시면 ${n} 페이지 구성안부터 드립니다.`], s + 'cta'),
     keywords: [`${n} 홍보`, `${n} 업체 홍보`, `${n} 마케팅`, `${n} 웹문서 제작`, `${n} 타지역 홍보`],
+  };
+}
+
+// 새 업종군 문단 (업종 페이지·업종군 허브 공용)
+Object.assign(GROUP_NOTE, {
+  '세탁·수선': ['세탁·수선은 수거와 배송이 오가는 서비스라, 수거 가능한 지역을 검색 페이지로 드러내는 것이 곧 영업 범위 안내가 됩니다.', '세탁·수선 손님은 맡기기 전에 처리 사례 사진과 소요 일정을 먼저 확인하고 연락합니다.'],
+  '운송·퀵': ['운송·퀵은 출발지와 도착지가 매번 달라, 손님이 지금 있는 지역 이름으로 검색했을 때 바로 보이는 업체가 배차를 가져갑니다.', '화물·퀵 문의는 차종과 짐 크기로 검색이 잘게 나뉘어, 조합별 페이지가 맞는 손님을 골라 데려옵니다.'],
+  '건물·시설관리': ['건물·시설관리는 관리인·건물주가 계약 전에 여러 업체를 비교하는 분야라, 관리 지역과 항목별 페이지가 비교 단계에서 계속 보여야 합니다.', '시설관리는 법정 점검처럼 시기가 정해진 수요가 많아, 점검 시기 전에 지역 검색에 걸려 있어야 문의가 옵니다.'],
+  '렌탈·설치': ['렌탈은 제품 비교와 설치 가능 지역 확인이 함께 이뤄지는 분야라, 지역별 설치 안내 페이지가 상담으로 이어집니다.', '렌탈 손님은 월 비용보다 설치·관리 방문이 되는지를 먼저 묻습니다. 방문 가능한 지역을 페이지로 보여 주는 이유입니다.'],
+  '수거·매입': ['수거·매입은 출장 방문이 기본이라, 갈 수 있는 지역을 검색 페이지로 펼쳐 둘수록 매입 문의가 늘어날 여지가 생깁니다.', '매입 손님은 여러 업체에 사진을 보내 견적을 비교합니다. 비교 대상에 들려면 지역 검색에서 먼저 보여야 합니다.'],
+  '반려동물': ['반려동물 서비스는 보호자가 후기와 사진을 꼼꼼히 보고 고르는 분야라, 지역마다 실제 사례가 걸린 페이지가 신뢰를 만듭니다.', '방문·픽업형 반려동물 서비스는 이동 가능한 지역이 곧 영업 범위라, 지역 검색 페이지가 범위 안내 역할을 합니다.'],
+  '행사·사진·웨딩': ['행사·촬영은 날짜와 장소가 정해진 예약형 문의라, 행사 장소 지역 이름으로 검색했을 때 포트폴리오가 보이는 업체가 선택됩니다.', '촬영·행사 손님은 결과물 사진을 보고 결정합니다. 지역·행사 종류별 페이지에 실제 작업물을 나눠 거는 것이 핵심입니다.'],
+  '보안·통신': ['보안·통신 설치는 매장·사무실 개업 시기에 몰리는 수요라, 개업 지역 이름으로 검색했을 때 보이는 업체에 견적 요청이 갑니다.', '보안·통신은 장비와 설치 환경이 다양해, 설치 대상과 지역을 조합한 페이지가 손님의 상황을 정확히 받아 줍니다.'],
+  '조경·농업': ['조경·농업 작업은 계절에 따라 문의가 몰렸다 빠지는 분야라, 시기 전에 지역 검색에 걸려 있어야 일을 받습니다.', '정원·농지는 도심 외곽에 넓게 흩어져 있어, 사무실 근처만 보이는 방식으로는 영업 범위를 다 덮지 못합니다.'],
+  '간판·광고물': ['간판·광고물은 개업·리뉴얼 시기에 지역 상권 단위로 문의가 생겨, 상권 지역 이름으로 검색했을 때 시공 사례가 보여야 합니다.', '간판 손님은 시공 사진을 보고 업체를 고르고, 설치 지역의 허가 기준도 함께 묻습니다. 지역 페이지가 그 질문에 답합니다.'],
+});
+
+// ---- 서비스 페이지 조합기 ("변기막힘 업체 홍보") ----
+const SVC_H1 = ['{s} 업체 홍보, 지역마다 검색 페이지로', '{s} 손님이 검색하는 곳마다 업체 페이지를', '{s} 업체, 영업 지역 전체 검색에 걸리게'];
+const SVC_WHAT_H2 = ['{s} 손님은 어떻게 검색할까요?', '{s} 검색은 어떤 말로 들어올까요?', '{s} 문의는 어디서 시작될까요?'];
+const SVC_PAGE_H2 = ['{s} 검색 페이지 구성 예시', '지역 × {s}, 이렇게 페이지가 나뉩니다', '{s} 키워드 페이지 이름 예시'];
+const SVC_INC_H2 = ['{s} 페이지에 들어가는 것', '{s} 페이지 한 장의 구성', '{s} 손님을 전화로 잇는 구성'];
+
+// 법률·회생은 '업체' 자체를 '사무소'로 (대출·금융은 '업체'가 자연스러워 그대로)
+const LEGAL_GROUPS = ['회생·채무', '법률·전문직'];
+const legalize = <T,>(v: T): T => {
+  if (typeof v === 'string') return (v as string).replace(/업체/g, '사무소').replace(/필요한 작업/g, '필요한 절차') as T;
+  if (Array.isArray(v)) return v.map(legalize) as T;
+  if (v && typeof v === 'object') return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, legalize(x)])) as T;
+  return v;
+};
+
+export function buildServiceContent(svc: ServiceDoc) {
+  const c = composeService(svc);
+  if (!isOffice(svc.group)) return c;
+  return LEGAL_GROUPS.includes(svc.group) ? legalize(officeize(c)) : officeize(c);
+}
+
+function composeService(svc: ServiceDoc) {
+  const s = svc.name;
+  const P = svc.parent;
+  const seed = svc.slug;
+  const office = isOffice(svc.group);
+  const q = svc.searches.length >= 2 ? svc.searches : [...svc.searches, `${s} 업체`, `${s} 비용`].slice(0, 2);
+  const others = P.services.filter((x) => x !== s && x !== P.name);
+  const regions = regionsFor(seed, 10);
+  const mods = office ? ['', ' 상담', ' 비용', ' 절차', ' 잘하는곳'] : P.urgent ? ['', ' 업체', ' 비용', ' 당일', ' 추천'] : ['', ' 업체', ' 비용', ' 견적', ' 잘하는곳'];
+  const examples = regions.slice(0, 8).map((r, k) => `${r} ${s}${mods[k % mods.length]}`);
+  const fill = (t: string) => t.replace(/\{s\}/g, s);
+  const label = industryTitle(s, svc.group);
+  const facts = [polite(P.pain), `${j(P.name, '은', '는')} ${polite(P.radius)}`, polite(P.season), polite(P.decide)];
+  const f1 = hash(seed + 'fa') % facts.length;
+  const f2 = (f1 + 1 + (hash(seed + 'fb') % (facts.length - 1))) % facts.length;
+
+  return {
+    label,
+    title: `${label} - 지역별 ${s} 검색 페이지 제작 | JD8`,
+    description: `${label}는 지역별 웹문서로. '${q[0]}'·'${q[1]}' 같은 검색에 맞춰 영업 지역마다 ${s} 페이지를 만들어 네이버·구글에 등록합니다.`,
+    h1: fill(pick(SVC_H1, seed + 'h1')),
+    summary: [
+      `'${q[0]}', '${q[1]}'처럼 찾는 손님에게 ${s} 업체 페이지를 보여 주는 방법입니다.`,
+      `예: ${regions.length}개 지역 × 검색어 형태 ${mods.length}가지 = ${regions.length * mods.length}페이지 (${examples[0]}, ${examples[2]} …).`,
+      pick([`${P.name} 업체의 실제 ${s} 사례로 채우고 묶음별로 엽니다. 노출 보장은 하지 않습니다.`, `${s} 페이지부터 단계적으로 열고 수집을 확인합니다. 순위 보장은 하지 않습니다.`], seed + 's3'),
+    ],
+    whatH2: fill(pick(SVC_WHAT_H2, seed + 'w')),
+    what: [
+      `'${q[0]}', '${q[1]}'처럼 ${s} 손님은 필요한 작업을 그대로 검색합니다. ${polite(svc.note)} 여기에 '${regions[0]}' 같은 지역 이름이 붙으면 검색 결과는 그 지역에서 ${j(s, '을', '를')} 하는 업체로 좁혀집니다.`,
+      `${facts[f1]} ${facts[f2]}`,
+      pick([
+        `${j(s, '은', '는')} ${P.name} 안에서도 따로 검색되는 서비스라, ${P.name} 페이지 하나에 묶기보다 ${s} 전용 페이지를 두는 쪽이 검색어와 맞아떨어집니다.`,
+        `${P.name} 업체 홈페이지에 ${j(s, '이', '가')} 한 줄로만 적혀 있으면 '${q[0]}' 검색에는 잘 걸리지 않습니다. 서비스 이름이 제목인 페이지가 따로 있어야 합니다.`,
+        `손님은 '${P.name}'보다 '${s}'처럼 구체적인 말로 검색하는 경우가 많습니다. 그 말 그대로를 제목으로 한 페이지가 지역마다 있어야 연락이 옵니다.`,
+      ], seed + 'why'),
+    ],
+    pageH2: fill(pick(SVC_PAGE_H2, seed + 'p')),
+    page: pick([
+      `${s} 페이지는 지역 이름과 손님이 붙이는 말(${mods.filter(Boolean).map((m) => m.trim()).join('·')})을 조합해 만듭니다. 아래는 예시로 뽑은 조합이고, 실제 제작 때는 사장님의 영업 지역으로 다시 짭니다.`,
+      `검색어 하나에 페이지 하나가 원칙입니다. '${examples[1]}'와 '${examples[3]}'는 서로 다른 손님이 쓰는 말이라 각각 페이지를 둡니다.`,
+      `${s} 손님이 지역 뒤에 붙이는 말은 몇 가지로 정리됩니다. 그 말과 영업 지역을 곱하면 필요한 ${s} 페이지 수가 나옵니다.`,
+    ], seed + 'pg'),
+    examples,
+    regions,
+    mods: mods.length,
+    calcTitle: `${s} 페이지는 몇 개가 필요할까?`,
+    serpH2: `${examples[0]} 검색에 사장님 업체가 보이게`,
+    serpText: pick([
+      `'${examples[0]}' 검색 결과의 웹문서 자리에 ${s} 업체 페이지가 걸리게 만드는 것이 목표입니다. 제목은 검색어 그대로, 본문은 ${s} 작업 내용과 지역 안내로 채웁니다.`,
+      `${regions[0]}에서 ${j(s, '을', '를')} 찾는 손님은 첫 화면에서 업체를 고릅니다. 그 화면에 사장님 페이지가 하나 더 있으면 플레이스 거리 밖에서도 연락받을 기회가 생깁니다.`,
+    ], seed + 'serp'),
+    serpDesc: office ? `${s} 상담 안내, 진행 절차, 자주 묻는 질문 — 전화 한 번으로 바로 연결됩니다.` : `${s} 출동·작업 안내, 작업 사진, 자주 묻는 질문 — 전화 한 번으로 바로 연결됩니다.`,
+    incH2: fill(pick(SVC_INC_H2, seed + 'i')),
+    features: [
+      { h: '전용 썸네일', p: pick([`'${examples[0]}'처럼 지역과 ${j(s, '이', '가')} 들어간 썸네일을 페이지마다 만들어 검색 결과에서 구분되게 합니다.`, `${s} 페이지마다 키워드를 크게 넣은 썸네일을 만들어, 정사각형으로 잘리는 네이버 결과에서도 글자가 보이게 합니다.`], seed + 'f1') },
+      { h: `${s} 사례와 사진`, p: pick([`${s} 작업 사진과 설명을 지역 페이지마다 나눠 넣어 같은 사진이 반복되지 않게 합니다.`, `가지고 계신 ${s} 기록을 지역별로 나눠 연결하고, 없는 사례는 만들어 넣지 않습니다.`], seed + 'f2') },
+      { h: '전화·카톡 버튼', p: P.urgent ? `${s}처럼 급한 문의가 많은 서비스는 화면 하단에 전화·문자 버튼을 고정해 읽다가 바로 연락하게 합니다.` : `${s} 견적을 비교하는 손님이 마음을 정했을 때 바로 연락할 수 있게 전화·카톡 버튼을 둡니다.` },
+      { h: '서비스끼리 연결', p: `${P.name} 페이지와 ${others.slice(0, 2).join('·') || P.name} 페이지를 서로 연결해, 들어온 손님이 필요한 서비스로 이어지게 합니다.` },
+    ],
+    bundleH2: `${P.name} 업체라면 함께 만드는 페이지`,
+    bundle: `${j(s, '은', '는')} ${P.name} 업체가 하는 서비스 ${P.services.length}가지 중 하나입니다. ${others.slice(0, 4).join(', ')} 같은 서비스도 같은 방식으로 지역마다 페이지를 만들 수 있고, 페이지끼리 서로 연결합니다.`,
+    faq: [
+      { q: `${s} 페이지만 따로 만들 수 있나요?`, a: `가능합니다. 주력인 ${s}부터 영업 지역별로 만들고, 반응을 보며 ${others[0] || P.name} 같은 다른 서비스로 넓히면 됩니다.` },
+      { q: `${s} 검색어는 어떻게 고르나요?`, a: `'${q[0]}', '${q[1]}'처럼 손님이 실제로 쓰는 표현과 지역 이름을 조합합니다. 검색이 거의 없는 조합은 빼고 시작합니다.` },
+      ...(P.regulated ? [{ q: `${s} 광고 문구는 어떤 기준을 지키나요?`, a: `${polite(P.regulated)} 페이지 문구를 이 기준에 맞춰 쓰고, 필수 표기 항목은 사장님께 받은 정보 그대로 넣습니다.` }] : []),
+      { q: `${s} 검색 상위노출을 보장하나요?`, a: `순위나 노출은 누구도 보장할 수 없습니다. 보장을 내세우는 업체는 경계하셔야 합니다. 저희는 ${s} 페이지를 묶음별로 열고 '${q[0]}' 같은 검색어별 수집 현황을 확인하며 진행합니다.` },
+    ],
+    keywords: [`${s} 홍보`, `${s} 업체 홍보`, `${s} 마케팅`, `${s} 웹문서`],
+  };
+}
+
+// ---- 업종군 허브 ("하수구·배관 업체 웹문서") ----
+export function buildGroupContent(g: GroupDoc, industries: IndustryDoc[]) {
+  const names = industries.map((i) => i.name);
+  const notes = GROUP_NOTE[g.group] || [];
+  const office = isOffice(g.group);
+  return {
+    title: `${g.group} 업체 웹문서 제작 - 업종별 지역 검색 페이지 | JD8`,
+    description: `${g.group} 업종(${names.slice(0, 4).join('·')} 등)의 영업 지역 × 서비스 검색 페이지 제작 안내. 업종별 페이지 구성과 필요한 페이지 수를 확인하세요.`,
+    h1: `${g.group} 업체 웹문서 제작`,
+    summary: [
+      `${g.group} 업종 ${names.length}개(${names.slice(0, 5).join(', ')} 등)의 웹문서 구성을 모았습니다.`,
+      ...notes.slice(0, 1),
+      office ? '상담 지역 × 사건·상품 유형마다 페이지를 만들고, 광고 규정에 맞춰 문구를 씁니다.' : '영업 지역 × 서비스마다 페이지를 만들고, 실제 사진·사례로 채웁니다.',
+    ],
+    intro: notes.slice(1).join(' '),
+    cards: industries.map((i) => ({ slug: i.slug, name: industryTitle(i.name, i.group), pain: polite(i.pain), services: i.services.slice(0, 4) })),
   };
 }
