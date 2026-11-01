@@ -3,6 +3,7 @@
   python scripts/webdoc_schedule.py                       # 현황: 묶음별 페이지 수·공개 일정, 일정에 없는(대기) 페이지 수
   python scripts/webdoc_schedule.py --new-batch 2026-11-20  # 대기 페이지 전부를 새 묶음으로 추가 (그날부터 2주 일정)
   python scripts/webdoc_schedule.py --init 2026-10-29     # 처음 1회: 현재 전체 페이지를 1번 묶음으로
+  --section homepage  : 업종 홈페이지 제작 페이지(/homepage/<업종>-홈페이지제작/) 일정 — 같은 명령을 이 옵션과 함께
 
 페이지 목록·순서 규칙은 lib/webdoc.ts 와 같다(핵심 → 업종군 허브 → 업종(업종군 라운드로빈) → 서비스(업종별 k번째 돌아가며)).
 lib/webdoc.ts 는 schedule.json 에 있는 slug 만 공개한다 — 데이터에 업종·서비스를 추가해도 --new-batch 전에는 열리지 않는다.
@@ -10,14 +11,15 @@ lib/webdoc.ts 는 schedule.json 에 있는 slug 만 공개한다 — 데이터�
 import argparse, json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SCHEDULE = os.path.join(ROOT, 'data', 'webdoc', 'schedule.json')
+SCHEDULES = {'webdoc': os.path.join(ROOT, 'data', 'webdoc', 'schedule.json'),
+             'homepage': os.path.join(ROOT, 'data', 'webdoc', 'homepage-schedule.json')}
 # 2주 일정: 오픈일 25% → 2일 40% → 4일 55% → 6일 70% → 9일 85% → 12일 100%
 DAYS = [0, 2, 4, 6, 9, 12]
 PLAN = [0.25, 0.4, 0.55, 0.7, 0.85, 1]
 GROUP_PRIORITY = ['하수구·배관', '누수·방수', '청소', '이사·운반', '크레인·장비', '커튼·창호·인테리어', '대출·금융', '회생·채무', '법률·전문직']
 
 
-def all_slugs():
+def all_slugs(section='webdoc'):
     core_dir = os.path.join(ROOT, 'content', 'webdoc')
     core = []
     for f in os.listdir(core_dir):
@@ -43,6 +45,10 @@ def all_slugs():
             if k < len(groups[g]):
                 inds.append(groups[g][k])
         k += 1
+    if section == 'homepage':
+        # 기존 홈페이지 제작 페이지(content/industries)와 대응되지 않는 업종만 → /homepage/<업종>-홈페이지제작/
+        hmap = json.load(open(os.path.join(ROOT, 'data', 'webdoc', 'homepage-map.json'), encoding='utf-8'))
+        return [f"{i['name']}-홈페이지제작" for i in inds if not hmap.get(i['name'])]
     group_slugs = [f"{g.replace('·', '-')}-업체-웹문서" for g in dict.fromkeys(i['group'] for i in inds)]
     taken = set([c[0] for c in core] + group_slugs + [f"{i['name']}-홍보" for i in inds])
     svcs = []
@@ -61,8 +67,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--init')
     ap.add_argument('--new-batch')
+    ap.add_argument('--section', default='webdoc', choices=list(SCHEDULES))
     a = ap.parse_args()
-    slugs = all_slugs()
+    SCHEDULE = SCHEDULES[a.section]
+    slugs = all_slugs(a.section)
     if a.init:
         if os.path.exists(SCHEDULE):
             sys.exit('schedule.json 이 이미 있다 — 확장은 --new-batch')

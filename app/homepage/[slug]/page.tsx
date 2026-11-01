@@ -12,18 +12,32 @@ import { getPostsByIndustry } from '../../../lib/posts';
 import { markdownToHtml } from '../../../lib/markdown';
 import { getPortfolioById } from '../../../data/portfolios';
 import JsonLd from '../../../components/seo/JsonLd';
+import HomepageGenPage from '../../../components/webdoc/HomepageGenPage';
+import { getOpenHomepageGen, getHomepageGen, buildHomepageContent, homepageGenEncodedPath, homepageGenOg } from '../../../lib/webdoc';
 import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd } from '../../../lib/jsonld';
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
   // 한글 슬러그로 정적 생성: /homepage/카페-홈페이지제작/
-  return getAllIndustries().map((i) => ({ slug: i.urlSlug }));
+  return [...getAllIndustries().map((i) => ({ slug: i.urlSlug })), ...getOpenHomepageGen().map((p) => ({ slug: p.slug }))];
 }
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const ind = getIndustryByUrlSlug(params.slug);
-  if (!ind) return {};
+  if (!ind) {
+    const g = getHomepageGen(params.slug);
+    if (!g) return {};
+    const c = buildHomepageContent(g);
+    const p = homepageGenEncodedPath(g.slug);
+    return {
+      title: { absolute: c.title },
+      description: c.description,
+      keywords: [`${g.name} 홈페이지 제작`, `${g.name} 홈페이지`, `${g.name} 업체 홈페이지`],
+      alternates: { canonical: p },
+      ...ogMeta(c.title, c.description, p, {}, homepageGenOg(g.slug)),
+    };
+  }
   return {
     title: { absolute: ind.title },
     description: ind.description,
@@ -35,7 +49,11 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 
 export default async function IndustryPage({ params }: { params: { slug: string } }) {
   const ind = getIndustryByUrlSlug(params.slug);
-  if (!ind) notFound();
+  if (!ind) {
+    const g = getHomepageGen(params.slug);
+    if (!g) notFound();
+    return <HomepageGenPage doc={g} />;
+  }
 
   const html = await markdownToHtml(ind.content);
   const demos = ind.references.map(getPortfolioById).filter(Boolean);

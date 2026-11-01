@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { ogMeta } from '../../lib/site';
 import Link from 'next/link';
+import { getOpenHomepageGen, homepageGenPath } from '../../lib/webdoc';
 import { getActiveCategories, getIndustriesByCategory, getAllIndustries } from '../../lib/industries';
 import JsonLd from '../../components/seo/JsonLd';
 import { breadcrumbJsonLd } from '../../lib/jsonld';
@@ -63,6 +64,29 @@ export default function IndustryHubPage() {
             </section>
           );
         })}
+
+        {(() => {
+          const gen = getOpenHomepageGen();
+          const groups = [...new Set(gen.map((g) => g.group))];
+          return gen.length > 0 ? (
+            <section className="category-block">
+              <h2>출장·시공·상담 업종 홈페이지 제작</h2>
+              <p className="category-desc">지역마다 출동하거나 상담하는 업종의 홈페이지 구성 안내입니다. 서비스 안내, 사례, 출장 지역, 문의 동선을 업종에 맞춰 정리했습니다.</p>
+              {groups.map((g) => (
+                <div className="wd-group" key={g}>
+                  <h3>{g}</h3>
+                  <div className="industry-grid">
+                    {gen.filter((p) => p.group === g).map((p) => (
+                      <Link key={p.slug} href={homepageGenPath(p.slug)}>
+                        {p.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </section>
+          ) : null;
+        })()}
 
         <section className="content-section">
           <h2>업종이 아니라 목적·지역으로 찾고 계신가요?</h2>

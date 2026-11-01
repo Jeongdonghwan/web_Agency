@@ -63,7 +63,8 @@ IND_ANGLES = [  # (키워드 패턴, URL 패턴, 의도)
     ('{i} 웹문서 제작', '{i}-홍보', '구매'), ('{i} 웹문서 대량제작', '{i}-홍보', '구매'),
     ('{i} 지역 페이지 제작', '{i}-홍보', '구매'), ('{i} 홍보', '{i}-홍보', '구매'),
     ('{i} 업체 홍보', '{i}-홍보', '구매'), ('{i} 홍보 방법', '{i}-홍보', '정보'),
-    ('{i} 마케팅', '{i}-홍보', '구매'), ('{i} 업체 광고', '{i}-홍보', '구매'),
+    ('{i} 업체 광고', '{i}-홍보', '구매'), ('{i} 광고', '{i}-홍보', '구매'), ('{i} 온라인 광고', '{i}-홍보', '구매'),
+    ('{i} 홍보 대행', '{i}-홍보', '구매'), ('{i} 홍보 비용', '{i}-홍보', '구매'), ('{i} 광고비', '{i}-홍보', '구매'),
     ('{i} 타지역 홍보', '{i}-홍보', '구매'), ('{i} 네이버 노출', '{i}-홍보', '정보'),
     ('{i} 업체 손님 늘리는 법', '{i}-홍보', '정보'), ('{i} 키워드 광고 대안', '{i}-홍보', '정보'),
     ('{i} 업체 홈페이지 제작', '{i}-홍보', '구매'), ('{i} 지역 키워드', '{i}-홍보', '구매'),
@@ -110,7 +111,7 @@ def build():
         if kw in seen:
             return
         seen.add(kw)
-        rows.append([kw, kw.replace(' ', ''), cat, intent, use, GROUP_OF.get(ind, ''), ind, reg, f'/웹문서/{url}/' if use == '페이지' else '/blog/'])
+        rows.append([kw, kw.replace(' ', ''), cat, intent, use, GROUP_OF.get(ind, ''), ind, reg, (url if url.startswith(('/', 'http')) else f'/웹문서/{url}/') if use == '페이지' else ('ad.jd8 /blog/' if cat.startswith('마케팅') else '/blog/')])
 
     for kw, url, grp in CORE:
         add(kw, url, f'핵심-{grp}', '구매', '페이지')
@@ -123,6 +124,19 @@ def build():
     for i in INDUSTRIES:
         for p, u, intent in IND_ANGLES:
             add(p.format(i=i), u.format(i=i), '업종', intent, '페이지' if intent == '구매' else '블로그', ind=i)
+    # 홈페이지 제작 (jd8: 기존 업종 페이지 또는 새 업종 홈페이지 페이지) / 마케팅 (ad.jd8 업종 마케팅 페이지)
+    _links = _json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', '..', 'JD8-marketing', 'data', 'industry', 'jd8-links.json'), encoding='utf-8'))
+    AD = 'https://ad.jd8.co.kr/industry/'
+    for i in INDUSTRIES:
+        hp = _links.get(i, {}).get('homepage')
+        for p in ['{i} 홈페이지 제작', '{i} 홈페이지', '{i} 업체 홈페이지 제작', '{i} 홈페이지 제작 비용']:
+            if hp:
+                add(p.format(i=i), hp, '홈페이지', '구매', '페이지', ind=i)
+        for p in ['{i} 마케팅', '{i} 마케팅 대행', '{i} 마케팅 업체', '{i} 광고 대행', '{i} 네이버 광고', '{i} 키워드 광고',
+                  '{i} 블로그 마케팅', '{i} 블로그 광고', '{i} 플레이스 마케팅', '{i} 체험단']:
+            add(p.format(i=i), f'{AD}{i}-마케팅/', '마케팅', '구매', '페이지', ind=i)
+        for p in ['{i} 블로그 광고 효과 있을까', '{i} 블로그 마케팅 하는 법', '{i} 체험단 마케팅 주의할 점', '{i} 마케팅 비용 얼마나 들까', '{i} 플레이스 리뷰 관리 방법']:
+            add(p.format(i=i), '', '마케팅-정보', '정보', '블로그', ind=i)
     for sv, ind in SERVICES:
         for p, intent in [('{s} 업체 홍보', '구매'), ('{s} 홍보', '구매'), ('{s} 마케팅', '구매'), ('{s} 웹문서', '구매'), ('{s} 업체 손님 늘리는 법', '정보')]:
             add(p.format(s=sv), f'{sv}-홍보', '서비스', intent, '페이지' if intent == '구매' else '블로그', ind=ind)
@@ -169,6 +183,11 @@ def main():
     s.append([])
     s.append(['분류', '키워드 수'])
     for k, v in by_cat.items():
+        s.append([k, v])
+    s.append([])
+    by_site = collections.Counter('ad.jd8.co.kr' if ('ad.jd8' in r[8]) else 'jd8.co.kr' for r in rows)
+    s.append(['사이트', '키워드 수'])
+    for k, v in by_site.items():
         s.append([k, v])
     s.append([])
     s.append(['업종군', '업종 수', '키워드 수'])

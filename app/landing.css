@@ -1051,3 +1051,5 @@
   }
   .lp-hero-title .t-line { opacity: 1; transform: none; }
 }
+.lp-hero-note { margin: 18px 0 0; font-size: 0.82rem; color: rgba(255,255,255,0.62); text-align: center; }
+.lp-hero-note a { color: rgba(255,255,255,0.85); text-decoration: underline; }

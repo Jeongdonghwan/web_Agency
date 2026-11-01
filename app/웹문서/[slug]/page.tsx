@@ -12,6 +12,11 @@ import {
   buildIndustryContent,
   buildServiceContent,
   buildGroupContent,
+  buildChannelPlan,
+  getHomepageMap,
+  homepageGenHrefFor,
+  adMarketingHref,
+  adServiceHref,
   DISCLAIMER,
   webdocPath,
   webdocEncodedPath,
@@ -25,7 +30,7 @@ import {
   type WebdocPage,
 } from '../../../lib/webdoc';
 import { markdownToHtml } from '../../../lib/markdown';
-import { getAllIndustries, industryPath } from '../../../lib/industries';
+import { getIndustryBySlug, industryPath } from '../../../lib/industries';
 import JsonLd from '../../../components/seo/JsonLd';
 import PageCalculator from '../../../components/webdoc/PageCalculator';
 import SerpMock from '../../../components/webdoc/SerpMock';
@@ -199,7 +204,10 @@ function IndustryPage({ ind }: { ind: IndustryDoc & WebdocPage }) {
   const core = getOpenCore();
   const path = webdocEncodedPath(ind.slug);
   const query = c.examples[0];
-  const homepageGuide = getAllIndustries().find((h) => h.name === ind.name || h.name === `${ind.name}업체`);
+  const mapped = getHomepageMap()[ind.name];
+  const mappedInd = mapped ? getIndustryBySlug(mapped) : undefined;
+  const homepageHref = mappedInd ? industryPath(mappedInd) : homepageGenHrefFor(ind.name);
+  const plan = buildChannelPlan(ind);
 
   return (
     <main className="content-page">
@@ -229,11 +237,35 @@ function IndustryPage({ ind }: { ind: IndustryDoc & WebdocPage }) {
           {c.why.map((t) => (
             <p key={t} className="wd-p">{t}</p>
           ))}
-          {homepageGuide && (
+          {homepageHref && (
             <p className="wd-p">
-              홈페이지가 아직 없다면 <Link href={industryPath(homepageGuide)}>{homepageGuide.name} 홈페이지 제작 안내</Link>부터 보셔도 좋습니다. 웹문서 페이지는 홈페이지와 같은 사이트 안에 붙여 운영합니다.
+              홈페이지가 아직 없다면 <Link href={homepageHref}>{mappedInd ? mappedInd.name : ind.name} 홈페이지 제작 안내</Link>부터 보셔도 좋습니다. 웹문서 페이지는 홈페이지와 같은 사이트 안에 붙여 운영합니다.
             </p>
           )}
+        </section>
+
+        <section className="content-section">
+          <h2>{plan.h2}</h2>
+          <table className="wd-table wd-table-plain">
+            <thead>
+              <tr>
+                <th>채널</th>
+                <th>{ind.name}에서의 역할</th>
+              </tr>
+            </thead>
+            <tbody>
+              {plan.rows.map(([ch, role]) => (
+                <tr key={ch}>
+                  <td>{ch}</td>
+                  <td>{role}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p className="wd-p">
+            {plan.order} 플레이스·블로그 같은 채널 운영은 <a href={adMarketingHref(ind.name)}>{ind.name} 마케팅 대행 안내</a>나{' '}
+            <a href={adServiceHref('플레이스-마케팅')}>플레이스 관리</a>에서 따로 볼 수 있습니다.
+          </p>
         </section>
 
         <section className="content-section">

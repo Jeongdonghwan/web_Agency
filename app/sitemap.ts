@@ -7,7 +7,7 @@ import { getAllServices, serviceEncodedPath } from '../lib/services';
 import { getAllRegions, regionEncodedPath } from '../lib/regions';
 import { getAllDongs, dongEncodedPath } from '../lib/dongs';
 import { portfolios } from '../data/portfolios';
-import { getOpenWebdocPages, webdocEncodedPath } from '../lib/webdoc';
+import { getOpenWebdocPages, webdocEncodedPath, getOpenHomepageGen, homepageGenEncodedPath } from '../lib/webdoc';
 
 // lastmod는 실제 내용이 바뀐 시각만 쓴다. 빌드 시각(new Date())을 박으면 매 빌드마다 전 URL이
 // "수정됨"이 되어 검색엔진이 lastmod 신호를 무시한다.
@@ -106,6 +106,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const p of webdoc) {
       entries.push({ url: `${SITE_URL}${webdocEncodedPath(p.slug)}`, lastModified: webdocLm(p), changeFrequency: 'monthly', priority: p.kind === 'core' ? 0.9 : 0.7 });
     }
+  }
+
+  // 업종 홈페이지 제작(웹문서 업종 데이터로 생성) — 열린 묶음만
+  for (const p of getOpenHomepageGen()) {
+    entries.push({ url: `${SITE_URL}${homepageGenEncodedPath(p.slug)}`, lastModified: latest([p.openDate, webdocData]), changeFrequency: 'monthly', priority: 0.7 });
   }
 
   // 블로그 글

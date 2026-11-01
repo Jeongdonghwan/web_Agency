@@ -68,8 +68,8 @@ export type WebdocPage = (CoreDoc | GroupDoc | IndustryDoc | ServiceDoc) & { ord
 // 일정에 없는 slug(데이터에 새로 추가한 업종·서비스)는 열리지 않는다 → `python scripts/webdoc_schedule.py --new-batch <오픈일>`.
 // 열린 페이지는 닫지 않는다: 묶음의 launch 를 뒤로 옮기거나 slugs 순서를 바꾸지 말 것.
 interface Batch { launch: string; days: number[]; plan: number[]; slugs: string[] }
-function loadSchedule(): Map<string, string> {
-  const file = path.join(process.cwd(), 'data', 'webdoc', 'schedule.json');
+function loadSchedule(name = 'schedule.json'): Map<string, string> {
+  const file = path.join(process.cwd(), 'data', 'webdoc', name);
   const open = new Map<string, string>(); // slug → 공개일
   if (!fs.existsSync(file)) return open;
   for (const b of (JSON.parse(fs.readFileSync(file, 'utf-8')).batches as Batch[])) {
@@ -224,6 +224,7 @@ export function polite(clause: string): string {
   const stem = s.slice(0, -1);
   const last = stem.slice(-1);
   if (!last || last.charCodeAt(0) < HANGUL || last.charCodeAt(0) > 0xd7a3) return s + '.';
+  if (stem === '는' || stem.endsWith(' 는')) return stem.slice(0, -1) + '늡니다.';
   if (stem.endsWith('는')) return stem.slice(0, -1) + '습니다.';
   if (batchim(last) === 4) return stem.slice(0, -1) + withBatchim(last, 17) + '니다.'; // ㄴ다 → ㅂ니다
   if (batchim(last) === 0) return stem.slice(0, -1) + withBatchim(last, 17) + '니다.'; // 크다 → 큽니다
@@ -512,5 +513,144 @@ export function buildGroupContent(g: GroupDoc, industries: IndustryDoc[]) {
     ],
     intro: notes.slice(1).join(' '),
     cards: industries.map((i) => ({ slug: i.slug, name: industryTitle(i.name, i.group), pain: polite(i.pain), services: i.services.slice(0, 4) })),
+  };
+}
+
+// ==== 업종 홈페이지 제작 페이지 (/homepage/<업종>-홈페이지제작/) — 기존 207업종 md 와 대응 안 되는 웹문서 업종만 ====
+// 대응표: data/webdoc/homepage-map.json (웹문서 업종명 → 기존 홈페이지 업종 영문 slug | null)
+// 공개 일정: data/webdoc/homepage-schedule.json (scripts/webdoc_schedule.py --section homepage)
+
+export interface HomepageGenDoc extends Industry {
+  kind: 'homepage';
+  slug: string; // "하수구-홈페이지제작"
+  openDate: string;
+}
+
+let hmapCache: Record<string, string | null> | null = null;
+export function getHomepageMap(): Record<string, string | null> {
+  if (hmapCache) return hmapCache;
+  const file = path.join(process.cwd(), 'data', 'webdoc', 'homepage-map.json');
+  return (hmapCache = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf-8')) : {});
+}
+
+let hgCache: HomepageGenDoc[] | null = null;
+export function getAllHomepageGen(): HomepageGenDoc[] {
+  if (hgCache) return hgCache;
+  const map = getHomepageMap();
+  const sched = loadSchedule('homepage-schedule.json');
+  return (hgCache = roundRobin(loadRaw())
+    .filter((i) => !map[i.name])
+    .map((i) => {
+      const slug = `${i.name}-홈페이지제작`;
+      return { ...i, kind: 'homepage' as const, slug, openDate: sched.get(slug) || '9999-12-31' };
+    }));
+}
+export const getOpenHomepageGen = () => getAllHomepageGen().filter((p) => p.openDate <= todayKst());
+export const getHomepageGen = (slug: string) => {
+  let key = slug;
+  try {
+    key = decodeURIComponent(slug);
+  } catch {}
+  return getOpenHomepageGen().find((p) => p.slug === key);
+};
+export const homepageGenPath = (slug: string) => `/homepage/${slug}/`;
+export const homepageGenEncodedPath = (slug: string) => `/homepage/${encodeURIComponent(slug)}/`;
+export const homepageGenOg = (slug: string) => `/og/homepage/${slug}.jpg`;
+
+// 같은 업종의 홈페이지 제작 페이지 경로 — 생성 페이지는 열렸을 때만 (기존 md 페이지 경로는 호출부에서 lib/industries 로 만든다)
+export function homepageGenHrefFor(name: string): string | null {
+  const g = getOpenHomepageGen().find((p) => p.name === name);
+  return g ? homepageGenPath(g.slug) : null;
+}
+
+// ---- 형제 사이트(ad.jd8.co.kr, 마케팅 대행) 링크 ----
+// 문맥 안에서 같은 업종으로만 1~2개. 업종 마케팅 페이지는 그쪽 일정이 끝난 뒤에만 링크(안 열린 페이지로 링크하면 404).
+export const AD_SITE = 'https://ad.jd8.co.kr';
+const AD_INDUSTRY_FULL_OPEN = '2026-11-13';
+export function adMarketingHref(name: string): string {
+  return todayKst() >= AD_INDUSTRY_FULL_OPEN
+    ? `${AD_SITE}/industry/${encodeURIComponent(`${name}-마케팅`)}/`
+    : `${AD_SITE}/service/${encodeURIComponent('블로그-마케팅')}/`;
+}
+export const adServiceHref = (urlSlug: string) => `${AD_SITE}/service/${encodeURIComponent(urlSlug)}/`;
+
+export function buildHomepageContent(ind: HomepageGenDoc) {
+  const c = composeHomepage(ind);
+  if (!isOffice(ind.group)) return c;
+  return LEGAL_GROUPS.includes(ind.group) ? legalize(officeize(c)) : officeize(c);
+}
+
+const HP_NEED_H2 = ['{n} 홈페이지에 꼭 들어가야 할 것', '{n} 홈페이지, 무엇을 보여 줘야 문의가 올까요?', '{n} 업체 홈페이지의 기본 구성'];
+const HP_MENU_H2 = ['{n} 홈페이지 메뉴 구성 예시', '{n} 홈페이지는 이렇게 나눕니다', '{n} 사이트 메뉴, 이렇게 짭니다'];
+
+function composeHomepage(ind: HomepageGenDoc) {
+  const n = ind.name;
+  const sv = ind.services;
+  const seed = ind.slug;
+  const office = isOffice(ind.group);
+  const fill = (t: string) => t.replace(/\{n\}/g, n);
+  const q = ind.searches;
+  return {
+    title: `${n} 홈페이지 제작 - ${office ? '상담으로 이어지는 사무소 사이트' : '문의로 이어지는 업체 사이트'} | JD8`,
+    description: `${n} 홈페이지 제작은 JD8. ${sv.slice(0, 3).join('·')} 안내, 작업 사례, ${office ? '상담 지역' : '출장 지역'}, 전화·카톡 문의 동선까지 30만원부터 평균 7일에 만듭니다.`,
+    h1: `${n} 홈페이지 제작`,
+    summary: [
+      `${polite(ind.decide)} 그래서 ${n} 홈페이지는 사례와 문의 버튼이 첫 화면 가까이에 있어야 합니다.`,
+      `서비스 ${sv.length}가지 안내, 사례, ${office ? '상담' : '출장'} 지역, 문의 동선을 기본으로 30만원부터 평균 7일에 만듭니다.`,
+      `홈페이지 하나로 부족한 지역 검색은 웹문서(지역×서비스 페이지)로 넓힐 수 있습니다.`,
+    ],
+    needH2: fill(pick(HP_NEED_H2, seed + 'n')),
+    needs: [
+      { h: '서비스별 안내', p: `${sv.slice(0, 4).join('·')}처럼 서비스마다 따로 소개해야 '${q[1] || q[0]}' 같은 검색과 맞아떨어집니다. 한 화면에 몰아 적으면 손님이 찾는 작업을 놓칩니다.` },
+      { h: '사례와 사진', p: pick([`${n} 손님은 결과물로 판단합니다. 작업 전후 사진과 사례를 서비스별로 정리해 첫 화면 가까이에 둡니다.`, `${sv[0]} 같은 대표 작업의 사례부터 지역·날짜와 함께 올려, 같은 동네 손님이 비슷한 사례를 바로 찾게 합니다.`], seed + 'c') },
+      { h: '문의 동선', p: ind.urgent ? `${n}은(는) 급한 문의가 많아 모바일 화면 하단에 전화·문자 버튼을 고정하고, 운영 시간을 눈에 띄게 적습니다.`.replace(`${n}은(는)`, j(n, '은', '는')) : `${n} 손님은 비교 후 연락하므로, 견적 문의 폼과 카톡 상담 버튼을 서비스 안내 바로 아래에 둡니다.` },
+      { h: office ? '상담 지역 안내' : '출장 지역 안내', p: `${j(n, '은', '는')} ${polite(ind.radius)} 그래서 ${office ? '상담 가능한' : '갈 수 있는'} 지역을 목록으로 보여 줘야 "여기도 되나요?" 문의 전에 연락이 옵니다.` },
+      ...(ind.regulated ? [{ h: '표시 기준', p: `${polite(ind.regulated)} 필수 표기 항목은 대표님께 받은 정보 그대로 하단에 넣습니다.` }] : []),
+    ],
+    menuH2: fill(pick(HP_MENU_H2, seed + 'm')),
+    menu: [
+      ['홈', `대표 서비스 ${sv[0]}·${sv[1] || sv[0]}, ${ind.urgent ? '전화 버튼' : '상담 버튼'}, 대표 사례`],
+      ['서비스 안내', sv.slice(0, 5).join(', ')],
+      ['작업 사례', office ? `${sv[0]}·${sv[1] || sv[0]} 진행 사례(의뢰인 동의를 받은 것만)` : `${sv[0]}·${sv[2] || sv[0]} 작업의 지역별 전후 사진`],
+      [office ? '상담 절차' : '비용 안내', office ? `${sv[0]} 상담 → 서류 준비 → 진행 순서와 기간 안내` : `${sv[0]} 비용이 정해지는 기준(작업 범위·거리·자재)`],
+      [office ? '상담 지역' : '출장 지역', office ? `사무소 위치와 ${n} 비대면 상담 범위` : `${n} 출동 가능한 시·군·구 목록`],
+      ['문의', ind.urgent ? `${n} 전화·문자 버튼 고정, 카톡 상담` : `${sv[0]} 견적 문의 폼, 카톡 상담`],
+    ],
+    cost: pick([
+      `JD8의 ${n} 홈페이지는 1:1 맞춤 디자인으로 30만원부터, 평균 7일에 완성합니다. 반응형·기본 SEO·문의 동선이 기본으로 들어가고, 사진이 부족해도 시작할 수 있습니다.`,
+      `${n} 홈페이지는 30만원부터 시작해 평균 7일이면 완성됩니다. 모바일 화면, 검색 기본 설정, 전화·카톡 문의 버튼까지 기본 구성에 포함됩니다.`,
+    ], seed + 'cost'),
+    serviceRows: ind.serviceItems.filter((x) => x.note).slice(0, 6).map((x) => [x.name, polite(x.note), (x.searches[0] || `${x.name} 업체`)]),
+    beyond: `${polite(ind.pain)} 이럴 때는 홈페이지에 '${q[0]}' 같은 검색어를 지역별로 받는 웹문서 페이지를 붙여 영업 지역 전체로 넓힙니다.`,
+    faq: [
+      { q: `${n} 홈페이지에 넣을 사진이 거의 없는데 괜찮을까요?`, a: `괜찮습니다. 가지고 계신 ${sv[0]} 작업 사진부터 쓰고, 부족한 곳은 작업 과정 설명으로 채운 뒤 사진이 생기는 대로 바꿉니다.` },
+      { q: `${n} 홈페이지 제작 기간은 얼마나 걸리나요?`, a: `평균 7일입니다. ${sv[0]}·${sv[1] || sv[0]} 같은 서비스 설명과 사진을 받는 속도에 따라 달라지며, 전 과정 비대면으로 진행합니다.` },
+      { q: `${n} 홈페이지가 있는데 검색이 잘 안 되면요?`, a: `홈페이지 한 장은 상호나 대표 키워드에만 걸리기 쉽습니다. '${q[2] || q[0]}'처럼 지역과 서비스를 붙인 검색은 웹문서 페이지로 받는 것이 효과적입니다.` },
+      { q: `${n} 홈페이지를 만들면 검색 상위에 나오나요?`, a: `순위는 누구도 보장할 수 없습니다. '${q[0]}' 같은 검색어가 제목과 본문에 자연스럽게 들어간 구조와 검색 등록까지 해 드리고, 노출은 검색엔진의 평가에 따라 달라집니다.` },
+    ],
+  };
+}
+
+// ---- 웹문서 업종 페이지: "광고·마케팅 무엇부터" 비교 ----
+export function buildChannelPlan(ind: Industry) {
+  const n = ind.name;
+  const q = ind.searches;
+  const office = isOffice(ind.group);
+  const rows: [string, string][] = [
+    ['파워링크(키워드 광고)', ind.urgent ? `'${q[0]}'처럼 급한 검색을 바로 받지만, 클릭마다 광고비가 나가 ${n} 성수기엔 단가가 오릅니다.` : `${n} 손님이 비교하는 단계에서 보이지만, 비교 클릭이 많아 광고비가 쌓이기 쉽습니다.`],
+    ['네이버 플레이스', `${office ? '사무소' : '매장·사무실'} 근처 '${q[1] || q[0]}' 검색에 강하고 리뷰가 신뢰를 만들지만, 거리 밖 지역에서는 잘 보이지 않습니다.`],
+    ['블로그 광고·체험단', office ? `${n}은(는) 광고 규정상 체험단 후기보다 절차·비용을 설명하는 정보 글이 맞습니다.`.replace(`${n}은(는)`, j(n, '은', '는')) : `${n} 후기와 사진을 보고 고르는 손님에게 효과가 있지만, 지역마다 글을 계속 새로 써야 합니다.`],
+    ['웹문서(지역×서비스 페이지)', `'${q[0]}' 앞에 지역을 붙인 조합 검색을 영업 지역 전체에서 받고, 만든 페이지가 계속 남습니다.`],
+    ['홈페이지', `모든 채널이 도착하는 곳입니다. ${n} 사례와 문의 버튼이 정리돼 있어야 광고비가 새지 않습니다.`],
+  ];
+  const order = office
+    ? `${n}은(는) 홈페이지(사무소 소개·절차) → 웹문서로 상담 지역 확장 → 정보 글 순서를 권합니다.`
+    : ind.urgent
+      ? `${n}은(는) 플레이스 정비 → 파워링크 소액 → 웹문서로 옆 지역까지 확장 순서를 권합니다.`
+      : `${n}은(는) 홈페이지·사례 정리 → 웹문서로 지역 검색 확보 → 블로그 후기 순서를 권합니다.`;
+  return {
+    h2: `${n} 광고·마케팅, 무엇부터 해야 할까요?`,
+    rows,
+    order: order.replace(`${n}은(는)`, j(n, '은', '는')),
   };
 }

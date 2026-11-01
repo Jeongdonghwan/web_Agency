@@ -799,3 +799,5 @@
 }
 .wd-p { line-height: 1.85; margin: 0 0 14px; color: var(--text); }
 .wd-disclaimer { margin: 14px 0 0; font-size: 0.78rem; opacity: 0.75; }
+.wd-table-plain td:last-child { display: table-cell !important; color: var(--text); font-size: 0.92rem; word-break: keep-all; }
+.wd-table-plain th:last-child { display: table-cell !important; }

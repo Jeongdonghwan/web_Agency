@@ -45,10 +45,18 @@ for i in inds:
         if isinstance(s, dict) and s.get('note') and s['name'] != i['name']:
             add(f"{s['name']}-홍보", label(s['name'], i['group']))
 
+# 업종 홈페이지 제작 페이지 (/og/homepage/)
+hmap = json.load(open(os.path.join(ROOT, 'data', 'webdoc', 'homepage-map.json'), encoding='utf-8'))
+hp_items = [{'slug': f"{i['name']}-홈페이지제작", 'title': f"{i['name']} 홈페이지 제작", 'sub': '30만원부터 · 평균 7일 · 비대면'} for i in inds if not hmap.get(i['name'])]
+
 tmp = os.path.join(ROOT, 'data', 'webdoc', '_og_items.json')
 json.dump(items, open(tmp, 'w', encoding='utf-8'), ensure_ascii=False)
 cmd = [sys.executable, '-I', MAKE_OG, '--items', tmp, '--out', os.path.join(ROOT, 'public', 'og', 'webdoc'),
        '--bg', '#0f1b2d', '--accent', '#3b82f6', '--brand', 'JD8 · 웹문서 대량제작', '--phone', '1566-3046']
+subprocess.run(cmd + (['--force'] if '--force' in sys.argv else []), check=True)
+json.dump(hp_items, open(tmp, 'w', encoding='utf-8'), ensure_ascii=False)
+cmd[cmd.index('--out') + 1] = os.path.join(ROOT, 'public', 'og', 'homepage')
+cmd[cmd.index('--brand') + 1] = 'JD8 홈페이지 제작'
 subprocess.run(cmd + (['--force'] if '--force' in sys.argv else []), check=True)
 os.remove(tmp)
 print(len(items), 'pages')

@@ -12,7 +12,7 @@ const CompareSection = () => {
     <section className="lp-compare" id="compare">
       <div className="lp-container">
         <span className="lp-eyebrow">PRICE</span>
-        <h2 className="lp-h2">300만원 가치의 홈페이지를<br />30만원에</h2>
+        <h2 className="lp-h2">무엇이 포함되길래<br />30만원부터인가요?</h2>
         <p className="lp-sub">거품을 뺐을 뿐, 빠져야 할 것은 빼지 않았습니다</p>
 
         <div className="lp-cmp-table">

@@ -23,13 +23,13 @@ const HeroSection = () => {
       <span className="lp-watermark wr" aria-hidden="true">JD8</span>
 
       <div className="lp-hero-inner">
-        <p className="lp-hero-eyebrow">매출이 필요한 사장님께</p>
+        <p className="lp-hero-eyebrow">홈페이지 제작부터 검색 페이지까지</p>
         <h1 className="lp-hero-title">
-          <span className="t-line">예쁘기만 한 홈페이지는</span>
-          <span className="t-line"><span className="accent">매출</span>을 만들지 못합니다</span>
+          <span className="t-line">300만원대 견적의 홈페이지를</span>
+          <span className="t-line"><span className="accent">30만원</span>부터 만듭니다</span>
         </h1>
         <p className="lp-hero-sub">
-          준비된 자료가 없어도 괜찮습니다.<br />
+          기획·맞춤 디자인·반응형·기본 SEO·문의 동선까지 기본 포함. 준비된 자료가 없어도 괜찮습니다.<br />
           <span className="lp-rotator"><span key={wordIdx} className="word">{WORDS[wordIdx]}</span></span> 홈페이지도
           네이버에서 검색되고, 카톡 문의로 이어지게 만들어드립니다.
         </p>
@@ -39,11 +39,14 @@ const HeroSection = () => {
             <KakaoIcon size={20} /> 카톡으로 무료 상담
             <span className="lp-pill-arrow">→</span>
           </a>
-          <a href="#contact" className="lp-pill on-dark">
-            제작 안내 보기
+          <a href="/웹문서/" className="lp-pill on-dark">
+            웹문서 대량제작 보기
             <span className="lp-pill-arrow">→</span>
           </a>
         </div>
+        <p className="lp-hero-note">
+          비교 기준: 일반 제작사 견적 100~300만원 · <a href="#compare">무엇이 포함되는지 보기</a>
+        </p>
 
         <div className="lp-hero-meta">
           <span><b>500+</b>제작 완료</span>
