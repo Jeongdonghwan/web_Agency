@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Paras from '../../../components/webdoc/Paras';
 import { notFound } from 'next/navigation';
 import { ogMeta } from '../../../lib/site';
 import {
@@ -237,7 +238,7 @@ function IndustryPage({ ind }: { ind: IndustryDoc & WebdocPage }) {
         <section className="content-section">
           <h2>{c.whyH2}</h2>
           {c.why.map((t) => (
-            <p key={t} className="wd-p">{t}</p>
+            <Paras key={t} text={t} />
           ))}
           {homepageHref && (
             <p className="wd-p">
@@ -272,7 +273,7 @@ function IndustryPage({ ind }: { ind: IndustryDoc & WebdocPage }) {
 
         <section className="content-section">
           <h2>{c.howH2}</h2>
-          <p className="wd-p">{c.how}</p>
+          <Paras text={c.how} />
           <table className="wd-table">
             <thead>
               <tr>
@@ -294,7 +295,7 @@ function IndustryPage({ ind }: { ind: IndustryDoc & WebdocPage }) {
 
         <section className="content-section">
           <h2>{c.serpH2}</h2>
-          <p className="wd-p">{c.serpText}</p>
+          <Paras text={c.serpText} />
           <SerpMock query={query} items={c.examples.slice(1, 3)} desc={c.serpDesc} />
         </section>
 
@@ -386,15 +387,13 @@ function ServicePage({ svc }: { svc: ServiceDoc & WebdocPage }) {
         <section className="content-section">
           <h2>{c.whatH2}</h2>
           {c.what.map((t) => (
-            <p key={t} className="wd-p">
-              {t}
-            </p>
+            <Paras key={t} text={t} />
           ))}
         </section>
 
         <section className="content-section">
           <h2>{c.pageH2}</h2>
-          <p className="wd-p">{c.page}</p>
+          <Paras text={c.page} />
           <table className="wd-table">
             <thead>
               <tr>
@@ -416,7 +415,7 @@ function ServicePage({ svc }: { svc: ServiceDoc & WebdocPage }) {
 
         <section className="content-section">
           <h2>{c.serpH2}</h2>
-          <p className="wd-p">{c.serpText}</p>
+          <Paras text={c.serpText} />
           <SerpMock query={c.examples[0]} items={c.examples.slice(1, 3)} desc={c.serpDesc} />
         </section>
 
@@ -434,7 +433,7 @@ function ServicePage({ svc }: { svc: ServiceDoc & WebdocPage }) {
 
         <section className="content-section">
           <h2>{c.bundleH2}</h2>
-          <p className="wd-p">{c.bundle}</p>
+          <Paras text={c.bundle} />
         </section>
 
         <Faq title={`${svc.name} 웹문서 자주 묻는 질문`} faq={c.faq} />
@@ -473,7 +472,7 @@ function GroupPage({ g }: { g: GroupDoc & WebdocPage }) {
           <p className="page-lead">{c.description}</p>
         </header>
         <Summary items={c.summary} />
-        {c.intro && <p className="wd-p">{c.intro}</p>}
+        {c.intro && <Paras text={c.intro} />}
         <section className="content-section">
           <h2>{g.group} 업종별 웹문서 구성</h2>
           <div className="static-faq">

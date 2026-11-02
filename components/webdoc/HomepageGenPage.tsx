@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Paras from './Paras';
 import JsonLd from '../seo/JsonLd';
 import {
   buildHomepageContent,
@@ -113,7 +114,7 @@ export default function HomepageGenPage({ doc }: { doc: HomepageGenDoc }) {
 
         <section className="content-section">
           <h2>{doc.name} 홈페이지 비용과 기간</h2>
-          <p className="wd-p">{c.cost}</p>
+          <Paras text={c.cost} />
         </section>
 
         <section className="content-section">
