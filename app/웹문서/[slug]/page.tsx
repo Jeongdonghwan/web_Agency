@@ -34,6 +34,7 @@ import { getIndustryBySlug, industryPath } from '../../../lib/industries';
 import JsonLd from '../../../components/seo/JsonLd';
 import PageCalculator from '../../../components/webdoc/PageCalculator';
 import SerpMock from '../../../components/webdoc/SerpMock';
+import CaseStudy from '../../../components/webdoc/CaseStudy';
 import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd, itemListJsonLd } from '../../../lib/jsonld';
 
 export const dynamicParams = false;
@@ -171,6 +172,7 @@ async function CorePage({ doc }: { doc: CoreDoc & WebdocPage }) {
           <h1>{doc.name}</h1>
           <p className="page-lead">{doc.description}</p>
         </header>
+        {doc.slug === '웹문서-대량제작' && <CaseStudy />}
         <Summary items={doc.summary} />
 
         {doc.painPoints.length > 0 && (

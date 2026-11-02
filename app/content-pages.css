@@ -801,3 +801,13 @@
 .wd-disclaimer { margin: 14px 0 0; font-size: 0.78rem; opacity: 0.75; }
 .wd-table-plain td:last-child { display: table-cell !important; color: var(--text); font-size: 0.92rem; word-break: keep-all; }
 .wd-table-plain th:last-child { display: table-cell !important; }
+
+.wd-case { border: 1px solid var(--border); border-radius: 16px; padding: 24px; background: var(--bg-light, #f7f8fa); }
+.wd-case .page-eyebrow { display: inline-block; margin-bottom: 6px; }
+.wd-case-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+.wd-case-card { margin: 0; background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.wd-case-card img { display: block; width: 100%; height: auto; }
+.wd-case-card figcaption { display: grid; gap: 4px; padding: 12px 14px; font-size: 0.88rem; line-height: 1.6; }
+.wd-case-won { color: var(--accent); font-weight: 700; }
+.wd-case-note { color: var(--text-muted); opacity: 1; }
+@media (max-width: 700px) { .wd-case-grid { grid-template-columns: 1fr; } .wd-case { padding: 18px 16px; } }

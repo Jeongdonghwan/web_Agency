@@ -5,6 +5,7 @@ import { getOpenCore, getOpenGroups, getOpenIndustries, getOpenServices, webdocP
 import JsonLd from '../../components/seo/JsonLd';
 import PageCalculator from '../../components/webdoc/PageCalculator';
 import SerpMock from '../../components/webdoc/SerpMock';
+import CaseStudy from '../../components/webdoc/CaseStudy';
 import { breadcrumbJsonLd, itemListJsonLd, serviceJsonLd } from '../../lib/jsonld';
 
 const TITLE = '웹문서 대량제작 - 홈페이지 제작부터 수천 개 검색 페이지까지 | JD8';
@@ -63,6 +64,7 @@ export default function WebdocHub() {
           <h1>홈페이지 제작부터 수천 개 검색 페이지까지</h1>
           <p className="page-lead">우리 업체를 더 많은 지역에서 검색할 수 있도록 만들어 드립니다. {DESC}</p>
         </header>
+        <CaseStudy />
         <aside className="wd-summary" aria-label="핵심 요약">
           <strong>핵심 요약</strong>
           <ul>
