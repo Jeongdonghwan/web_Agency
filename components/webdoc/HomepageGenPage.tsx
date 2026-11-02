@@ -45,7 +45,7 @@ export default function HomepageGenPage({ doc }: { doc: HomepageGenDoc }) {
         <header className="page-header">
           <span className="page-eyebrow">{doc.group}</span>
           <h1>{c.h1}</h1>
-          <p className="page-lead">{c.description}</p>
+          <Paras text={c.description} per={1} className="page-lead" />
         </header>
         <aside className="wd-summary" aria-label="핵심 요약">
           <strong>핵심 요약</strong>

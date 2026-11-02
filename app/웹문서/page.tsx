@@ -62,7 +62,8 @@ export default function WebdocHub() {
         <header className="page-header">
           <span className="page-eyebrow">WEB DOCUMENT</span>
           <h1>홈페이지 제작부터 수천 개 검색 페이지까지</h1>
-          <p className="page-lead">우리 업체를 더 많은 지역에서 검색할 수 있도록 만들어 드립니다. {DESC}</p>
+          <p className="page-lead">우리 업체를 더 많은 지역에서 검색할 수 있도록 만들어 드립니다.</p>
+          <p className="page-lead">영업 지역 × 서비스마다 업체 소개 페이지를 수백~수천 개까지, 홈페이지 제작부터 검색 등록까지 한 번에.</p>
         </header>
         <CaseStudy />
         <aside className="wd-summary" aria-label="핵심 요약">
@@ -77,8 +78,12 @@ export default function WebdocHub() {
         <section className="content-section">
           <h2>홈페이지 하나만 만들어 놓고 고객을 기다리지 마세요</h2>
           <p className="wd-p">
-            홈페이지 한 장은 업체 이름이나 대표 키워드 몇 개에만 걸립니다. 손님은 사는 동네와 필요한 작업을 붙여 검색하기 때문에, 영업 지역과 서비스를 조합한 검색어마다 업체 소개 페이지가 있어야 그 검색에 걸릴 기회가 생깁니다. 예를 들어 하수구 업체라면 이런 검색어마다 페이지를 만듭니다.
+            홈페이지 한 장은 업체 이름이나 대표 키워드 몇 개에만 걸립니다.
           </p>
+          <p className="wd-p">
+            손님은 사는 동네와 필요한 작업을 붙여 검색합니다. 그래서 영업 지역 × 서비스 검색어마다 업체 소개 페이지가 있어야 그 검색에 걸릴 기회가 생깁니다.
+          </p>
+          <p className="wd-p">예를 들어 하수구 업체라면 이런 검색어마다 페이지를 만듭니다.</p>
           <ul className="point-list">
             {EXAMPLE.map((t) => (
               <li key={t}>{t}</li>

@@ -9,9 +9,9 @@ export default function CaseStudy() {
     <section className="content-section wd-case" aria-label="실제 고객사 사례">
       <span className="page-eyebrow">실제 고객사 사례</span>
       <h2>웹문서 약 5천 페이지 고객사, 지난달 대비 노출 +200~337%</h2>
-      <p className="wd-p">
-        JD8이 웹문서를 제작한 실제 고객사 사이트 2곳의 네이버 서치어드바이저 화면입니다(업체명 비공개 · 2026.11.01 기준, 최근 30일). 지역×서비스 검색 페이지를 연 뒤 노출과 클릭이 한 달 새 크게 늘었고, 만든 페이지는 광고처럼 끄면 사라지지 않고 계속 검색을 받습니다.
-      </p>
+      <p className="wd-case-meta">네이버 서치어드바이저 · 최근 30일 · 2026.11.01 기준 · 업체명 비공개</p>
+      <p className="wd-p">JD8이 웹문서를 제작한 실제 고객사 사이트 2곳입니다.</p>
+      <p className="wd-p">지역×서비스 검색 페이지를 연 뒤 노출과 클릭이 한 달 새 크게 늘었습니다. 만든 페이지는 광고처럼 끄면 사라지지 않고 계속 검색을 받습니다.</p>
       <div className="wd-case-grid">
         {CASES.map((c) => (
           <figure className="wd-case-card" key={c.id}>

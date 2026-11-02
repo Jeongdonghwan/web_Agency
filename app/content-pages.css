@@ -827,3 +827,12 @@
   .wd-table-plain td:first-child { white-space: normal; }
   .content-section { margin-bottom: 40px; }
 }
+
+/* ===== 가독성 2: 소개 문구·사례 블록 여백 ===== */
+.page-header .page-lead { margin: 0 0 8px; line-height: 1.8; }
+.page-header .page-lead:last-child { margin-bottom: 0; }
+.wd-case h2 { margin-bottom: 6px; }
+.wd-case-meta { margin: 0 0 18px; font-size: 0.82rem; color: var(--text-muted); }
+.wd-case .wd-p { margin-bottom: 10px; }
+.wd-summary ul { padding-left: 20px; }
+.wd-summary li { line-height: 1.75; margin: 8px 0; }

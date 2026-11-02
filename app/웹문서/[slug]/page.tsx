@@ -171,7 +171,7 @@ async function CorePage({ doc }: { doc: CoreDoc & WebdocPage }) {
         <header className="page-header">
           <span className="page-eyebrow">웹문서 대량제작</span>
           <h1>{doc.name}</h1>
-          <p className="page-lead">{doc.description}</p>
+          <Paras text={doc.description} per={1} className="page-lead" />
         </header>
         {doc.slug === '웹문서-대량제작' && <CaseStudy />}
         <Summary items={doc.summary} />
@@ -231,7 +231,7 @@ function IndustryPage({ ind }: { ind: IndustryDoc & WebdocPage }) {
         <header className="page-header">
           <span className="page-eyebrow">{ind.group}</span>
           <h1>{c.h1}</h1>
-          <p className="page-lead">{c.description}</p>
+          <Paras text={c.description} per={1} className="page-lead" />
         </header>
         <Summary items={c.summary} />
 
@@ -380,7 +380,7 @@ function ServicePage({ svc }: { svc: ServiceDoc & WebdocPage }) {
             {svc.group} · {svc.parent.name}
           </span>
           <h1>{c.h1}</h1>
-          <p className="page-lead">{c.description}</p>
+          <Paras text={c.description} per={1} className="page-lead" />
         </header>
         <Summary items={c.summary} />
 
@@ -469,7 +469,7 @@ function GroupPage({ g }: { g: GroupDoc & WebdocPage }) {
         <header className="page-header">
           <span className="page-eyebrow">업종군 안내</span>
           <h1>{c.h1}</h1>
-          <p className="page-lead">{c.description}</p>
+          <Paras text={c.description} per={1} className="page-lead" />
         </header>
         <Summary items={c.summary} />
         {c.intro && <Paras text={c.intro} />}
