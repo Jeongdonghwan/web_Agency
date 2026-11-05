@@ -580,6 +580,11 @@ export function adMarketingHref(name: string): string {
     ? `${AD_SITE}/industry/${encodeURIComponent(`${name}-마케팅`)}/`
     : `${AD_SITE}/service/${encodeURIComponent('블로그-마케팅')}/`;
 }
+const AD_BRAND_FULL_OPEN = '2026-11-17';
+export function adBrandHref(name: string, group: string): string | null {
+  if (todayKst() < AD_BRAND_FULL_OPEN) return null;
+  return `${AD_SITE}/brand/${encodeURIComponent(`${name}-${group === '프랜차이즈 본사' ? '가맹' : '브랜드'}-마케팅`)}/`;
+}
 export const adServiceHref = (urlSlug: string) => `${AD_SITE}/service/${encodeURIComponent(urlSlug)}/`;
 
 export function buildHomepageContent(ind: HomepageGenDoc) {

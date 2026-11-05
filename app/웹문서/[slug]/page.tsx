@@ -21,6 +21,7 @@ import {
   homepageGenHrefFor,
   adMarketingHref,
   adServiceHref,
+  adBrandHref,
   DISCLAIMER,
   webdocPath,
   webdocEncodedPath,
@@ -275,8 +276,16 @@ function IndustryPage({ ind }: { ind: IndustryDoc & WebdocPage }) {
             {plan.order}{' '}
             {isBrand(ind.group) ? (
               <>
-                오픈마켓·인플루언서 운영은 <a href={adServiceHref('스마트스토어-마케팅')}>스마트스토어 마케팅</a>과{' '}
-                <a href={adServiceHref('인스타그램-마케팅')}>인스타그램 마케팅</a>에서 따로 볼 수 있습니다.
+                {adBrandHref(ind.name, ind.group) ? (
+                  <>
+                    채널 운영은 <a href={adBrandHref(ind.name, ind.group)!}>{ind.name} {ind.group === '프랜차이즈 본사' ? '가맹' : '브랜드'} 마케팅 대행 안내</a>에서 따로 볼 수 있습니다.
+                  </>
+                ) : (
+                  <>
+                    오픈마켓·인플루언서 운영은 <a href={adServiceHref('스마트스토어-마케팅')}>스마트스토어 마케팅</a>과{' '}
+                    <a href={adServiceHref('인스타그램-마케팅')}>인스타그램 마케팅</a>에서 따로 볼 수 있습니다.
+                  </>
+                )}
               </>
             ) : (
               <>
