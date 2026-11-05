@@ -50,6 +50,10 @@ _DATA = _json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__
 INDUSTRY_GROUPS = {}
 for _it in _DATA:
     INDUSTRY_GROUPS.setdefault(_it['group'], []).append(_it['name'])
+BRAND_GROUPS = {'화장품 브랜드', '건강기능식품 브랜드', '식품 브랜드', '생활·펫 브랜드', '프랜차이즈 본사'}
+BRANDS = [i for i in _DATA if i['group'] in BRAND_GROUPS]
+_TASKS_F = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', 'data', 'webdoc', 'brand-tasks.json')
+TASKS = _json.load(open(_TASKS_F, encoding='utf-8')) if _os.path.exists(_TASKS_F) else []
 SERVICES = []  # (서비스명, 업종명) — 서비스 페이지가 있는 것만 (사이트 규칙: note 있고 업종명과 다르고 slug 안 겹침)
 _taken = {f"{n}-홍보" for n in (i['name'] for i in _DATA)}
 for _it in _DATA:
@@ -122,12 +126,16 @@ def build():
             for m in INFO_MODS:
                 add(f'{kw} {m}', url, f'핵심-{grp}', '정보', '블로그')
     for i in INDUSTRIES:
+        if GROUP_OF.get(i) in BRAND_GROUPS:
+            continue
         for p, u, intent in IND_ANGLES:
             add(p.format(i=i), u.format(i=i), '업종', intent, '페이지' if intent == '구매' else '블로그', ind=i)
     # 홈페이지 제작 (jd8: 기존 업종 페이지 또는 새 업종 홈페이지 페이지) / 마케팅 (ad.jd8 업종 마케팅 페이지)
     _links = _json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', '..', 'JD8-marketing', 'data', 'industry', 'jd8-links.json'), encoding='utf-8'))
     AD = 'https://ad.jd8.co.kr/industry/'
     for i in INDUSTRIES:
+        if GROUP_OF.get(i) in BRAND_GROUPS:
+            continue
         hp = _links.get(i, {}).get('homepage')
         for p in ['{i} 홈페이지 제작', '{i} 홈페이지', '{i} 업체 홈페이지 제작', '{i} 홈페이지 제작 비용']:
             if hp:
@@ -137,6 +145,21 @@ def build():
             add(p.format(i=i), f'{AD}{i}-마케팅/', '마케팅', '구매', '페이지', ind=i)
         for p in ['{i} 블로그 광고 효과 있을까', '{i} 블로그 마케팅 하는 법', '{i} 체험단 마케팅 주의할 점', '{i} 마케팅 비용 얼마나 들까', '{i} 플레이스 리뷰 관리 방법']:
             add(p.format(i=i), '', '마케팅-정보', '정보', '블로그', ind=i)
+    # 브랜드 본사: 본사 담당자 검색어만 페이지로 (소비자 검색어는 페이지 안 예시)
+    for b in BRANDS:
+        n, fr = b['name'], b['group'] == '프랜차이즈 본사'
+        angles = (['{i} 본사 홍보', '{i} 가맹점 모집', '{i} 가맹 광고', '{i} 창업 홍보', '{i} 가맹점 모집 광고', '{i} 웹문서']
+                  if fr else ['{i} 브랜드 홍보', '{i} 브랜드 마케팅', '{i} 광고 대행', '{i} 런칭 마케팅', '{i} 브랜드 웹문서', '{i} 판매처 모집', '{i} 대리점 모집', '{i} 온라인 홍보'])
+        for p in angles:
+            add(p.format(i=n), f'{n}-홍보', '브랜드', '구매', '페이지', ind=n)
+        for q in b['searches']:
+            add(q, f'{n}-홍보', '브랜드', '구매', '페이지', ind=n)
+        for p in (['{i} 가맹점 모집 광고 주의사항', '{i} 창업 문의 늘리는 법'] if fr else ['{i} 광고 금지 표현', '{i} 브랜드 런칭 순서', '{i} 판매처 늘리는 법']):
+            add(p.format(i=n), '', '브랜드-정보', '정보', '블로그', ind=n)
+    for t in TASKS:
+        add(f"{t['group']} {t['name']}", t['slug'], '본사 업무', '구매', '페이지')
+        for q in t['searches']:
+            add(q, t['slug'], '본사 업무', '구매', '페이지')
     for sv, ind in SERVICES:
         for p, intent in [('{s} 업체 홍보', '구매'), ('{s} 홍보', '구매'), ('{s} 마케팅', '구매'), ('{s} 웹문서', '구매'), ('{s} 업체 손님 늘리는 법', '정보')]:
             add(p.format(s=sv), f'{sv}-홍보', '서비스', intent, '페이지' if intent == '구매' else '블로그', ind=ind)

@@ -11,7 +11,14 @@ MAKE_OG = os.path.expanduser('~/.claude/skills/seo-foundation/scripts/make_og.py
 SUB = '이 자리에 사장님 업체가 나옵니다'
 
 
+BRAND = {'화장품 브랜드', '건강기능식품 브랜드', '식품 브랜드', '생활·펫 브랜드', '프랜차이즈 본사'}
+
+
 def label(name, group):
+    if group == '프랜차이즈 본사':
+        return f'{name} 본사 홍보'
+    if group in BRAND:
+        return f'{name} 브랜드 홍보'
     if group == '법률·전문직':
         return f'{name} 홍보'
     if group == '회생·채무':
@@ -37,13 +44,18 @@ for f in sorted(os.listdir(core_dir)):
 
 inds = json.load(open(os.path.join(ROOT, 'data', 'webdoc', 'industries.json'), encoding='utf-8'))
 for g in dict.fromkeys(i['group'] for i in inds):
-    add(f"{g.replace('·', '-')}-업체-웹문서", f'{g} 업체 웹문서')
+    add(f"{g.replace('·', '-')}-업체-웹문서", f'{g} 웹문서' if g in BRAND else f'{g} 업체 웹문서')
 for i in inds:
     add(f"{i['name']}-홍보", label(i['name'], i['group']))
 for i in inds:
     for s in i['services']:
         if isinstance(s, dict) and s.get('note') and s['name'] != i['name']:
             add(f"{s['name']}-홍보", label(s['name'], i['group']))
+
+tf = os.path.join(ROOT, 'data', 'webdoc', 'brand-tasks.json')
+if os.path.exists(tf):
+    for t in json.load(open(tf, encoding='utf-8')):
+        add(t['slug'], f"{t['group']} {t['name']}")
 
 # 업종 홈페이지 제작 페이지 (/og/homepage/)
 hmap = json.load(open(os.path.join(ROOT, 'data', 'webdoc', 'homepage-map.json'), encoding='utf-8'))

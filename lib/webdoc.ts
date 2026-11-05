@@ -38,6 +38,7 @@ export interface Industry {
   decide: string;
   pain: string;
   regulated: string | null;
+  hq?: string; // 브랜드 본사용: 본사 운영 관점 필요
 }
 
 export interface IndustryDoc extends Industry {
@@ -61,7 +62,7 @@ export interface GroupDoc {
   group: string;
 }
 
-export type WebdocPage = (CoreDoc | GroupDoc | IndustryDoc | ServiceDoc) & { order: number; openDate: string };
+export type WebdocPage = (CoreDoc | GroupDoc | IndustryDoc | ServiceDoc | BrandTask) & { order: number; openDate: string };
 
 // ---- 단계 오픈: data/webdoc/schedule.json (scripts/webdoc_schedule.py 로 관리) ----
 // 묶음마다 오픈일·일정(2주: 25→40→55→70→85→100%)·slug 순서가 고정돼 있다. 서버가 하루 두 번 빌드하므로 날짜만 지나면 자동 공개.
@@ -143,7 +144,7 @@ export function getAllWebdocPages(): WebdocPage[] {
   if (cache) return cache;
   const core = loadCore();
   const industries: IndustryDoc[] = roundRobin(loadRaw()).map((it) => ({ ...it, kind: 'industry', slug: `${it.name}-홍보` }));
-  const groups: GroupDoc[] = [...new Set(industries.map((i) => i.group))].map((g) => ({ kind: 'group', slug: groupSlug(g), name: `${g} 업체 웹문서`, group: g }));
+  const groups: GroupDoc[] = [...new Set(industries.map((i) => i.group))].map((g) => ({ kind: 'group', slug: groupSlug(g), name: isBrand(g) ? `${g} 웹문서` : `${g} 업체 웹문서`, group: g }));
   const taken = new Set<string>([...core.map((c) => c.slug), ...groups.map((g) => g.slug), ...industries.map((i) => i.slug)]);
   // 서비스 페이지: 업종마다 k번째 서비스를 돌아가며 — 앞 묶음에 모든 업종의 대표 서비스가 들어가게
   const services: ServiceDoc[] = [];
@@ -158,7 +159,9 @@ export function getAllWebdocPages(): WebdocPage[] {
       services.push({ ...sv, kind: 'service', slug, group: ind.group, parent: ind });
     }
   }
-  const all = [...core, ...groups, ...industries, ...services];
+  // 브랜드 본사 업무 페이지 — 맨 뒤 (기존 페이지 순서에 영향 없음)
+  const tasks = loadBrandTasks().filter((t) => !taken.has(t.slug));
+  const all = [...core, ...groups, ...industries, ...services, ...tasks];
   const schedule = loadSchedule();
   // 일정에 없는 페이지는 openDate 를 먼 미래로 — 목록·사이트맵·라우트 어디에도 나오지 않는다
   return (cache = all.map((p, order) => ({ ...p, order, openDate: schedule.get(p.slug) || '9999-12-31' })));
@@ -168,6 +171,7 @@ export const getOpenWebdocPages = () => getAllWebdocPages().filter((p) => p.open
 export const getOpenCore = () => getOpenWebdocPages().filter((p): p is CoreDoc & WebdocPage => p.kind === 'core');
 export const getOpenGroups = () => getOpenWebdocPages().filter((p): p is GroupDoc & WebdocPage => p.kind === 'group');
 export const getOpenIndustries = () => getOpenWebdocPages().filter((p): p is IndustryDoc & WebdocPage => p.kind === 'industry');
+export const getOpenTasks = () => getOpenWebdocPages().filter((p): p is BrandTask & WebdocPage => p.kind === 'task');
 export const getOpenServices = () => getOpenWebdocPages().filter((p): p is ServiceDoc & WebdocPage => p.kind === 'service');
 export const getWebdocPage = (slug: string) => {
   let key = slug;
@@ -186,8 +190,11 @@ export const DISCLAIMER = '※ 검색 등록을 지원하며 실제 검색 노�
 const OFFICE_GROUPS = ['회생·채무', '법률·전문직', '대출·금융'];
 export const isOffice = (group: string) => OFFICE_GROUPS.includes(group);
 export const industryTitle = (name: string, group: string) =>
-  group === '법률·전문직' ? `${name} 홍보` : group === '회생·채무' ? `${name} 사무소 홍보` : `${name} 업체 홍보`;
-export const pageName = (p: WebdocPage) => (p.kind === 'core' || p.kind === 'group' ? p.name : industryTitle(p.name, p.group));
+  group === '프랜차이즈 본사' ? `${name} 본사 홍보`
+  : BRAND_GROUPS.includes(group) ? `${name} 브랜드 홍보`
+  : group === '법률·전문직' ? `${name} 홍보` : group === '회생·채무' ? `${name} 사무소 홍보` : `${name} 업체 홍보`;
+export const pageName = (p: WebdocPage) =>
+  p.kind === 'core' || p.kind === 'group' ? p.name : p.kind === 'task' ? `${p.group} ${p.name}` : industryTitle(p.name, p.group);
 const OFFICE_WORDS: [RegExp, string][] = [
   [/작업 사진·사례/g, '상담 사례·안내 자료'], [/작업 사진과 사례/g, '상담 사례와 안내 자료'], [/작업 사진/g, '상담 안내 자료'],
   [/작업 기록/g, '상담 사례'], [/현장 사진/g, '상담 사례'], [/작업 과정/g, '상담 절차'], [/실제 사진·사례/g, '실제 상담 사례'],
@@ -326,6 +333,7 @@ function faqFor(ind: IndustryDoc, regions: string[]) {
 }
 
 export function buildIndustryContent(ind: IndustryDoc) {
+  if (isBrand(ind.group)) return composeBrand(ind);
   const c = composeIndustry(ind);
   if (!isOffice(ind.group)) return c;
   return LEGAL_GROUPS.includes(ind.group) ? legalize(officeize(c)) : officeize(c);
@@ -503,13 +511,13 @@ export function buildGroupContent(g: GroupDoc, industries: IndustryDoc[]) {
   const notes = GROUP_NOTE[g.group] || [];
   const office = isOffice(g.group);
   return {
-    title: `${g.group} 업체 웹문서 제작 - 업종별 지역 검색 페이지 | JD8`,
+    title: isBrand(g.group) ? `${g.group} 웹문서 제작 - 본사용 검색 페이지 | JD8` : `${g.group} 업체 웹문서 제작 - 업종별 지역 검색 페이지 | JD8`,
     description: `${g.group} 업종(${names.slice(0, 4).join('·')} 등)의 영업 지역 × 서비스 검색 페이지 제작 안내. 업종별 페이지 구성과 필요한 페이지 수를 확인하세요.`,
-    h1: `${g.group} 업체 웹문서 제작`,
+    h1: isBrand(g.group) ? `${g.group} 웹문서 제작` : `${g.group} 업체 웹문서 제작`,
     summary: [
       `${g.group} 업종 ${names.length}개(${names.slice(0, 5).join(', ')} 등)의 웹문서 구성을 모았습니다.`,
       ...notes.slice(0, 1),
-      office ? '상담 지역 × 사건·상품 유형마다 페이지를 만들고, 광고 규정에 맞춰 문구를 씁니다.' : '영업 지역 × 서비스마다 페이지를 만들고, 실제 사진·사례로 채웁니다.',
+      isBrand(g.group) ? '제품·고민별 검색, 판매처·가맹 지역 검색마다 공식 페이지를 만들고, 광고 규정에 맞춰 문구를 검수합니다.' : office ? '상담 지역 × 사건·상품 유형마다 페이지를 만들고, 광고 규정에 맞춰 문구를 씁니다.' : '영업 지역 × 서비스마다 페이지를 만들고, 실제 사진·사례로 채웁니다.',
     ],
     intro: notes.slice(1).join(' '),
     cards: industries.map((i) => ({ slug: i.slug, name: industryTitle(i.name, i.group), pain: polite(i.pain), services: i.services.slice(0, 4) })),
@@ -633,6 +641,32 @@ function composeHomepage(ind: HomepageGenDoc) {
 
 // ---- 웹문서 업종 페이지: "광고·마케팅 무엇부터" 비교 ----
 export function buildChannelPlan(ind: Industry) {
+  if (isBrand(ind.group)) {
+    const n = ind.name;
+    const fr = ind.group === '프랜차이즈 본사';
+    const rows: [string, string][] = fr
+      ? [
+          ['파워링크(창업 키워드)', `'${n} 창업' 같은 예비 점주 검색을 받지만 창업 키워드는 클릭 단가가 높습니다.`],
+          ['창업 박람회·중개 플랫폼', `${n} 예비 점주를 한 번에 만나지만 다른 브랜드와 나란히 비교됩니다.`],
+          ['블로그·인스타', `${n} 매장 분위기와 점주 이야기를 보여 주지만 지역별로 계속 써야 합니다.`],
+          ['웹문서(지역 가맹·지점 페이지)', `지역별 ${n} 창업·지점 검색마다 본사 공식 정보가 남아 계속 검색을 받습니다.`],
+          ['본사 홈페이지', `가맹 조건·정보공개서 안내·상담 신청이 모이는 곳입니다. ${n} 브랜드 신뢰의 기준이 됩니다.`],
+        ]
+      : [
+          ['쇼핑검색광고·오픈마켓 광고', `${n} 같은 상품 검색을 바로 받지만, 광고를 끄면 노출도 끝납니다.`],
+          ['스마트스토어·쿠팡', `${n} 구매가 일어나는 곳이라 리뷰·상세페이지 관리가 매출을 좌우합니다.`],
+          ['인스타·인플루언서', `${n} 인지도를 만들지만 협찬 게시물은 대가성 표기가 필수입니다.`],
+          ['블로그 체험단', `'${(ind as IndustryDoc).serviceItems?.[0]?.name || n}' 같은 후기 검색을 채우지만 대가성 표기와 표현 검수가 함께 필요합니다.`],
+          ['웹문서(제품·판매처 페이지)', `${n} 고민·대상별 검색과 판매처 검색에 공식 정보가 남아 계속 유입됩니다.`],
+        ];
+    return {
+      h2: `${n} ${fr ? '본사' : '브랜드'} 광고·마케팅, 무엇부터 해야 할까요?`,
+      rows,
+      order: fr
+        ? `${n} 본사는 홈페이지(가맹 조건) 정비 → 지역 가맹·지점 웹문서 → 창업 키워드 광고 순서를 권합니다.`
+        : `${n} 브랜드는 오픈마켓 상세·리뷰 정비 → 제품·판매처 웹문서 → 인플루언서·광고 확대 순서를 권합니다.`,
+    };
+  }
   const n = ind.name;
   const q = ind.searches;
   const office = isOffice(ind.group);
@@ -652,5 +686,172 @@ export function buildChannelPlan(ind: Industry) {
     h2: `${n} 광고·마케팅, 무엇부터 해야 할까요?`,
     rows,
     order: order.replace(`${n}은(는)`, j(n, '은', '는')),
+  };
+}
+
+// ==== 브랜드 본사 (제조·유통 브랜드, 프랜차이즈 본사) ====
+// 판매 페이지가 노리는 말은 본사 담당자의 검색어("유산균 브랜드 마케팅", "가맹점 모집 광고").
+// 소비자 검색어("아기 유산균 추천")는 "이렇게 만들어 드린다" 예시 표에만 쓴다. 효능·효과 표현은 절대 쓰지 않는다.
+export const BRAND_GROUPS = ['화장품 브랜드', '건강기능식품 브랜드', '식품 브랜드', '생활·펫 브랜드', '프랜차이즈 본사'];
+export const isBrand = (group: string) => BRAND_GROUPS.includes(group);
+const isFranchise = (group: string) => group === '프랜차이즈 본사';
+
+Object.assign(GROUP_NOTE, {
+  '화장품 브랜드': ['화장품은 소비자가 피부 고민·성분·대상으로 잘게 검색하는 시장이라, 제품명 하나로는 그 검색들을 받지 못합니다.', '화장품 광고는 의약품으로 오인될 표현을 쓰면 안 되고 기능성은 심사받은 내용만 쓸 수 있어, 검색 페이지 문구도 이 기준으로 검수해야 합니다.'],
+  '건강기능식품 브랜드': ['건강기능식품은 광고 전에 표시·광고 심의를 받아야 해서, 검색 페이지도 심의받은 문구와 원료·제품 정보 위주로 구성해야 합니다.', '영양제 시장은 원료·함량·대상별 비교 검색이 많아, 비교 단계에서 공식 정보가 보이는 브랜드가 신뢰를 얻습니다.'],
+  '식품 브랜드': ['식품은 일반식품을 건강기능식품처럼 광고하면 안 되므로, 원재료·제조 방식·먹는 상황 중심의 검색 페이지가 맞습니다.', '식품 브랜드는 선물·간편식·지역 특산처럼 구매 상황별 검색이 많아 상황별 페이지가 유입 통로가 됩니다.'],
+  '생활·펫 브랜드': ['생활·펫 제품은 사용 대상과 상황(반려동물 나이, 아기 월령, 공간)별로 검색이 나뉘어 상황별 페이지가 필요합니다.', '생활·펫 브랜드는 오픈마켓 판매 비중이 커서 공식몰과 판매처 정보를 검색에서 정리해 두는 것이 중요합니다.'],
+  '프랜차이즈 본사': ['프랜차이즈 본사는 예비 점주가 지역·창업 비용·가맹 조건을 검색하며 비교하는 단계에서 정확한 정보로 보여야 합니다.', '가맹점이 늘수록 "지역 + 브랜드" 지점 검색도 늘어, 지점 찾기와 가맹 모집 페이지를 지역별로 두는 본사가 유리합니다.'],
+});
+
+export function composeBrand(ind: IndustryDoc) {
+  const n = ind.name;
+  const g = ind.group;
+  const fr = isFranchise(g);
+  const seed = ind.slug;
+  const label = industryTitle(n, g);
+  const owner = ind.searches;
+  const consumer = ind.serviceItems.map((x) => x.name);
+  const mods = fr ? [''] : ['', ' 추천', ' 비교', ' 성분', ' 후기'];
+  const examples = fr
+    ? ind.serviceItems.flatMap((x) => (x.searches.length ? x.searches.slice(0, 1) : [x.name])).slice(0, 8)
+    : consumer.slice(0, 5).flatMap((c, k) => [c, `${c}${mods[1 + (k % (mods.length - 1))]}`]).slice(0, 10);
+  const fill = (t: string) => t.replace(/\{n\}/g, n);
+  return {
+    label,
+    title: `${label} - ${fr ? '가맹 모집·지점 검색 페이지' : '제품·고민별 검색 페이지'} 웹문서 제작 | JD8`,
+    description: fr
+      ? `${label}는 지역별 가맹 모집·창업 문의·지점 찾기 검색 페이지로. '${owner[0]}' 같은 본사 고민에 맞춰 예비 점주와 고객이 찾는 검색어마다 공식 페이지를 만듭니다.`
+      : `${label}는 제품·고민·대상별 검색 페이지로. 공식몰 유입, 판매처·대리점 안내, 입점 문의까지 본사가 필요한 검색 페이지를 광고 규정에 맞춰 만듭니다.`,
+    h1: fr ? `${n} 본사 홍보, 가맹 모집부터 지점 검색까지` : `${n} 브랜드 홍보, 제품 검색부터 판매처 안내까지`,
+    summary: [
+      fr
+        ? `예비 점주는 '${examples[0]}'처럼 지역·비용을 붙여 검색하고, 고객은 지점을 찾습니다. 두 검색 모두에 공식 페이지를 둡니다.`
+        : `${n} 소비자는 '${consumer[0]}', '${consumer[1] || consumer[0]}'처럼 고민·대상을 붙여 검색합니다. 그 검색마다 공식 정보 페이지를 둡니다.`,
+      fr ? `${n} 본사용 구성: 지역별 가맹 모집, 창업 문의, 지점 찾기, 브랜드 검색 정리.` : `${n} 본사용 구성: 공식몰 유입, 판매처·대리점 안내, 입점 문의, 브랜드 검색 정리.`,
+      `${polite(ind.regulated || '광고 표시 기준을 지켜야 한다')} 효능·과장 표현 없이 만듭니다.`,
+    ],
+    whyH2: fill(pick([fr ? '{n} 본사, 왜 웹문서가 필요할까요?' : '{n} 브랜드, 왜 웹문서가 필요할까요?', '{n} 본사가 검색에서 놓치는 곳은 어디일까요?'], seed + 'w')),
+    why: [
+      `${polite(ind.pain)} ${polite(ind.decide)}`,
+      `${j(n, '은', '는')} ${polite(ind.radius)} ${pick(GROUP_NOTE[g] || [''], seed + 'g')}`,
+      `${polite(ind.season)} ${polite(ind.hq || '본사 문의 창구가 함께 필요하다')}`,
+    ],
+    howH2: fr ? `${n} 가맹·지점 검색 페이지 예시` : `${n} 제품 검색 페이지 예시`,
+    how: fr
+      ? pick([`예비 점주와 고객이 실제로 쓰는 검색어마다 ${n} 공식 페이지를 만듭니다. 아래는 예시이며, 실제로는 본사의 가맹 가능 지역과 지점 목록으로 다시 짭니다.`, `'${examples[0]}'처럼 예비 점주가 지역·비용을 붙여 찾는 말이 ${n} 페이지 이름이 됩니다. 실제 제작 때는 가맹 우선 지역부터 짭니다.`], seed + 'how')
+      : pick([`소비자가 쓰는 고민·대상 검색어마다 ${n} 공식 정보 페이지를 만듭니다. 아래는 예시이며, 실제로는 라인업과 심의받은 문구 범위 안에서 짭니다.`, `'${consumer[0]}', '${consumer[2] || consumer[0]}'처럼 소비자가 붙이는 말이 ${n} 페이지 이름이 됩니다. 실제 제작 때는 주력 제품부터 짭니다.`], seed + 'how'),
+    examples,
+    regions: Array(fr ? 10 : consumer.length).fill(''),
+    total: (fr ? 10 : consumer.length) * (fr ? consumer.length : mods.length),
+    calcTitle: fr ? `${n} 본사는 페이지가 몇 개 필요할까?` : `${n} 브랜드는 페이지가 몇 개 필요할까?`,
+    calcFirst: fr ? ['가맹 지역', '곳'] : ['제품 키워드', '개'],
+    calcSecond: fr ? `${n} 검색 유형` : '검색 형태',
+    calcSecondCount: fr ? consumer.length : mods.length,
+    serpH2: `${examples[0]} 검색에 공식 페이지가 보이게`,
+    serpText: fr
+      ? `'${examples[0]}' 검색을 한 예비 점주가 블로그 후기·중개 사이트보다 먼저 본사 공식 정보를 보게 만드는 것이 목표입니다.`
+      : `'${examples[0]}' 검색 결과에 ${n} 공식 페이지가 있으면, 소비자가 리셀러·비교 글보다 먼저 정확한 제품 정보를 보게 됩니다.`,
+    serpDesc: fr ? `${n} 가맹 조건 안내, 창업 절차, 지점 찾기 — 가맹 문의로 바로 연결됩니다.` : `${n} 제품 정보, 공식 판매처, 자주 묻는 질문 — 공식몰로 바로 연결됩니다.`,
+    inclH2: '페이지마다 들어가는 것',
+    features: [
+      { h: '공식 정보와 출처', p: fr ? `${n} 가맹 조건·창업 절차는 정보공개서와 같은 내용으로만 씁니다.` : `${n} 제품 정보는 본사가 준 라벨·심의 문구 범위 안에서만 씁니다.` },
+      { h: '전용 썸네일', p: `'${examples[0]}' 같은 검색어와 ${n} 브랜드명이 들어간 썸네일을 페이지마다 만듭니다.` },
+      { h: fr ? '가맹 문의 버튼' : '공식몰·판매처 연결', p: fr ? `${n} 페이지마다 가맹 상담 버튼과 지점 찾기 링크를 둡니다.` : `${consumer[1] || n} 같은 페이지마다 공식몰·스마트스토어·판매처로 가는 버튼을 둡니다.` },
+      { h: '구조화 데이터와 캐러셀', p: `${fr ? '지점' : consumer.slice(0, 2).join('·') + ' 같은 제품'} 목록을 캐러셀(ItemList) 데이터로 표시해 ${n} 페이지끼리 연결합니다.` },
+      { h: '등록과 단계 오픈', p: `${polite(ind.season)} 수요가 오르기 전에 ${n} 주력 페이지가 수집되도록 묶음별로 엽니다.` },
+    ],
+    hqBlock: {
+      h2: fr ? `${n} 본사라면 함께 만드는 페이지` : `${n} 본사라면 함께 만드는 페이지`,
+      items: fr
+        ? [
+            ['지역별 가맹 모집', `'${examples[1] || examples[0]}'처럼 지역을 붙인 ${n} 창업 검색마다 가맹 안내 페이지를 둡니다.`],
+            ['지점 찾기', `${n} 가맹점이 생길 때마다 "지역 + 브랜드" 지점 페이지를 추가해 고객 검색을 받습니다.`],
+            ['창업 설명회·상담', `${polite(ind.hq || '가맹 문의 창구가 필요하다')} 설명회 일정과 상담 신청을 페이지에서 바로 받습니다.`],
+            ['브랜드 검색 정리', `'${owner[1] || owner[0]}'를 고민하는 본사라면, 브랜드명 검색에 공식 가맹 정보가 먼저 보이게 정리합니다.`],
+          ]
+        : [
+            ['공식몰 유입', `${consumer.slice(0, 2).join('·')} 같은 ${n} 검색에서 공식몰로 바로 들어오게 합니다.`],
+            ['판매처·대리점 안내', `${polite(ind.radius)} 지역별 판매처와 대리점 위치를 검색 페이지로 정리합니다.`],
+            ['입점·B2B 문의', `${polite(ind.hq || '입점 문의 창구가 필요하다')} 문의 전용 페이지를 따로 둡니다.`],
+            ['브랜드 검색 정리', `${n} 브랜드명 검색에 리셀러·모조품보다 공식 정보가 먼저 보이게 정리합니다.`],
+          ],
+    },
+    stepH2: '진행 순서',
+    steps: fr
+      ? [`${n} 가맹 가능 지역과 정보공개서 기준 안내 범위를 받습니다`, `'${examples[0]}' 같은 예비 점주 검색어와 지점 목록으로 페이지 이름을 정합니다`, `${n} 정보공개서와 다른 숫자·표현이 없는지 검수합니다`, '묶음별로 공개하고 가맹 문의 유입을 확인합니다']
+      : [`${n} 라인업과 심의받은 문구·라벨 정보를 받습니다`, `'${consumer[0]}' 같은 소비자 검색어와 판매처 지역으로 페이지 이름을 정합니다`, `${n} 문구에 효능·의약품 오인 표현이 없는지 검수합니다`, `묶음별로 공개하고 ${n} 공식몰 유입을 확인합니다`],
+    faq: [
+      { q: fr ? `${n} 가맹 모집 페이지에 예상 수익을 넣어도 되나요?` : `${n} 페이지에 효과·효능을 쓸 수 있나요?`, a: fr ? '근거 없는 예상 수익이나 과장된 정보는 가맹사업법상 문제가 됩니다. 정보공개서와 같은 내용만 쓰고, 수익 관련 숫자는 본사가 근거를 갖춘 것만 넣습니다.' : `${polite(ind.regulated || '광고 표시 기준을 지켜야 한다')} 그래서 효능 대신 원료·사용법·대상·구매 정보처럼 확인 가능한 사실로 페이지를 채웁니다.` },
+      { q: `${n} 페이지는 몇 개부터 시작하나요?`, a: fr ? `${n} 가맹 우선 지역과 기존 지점 수를 기준으로 수십 개부터 시작해 반응을 보며 넓힙니다.` : `${consumer.slice(0, 3).join(', ')}처럼 검색이 많은 ${n} 조합부터 수십 개로 시작하고, 라인업이 늘면 함께 늘립니다.` },
+      { q: fr ? `${n} 창업 박람회·중개 플랫폼과는 무엇이 다른가요?` : `${n} 스마트스토어·쿠팡 광고와는 무엇이 다른가요?`, a: fr ? `박람회·플랫폼은 다른 브랜드와 나란히 비교되고, 웹문서는 '${examples[0]}' 같은 검색에서 ${n} 본사 정보가 따로 보이게 합니다.` : `오픈마켓 광고는 그 안의 검색을 받고, 웹문서는 '${consumer[0]}' 같은 통합검색에서 ${n} 공식 정보가 보이게 합니다. 함께 쓰면 광고를 끈 뒤에도 페이지가 남습니다.` },
+      { q: `${label}로 검색 상위노출을 보장하나요?`, a: `순위나 노출은 누구도 보장할 수 없습니다. 보장을 내세우는 업체는 경계하셔야 합니다. ${n} 페이지를 묶음별로 공개하며 수집·색인 현황을 공유합니다.` },
+    ],
+    keywords: [...owner, `${n} 브랜드 홍보`, `${n} 웹문서`],
+    ctaText: fr ? `가맹 가능 지역과 지점 목록만 보내주시면 ${n} 본사 페이지 구성안을 먼저 드립니다.` : `라인업과 판매처 목록만 보내주시면 ${n} 브랜드 페이지 구성안을 먼저 드립니다.`,
+  };
+}
+
+// ---- 본사 업무 페이지 ("화장품 브랜드 인플루언서 마케팅") ----
+export interface BrandTask {
+  kind: 'task';
+  group: string;
+  name: string;
+  slug: string;
+  searches: string[];
+  points: string[];
+  risk: string;
+  faq: { q: string; a: string }[];
+}
+export function loadBrandTasks(): BrandTask[] {
+  const f = path.join(process.cwd(), 'data', 'webdoc', 'brand-tasks.json');
+  if (!fs.existsSync(f)) return [];
+  return (JSON.parse(fs.readFileSync(f, 'utf-8')) as Omit<BrandTask, 'kind'>[]).map((t) => ({ ...t, kind: 'task' as const }));
+}
+export function buildTaskContent(t: BrandTask) {
+  const title = `${t.group} ${t.name}`;
+  return {
+    label: title,
+    title: `${title} - 본사 마케팅·웹문서 대행 | JD8`,
+    description: `${title}, 규정을 지키면서 검색에서 보이게. '${t.searches[0]}' 같은 고민을 가진 본사를 위해 할 일과 주의할 점, 웹문서로 함께 만드는 페이지를 정리했습니다.`,
+    h1: title,
+    summary: [
+      `'${t.searches[0]}', '${t.searches[1] || t.searches[0]}' 같은 검색으로 찾아온 ${t.group} 본사를 위한 안내입니다.`,
+      polite(t.risk),
+      '검색 페이지(웹문서)와 함께 운영하면 광고를 끈 뒤에도 공식 정보가 남습니다.',
+    ],
+    points: t.points.map((x) => polite(x)),
+    whoH2: `이런 ${t.group} 본사에 필요합니다`,
+    who: t.searches.map((q, i) => {
+      const eul = hasBatchim(q) ? '을' : '를';
+      return [`'${q}'${eul} 알아보는 중인 본사`, `'${q}' 단계에서 무엇부터 할지 정리가 필요한 본사`, `'${q}'${eul} 맡겼다가 결과 보고가 불분명했던 본사`][i % 3];
+    }),
+    noteText: pick(GROUP_NOTE[t.group] || [''], t.slug + 'g'),
+    linkH2: `카테고리별로 이렇게 연결합니다`,
+    links: roundRobin(loadRaw())
+      .filter((i) => i.group === t.group)
+      .sort((a, b) => hash(t.slug + a.name) - hash(t.slug + b.name))
+      .slice(0, 5)
+      .map((i, k) => {
+        const ex = i.serviceItems[hash(t.slug + i.name) % Math.max(1, i.serviceItems.length)]?.name || i.name;
+        const out = t.name.includes('심의') ? '검수된 문구' : t.name.includes('상세') ? '상세페이지' : '후기·콘텐츠';
+        return [i.name, [
+          `'${ex}' 같은 ${i.name} 검색 페이지에 ${t.name} 결과물(${out})을 연결해, 광고가 끝난 뒤에도 검색에서 계속 보이게 합니다.`,
+          `${i.name}은(는) '${ex}' 검색 페이지가 ${j(out, '을', '를')} 받는 자리가 됩니다.`.replace(`${i.name}은(는)`, j(i.name, '은', '는')),
+          `'${ex}'처럼 ${i.name} 소비자가 쓰는 말로 페이지를 두고 ${j(out, '을', '를')} 붙입니다.`,
+        ][k % 3]];
+      }),
+    flowH2: `${t.name} 진행 순서`,
+    flow: [
+      `현재 ${t.group} 라인업과 운영 중인 채널, '${t.searches[0]}' 관련 지금까지의 진행 내용을 받습니다.`,
+      `${polite(t.risk)} 이 기준으로 문구·게시물 검수 범위를 먼저 정합니다.`,
+      `${t.name} 실행 계획과 함께, 같은 검색어를 받는 웹문서 페이지 구성안을 드립니다.`,
+      `매월 '${t.searches[1] || t.searches[0]}' 같은 검색어별 노출·문의 지표를 공유하고 조정합니다.`,
+    ],
+    faq: [
+      ...t.faq,
+      { q: `${title}도 성과를 보장하나요?`, a: '성과나 순위는 누구도 보장할 수 없습니다. 진행 내용과 지표를 매월 공유하며 조정합니다.' },
+    ],
+    keywords: [...t.searches, title],
   };
 }

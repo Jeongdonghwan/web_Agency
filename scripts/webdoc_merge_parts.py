@@ -8,7 +8,8 @@ import collections, glob, json, os, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GROUP_ORDER = ['하수구·배관', '누수·방수', '청소', '이사·운반', '크레인·장비', '커튼·창호·인테리어', '설비·설치', '철거·공사', '방역',
                '대출·금융', '회생·채무', '법률·전문직', '자동차', '기타 출장',
-               '세탁·수선', '운송·퀵', '건물·시설관리', '렌탈·설치', '수거·매입', '반려동물', '행사·사진·웨딩', '보안·통신', '조경·농업', '간판·광고물']
+               '세탁·수선', '운송·퀵', '건물·시설관리', '렌탈·설치', '수거·매입', '반려동물', '행사·사진·웨딩', '보안·통신', '조경·농업', '간판·광고물',
+               '화장품 브랜드', '건강기능식품 브랜드', '식품 브랜드', '생활·펫 브랜드', '프랜차이즈 본사']
 
 target = os.path.join(ROOT, 'data', 'webdoc', 'industries.json')
 before = [i['name'] for i in json.load(open(target, encoding='utf-8'))]

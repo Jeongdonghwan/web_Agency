@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 // 영업 지역 수 × 서비스 수 = 필요한 페이지 수. 숫자는 사용자가 넣는 값으로만 계산한다.
-export default function PageCalculator({ regions = 10, services = 5, label = '서비스', title = '우리 업체는 페이지가 몇 개 필요할까?' }: { regions?: number; services?: number; label?: string; title?: string }) {
+export default function PageCalculator({ regions = 10, services = 5, label = '서비스', title = '우리 업체는 페이지가 몇 개 필요할까?', firstLabel = '영업 지역', firstUnit = '곳' }: { regions?: number; services?: number; label?: string; title?: string; firstLabel?: string; firstUnit?: string }) {
   const [r, setR] = useState(regions);
   const [s, setS] = useState(services);
   const clamp = (v: string) => Math.max(1, Math.min(500, Number(v.replace(/\D/g, '')) || 1));
@@ -11,9 +11,9 @@ export default function PageCalculator({ regions = 10, services = 5, label = '�
       <p className="wd-calc-title">{title}</p>
       <div className="wd-calc-row">
         <label>
-          영업 지역
-          <input inputMode="numeric" value={r} onChange={(e) => setR(clamp(e.target.value))} aria-label="영업 지역 수" />
-          곳
+          {firstLabel}
+          <input inputMode="numeric" value={r} onChange={(e) => setR(clamp(e.target.value))} aria-label={`${firstLabel} 수`} />
+          {firstUnit}
         </label>
         <span className="wd-calc-op" aria-hidden="true">×</span>
         <label>

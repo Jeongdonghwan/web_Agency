@@ -8,6 +8,9 @@ import {
   getOpenCore,
   getOpenIndustries,
   getOpenServices,
+  getOpenTasks,
+  buildTaskContent,
+  isBrand,
   getOpenGroups,
   getWebdocPage,
   buildIndustryContent,
@@ -28,6 +31,7 @@ import {
   type IndustryDoc,
   type ServiceDoc,
   type GroupDoc,
+  type BrandTask,
   type WebdocPage,
 } from '../../../lib/webdoc';
 import { markdownToHtml } from '../../../lib/markdown';
@@ -51,6 +55,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     p.kind === 'core' ? p
     : p.kind === 'industry' ? buildIndustryContent(p)
     : p.kind === 'service' ? buildServiceContent(p)
+    : p.kind === 'task' ? buildTaskContent(p)
     : { ...buildGroupContent(p, getOpenIndustries().filter((i) => i.group === p.group)), keywords: [`${p.group} 업체 홍보`, `${p.group} 웹문서`] };
   const path = webdocEncodedPath(p.slug);
   return {
@@ -70,6 +75,7 @@ export default async function WebdocPage({ params }: { params: { slug: string } 
   if (p.kind === 'core') return <CorePage doc={p as CoreDoc & WebdocPage} />;
   if (p.kind === 'service') return <ServicePage svc={p as ServiceDoc & WebdocPage} />;
   if (p.kind === 'group') return <GroupPage g={p as GroupDoc & WebdocPage} />;
+  if (p.kind === 'task') return <TaskPage t={p as BrandTask & WebdocPage} />;
   return <IndustryPage ind={p as IndustryDoc & WebdocPage} />;
 }
 
@@ -266,8 +272,18 @@ function IndustryPage({ ind }: { ind: IndustryDoc & WebdocPage }) {
             </tbody>
           </table>
           <p className="wd-p">
-            {plan.order} 플레이스·블로그 같은 채널 운영은 <a href={adMarketingHref(ind.name)}>{ind.name} 마케팅 대행 안내</a>나{' '}
-            <a href={adServiceHref('플레이스-마케팅')}>플레이스 관리</a>에서 따로 볼 수 있습니다.
+            {plan.order}{' '}
+            {isBrand(ind.group) ? (
+              <>
+                오픈마켓·인플루언서 운영은 <a href={adServiceHref('스마트스토어-마케팅')}>스마트스토어 마케팅</a>과{' '}
+                <a href={adServiceHref('인스타그램-마케팅')}>인스타그램 마케팅</a>에서 따로 볼 수 있습니다.
+              </>
+            ) : (
+              <>
+                플레이스·블로그 같은 채널 운영은 <a href={adMarketingHref(ind.name)}>{ind.name} 마케팅 대행 안내</a>나{' '}
+                <a href={adServiceHref('플레이스-마케팅')}>플레이스 관리</a>에서 따로 볼 수 있습니다.
+              </>
+            )}
           </p>
         </section>
 
@@ -290,7 +306,11 @@ function IndustryPage({ ind }: { ind: IndustryDoc & WebdocPage }) {
               ))}
             </tbody>
           </table>
-          <PageCalculator regions={c.regions.length} services={ind.services.length} label={`${ind.name} 서비스`} title={c.calcTitle} />
+          {'calcFirst' in c ? (
+            <PageCalculator regions={c.regions.length} services={c.calcSecondCount} label={c.calcSecond} title={c.calcTitle} firstLabel={c.calcFirst[0]} firstUnit={c.calcFirst[1]} />
+          ) : (
+            <PageCalculator regions={c.regions.length} services={ind.services.length} label={`${ind.name} 서비스`} title={c.calcTitle} />
+          )}
         </section>
 
         <section className="content-section">
@@ -298,6 +318,20 @@ function IndustryPage({ ind }: { ind: IndustryDoc & WebdocPage }) {
           <Paras text={c.serpText} />
           <SerpMock query={query} items={c.examples.slice(1, 3)} desc={c.serpDesc} />
         </section>
+
+        {'hqBlock' in c && (
+          <section className="content-section">
+            <h2>{c.hqBlock.h2}</h2>
+            <div className="feature-grid">
+              {c.hqBlock.items.map(([h, p]) => (
+                <div className="feature-card" key={h}>
+                  <h3>{h}</h3>
+                  <p>{p}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section className="content-section">
           <h2>{c.inclH2}</h2>
@@ -491,6 +525,91 @@ function GroupPage({ g }: { g: GroupDoc & WebdocPage }) {
         </section>
         <RelatedGrid title="다른 업종군" pages={otherGroups} />
         <Cta title={`${g.group} 업체 웹문서, 구성안부터 받아보세요`} />
+      </div>
+    </main>
+  );
+}
+
+/* ===== 브랜드 본사 업무 페이지 ("화장품 브랜드 인플루언서 마케팅") ===== */
+function TaskPage({ t }: { t: BrandTask & WebdocPage }) {
+  const c = buildTaskContent(t);
+  const path = webdocEncodedPath(t.slug);
+  const siblings = getOpenTasks().filter((o) => o.group === t.group && o.slug !== t.slug);
+  const categories = getOpenIndustries().filter((i) => i.group === t.group).slice(0, 12);
+  const group = getOpenGroups().find((g) => g.group === t.group);
+  return (
+    <main className="content-page">
+      <div className="content-container">
+        <JsonLd
+          data={[
+            breadcrumbJsonLd([
+              { name: '홈', path: '/' },
+              { name: '웹문서 대량제작', path: WEBDOC_HUB },
+              ...(group ? [{ name: group.name, path: webdocEncodedPath(group.slug) }] : []),
+              { name: c.h1, path },
+            ]),
+            faqPageJsonLd(c.faq),
+            serviceJsonLd({ name: c.h1, description: c.description, path }),
+            itemListJsonLd(`${t.group} 본사 업무`, siblings.map(card)),
+          ]}
+        />
+        <Crumbs name={c.h1} />
+        <header className="page-header">
+          <span className="page-eyebrow">{t.group} 본사</span>
+          <h1>{c.h1}</h1>
+          <Paras text={c.description} per={1} className="page-lead" />
+        </header>
+        <Summary items={c.summary} />
+        <section className="content-section">
+          <h2>{c.h1}, 본사가 챙길 것</h2>
+          <ol className="wd-steps">
+            {c.points.map((x) => (
+              <li key={x}>{x}</li>
+            ))}
+          </ol>
+        </section>
+        <section className="content-section">
+          <h2>{c.whoH2}</h2>
+          <ul className="point-list">
+            {c.who.map((x) => (
+              <li key={x}>{x}</li>
+            ))}
+          </ul>
+          {c.noteText && <Paras text={c.noteText} />}
+        </section>
+        <section className="content-section">
+          <h2>{c.linkH2}</h2>
+          <div className="static-faq">
+            {c.links.map(([name, text]) => (
+              <div className="qa" key={name}>
+                <h3>{name}</h3>
+                <p>{text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+        <section className="content-section">
+          <h2>{c.flowH2}</h2>
+          <ol className="wd-steps">
+            {c.flow.map((x) => (
+              <li key={x}>{x}</li>
+            ))}
+          </ol>
+        </section>
+        <section className="content-section">
+          <h2>{t.group} 제품별 검색 페이지와 함께</h2>
+          <p className="wd-p">{t.name} 효과가 검색으로 이어지려면, 소비자·예비 점주가 찾는 말마다 공식 페이지가 있어야 합니다. 제품·카테고리별 구성은 아래에서 볼 수 있습니다.</p>
+          <div className="industry-grid">
+            {categories.map((i) => (
+              <Link key={i.slug} href={webdocPath(i.slug)}>
+                {pageName(i)}
+              </Link>
+            ))}
+          </div>
+        </section>
+        <Faq title={`${c.h1} 자주 묻는 질문`} faq={c.faq} />
+        <RelatedGrid title={`${t.group} 다른 본사 업무`} pages={siblings} />
+        <Cta title={`${c.h1}, 구성안부터 받아보세요`} text={`${t.group} 라인업과 현재 운영 채널을 알려주시면 진행안을 먼저 드립니다.`} />
       </div>
     </main>
   );

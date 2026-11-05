@@ -60,7 +60,10 @@ def all_slugs(section='webdoc'):
                 if s.get('note') and s['name'] != i['name'] and slug not in taken:
                     taken.add(slug)
                     svcs.append(slug)
-    return [c[0] for c in core] + group_slugs + [f"{i['name']}-홍보" for i in inds] + svcs
+    tf = os.path.join(ROOT, 'data', 'webdoc', 'brand-tasks.json')
+    tasks = [t['slug'] for t in json.load(open(tf, encoding='utf-8'))] if os.path.exists(tf) else []
+    tasks = [t for t in tasks if t not in taken]
+    return [c[0] for c in core] + group_slugs + [f"{i['name']}-홍보" for i in inds] + svcs + tasks
 
 
 def main():
