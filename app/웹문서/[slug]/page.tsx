@@ -328,6 +328,15 @@ function IndustryPage({ ind }: { ind: IndustryDoc & WebdocPage }) {
           <SerpMock query={query} items={c.examples.slice(1, 3)} desc={c.serpDesc} />
         </section>
 
+        {'taji' in c && (
+          <section className="content-section">
+            <h2>{c.tajiH2}</h2>
+            {c.taji.map((x) => (
+              <Paras key={x} text={x} />
+            ))}
+          </section>
+        )}
+
         {'hqBlock' in c && (
           <section className="content-section">
             <h2>{c.hqBlock.h2}</h2>
