@@ -214,6 +214,21 @@ def build():
     for sv, ind in SERVICES:
         for p, intent in [('{s} 업체 홍보', '구매'), ('{s} 홍보', '구매'), ('{s} 마케팅', '구매'), ('{s} 웹문서', '구매'), ('{s} 업체 손님 늘리는 법', '정보')]:
             add(p.format(s=sv), f'{sv}-홍보', '서비스', intent, '페이지' if intent == '구매' else '블로그', ind=ind)
+    # 업종 × 시도 타지역 홍보 (/타지역홍보/<시도>-<업종>/) — 지역×업종 루프보다 먼저 (같은 키워드는 시도 페이지로)
+    SIDOS = [x['name'] for x in _json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', 'data', 'webdoc', 'sido.json'), encoding='utf-8'))]
+    for sd in SIDOS:
+        for i in INDUSTRIES:
+            g = GROUP_OF.get(i)
+            u = f'/타지역홍보/{sd}-{i}/'
+            if g == '프랜차이즈 본사':
+                b = i.replace('프랜차이즈', '')
+                for p in [f'{sd} {b} 창업', f'{sd} {b} 가맹점 모집', f'{sd} {b} 가맹 문의', f'{sd} {i} 가맹점 모집 광고']:
+                    add(p, u, '시도×업종', '구매', '페이지', ind=i, reg=sd)
+                continue
+            if g in BRAND_GROUPS:
+                continue
+            for p in ['{sd} {i} 타지역 홍보', '{sd} {i} 업체 홍보', '{sd} {i} 타지역서비스', '{sd} {i} 타지역 노출', '{sd} {i} 웹문서', '{sd} {i} 광고']:
+                add(p.format(sd=sd, i=i), u, '시도×업종', '구매', '페이지', ind=i, reg=sd)
     for r in REGIONS:
         for i in TOP_INDUSTRIES:
             add(f'{r} {i} 업체 홍보', f'{i}-홍보', '지역×업종', '구매', '페이지', ind=i, reg=r)
@@ -287,7 +302,7 @@ def main():
     t = tw.active
     t.title = '업종x타지역서비스'
     t.append(hdr)
-    sel = [r for r in rows if r[2] in ('타지역서비스', '핵심-타지역')]
+    sel = [r for r in rows if r[2] in ('타지역서비스', '핵심-타지역', '시도×업종')]
     for n, r in enumerate(sel, 1):
         t.append([n] + r)
     for c in t[1]:

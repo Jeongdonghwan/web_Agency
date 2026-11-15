@@ -867,3 +867,9 @@
   .top-promo { padding: 16px; }
   .top-promo li a { display: block; margin: 0 0 2px; }
 }
+
+/* 타지역 바로 문의 블록 */
+.wd-taji-cta { border: 1px solid #c9d8f0; background: #f5f8fd; border-radius: 12px; padding: 24px 22px; }
+.wd-taji-cta .cta-actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0 6px; }
+.wd-btn-kakao { background: #fee500; color: #191919; font-weight: 700; padding: 11px 22px; border-radius: 8px; text-decoration: none; }
+.wd-btn-ghost { border: 1px solid #0f1b2d; color: #0f1b2d; font-weight: 700; padding: 10px 20px; border-radius: 8px; text-decoration: none; }

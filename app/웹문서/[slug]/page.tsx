@@ -28,6 +28,8 @@ import {
   webdocOg,
   pageName,
   WEBDOC_HUB,
+  openTajiFor,
+  tajiPath,
   type CoreDoc,
   type IndustryDoc,
   type ServiceDoc,
@@ -332,11 +334,31 @@ function IndustryPage({ ind }: { ind: IndustryDoc & WebdocPage }) {
         </section>
 
         {'taji' in c && (
-          <section className="content-section">
+          <section className="content-section wd-taji-cta">
             <h2>{c.tajiH2}</h2>
             {c.taji.map((x) => (
               <Paras key={x} text={x} />
             ))}
+            <div className="cta-actions">
+              <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="wd-btn-kakao">
+                카톡으로 바로 문의
+              </a>
+              <a href="tel:1566-3046" className="wd-btn-ghost">
+                전화 1566-3046
+              </a>
+            </div>
+            {openTajiFor(ind.name).length > 0 && (
+              <>
+                <p className="wd-p">시·도별 {ind.name} 타지역 홍보 안내</p>
+                <div className="industry-grid">
+                  {openTajiFor(ind.name).map((o) => (
+                    <Link key={o.tajiSlug} href={tajiPath(o.tajiSlug)}>
+                      {o.sido.name}
+                    </Link>
+                  ))}
+                </div>
+              </>
+            )}
           </section>
         )}
 

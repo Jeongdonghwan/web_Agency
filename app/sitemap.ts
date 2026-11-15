@@ -7,7 +7,7 @@ import { getAllServices, serviceEncodedPath } from '../lib/services';
 import { getAllRegions, regionEncodedPath } from '../lib/regions';
 import { getAllDongs, dongEncodedPath } from '../lib/dongs';
 import { portfolios } from '../data/portfolios';
-import { getOpenWebdocPages, webdocEncodedPath, getOpenHomepageGen, homepageGenEncodedPath } from '../lib/webdoc';
+import { getOpenWebdocPages, webdocEncodedPath, getOpenHomepageGen, homepageGenEncodedPath, getOpenTaji, tajiEncodedPath, tajiSidoEncodedPath } from '../lib/webdoc';
 
 // lastmod는 실제 내용이 바뀐 시각만 쓴다. 빌드 시각(new Date())을 박으면 매 빌드마다 전 URL이
 // "수정됨"이 되어 검색엔진이 lastmod 신호를 무시한다.
@@ -111,6 +111,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 업종 홈페이지 제작(웹문서 업종 데이터로 생성) — 열린 묶음만
   for (const p of getOpenHomepageGen()) {
     entries.push({ url: `${SITE_URL}${homepageGenEncodedPath(p.slug)}`, lastModified: latest([p.openDate, webdocData]), changeFrequency: 'monthly', priority: 0.7 });
+  }
+
+  // 타지역 홍보 (업종 × 시도) — 열린 묶음만
+  const taji = getOpenTaji();
+  if (taji.length) {
+    const tajiData = mtime('data/webdoc/industries.json', 'data/webdoc/sido.json');
+    const tajiLm = (d: string) => latest([d, tajiData]);
+    entries.push({ url: `${SITE_URL}/${encodeURIComponent('타지역홍보')}/`, lastModified: latest(taji.map((p) => tajiLm(p.openDate))), changeFrequency: 'weekly', priority: 0.9 });
+    for (const sd of [...new Set(taji.map((p) => p.sido.name))]) {
+      entries.push({ url: `${SITE_URL}${tajiSidoEncodedPath(sd)}`, lastModified: latest(taji.filter((p) => p.sido.name === sd).map((p) => tajiLm(p.openDate))), changeFrequency: 'weekly', priority: 0.8 });
+    }
+    for (const p of taji) entries.push({ url: `${SITE_URL}${tajiEncodedPath(p.tajiSlug)}`, lastModified: tajiLm(p.openDate), changeFrequency: 'monthly', priority: 0.7 });
   }
 
   // 블로그 글

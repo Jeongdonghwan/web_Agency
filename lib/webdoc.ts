@@ -402,7 +402,7 @@ function composeIndustry(ind: IndustryDoc) {
 }
 
 // 타지역서비스를 알아보는 사장님 — 같은 고객층. 경쟁 상품을 깎아내리지 않고 확인할 점으로 비교한다
-const TAJI_H2 = ['{n} 타지역서비스, 웹문서로 하면 무엇이 다를까요?', '{n} 타지역 노출, 타지역서비스와 웹문서 비교', '타지역서비스를 알아보는 {n} 사장님께'];
+const TAJI_H2 = ['{n} 타지역서비스 찾으셨다면, 웹문서로 바로 문의하세요', '{n} 타지역 홍보, 신규 고객 문의를 늘리는 방법', '타지역서비스를 알아보는 {n} 사장님께'];
 function tajiParas(ind: IndustryDoc, regions: string[]) {
   const n = ind.name;
   const s = ind.slug;
@@ -425,8 +425,8 @@ function tajiParas(ind: IndustryDoc, regions: string[]) {
       `차이는 페이지가 어디에 남느냐입니다. 웹문서는 사장님 사이트 주소 아래에 ${regions.length}개 지역 페이지를 만들고 사이트맵으로 네이버·구글에 등록합니다.`,
     ], s + 'tj2'),
     pick([
-      `어떤 상품이든 계약 전에 세 가지를 확인해 보세요. 페이지가 누구 도메인에 생기는지, 지역마다 내용이 다른지, 상위노출을 보장한다고 하는지입니다. 검색 순위는 누구도 보장할 수 없습니다.`,
-      `타지역서비스와 웹문서를 비교할 때는 페이지 소유, 지역별 내용 차이, 계약 종료 후 남는 것을 보면 됩니다. 순위 보장을 약속하는 곳은 피하는 편이 안전합니다.`,
+      `웹문서는 광고처럼 끄면 사라지지 않고, 지역 페이지가 늘수록 신규 고객 문의가 들어오는 입구도 늘어납니다. 실제 고객사는 한 달 새 검색 노출이 지난달 대비 +200~337% 늘었습니다. 타지역서비스를 알아보셨다면 지금 바로 문의하세요.`,
+      `타지역 홍보는 페이지 수가 곧 검색 입구 수입니다. 실제 고객사는 웹문서를 연 뒤 지난달 대비 노출이 +200~337% 늘었습니다. 출장 가는 지역만 알려주시면 ${n} 페이지 구성안을 바로 드립니다.`,
     ], s + 'tj3'),
   ];
 }
@@ -890,5 +890,166 @@ export function buildTaskContent(t: BrandTask) {
       { q: `${title}도 성과를 보장하나요?`, a: '성과나 순위는 누구도 보장할 수 없습니다. 진행 내용과 지표를 매월 공유하며 조정합니다.' },
     ],
     keywords: [...t.searches, title],
+  };
+}
+
+// ---- 업종 × 시도 타지역 홍보 (/타지역홍보/<시도>-<업종>/) ----
+// 공개 일정: data/webdoc/taji-schedule.json (scripts/taji_schedule.py). 업종 데이터는 industries.json, 시도는 sido.json
+export interface Sido { name: string; full: string; unit: string; areas: string[]; traits: string[] }
+export type TajiDoc = Omit<IndustryDoc, 'kind'> & { kind: 'taji'; tajiSlug: string; sido: Sido; openDate: string };
+let sidoCache: Sido[] | null = null;
+export const getSidos = (): Sido[] => (sidoCache ??= JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'webdoc', 'sido.json'), 'utf-8')));
+let tajiCache: TajiDoc[] | null = null;
+export function getAllTaji(): TajiDoc[] {
+  if (tajiCache) return tajiCache;
+  const sched = loadSchedule('taji-schedule.json');
+  const inds = getAllWebdocPages().filter((p): p is IndustryDoc & WebdocPage => p.kind === 'industry' && (!isBrand(p.group) || p.group === '프랜차이즈 본사'));
+  const out: TajiDoc[] = [];
+  for (const sd of getSidos())
+    for (const i of inds) {
+      const tajiSlug = `${sd.name}-${i.name}`;
+      out.push({ ...i, kind: 'taji', tajiSlug, sido: sd, openDate: sched.get(tajiSlug) || '9999-12-31' });
+    }
+  return (tajiCache = out);
+}
+export const getOpenTaji = () => getAllTaji().filter((p) => p.openDate <= todayKst());
+export const getTaji = (slug: string) => {
+  let key = slug;
+  try {
+    key = decodeURIComponent(slug);
+  } catch {}
+  return getOpenTaji().find((p) => p.tajiSlug === key);
+};
+export const TAJI_HUB = '/타지역홍보/';
+export const tajiPath = (slug: string) => `/타지역홍보/${slug}/`;
+export const tajiEncodedPath = (slug: string) => `/${encodeURIComponent('타지역홍보')}/${encodeURIComponent(slug)}/`;
+export const tajiSidoPath = (sido: string) => `/타지역홍보/지역/${sido}/`;
+export const tajiSidoEncodedPath = (sido: string) => `/${encodeURIComponent('타지역홍보')}/${encodeURIComponent('지역')}/${encodeURIComponent(sido)}/`;
+export const tajiTitle = (p: TajiDoc) =>
+  p.group === '프랜차이즈 본사' ? `${p.sido.name} ${p.name} 가맹점 모집 홍보` : `${p.sido.name} ${p.name} 타지역 홍보`;
+// 열린 시도 페이지만 — 업종 웹문서 페이지에서 링크
+export const openTajiFor = (name: string) => getOpenTaji().filter((p) => p.name === name);
+
+const shortArea = (a: string) => (a.length > 2 && /[시군구]$/.test(a) ? a.slice(0, -1) : a).replace(/ 동지역$/, '');
+const shuffle = <T,>(arr: T[], seed: string) => [...arr].sort((a, b) => hash(seed + String(a)) - hash(seed + String(b)));
+
+const TAJI_WHY_H2 = ['{sd}에서 {n} 신규 고객을 놓치는 이유', '{sd} {n} 업체가 옆 지역 검색에서 안 보이는 이유', '{sd} 전역 {n} 문의, 왜 일부만 들어올까요?'];
+const TAJI_EFFECT_H2 = ['{sd} {n} 타지역 홍보, 효과가 큰 이유', '웹문서가 {sd} {n} 신규 고객 유치에 강한 이유', '{sd} {n} 업체에 웹문서가 잘 맞는 이유'];
+
+export function buildTajiContent(p: TajiDoc) {
+  const c = composeTaji(p);
+  if (!isOffice(p.group)) return c;
+  return LEGAL_GROUPS.includes(p.group) ? legalize(officeize(c)) : officeize(c);
+}
+
+function composeTaji(p: TajiDoc) {
+  const { name: n, sido: sd } = p;
+  const s = p.tajiSlug;
+  const fr = p.group === '프랜차이즈 본사';
+  const off = isOffice(p.group);
+  const base = n.replace(/프랜차이즈$/, '');
+  const areas = shuffle(sd.areas, s);
+  const A = areas.map(shortArea);
+  const svcs = fr ? [`${base} 창업`, `${base} 가맹`, `${base} 창업 비용`, `${base}집 차리기`] : p.serviceItems.map((x) => x.searches[0] || x.name);
+  const S = fr ? 4 : p.services.length;
+  const total = sd.areas.length * S;
+  const far = `${A[0]}·${A[1]}`;
+  const fill = (t: string) => t.replace(/\{sd\}/g, sd.name).replace(/\{n\}/g, n);
+  const label = fr ? `${n} 본사` : off ? n : `${n} 업체`;
+  const who = off ? '사무소' : fr ? '본사' : '업체';
+  const unitN = `${sd.areas.length}개 ${sd.unit}`;
+
+  const title = fr
+    ? `${sd.name} ${base} 가맹점 모집 홍보 - ${unitN} 창업 검색에 본사 페이지를 | JD8`
+    : `${sd.name} ${n} 타지역 홍보 - ${unitN} 검색에 업체를, 신규 고객 문의 | JD8`;
+  const h1 = fr ? `${sd.name} ${base} 가맹점 모집, ${unitN} 창업 검색에 본사를` : `${sd.name} ${label} 타지역 홍보, ${unitN} 검색에 바로 보이게`;
+  const description = fr
+    ? `${sd.full} ${unitN}에서 '${A[0]} ${base} 창업'처럼 검색하는 예비 점주에게 본사 페이지가 보이도록 지역별 웹문서를 만듭니다. 지역 가맹 문의 통로를 넓히는 본사 홍보, 지금 바로 상담하세요.`
+    : `${sd.full} ${unitN} 어디서 ${j(n, '을', '를')} 검색해도 ${who}가 보이도록 지역 × 서비스 웹문서를 만듭니다. 플레이스 거리 밖 신규 고객 문의를 받는 타지역 홍보, 지금 바로 상담하세요.`;
+
+  const summary = [
+    `${sd.name} ${unitN} × ${fr ? '창업 검색어' : `${n} 서비스`} ${S}가지 = 검색 페이지 ${total}개를 ${who} 사이트에 만듭니다.`,
+    fr
+      ? `${far} 예비 점주가 창업을 검색할 때 중개 사이트 대신 본사 페이지가 보이게 합니다.`
+      : `${far}처럼 사무실에서 먼 곳의 손님 검색에도 ${who}가 보여 신규 고객 문의 통로가 늘어납니다.`,
+    pick([
+      `${n} 같은 지역 검색 업종에서, 실제 고객사는 웹문서를 연 뒤 지난달 대비 검색 노출이 +200~337% 늘었습니다.`,
+      `${sd.name} 전역에 페이지를 깔아 두면 ${n} 검색 입구가 ${sd.unit} 수만큼 늘어납니다. 실제 고객사 노출은 한 달 새 +200~337% 늘었습니다.`,
+      `${n} 타지역 홍보는 페이지 수가 곧 검색 입구 수입니다. 실제 고객사는 지난달 대비 노출이 +200~337% 늘었습니다.`,
+    ], s + 'sm3'),
+  ];
+
+  const why = [
+    `${pick(sd.traits, s + 'tr')} ${polite(p.radius)}`,
+    fr
+      ? `예비 점주는 '${A[2]} ${base} 창업', '${A[3]} ${base} 가맹'처럼 자기가 열 지역 이름을 붙여 검색합니다. ${polite(p.pain)}`
+      : `${sd.name} 손님은 '${A[2]} ${svcs[0]}', '${A[3]} ${svcs[1 % svcs.length]}'처럼 지역 이름을 붙여 검색합니다. ${polite(p.pain)}`,
+    `${polite(p.season)} ${polite(p.decide)} ${pick([`그래서 ${sd.name}에서는 문의가 몰리는 시기 전에 ${A[4] || A[0]}·${A[5] || A[1]} 페이지가 미리 검색에 걸려 있어야 합니다.`, `${A[4] || A[0]} 손님이 비교할 때 ${n} 페이지가 보이지 않으면 비교 대상에도 들지 못합니다.`, `${sd.name} ${sd.unit}마다 이 정보를 담은 페이지가 있으면 손님이 바로 전화할 근거가 됩니다.`], s + 'w3')}`,
+  ];
+
+  // 서비스별 페이지 — 업종 데이터의 서비스 설명(note)으로 채운다
+  const svcRows: [string, string, string][] = fr
+    ? [
+        [`${base} 창업`, polite(p.decide), `${A[0]} ${base} 창업`],
+        [`${base} 가맹 조건`, polite(p.hq || p.decide), `${A[1]} ${base} 가맹`],
+        [`${base} 창업 비용`, '창업 비용은 정보공개서 기준으로 안내하고, 지역 상권에 따라 달라지는 부분은 상담에서 설명합니다.', `${A[2]} ${base} 창업 비용`],
+      ]
+    : p.serviceItems.slice(0, 5).map((x, k) => [x.name, x.note ? polite(x.note) : `${x.name} 문의를 따로 받는 페이지입니다.`, `${A[(k + 1) % A.length]} ${x.searches[0] || x.name}`]);
+  const areasText = `${sd.full} ${unitN}: ${sd.areas.join(', ')}.`;
+
+  const rows = areas.slice(0, 8).map((a, k) => {
+    const q = `${shortArea(a)} ${svcs[k % svcs.length]}`;
+    return [a, q, `/${q.replace(/\s+/g, '-')}/`];
+  });
+
+  const effect = [
+    pick([
+      `웹문서는 광고처럼 클릭할 때마다 돈이 나가지 않습니다. 한 번 만든 ${sd.name} 지역 페이지는 사이트에 남아 매일 검색을 받고, 페이지가 늘수록 ${off ? '상담' : fr ? '가맹' : '출장'} 문의가 들어오는 입구도 함께 늘어납니다.`,
+      `${sd.name} ${unitN}마다 페이지가 생기면, 지금까지 플레이스 거리 때문에 놓치던 ${far} 검색에서도 ${who}가 보입니다. 새로 보이는 검색이 곧 새로 생기는 신규 고객 문의입니다.`,
+      `키워드 광고는 끄는 순간 노출이 사라지지만, 웹문서 페이지는 ${who} 도메인에 계속 남습니다. ${sd.name} 전역에 한 번 깔아 두면 비수기에도 검색 입구가 그대로 유지됩니다.`,
+    ], s + 'ef1'),
+    pick([
+      `JD8이 웹문서를 만든 실제 고객사 두 곳은 페이지를 연 뒤 한 달 새 검색 노출이 지난달 대비 +200%, +337% 늘었습니다. ${sd.name} ${n} 페이지도 지역 × 서비스 수가 많을수록 검색에 걸리는 자리가 많아집니다.`,
+      `실제 고객사 사례에서 웹문서 약 5천 페이지를 연 뒤 노출이 지난달 대비 +200~337% 늘었습니다. ${sd.name}처럼 ${sd.unit} 수가 많은 지역일수록 ${n} 페이지 수가 늘어 효과를 보기 좋습니다.`,
+      `${n} 업체가 ${sd.name} ${total}개 페이지를 갖추면, 광고 없이도 ${A[2]}·${A[3]} 검색에서 연락받을 기회가 생깁니다. 실제 고객사는 웹문서를 연 뒤 한 달 새 노출이 +200~337% 늘었습니다.`,
+    ], s + 'ef2'),
+  ];
+
+  const taji = pick([
+    `타지역서비스를 알아보고 계셨다면 지금이 웹문서로 바꿀 때입니다. 페이지가 ${who} 사이트 안에 생겨 계약이 끝나도 남고, ${sd.name} ${sd.unit}마다 내용이 다르게 채워집니다.`,
+    `타지역서비스와 비교해 보세요. 웹문서는 ${who} 도메인 아래 ${sd.name} 지역 페이지를 쌓기 때문에, 광고비를 끊어도 노출 자리가 사라지지 않습니다.`,
+  ], s + 'tj');
+
+  const go = off ? '상담하는' : fr ? '가맹점을 열려는' : '출장 가는';
+  const faq = [
+    { q: `${sd.name} ${unitN}${j(sd.unit, '을', '를')} 다 만들어야 하나요?`, a: `아닙니다. 실제로 ${go} 지역부터 만들고 넓혀 갈 수 있습니다. 보통 ${A[0]}·${A[1]}처럼 문의가 많은 곳부터 열고, 묶음별로 수집을 확인하며 나머지를 채웁니다.` },
+    { q: `${A[0]}에 사무실이 없어도 ${A[0]} 검색에 보이나요?`, a: `웹문서는 사무실 위치가 아니라 페이지 내용으로 검색에 걸립니다. 그래서 ${A[0]}에 사무실이 없어도 ${A[0]} 페이지를 만들어 둘 수 있습니다. 다만 실제로 ${off ? '상담' : fr ? '가맹 상담' : '출장'}이 가능한 지역만 만듭니다.` },
+    { q: `${sd.name} ${n} 타지역서비스와 무엇이 다른가요?`, a: pick([`페이지가 어디에 남느냐가 가장 큰 차이입니다. 웹문서는 ${who} 사이트 안에 ${sd.name} 지역별 페이지를 만들어 계약이 끝나도 그대로 남습니다.`, `웹문서는 ${sd.name} ${sd.unit}마다 ${n} 서비스·사진·질문을 다르게 채운 페이지를 ${who} 도메인에 쌓습니다. 광고비를 끊어도 페이지는 남습니다.`], s + 'fq3') },
+    { q: `${sd.name}에서 ${n} 문의는 언제부터 늘어나나요?`, a: pick([`페이지를 연 뒤 검색엔진이 수집하는 데 보통 몇 주가 걸리고, ${A[0]}·${A[1]}처럼 먼저 연 지역부터 노출이 쌓입니다. 실제 고객사는 한 달 새 노출이 3~4배로 늘었지만 업종과 지역마다 차이가 있으며, 순위는 보장하지 않습니다.`, `${sd.name} 페이지는 묶음별로 열고 수집을 확인합니다. 보통 몇 주 안에 수집이 시작되고, 실제 고객사는 한 달 새 노출이 3~4배로 늘었습니다. 업종·지역마다 차이가 있고 순위는 보장하지 않습니다.`], s + 'fq4') },
+  ];
+  if (fr && p.regulated) faq.push({ q: '가맹점 모집 광고에서 주의할 점은요?', a: `${polite(p.regulated)} 예상 수익은 정보공개서와 다른 숫자를 쓰지 않고, 페이지에는 가맹 조건과 상담 절차 위주로 담습니다.` });
+
+  return {
+    title,
+    h1,
+    description,
+    summary,
+    whyH2: fill(pick(TAJI_WHY_H2, s + 'w')),
+    why,
+    tableH2: fr ? `${sd.name} 지역별 창업 검색과 본사 페이지 예시` : `${sd.name} 지역별 검색어와 만들 페이지 예시`,
+    rows,
+    effectH2: fill(pick(TAJI_EFFECT_H2, s + 'e')),
+    effect,
+    taji,
+    svcH2: fr ? `${sd.name} ${base} 창업 검색, 이렇게 나눠 받습니다` : `${sd.name} ${n} 서비스별로 나눠 만드는 페이지`,
+    svcRows,
+    areasText,
+    calc: { regions: sd.areas.length, services: S, label: fr ? '창업 검색어' : `${n} 서비스`, firstLabel: sd.unit, title: `${sd.name} ${label}, 페이지가 몇 개 필요할까?` },
+    faq,
+    ctaH2: fr ? `${sd.name} 가맹 문의, 지금 바로 늘려 보세요` : `${sd.name} ${n} 신규 고객, 지금 바로 문의하세요`,
+    ctaText: `${go} ${sd.unit} 목록만 알려주시면 ${sd.name} 페이지 구성안과 견적을 바로 드립니다. 전 과정 비대면입니다.`,
+    keywords: fr
+      ? [`${sd.name} ${base} 창업`, `${sd.name} ${base} 가맹점 모집`, `${n} 가맹점 모집 홍보`]
+      : [`${sd.name} ${n} 타지역 홍보`, `${sd.name} ${n} 업체 홍보`, `${sd.name} ${n} 타지역서비스`, `${sd.name} ${n} 웹문서`, `${sd.name} ${n} 광고`],
   };
 }
