@@ -836,3 +836,34 @@
 .wd-case .wd-p { margin-bottom: 10px; }
 .wd-summary ul { padding-left: 20px; }
 .wd-summary li { line-height: 1.75; margin: 8px 0; }
+
+/* 블로그 상단 배너 (components/blog/TopPromo.tsx) */
+.top-promo {
+  border: 1px solid #c9d8f0;
+  border-left: 4px solid #2f6fe0;
+  background: #f5f8fd;
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin: 8px 0 32px;
+  word-break: keep-all;
+}
+.top-promo-eyebrow { font-size: 0.85rem; color: #4a5b78; margin: 0 0 4px; }
+.top-promo-title { display: block; font-size: 1.15rem; color: #0f1b2d; margin-bottom: 12px; line-height: 1.4; }
+.top-promo ul { list-style: none; padding: 0; margin: 0 0 12px; display: grid; gap: 8px; }
+.top-promo li { line-height: 1.55; }
+.top-promo li a { font-weight: 700; color: #1d4fb8; margin-right: 8px; }
+.top-promo li span { color: #2b3546; }
+.top-promo-note { font-size: 0.82rem; color: #5b6880; margin: 0 0 14px; }
+.top-promo-cta {
+  display: inline-block;
+  background: #fee500;
+  color: #191919;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+@media (max-width: 640px) {
+  .top-promo { padding: 16px; }
+  .top-promo li a { display: block; margin: 0 0 2px; }
+}

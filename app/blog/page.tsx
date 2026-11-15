@@ -3,6 +3,7 @@ import { ogMeta } from '../../lib/site';
 import Link from 'next/link';
 import { getAllPosts } from '../../lib/posts';
 import PostList from '../../components/blog/PostList';
+import TopPromo from '../../components/blog/TopPromo';
 import JsonLd from '../../components/seo/JsonLd';
 import { breadcrumbJsonLd, itemListJsonLd } from '../../lib/jsonld';
 
@@ -42,6 +43,8 @@ export default function BlogListPage() {
             제작 비용, 업종별 기획, 검색 노출(SEO)까지 — 홈페이지를 준비하는 사장님들을 위한 실무 가이드를 연재합니다.
           </p>
         </header>
+
+        <TopPromo />
 
         <PostList posts={posts} />
       </div>

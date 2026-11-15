@@ -7,6 +7,7 @@ import { getIndustryBySlug } from '../../../lib/industries';
 import { markdownToHtml } from '../../../lib/markdown';
 import JsonLd from '../../../components/seo/JsonLd';
 import { articleJsonLd, breadcrumbJsonLd } from '../../../lib/jsonld';
+import TopPromo from '../../../components/blog/TopPromo';
 
 export const dynamicParams = false;
 
@@ -77,6 +78,8 @@ export default async function PostPage({ params }: { params: { slug: string } })
             <span key={tag} className="post-tag">{tag}</span>
           ))}
         </div>
+
+        <TopPromo />
 
         <article className="prose" dangerouslySetInnerHTML={{ __html: html }} />
 
