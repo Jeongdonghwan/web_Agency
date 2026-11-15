@@ -15,6 +15,7 @@ import JsonLd from '../../../components/seo/JsonLd';
 import HomepageGenPage from '../../../components/webdoc/HomepageGenPage';
 import { getOpenHomepageGen, getHomepageGen, buildHomepageContent, homepageGenEncodedPath, homepageGenOg } from '../../../lib/webdoc';
 import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd } from '../../../lib/jsonld';
+import TopPromo from '../../../components/blog/TopPromo';
 
 export const dynamicParams = false;
 
@@ -103,6 +104,7 @@ export default async function IndustryPage({ params }: { params: { slug: string 
           <h1>{ind.name} 홈페이지 제작</h1>
           <p className="page-lead">{ind.description}</p>
         </header>
+        <TopPromo />
 
         <section className="content-section">
           <h2>{ind.name} 사장님들이 겪는 고민</h2>

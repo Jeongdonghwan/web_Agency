@@ -13,6 +13,7 @@ import {
   type HomepageGenDoc,
 } from '../../lib/webdoc';
 import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd, itemListJsonLd } from '../../lib/jsonld';
+import TopPromo from '../blog/TopPromo';
 
 // 웹문서 업종 데이터로 만든 "{업종} 홈페이지 제작" 페이지 (기존 207업종 md 페이지와 같은 /homepage/ 아래)
 export default function HomepageGenPage({ doc }: { doc: HomepageGenDoc }) {
@@ -47,6 +48,7 @@ export default function HomepageGenPage({ doc }: { doc: HomepageGenDoc }) {
           <h1>{c.h1}</h1>
           <Paras text={c.description} per={1} className="page-lead" />
         </header>
+        <TopPromo />
         <aside className="wd-summary" aria-label="핵심 요약">
           <strong>핵심 요약</strong>
           <ul>

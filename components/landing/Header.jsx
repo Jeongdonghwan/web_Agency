@@ -37,6 +37,7 @@ const Header = () => {
   const pageItems = [
     { label: '업종별 제작', href: '/homepage/' },
     { label: '웹문서 대량제작', href: '/웹문서/' },
+    { label: '웹블로그', href: '/웹문서/웹블로그-제작/' },
     { label: '블로그', href: '/blog/' },
   ];
 

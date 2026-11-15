@@ -1053,3 +1053,27 @@
 }
 .lp-hero-note { margin: 18px 0 0; font-size: 0.82rem; color: rgba(255,255,255,0.62); text-align: center; }
 .lp-hero-note a { color: rgba(255,255,255,0.85); text-decoration: underline; }
+
+/* ============ 세 상품 (components/landing/Products.tsx) ============ */
+.lp-products { padding: 110px 0; background: #f6f8fb; }
+.lp-prod-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 52px; }
+.lp-prod-card {
+  display: flex; flex-direction: column; background: #fff; border: 1px solid var(--lp-line);
+  border-radius: 20px; padding: 30px 28px; color: var(--lp-text); text-decoration: none;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s; word-break: keep-all;
+}
+.lp-prod-card:hover { border-color: var(--lp-text); transform: translateY(-6px); box-shadow: 0 20px 44px rgba(17, 19, 24, 0.08); }
+.lp-prod-card:nth-child(2) { border-top: 4px solid var(--lp-blue); }
+.lp-prod-card:nth-child(3) { border-top: 4px solid var(--lp-green); }
+.lp-prod-tag { font-size: 0.8rem; font-weight: 700; color: var(--lp-gray); letter-spacing: 0.02em; }
+.lp-prod-card h3 { font-size: 1.25rem; font-weight: 800; margin: 10px 0 6px; line-height: 1.35; }
+.lp-prod-price { font-weight: 700; color: var(--lp-blue); margin-bottom: 16px; }
+.lp-prod-card ul { list-style: none; padding: 0; margin: 0 0 22px; display: grid; gap: 8px; flex: 1; }
+.lp-prod-card li { color: #3b4250; font-size: 0.94rem; line-height: 1.5; padding-left: 14px; position: relative; }
+.lp-prod-card li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 6px; height: 6px; background: var(--lp-text); }
+.lp-prod-cta { font-weight: 700; font-size: 0.94rem; }
+.lp-prod-note { text-align: center; color: var(--lp-gray); font-size: 0.86rem; margin-top: 28px; word-break: keep-all; }
+@media (max-width: 900px) {
+  .lp-products { padding: 72px 0; }
+  .lp-prod-grid { grid-template-columns: 1fr; }
+}

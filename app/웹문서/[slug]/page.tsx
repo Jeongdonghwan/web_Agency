@@ -42,6 +42,7 @@ import PageCalculator from '../../../components/webdoc/PageCalculator';
 import SerpMock from '../../../components/webdoc/SerpMock';
 import CaseStudy from '../../../components/webdoc/CaseStudy';
 import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd, itemListJsonLd } from '../../../lib/jsonld';
+import TopPromo from '../../../components/blog/TopPromo';
 
 export const dynamicParams = false;
 
@@ -180,6 +181,7 @@ async function CorePage({ doc }: { doc: CoreDoc & WebdocPage }) {
           <h1>{doc.name}</h1>
           <Paras text={doc.description} per={1} className="page-lead" />
         </header>
+        <TopPromo />
         {doc.slug === '웹문서-대량제작' && <CaseStudy />}
         <Summary items={doc.summary} />
 
@@ -240,6 +242,7 @@ function IndustryPage({ ind }: { ind: IndustryDoc & WebdocPage }) {
           <h1>{c.h1}</h1>
           <Paras text={c.description} per={1} className="page-lead" />
         </header>
+        <TopPromo />
         <Summary items={c.summary} />
 
         <section className="content-section">
@@ -434,6 +437,7 @@ function ServicePage({ svc }: { svc: ServiceDoc & WebdocPage }) {
           <h1>{c.h1}</h1>
           <Paras text={c.description} per={1} className="page-lead" />
         </header>
+        <TopPromo />
         <Summary items={c.summary} />
 
         <section className="content-section">
@@ -523,6 +527,7 @@ function GroupPage({ g }: { g: GroupDoc & WebdocPage }) {
           <h1>{c.h1}</h1>
           <Paras text={c.description} per={1} className="page-lead" />
         </header>
+        <TopPromo />
         <Summary items={c.summary} />
         {c.intro && <Paras text={c.intro} />}
         <section className="content-section">
@@ -577,6 +582,7 @@ function TaskPage({ t }: { t: BrandTask & WebdocPage }) {
           <h1>{c.h1}</h1>
           <Paras text={c.description} per={1} className="page-lead" />
         </header>
+        <TopPromo />
         <Summary items={c.summary} />
         <section className="content-section">
           <h2>{c.h1}, 본사가 챙길 것</h2>

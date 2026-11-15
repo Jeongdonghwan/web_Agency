@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { getAllServices, servicePath } from '../../lib/services';
 import JsonLd from '../../components/seo/JsonLd';
 import { breadcrumbJsonLd } from '../../lib/jsonld';
+import TopPromo from '../../components/blog/TopPromo';
 
 export const metadata: Metadata = {
   title: '제작 서비스 안내 - 랜딩페이지부터 쇼핑몰까지',
@@ -39,6 +40,7 @@ export default function ServiceHubPage() {
             공식 홈페이지, 판매가 목적인 쇼핑몰 — 필요한 서비스를 선택해 구성과 비용을 확인해보세요.
           </p>
         </header>
+        <TopPromo />
 
         <div className="post-list">
           {services.map((s) => (

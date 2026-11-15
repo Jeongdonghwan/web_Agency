@@ -7,6 +7,7 @@ import PageCalculator from '../../components/webdoc/PageCalculator';
 import SerpMock from '../../components/webdoc/SerpMock';
 import CaseStudy from '../../components/webdoc/CaseStudy';
 import { breadcrumbJsonLd, itemListJsonLd, serviceJsonLd } from '../../lib/jsonld';
+import TopPromo from '../../components/blog/TopPromo';
 
 const TITLE = '웹문서 대량제작 - 홈페이지 제작부터 수천 개 검색 페이지까지 | JD8';
 const DESC = '영업 지역과 서비스를 조합해 네이버·구글에서 검색될 수 있는 업체 소개 페이지를 수백~수천 개까지 제작합니다. 홈페이지 제작, 실제 사진·사례, 썸네일·전화 버튼, 플레이스 연결, 검색 등록까지.';
@@ -65,6 +66,7 @@ export default function WebdocHub() {
           <p className="page-lead">우리 업체를 더 많은 지역에서 검색할 수 있도록 만들어 드립니다.</p>
           <p className="page-lead">영업 지역 × 서비스마다 업체 소개 페이지를 수백~수천 개까지, 홈페이지 제작부터 검색 등록까지 한 번에.</p>
         </header>
+        <TopPromo />
         <CaseStudy />
         <aside className="wd-summary" aria-label="핵심 요약">
           <strong>핵심 요약</strong>

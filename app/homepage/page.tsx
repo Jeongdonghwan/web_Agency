@@ -5,6 +5,7 @@ import { getOpenHomepageGen, homepageGenPath } from '../../lib/webdoc';
 import { getActiveCategories, getIndustriesByCategory, getAllIndustries } from '../../lib/industries';
 import JsonLd from '../../components/seo/JsonLd';
 import { breadcrumbJsonLd } from '../../lib/jsonld';
+import TopPromo from '../../components/blog/TopPromo';
 
 export const metadata: Metadata = {
   title: '업종별 홈페이지 제작 - 우리 업종에 딱 맞는 홈페이지',
@@ -43,6 +44,7 @@ export default function IndustryHubPage() {
             자주 묻는 질문을 정리했습니다. 아래에서 해당 업종을 선택해 확인해보세요.
           </p>
         </header>
+        <TopPromo />
 
         {categories.map((cat) => {
           const industries = getIndustriesByCategory(cat.slug);

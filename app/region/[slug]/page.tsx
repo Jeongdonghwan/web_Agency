@@ -18,6 +18,7 @@ import { getAllServices, servicePath } from '../../../lib/services';
 import { markdownToHtml } from '../../../lib/markdown';
 import JsonLd from '../../../components/seo/JsonLd';
 import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd, itemListJsonLd } from '../../../lib/jsonld';
+import TopPromo from '../../../components/blog/TopPromo';
 
 export const dynamicParams = false;
 
@@ -107,6 +108,7 @@ async function RegionMdPage({ doc }: { doc: any }) {
           <h1>{doc.name} 홈페이지 제작</h1>
           <p className="page-lead">{doc.description}</p>
         </header>
+        <TopPromo />
 
         <section className="content-section">
           <h2>{doc.name} 사장님들이 자주 겪는 고민</h2>
@@ -256,6 +258,7 @@ function DongPage({ dong }: { dong: any }) {
           <h1>{dong.dong} 홈페이지제작</h1>
           <p className="page-lead">{c.description}</p>
         </header>
+        <TopPromo />
 
         {c.paragraphs.map((p, i) => (
           <section className="content-section" key={i}>

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { getAllRegions, regionPath } from '../../lib/regions';
 import JsonLd from '../../components/seo/JsonLd';
 import { breadcrumbJsonLd } from '../../lib/jsonld';
+import TopPromo from '../../components/blog/TopPromo';
 
 export const metadata: Metadata = {
   title: '지역별 홈페이지 제작 - 서울·경기·전국 주요 도시',
@@ -46,6 +47,7 @@ export default function RegionHubPage() {
             제작해드립니다. 지역 상권과 업종 분포에 맞는 구성이 다르기에, 지역별 가이드를 준비했습니다.
           </p>
         </header>
+        <TopPromo />
 
         {GROUPS.map((g) => {
           const list = regions.filter((r) => g.match(r.slug));

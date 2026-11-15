@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { getActiveCategories, getCategory, getIndustriesByCategory } from '../../../../lib/industries';
 import JsonLd from '../../../../components/seo/JsonLd';
 import { breadcrumbJsonLd } from '../../../../lib/jsonld';
+import TopPromo from '../../../../components/blog/TopPromo';
 
 export const dynamicParams = false;
 
@@ -51,6 +52,7 @@ export default function CategoryPage({ params }: { params: { category: string } 
           <h1>{cat.name} 홈페이지 제작</h1>
           <p className="page-lead">{cat.description}</p>
         </header>
+        <TopPromo />
 
         <section className="category-block">
           <h2>업종을 선택하세요</h2>

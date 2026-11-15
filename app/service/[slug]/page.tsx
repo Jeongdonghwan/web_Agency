@@ -7,6 +7,7 @@ import { getIndustryBySlug, industryPath } from '../../../lib/industries';
 import { markdownToHtml } from '../../../lib/markdown';
 import JsonLd from '../../../components/seo/JsonLd';
 import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd } from '../../../lib/jsonld';
+import TopPromo from '../../../components/blog/TopPromo';
 
 export const dynamicParams = false;
 
@@ -67,6 +68,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
           <h1>{doc.name}</h1>
           <p className="page-lead">{doc.description}</p>
         </header>
+        <TopPromo />
 
         <section className="content-section">
           <h2>이런 상황이라면 {doc.name}이 필요합니다</h2>
