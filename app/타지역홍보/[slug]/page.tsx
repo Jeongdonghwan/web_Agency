@@ -10,6 +10,8 @@ import {
   tajiEncodedPath,
   tajiSidoPath,
   tajiTitle,
+  openTsvcSlug,
+  tsvcPath,
   webdocPath,
   webdocOg,
   industryTitle,
@@ -188,7 +190,7 @@ export default function TajiPage({ params }: { params: { slug: string } }) {
         <section className="content-section">
           <h2>{p.name} 다른 지역 타지역 홍보</h2>
           <p className="wd-p">
-            {p.sido.name} 밖 지역도 함께 맡으신다면 시·도별 안내를 보세요. 업종 전체 안내는 <Link href={webdocPath(`${p.name}-홍보`)}>{industryTitle(p.name, p.group)}</Link>에 있습니다.
+            {p.sido.name} 밖 지역도 함께 맡으신다면 시·도별 안내를 보세요.{openTsvcSlug(p.tajiSlug) && <> 타지역서비스 방식 비교는 <Link href={tsvcPath(p.tajiSlug)}>{p.sido.name} {p.name} 타지역서비스</Link>에서 볼 수 있습니다.</>} 업종 전체 안내는 <Link href={webdocPath(`${p.name}-홍보`)}>{industryTitle(p.name, p.group)}</Link>에 있습니다.
           </p>
           <div className="industry-grid">
             {otherSido.map((o) => (

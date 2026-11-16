@@ -1053,3 +1053,168 @@ function composeTaji(p: TajiDoc) {
       : [`${sd.name} ${n} 타지역 홍보`, `${sd.name} ${n} 업체 홍보`, `${sd.name} ${n} 타지역서비스`, `${sd.name} ${n} 웹문서`, `${sd.name} ${n} 광고`],
   };
 }
+
+// ---- 업종 × 시도 타지역서비스 (/타지역서비스/<시도>-<업종>/) ----
+// 타지역 홍보(/타지역홍보/)와 같은 업종·시도 조합이지만 "타지역서비스"를 찾는 사람용으로 문장을 따로 쓴다
+// (타지역서비스란 무엇인지, 지도 방식과 웹문서 방식 비교, 비용·시작 방법). 프랜차이즈 본사는 넣지 않는다.
+// 공개 일정: data/webdoc/tajisvc-schedule.json (scripts/tajisvc_schedule.py)
+let tsvcCache: TajiDoc[] | null = null;
+let tsvcOpen: Map<string, TajiDoc> | null = null;
+export function getAllTsvc(): TajiDoc[] {
+  if (tsvcCache) return tsvcCache;
+  const sched = loadSchedule('tajisvc-schedule.json');
+  const inds = getAllWebdocPages().filter((p): p is IndustryDoc & WebdocPage => p.kind === 'industry' && !isBrand(p.group));
+  const out: TajiDoc[] = [];
+  for (const sd of getSidos())
+    for (const i of inds) {
+      const tajiSlug = `${sd.name}-${i.name}`;
+      out.push({ ...i, kind: 'taji', tajiSlug, sido: sd, openDate: sched.get(tajiSlug) || '9999-12-31' });
+    }
+  return (tsvcCache = out);
+}
+const tsvcOpenMap = () => (tsvcOpen ??= new Map(getAllTsvc().filter((p) => p.openDate <= todayKst()).map((p) => [p.tajiSlug, p])));
+export const getOpenTsvc = () => [...tsvcOpenMap().values()];
+export const getTsvc = (slug: string) => {
+  let key = slug;
+  try {
+    key = decodeURIComponent(slug);
+  } catch {}
+  return tsvcOpenMap().get(key);
+};
+export const TSVC_HUB = '/타지역서비스/';
+export const tsvcPath = (slug: string) => `/타지역서비스/${slug}/`;
+export const tsvcEncodedPath = (slug: string) => `/${encodeURIComponent('타지역서비스')}/${encodeURIComponent(slug)}/`;
+export const tsvcSidoPath = (sido: string) => `/타지역서비스/지역/${sido}/`;
+export const tsvcSidoEncodedPath = (sido: string) => `/${encodeURIComponent('타지역서비스')}/${encodeURIComponent('지역')}/${encodeURIComponent(sido)}/`;
+export const tsvcTitle = (p: TajiDoc) => `${p.sido.name} ${p.name} 타지역서비스`;
+// 같은 시도·업종의 타지역 홍보 페이지가 열려 있으면 그 주소 (두 섹션을 서로 잇는다)
+let tajiOpenSet: Set<string> | null = null;
+export const openTajiSlug = (slug: string) => ((tajiOpenSet ??= new Set(getOpenTaji().map((p) => p.tajiSlug))).has(slug) ? slug : null);
+export const openTsvcSlug = (slug: string) => (tsvcOpenMap().has(slug) ? slug : null);
+
+export function buildTsvcContent(p: TajiDoc) {
+  const c = composeTsvc(p);
+  if (!isOffice(p.group)) return c;
+  return LEGAL_GROUPS.includes(p.group) ? legalize(officeize(c)) : officeize(c);
+}
+
+function composeTsvc(p: TajiDoc) {
+  const { name: n, sido: sd } = p;
+  const s = 'svc' + p.tajiSlug;
+  const off = isOffice(p.group);
+  const areas = shuffle(sd.areas, s);
+  const A = areas.map(shortArea);
+  const a = (k: number) => A[k % A.length];
+  const o = hash(s + 'o') % p.serviceItems.length;
+  const items = p.serviceItems.map((_, k) => p.serviceItems[(k + o + 3) % p.serviceItems.length]);
+  const it = (k: number) => items[k % items.length];
+  const q0 = it(0).searches[0] || it(0).name;
+  const q1 = it(1).searches[0] || it(1).name;
+  const S = p.services.length;
+  const total = sd.areas.length * S;
+  const label = off ? n : `${n} 업체`;
+  const who = off ? '사무소' : '업체';
+  const unitN = `${sd.areas.length}개 ${sd.unit}`;
+  const noRank = '순위는 보장하지 않습니다.';
+
+  const title = `${sd.name} ${n} 타지역서비스 - ${unitN} 노출, 웹문서로 바로 문의 | JD8`;
+  const h1 = `${sd.name} ${label} 타지역서비스, ${unitN}에 웹문서로`;
+  const description = pick([
+    `${sd.name} ${n} 타지역서비스를 찾으신다면 JD8 웹문서를 보세요. ${a(0)}·${a(1)} 등 ${unitN} 검색마다 ${who} 페이지를 만들어 신규 고객 문의를 받습니다. 지금 바로 문의하세요.`,
+    `${sd.full}에서 ${n} 타지역서비스를 알아보는 사장님을 위한 안내입니다. 사무실이 없는 ${a(0)}·${a(1)} 검색에도 ${who}가 보이도록 ${unitN} 페이지를 사장님 사이트에 만듭니다. 바로 문의하세요.`,
+  ], s + 'd');
+
+  const summary = [
+    `${sd.name} ${n} 타지역서비스는 사무실이 없는 ${sd.unit}의 검색에도 ${who}가 보이게 하는 일입니다.`,
+    pick([
+      `JD8은 이를 웹문서로 합니다. ${a(0)}·${a(1)} 등 ${unitN}마다 ${n} 페이지를 사장님 사이트에 만듭니다.`,
+      `${sd.name} ${unitN} × ${n} 서비스 ${S}가지, 최대 ${total}개 검색어에 ${who} 페이지를 둘 수 있습니다.`,
+    ], s + 's2'),
+    pick([
+      `${n}처럼 지역 이름으로 찾는 업종에 효과가 큽니다. 실제 고객사는 웹문서를 연 뒤 한 달 새 검색 노출이 +200~337% 늘었습니다.`,
+      `${sd.name} ${n} 신규 고객 유치에 도움이 됩니다. 실제 고객사 검색 노출은 지난달 대비 +200~337% 늘었습니다.`,
+    ], s + 's3'),
+  ];
+
+  const whatH2 = pick([`${sd.name} ${n} 타지역서비스란 무엇인가요`, `${sd.name}에서 ${n} 타지역서비스를 찾는 이유`, `${n} 타지역서비스, ${sd.name}에서는 이렇게 합니다`], s + 'h1');
+  const what = [
+    pick([
+      `타지역서비스는 사무실이 없는 다른 지역의 검색에도 ${who}가 보이게 하는 서비스를 통틀어 부르는 말입니다. ${n}처럼 손님에게 찾아가는 업종에서 많이 찾습니다.`,
+      `${n} 사장님이 타지역서비스를 찾는 까닭은 하나입니다. 일은 ${a(0)}, ${a(1)}에서도 나오는데 검색에는 사무실 근처에서만 보이기 때문입니다.`,
+      `${sd.name}에서 ${n} 일을 하다 보면 ${a(0)}·${a(1)}처럼 사무실에서 먼 곳의 문의가 아쉬워집니다. 그 지역 검색에 ${who}를 보이게 하는 것이 타지역서비스입니다.`,
+    ], s + 'w1'),
+    `${pick([
+      `${sd.name} ${unitN} 가운데 사무실이 있는 곳은 한두 곳입니다. 나머지 ${sd.unit}의 '${a(2)} ${q0}' 같은 검색은 그 지역 페이지가 있어야 받을 수 있습니다.`,
+      `'${a(2)} ${q0}', '${a(3)} ${q1}'. ${sd.name}에서 ${n} 손님이 실제로 입력하는 검색어는 이렇게 ${sd.unit} 이름으로 시작합니다.`,
+      `${sd.full} 손님은 업체 이름을 모르는 상태에서 '${a(2)} ${q0}'처럼 지역과 필요한 일을 함께 검색합니다. 이 검색에 답하는 페이지가 타지역서비스의 실체입니다.`,
+    ], s + 'w2')} ${polite(p.pain)}`,
+  ];
+
+  const cmpH2 = `${sd.name} ${n} 타지역서비스, 지도 방식과 웹문서 방식`;
+  const cmp: [string, string, string][] = [
+    ['보이는 곳', '지도·플레이스 목록', `'${a(0)} ${q0}' 같은 웹 검색 결과`],
+    ['남는 곳', '지도 플랫폼 안', `${n} ${who} 사이트(사장님 도메인)`],
+    ['지역을 늘리려면', '지역마다 등록을 추가', `${a(1)}·${a(2)} 페이지를 추가`],
+    ['계약이 끝나면', '노출도 함께 끝남', `${sd.name} ${n} 페이지는 그대로 남음`],
+    ['기준이 바뀌면', '플랫폼 정책에 따라 달라짐', '네이버·구글 두 곳에 등록해 한쪽이 남음'],
+  ];
+  const cmpNote = pick([
+    `두 방식은 받는 손님이 다릅니다. 지도를 보는 손님은 지도 방식이, 검색창에 입력하는 손님은 웹문서 방식이 받습니다. ${sd.name} ${n} ${who}라면 함께 쓰셔도 됩니다.`,
+    `이미 지도 방식 타지역서비스를 쓰고 계셔도 괜찮습니다. 웹문서는 ${who} 사이트에 따로 쌓이므로 ${sd.name}에서 두 가지를 같이 운영할 수 있습니다.`,
+    `${n} 타지역서비스를 처음 알아보신다면 웹문서 방식부터 권합니다. ${sd.name} 지역 페이지가 사장님 도메인에 남아 계약이 끝난 뒤에도 검색을 받기 때문입니다.`,
+  ], s + 'cn');
+
+  const rows: [string, string, string][] = areas.slice(0, 8).map((ar, k) => [ar, `${shortArea(ar)} ${it(k).searches[k % it(k).searches.length] || it(k).name}`, `${shortArea(ar)} ${it(k).name} 안내`]);
+  const svcRows: [string, string, string][] = items.slice(0, 4).map((x, k) => [x.name, x.note ? polite(x.note) : `${x.name} 문의를 따로 받습니다.`, `${a(k + 4)} ${x.searches[1] || x.searches[0] || x.name}`]);
+  const areasText = `${sd.name}에서 만들 수 있는 지역은 ${areas.map(shortArea).join('·')}입니다. 실제로 출장 가는 곳만 고릅니다.`;
+
+  const effectH2 = pick([`${sd.name} ${n} 신규 고객 유치에 강한 이유`, `웹문서 타지역서비스, ${sd.name} ${n}에 효과가 큰 까닭`], s + 'h2');
+  const effect = [
+    pick([
+      `타지역서비스의 효과는 몇 개 지역에서 보이느냐로 정해집니다. 웹문서는 ${sd.name} ${unitN} × ${n} 서비스 ${S}가지, 곧 ${total}개 검색어마다 페이지를 둘 수 있습니다.`,
+      `${n} 손님은 급하거나 비교하거나 둘 중 하나이고, 어느 쪽이든 검색 첫 화면에서 고릅니다. ${a(3)}·${a(4)} 검색에 ${who} 페이지가 있으면 그 손님이 새 문의가 됩니다.`,
+      `광고는 예산이 끝나면 멈추지만 웹문서 페이지는 ${who} 사이트에 남아 계속 검색을 받습니다. ${sd.name}에 ${n} 페이지 ${total}개를 한 번 만들어 두면 매달 새로 사지 않아도 됩니다.`,
+    ], s + 'e1'),
+    pick([
+      `JD8 고객사 두 곳은 웹문서를 연 뒤 한 달 동안 검색 노출이 지난달보다 +200%, +337% 늘었습니다. 업종과 지역에 따라 차이가 있고 ${noRank} 그래도 ${sd.name} ${n}처럼 지역 검색이 많은 업종에 잘 맞는 방식입니다.`,
+      `실제 고객사에서 확인한 숫자는 한 달 새 검색 노출 +200~337%입니다. ${n} 신규 고객 유치에 도움이 되는 이유는 ${sd.name} ${sd.unit}마다 검색 입구가 새로 생기기 때문입니다. ${noRank}`,
+    ], s + 'e2'),
+    `${polite(p.season)} ${pick([
+      `${sd.name} ${n} 타지역서비스는 그 전에 시작해야 페이지가 수집될 시간을 벌 수 있습니다.`,
+      `그래서 ${a(5)}·${a(6)} 페이지는 문의가 몰리기 몇 주 전에 열어 두는 것이 좋습니다.`,
+      `${n} 문의가 늘어나는 시기에 맞추려면 지금 ${sd.name} 지역 목록부터 정해 두세요.`,
+    ], s + 'e3')}`,
+  ];
+
+  const steps: [string, string][] = [
+    ['지역·서비스 알려주기', `${sd.name}에서 출장 가는 ${sd.unit}과 ${n} 서비스를 카톡으로 알려 주십니다.`],
+    ['페이지 제작', `JD8이 ${a(0)}·${a(1)}부터 ${it(0).name}, ${it(1).name} 페이지를 만들어 사장님 사이트에 올립니다.`],
+    ['검색 등록·확인', `네이버·구글에 등록하고, ${n} 페이지가 얼마나 수집됐는지 알려 드립니다.`],
+  ];
+
+  const faq = [
+    { q: `${sd.name} ${n} 타지역서비스 비용은 어떻게 정해지나요?`, a: `${sd.unit} 수와 ${n} 서비스 수를 곱한 페이지 수로 정합니다. ${sd.name} 전체라면 ${total}개가 기준이고, 실제로 출장 가는 곳만 골라 견적을 드립니다.` },
+    { q: `지도에 올리는 ${n} 타지역서비스와 같이 써도 되나요?`, a: pick([
+      `같이 쓰셔도 됩니다. 지도 방식은 지도 안의 손님을, 웹문서는 '${a(0)} ${q0}'처럼 검색창에 입력하는 손님을 받습니다.`,
+      `됩니다. 웹문서는 ${who} 사이트에 ${sd.name} 지역 페이지를 따로 쌓는 일이라 지도 등록과 부딪치지 않습니다.`,
+    ], s + 'f2') },
+    { q: `${a(0)}부터 먼저 시작할 수 있나요?`, a: `가능합니다. ${a(0)}·${a(1)}처럼 문의를 받고 싶은 ${sd.unit}부터 열고, 수집을 확인하면서 ${sd.name} 나머지 지역을 채워 갑니다.` },
+    { q: `${sd.name} ${n} 타지역서비스 효과는 언제부터 나타나나요?`, a: pick([
+      `페이지를 올린 뒤 검색엔진이 수집하는 데 보통 몇 주가 걸립니다. ${a(0)}처럼 먼저 연 지역부터 노출이 쌓이고, ${n} 경쟁 상황에 따라 차이가 있습니다. ${noRank}`,
+      `보통 몇 주 안에 수집이 시작됩니다. 실제 고객사는 한 달 새 노출이 3~4배로 늘었지만 ${sd.name} 지역과 ${n} 업종에 따라 다르며, ${noRank}`,
+    ], s + 'f4') },
+  ];
+
+  return {
+    title, h1, description, summary, whatH2, what, cmpH2, cmp, cmpNote,
+    tableH2: `${sd.name} ${sd.unit}별 ${n} 검색어와 만들 페이지`, rows,
+    svcH2: `${n} 서비스별로 받는 타지역 검색`, svcRows, areasText,
+    effectH2, effect,
+    stepH2: `${sd.name} ${n} 타지역서비스 시작 방법`, steps,
+    calc: { regions: sd.areas.length, services: S, label: `${n} 서비스`, firstLabel: sd.unit, title: `${sd.name} ${label} 타지역서비스, 페이지가 몇 개 필요할까?` },
+    faq,
+    ctaH2: `${sd.name} ${n} 타지역서비스, 지금 바로 문의하세요`,
+    ctaText: `출장 가는 ${sd.unit}만 알려주시면 ${sd.name} ${n} 페이지 구성안과 견적을 바로 드립니다. 전 과정 비대면입니다.`,
+    keywords: [`${sd.name} ${n} 타지역서비스`, `${n} 타지역서비스`, `${sd.name} ${n} 타지역 노출`, `${sd.name} ${n} 타지역 광고`, `${n} 타지역서비스 비용`],
+  };
+}

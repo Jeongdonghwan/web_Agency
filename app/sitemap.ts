@@ -7,7 +7,7 @@ import { getAllServices, serviceEncodedPath } from '../lib/services';
 import { getAllRegions, regionEncodedPath } from '../lib/regions';
 import { getAllDongs, dongEncodedPath } from '../lib/dongs';
 import { portfolios } from '../data/portfolios';
-import { getOpenWebdocPages, webdocEncodedPath, getOpenHomepageGen, homepageGenEncodedPath, getOpenTaji, tajiEncodedPath, tajiSidoEncodedPath } from '../lib/webdoc';
+import { getOpenWebdocPages, webdocEncodedPath, getOpenHomepageGen, homepageGenEncodedPath, getOpenTaji, tajiEncodedPath, tajiSidoEncodedPath, getOpenTsvc, tsvcEncodedPath, tsvcSidoEncodedPath } from '../lib/webdoc';
 
 // lastmod는 실제 내용이 바뀐 시각만 쓴다. 빌드 시각(new Date())을 박으면 매 빌드마다 전 URL이
 // "수정됨"이 되어 검색엔진이 lastmod 신호를 무시한다.
@@ -123,6 +123,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       entries.push({ url: `${SITE_URL}${tajiSidoEncodedPath(sd)}`, lastModified: latest(taji.filter((p) => p.sido.name === sd).map((p) => tajiLm(p.openDate))), changeFrequency: 'weekly', priority: 0.8 });
     }
     for (const p of taji) entries.push({ url: `${SITE_URL}${tajiEncodedPath(p.tajiSlug)}`, lastModified: tajiLm(p.openDate), changeFrequency: 'monthly', priority: 0.7 });
+  }
+
+  // 타지역서비스 (업종 × 시도) — 열린 묶음만
+  const tsvc = getOpenTsvc();
+  if (tsvc.length) {
+    const tsvcData = mtime('data/webdoc/industries.json', 'data/webdoc/sido.json');
+    const tsvcLm = (d: string) => latest([d, tsvcData]);
+    entries.push({ url: `${SITE_URL}/${encodeURIComponent('타지역서비스')}/`, lastModified: latest(tsvc.map((p) => tsvcLm(p.openDate))), changeFrequency: 'weekly', priority: 0.9 });
+    for (const sd of [...new Set(tsvc.map((p) => p.sido.name))]) {
+      entries.push({ url: `${SITE_URL}${tsvcSidoEncodedPath(sd)}`, lastModified: latest(tsvc.filter((p) => p.sido.name === sd).map((p) => tsvcLm(p.openDate))), changeFrequency: 'weekly', priority: 0.8 });
+    }
+    for (const p of tsvc) entries.push({ url: `${SITE_URL}${tsvcEncodedPath(p.tajiSlug)}`, lastModified: tsvcLm(p.openDate), changeFrequency: 'monthly', priority: 0.7 });
   }
 
   // 블로그 글
