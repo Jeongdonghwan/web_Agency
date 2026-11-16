@@ -30,7 +30,7 @@ const WorkingSection = () => {
             </div>
             <div className="lp-show-caption">
               <h3>검색엔진이 읽기 쉬운 구조부터 설계해<br />노출될 이유가 있는 홈페이지를 만듭니다</h3>
-              <span>기본 SEO 세팅 · 네이버 서치어드바이저 등록 안내</span>
+              <span>기본 SEO 세팅 · 네이버 서치어드바이저·구글 서치콘솔 등록</span>
             </div>
           </div>
 

@@ -14,7 +14,7 @@ const IncludesSection = () => {
     { icon: <DeviceIcon />, title: '반응형', desc: 'PC, 태블릿, 모바일 완벽 대응' },
     { icon: <SearchIcon />, title: 'SEO 기본설정', desc: '검색 노출을 위한 구조 세팅' },
     { icon: <DocumentIcon />, title: '문의 동선', desc: '카톡·전화 원클릭 연결' },
-    { icon: <WrenchIcon />, title: '1회 수정', desc: '완성 후 수정 1회 무료' },
+    { icon: <WrenchIcon />, title: '무한 수정', desc: '제작 완료까지 무한 수정' },
     { icon: <RocketIcon />, title: '빠른 제작', desc: '최단 3일 내 완성' },
   ];
 
