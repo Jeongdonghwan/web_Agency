@@ -349,7 +349,7 @@ function IndustryPage({ ind }: { ind: IndustryDoc & WebdocPage }) {
             </div>
             {openTajiFor(ind.name).length > 0 && (
               <>
-                <p className="wd-p">시·도별 {ind.name} 타지역서비스 안내</p>
+                <p className="wd-p">시·도별 {ind.name} 타지역 홍보 안내</p>
                 <div className="industry-grid">
                   {openTajiFor(ind.name).map((o) => (
                     <Link key={o.tajiSlug} href={tajiPath(o.tajiSlug)}>
