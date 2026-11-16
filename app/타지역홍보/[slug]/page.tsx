@@ -60,19 +60,19 @@ export default function TajiPage({ params }: { params: { slug: string } }) {
           data={[
             breadcrumbJsonLd([
               { name: '홈', path: '/' },
-              { name: '타지역 홍보', path: TAJI_HUB },
-              { name: `${p.sido.name} 타지역 홍보`, path: tajiSidoPath(p.sido.name) },
+              { name: '타지역서비스', path: TAJI_HUB },
+              { name: `${p.sido.name} 타지역서비스`, path: tajiSidoPath(p.sido.name) },
               { name: t, path },
             ]),
             faqPageJsonLd(c.faq),
             serviceJsonLd({ name: t, description: c.description, path }),
-            itemListJsonLd(`${p.sido.name} ${p.group} 타지역 홍보`, sameSido.map((o) => ({ name: tajiTitle(o), url: tajiPath(o.tajiSlug), image: webdocOg(`${o.name}-홍보`) }))),
+            itemListJsonLd(`${p.sido.name} ${p.group} 타지역서비스`, sameSido.map((o) => ({ name: tajiTitle(o), url: tajiPath(o.tajiSlug), image: webdocOg(`${o.name}-홍보`) }))),
           ]}
         />
         <nav className="breadcrumb" aria-label="브레드크럼">
           <Link href="/">홈</Link>
           <span className="sep">›</span>
-          <Link href={TAJI_HUB}>타지역 홍보</Link>
+          <Link href={TAJI_HUB}>타지역서비스</Link>
           <span className="sep">›</span>
           <Link href={tajiSidoPath(p.sido.name)}>{p.sido.name}</Link>
           <span className="sep">›</span>
@@ -186,7 +186,7 @@ export default function TajiPage({ params }: { params: { slug: string } }) {
         </section>
 
         <section className="content-section">
-          <h2>{p.name} 다른 지역 타지역 홍보</h2>
+          <h2>{p.name} 다른 지역 타지역서비스</h2>
           <p className="wd-p">
             {p.sido.name} 밖 지역도 함께 맡으신다면 시·도별 안내를 보세요. 업종 전체 안내는 <Link href={webdocPath(`${p.name}-홍보`)}>{industryTitle(p.name, p.group)}</Link>에 있습니다.
           </p>

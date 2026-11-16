@@ -926,7 +926,7 @@ export const tajiEncodedPath = (slug: string) => `/${encodeURIComponent('타지�
 export const tajiSidoPath = (sido: string) => `/타지역홍보/지역/${sido}/`;
 export const tajiSidoEncodedPath = (sido: string) => `/${encodeURIComponent('타지역홍보')}/${encodeURIComponent('지역')}/${encodeURIComponent(sido)}/`;
 export const tajiTitle = (p: TajiDoc) =>
-  p.group === '프랜차이즈 본사' ? `${p.sido.name} ${p.name} 가맹점 모집 홍보` : `${p.sido.name} ${p.name} 타지역 홍보`;
+  p.group === '프랜차이즈 본사' ? `${p.sido.name} ${p.name} 가맹점 모집 홍보` : `${p.sido.name} ${p.name} 타지역서비스`;
 // 열린 시도 페이지만 — 업종 웹문서 페이지에서 링크
 export const openTajiFor = (name: string) => getOpenTaji().filter((p) => p.name === name);
 
@@ -934,7 +934,7 @@ const shortArea = (a: string) => (a.length > 2 && /[시군구]$/.test(a) ? a.sli
 const shuffle = <T,>(arr: T[], seed: string) => [...arr].sort((a, b) => hash(seed + String(a)) - hash(seed + String(b)));
 
 const TAJI_WHY_H2 = ['{sd}에서 {n} 신규 고객을 놓치는 이유', '{sd} {n} 업체가 옆 지역 검색에서 안 보이는 이유', '{sd} 전역 {n} 문의, 왜 일부만 들어올까요?'];
-const TAJI_EFFECT_H2 = ['{sd} {n} 타지역 홍보, 효과가 큰 이유', '웹문서가 {sd} {n} 신규 고객 유치에 강한 이유', '{sd} {n} 업체에 웹문서가 잘 맞는 이유'];
+const TAJI_EFFECT_H2 = ['{sd} {n} 타지역서비스, 효과가 큰 이유', '웹문서가 {sd} {n} 신규 고객 유치에 강한 이유', '{sd} {n} 업체에 웹문서가 잘 맞는 이유'];
 
 export function buildTajiContent(p: TajiDoc) {
   const c = composeTaji(p);
@@ -961,11 +961,11 @@ function composeTaji(p: TajiDoc) {
 
   const title = fr
     ? `${sd.name} ${base} 가맹점 모집 홍보 - ${unitN} 창업 검색에 본사 페이지를 | JD8`
-    : `${sd.name} ${n} 타지역 홍보 - ${unitN} 검색에 업체를, 신규 고객 문의 | JD8`;
-  const h1 = fr ? `${sd.name} ${base} 가맹점 모집, ${unitN} 창업 검색에 본사를` : `${sd.name} ${label} 타지역 홍보, ${unitN} 검색에 바로 보이게`;
+    : `${sd.name} ${n} 타지역서비스·타지역 홍보 - ${unitN} 검색에 업체를 | JD8`;
+  const h1 = fr ? `${sd.name} ${base} 가맹점 모집, ${unitN} 창업 검색에 본사를` : `${sd.name} ${label} 타지역서비스, ${unitN} 검색에 바로 보이게`;
   const description = fr
     ? `${sd.full} ${unitN}에서 '${A[0]} ${base} 창업'처럼 검색하는 예비 점주에게 본사 페이지가 보이도록 지역별 웹문서를 만듭니다. 지역 가맹 문의 통로를 넓히는 본사 홍보, 지금 바로 상담하세요.`
-    : `${sd.full} ${unitN} 어디서 ${j(n, '을', '를')} 검색해도 ${who}가 보이도록 지역 × 서비스 웹문서를 만듭니다. 플레이스 거리 밖 신규 고객 문의를 받는 타지역 홍보, 지금 바로 상담하세요.`;
+    : `${sd.full} ${unitN} 어디서 ${j(n, '을', '를')} 검색해도 ${who}가 보이도록 지역 × 서비스 웹문서를 만듭니다. 플레이스 거리 밖 신규 고객 문의를 받는 타지역서비스(타지역 홍보), 지금 바로 상담하세요.`;
 
   const summary = [
     `${sd.name} ${unitN} × ${fr ? '창업 검색어' : `${n} 서비스`} ${S}가지 = 검색 페이지 ${total}개를 ${who} 사이트에 만듭니다.`,
@@ -1050,6 +1050,6 @@ function composeTaji(p: TajiDoc) {
     ctaText: `${go} ${sd.unit} 목록만 알려주시면 ${sd.name} 페이지 구성안과 견적을 바로 드립니다. 전 과정 비대면입니다.`,
     keywords: fr
       ? [`${sd.name} ${base} 창업`, `${sd.name} ${base} 가맹점 모집`, `${n} 가맹점 모집 홍보`]
-      : [`${sd.name} ${n} 타지역 홍보`, `${sd.name} ${n} 업체 홍보`, `${sd.name} ${n} 타지역서비스`, `${sd.name} ${n} 웹문서`, `${sd.name} ${n} 광고`],
+      : [`${sd.name} ${n} 타지역서비스`, `${sd.name} ${n} 타지역 홍보`, `${sd.name} ${n} 업체 홍보`, `${sd.name} ${n} 웹문서`, `${sd.name} ${n} 광고`],
   };
 }
