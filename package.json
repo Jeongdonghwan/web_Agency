@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "node scripts/ops.mjs",
     "start": "next start",
     "qa:industries": "node scripts/qa-industries.mjs"
   },
