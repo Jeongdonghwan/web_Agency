@@ -614,3 +614,8 @@ html { scrollbar-color: #b9c6dc transparent; }
 .theme-fortune .serp-rot-list button.on { color: var(--ink); }
 .theme-fortune .ft { background: #f3f7f4; }
 .theme-fortune html, html.theme-fortune { scrollbar-color: #a9c7b8 transparent; }
+
+/* 포춘마케팅 로고: 네잎 심볼 + 글자 (배지 없음) */
+.logo-f { gap: 9px; color: var(--accent); }
+.logo-f span { color: var(--ink); font-size: 1.32rem; font-weight: 900; letter-spacing: -0.045em; line-height: 1; }
+.logo-f i { font-style: normal; font-weight: 500; margin-left: 1px; }

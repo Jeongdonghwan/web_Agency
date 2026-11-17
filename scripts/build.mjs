@@ -48,11 +48,13 @@ if (site === 'jd8') {
   console.log(`보조 파일 ${n}개 삭제`);
   // 포춘마케팅 전용 썸네일은 본 사이트에 두지 않는다
   rm(path.join(out, 'og', 'main-fortune.jpg'));
+  rm(path.join(out, 'shots-fortune'));
 } else {
   // 한 장짜리: 하위 페이지·사이트맵·RSS·다른 썸네일을 지운다
   for (const d of ['제작', '업종', '가이드', 'about', 'rss.xml', 'sitemap.xml', 'llms.txt']) rm(path.join(out, d));
   for (const f of fs.readdirSync(path.join(out, 'og'))) if (f !== 'main-fortune.jpg') rm(path.join(out, 'og', f));
   for (const f of fs.readdirSync(out)) if (/^[0-9a-f]{32}\.txt$/.test(f)) rm(path.join(out, f)); // IndexNow 키 파일
+  rm(path.join(out, 'shots')); // 본 사이트용 화면(JD8 표기)은 두지 않는다
 }
 
 const dist = path.join(root, 'dist', site);

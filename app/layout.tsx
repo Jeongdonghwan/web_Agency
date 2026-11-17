@@ -26,9 +26,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {!LANDING && <JsonLd data={[organizationJsonLd(), webSiteJsonLd()]} />}
         <header className="hd">
           <div className="wrap hd-in">
-            <Link href="/" className="logo">
-              <b>{SITE.logoMark}</b> {SITE.logoText}
-            </Link>
+            {SITE.key === 'fortune' ? (
+              <Link href="/" className="logo logo-f" aria-label="포춘마케팅">
+                <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+                  <path d="M15 15C15 9 11.5 5 8 5S3 8.5 5 11.5 11 15 15 15Z" fill="currentColor" />
+                  <path d="M15 15c6 0 10-3.5 10-7s-3.5-5-6.5-3S15 11 15 15Z" fill="currentColor" opacity=".72" />
+                  <path d="M15 15c0 6 3.5 10 7 10s5-3.5 3-6.5S19 15 15 15Z" fill="currentColor" />
+                  <path d="M15 15c-6 0-10 3.5-10 7s3.5 5 6.5 3S15 19 15 15Z" fill="currentColor" opacity=".72" />
+                </svg>
+                <span>포춘<i>마케팅</i></span>
+              </Link>
+            ) : (
+              <Link href="/" className="logo">
+                <b>{SITE.logoMark}</b> {SITE.logoText}
+              </Link>
+            )}
             <nav className="nav" aria-label="주 메뉴">
               <Link href="/#why">왜 필요한가</Link>
               <Link href="/#cases">사례</Link>

@@ -89,7 +89,7 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <figcaption>{LANDING ? '같은 방식으로 운영 중인 검색 페이지의 실제 화면입니다.' : 'JD8이 같은 방식으로 직접 운영하는 jd8.co.kr 검색 페이지의 실제 화면입니다.'}</figcaption>
+            <figcaption>{LANDING ? '이런 검색 페이지를 만들어 드립니다. 제작 페이지 예시 화면입니다.' : 'JD8이 같은 방식으로 직접 운영하는 jd8.co.kr 검색 페이지의 실제 화면입니다.'}</figcaption>
           </figure>
         </div>
       </section>

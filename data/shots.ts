@@ -1,3 +1,4 @@
+import { SITE_KEY } from '../lib/site';
 // 실제 페이지 화면(public/shots/, scripts/capture.py 로 생성) — JD8 이 같은 방식으로 직접 운영하는 jd8.co.kr 페이지 캡처.
 export const SHOTS: { file: string; label: string; group?: string }[] = [
   { file: 'hasugu', label: '경기 하수구 타지역서비스', group: '하수구·배관' },
@@ -21,5 +22,6 @@ export const SHOTS: { file: string; label: string; group?: string }[] = [
   { file: 'hub', label: '경기 타지역서비스 업종 목록' },
   { file: 'blog', label: '네이버 SEO 가이드 글' },
 ];
-export const shotSrc = (file: string) => `/shots/${file}.jpg`;
+// 포춘마케팅은 같은 페이지를 상호만 바꿔 찍은 화면을 쓴다 (public/shots-fortune/, scripts/rebrand_server.py)
+export const shotSrc = (file: string) => `/${SITE_KEY === 'fortune' ? 'shots-fortune' : 'shots'}/${file}.jpg`;
 export const shotFor = (group: string) => SHOTS.find((s) => s.group === group) || SHOTS[18];

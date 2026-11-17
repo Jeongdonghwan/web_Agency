@@ -10,8 +10,8 @@ import os, subprocess, sys, tempfile, urllib.parse
 from PIL import Image
 
 EDGE = r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
-BASE = 'http://localhost:3200'
-OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'public', 'shots')
+BASE = os.environ.get('CAPTURE_BASE', 'http://localhost:3200')
+OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), *os.environ.get('CAPTURE_OUT', 'public/shots').split('/'))
 os.makedirs(OUT, exist_ok=True)
 FORCE = '--force' in sys.argv
 
