@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   title: { default: DEFAULT_TITLE, template: `%s | ${SITE_NAME}` },
   description: DEFAULT_DESCRIPTION,
   robots: { index: INDEXABLE, follow: INDEXABLE },
+  // 검색엔진 소유 확인 — 본 사이트(web.jd8.co.kr)에만 넣는다
+  ...(INDEXABLE ? { verification: { google: 'JyLUKf4DE-twbixJUybfWGZUKQkyyh6NCZevQ_DXIHg', other: { 'naver-site-verification': 'c500fcc918ded0cf18d9023aea0ec59de36190dc' } } } : {}),
   alternates: LANDING ? { canonical: '/' } : { canonical: '/', types: { 'application/rss+xml': '/rss.xml' } },
   icons: { icon: '/favicon.svg' },
   ...ogMeta(DEFAULT_TITLE, DEFAULT_DESCRIPTION, '/'),
