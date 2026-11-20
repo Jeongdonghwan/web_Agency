@@ -113,8 +113,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <noscript><img height={1} width={1} style={{ display: 'none' }} alt="" src="https://www.facebook.com/tr?id=3266520493548362&ev=PageView&noscript=1" /></noscript>
           </>
         )}
-        {/* 운영 대시보드용: 전화·문자·카톡 링크 클릭을 같은 사이트 /_t 로 기록 (종류와 경로만, 외부 전송 없음) */}
-        <script dangerouslySetInnerHTML={{ __html: "document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href')||'',k=h.indexOf('tel:')===0?'tel':h.indexOf('sms:')===0?'sms':/kakao/.test(h)?'kakao':'';if(k&&navigator.sendBeacon)navigator.sendBeacon('/_t?e='+k+'&p='+encodeURIComponent(location.pathname))},true)" }} />
+        {/* 전화·문자·카톡 링크 클릭을 같은 사이트 /_t 로 기록(운영 대시보드) + 메타 픽셀이 있으면 Contact 이벤트 */}
+        <script dangerouslySetInnerHTML={{ __html: "document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href')||'',k=h.indexOf('tel:')===0?'tel':h.indexOf('sms:')===0?'sms':/kakao/.test(h)?'kakao':'';if(k&&navigator.sendBeacon)navigator.sendBeacon('/_t?e='+k+'&p='+encodeURIComponent(location.pathname));if((k==='tel'||k==='kakao')&&window.fbq)fbq('track','Contact',{method:k==='tel'?'phone':'kakao'})},true)" }} />
         <Motion />
       </body>
     </html>
