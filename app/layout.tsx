@@ -24,6 +24,12 @@ export const viewport: Viewport = { themeColor: '#ffffff', width: 'device-width'
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko" className={SITE.theme || undefined}>
+      <head>
+        {/* 메타 픽셀 (web.jd8 만) */}
+        {SITE.key === 'jd8' && (
+          <script dangerouslySetInnerHTML={{ __html: "!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','3266520493548362');fbq('track','PageView');" }} />
+        )}
+      </head>
       <body>
         {!LANDING && <JsonLd data={[organizationJsonLd(), webSiteJsonLd()]} />}
         <header className="hd">
@@ -101,6 +107,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <span>{COMPANY.phone}</span>
           </a>
         </div>
+        {/* 메타 픽셀: 스크립트 꺼진 브라우저용 (web.jd8 만) */}
+        {SITE.key === 'jd8' && (
+          <>
+            <noscript><img height={1} width={1} style={{ display: 'none' }} alt="" src="https://www.facebook.com/tr?id=3266520493548362&ev=PageView&noscript=1" /></noscript>
+          </>
+        )}
         {/* 운영 대시보드용: 전화·문자·카톡 링크 클릭을 같은 사이트 /_t 로 기록 (종류와 경로만, 외부 전송 없음) */}
         <script dangerouslySetInnerHTML={{ __html: "document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href')||'',k=h.indexOf('tel:')===0?'tel':h.indexOf('sms:')===0?'sms':/kakao/.test(h)?'kakao':'';if(k&&navigator.sendBeacon)navigator.sendBeacon('/_t?e='+k+'&p='+encodeURIComponent(location.pathname))},true)" }} />
         <Motion />
