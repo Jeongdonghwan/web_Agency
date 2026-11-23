@@ -10,6 +10,8 @@ import { ANGLES, makeListPath, MAKE_HUB } from '../lib/make';
 import { REFERENCES, CASES } from '../data/references';
 import { SHOTS, shotSrc } from '../data/shots';
 import { IND_SHOTS, JD8_REFERENCES } from '../data/indshots';
+import SAMPLES from '../data/samples.json';
+import { EXPOSURES } from '../data/exposures';
 
 const FAQS_RAW = [
   { q: '웹사이트 배포는 정확히 무엇을 해 주는 건가요?', a: '출장 지역과 서비스를 조합한 검색어마다 페이지를 만들어 사장님 도메인에 올리고, 네이버 서치어드바이저와 구글 서치콘솔에 직접 등록합니다. 그 뒤 수집 현황을 확인해 알려 드립니다.' },
@@ -176,6 +178,36 @@ export default function Home() {
               <p className="note">노출·클릭 결과는 업종·지역·경쟁 상황에 따라 달라지며 보장하지 않습니다. {!LANDING && <Link href={guidePath('광고비-환산')}>환산 방법과 주의할 점</Link>}</p>
             </div>
             <AdCalc />
+          </div>
+        </div>
+      </section>
+
+      {EXPOSURES.length > 0 && (
+        <section className="sec">
+          <div className="wrap">
+            <Sh title="실제 검색 결과 화면" sub="고객사 페이지가 네이버 통합검색에 나온 화면입니다. 순위는 캡처한 날 기준이며 바뀔 수 있습니다." />
+            <div className="expo">
+              {EXPOSURES.map((x) => (
+                <figure key={x.img} data-reveal>
+                  <img src={x.img} alt={`네이버 검색어 ${x.query} 검색 결과 화면 — ${x.name}`} loading="lazy" />
+                  <figcaption><span>검색어 &ldquo;{x.query}&rdquo; · {x.region}</span><b>{x.name}, {x.rank}</b><small>{x.date} 캡처</small></figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section className="sec soft" id="samples">
+        <div className="wrap">
+          <Sh title="업종별로 이런 페이지를 만듭니다" sub="실제 제작하는 페이지와 같은 구성으로 만든 업종별 예시입니다. 눌러서 PC·모바일 화면을 직접 보세요. 상호·전화번호는 가렸습니다." />
+          <div className="samples">
+            {SAMPLES.map((x) => (
+              <a className="sample" href={x.href} target="_blank" rel="noopener" key={x.id} data-reveal>
+                <div className="sample-img"><img src={x.img} width={800} height={513} loading="lazy" alt={`${x.region} ${x.title} 예시 화면`} /></div>
+                <div className="sample-cap"><span>{x.region}</span><b>{x.title}</b><small>예시 페이지 보기 ↗</small></div>
+              </a>
+            ))}
           </div>
         </div>
       </section>

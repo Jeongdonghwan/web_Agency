@@ -1,0 +1,98 @@
+[
+ {
+  "id": "hasugu",
+  "href": "/sample/hasugu/",
+  "img": "/sample/thumb/hasugu.jpg",
+  "region": "경기 · 수원시 장안구 · 정자동",
+  "title": "하수구막힘 지역형 페이지",
+  "type": "지역형"
+ },
+ {
+  "id": "nusu",
+  "href": "/sample/nusu/",
+  "img": "/sample/thumb/nusu.jpg",
+  "region": "서울 · 강동구 · 고덕동",
+  "title": "누수탐지 상품소개형 페이지",
+  "type": "상품소개형"
+ },
+ {
+  "id": "doorlock",
+  "href": "/sample/doorlock/",
+  "img": "/sample/thumb/doorlock.jpg",
+  "region": "서울 · 노원구 · 상계동",
+  "title": "도어락 상품소개형 페이지",
+  "type": "상품소개형"
+ },
+ {
+  "id": "julnun",
+  "href": "/sample/julnun/",
+  "img": "/sample/thumb/julnun.jpg",
+  "region": "경기 · 부천시 소사구 · 송내동",
+  "title": "줄눈 시공 블로그형 페이지",
+  "type": "블로그형"
+ },
+ {
+  "id": "boiler",
+  "href": "/sample/boiler/",
+  "img": "/sample/thumb/boiler.jpg",
+  "region": "경기 · 성남시 수정구 · 금토동",
+  "title": "보일러 교체 상품소개형 페이지",
+  "type": "상품소개형"
+ },
+ {
+  "id": "cheolgeo",
+  "href": "/sample/cheolgeo/",
+  "img": "/sample/thumb/cheolgeo.jpg",
+  "region": "서울 · 구로구 · 가리봉동",
+  "title": "철거 지역형 페이지",
+  "type": "지역형"
+ },
+ {
+  "id": "isa",
+  "href": "/sample/isa/",
+  "img": "/sample/thumb/isa.jpg",
+  "region": "경기 · 과천시 · 문원동",
+  "title": "보관이사 블로그형 페이지",
+  "type": "블로그형"
+ },
+ {
+  "id": "cheongso",
+  "href": "/sample/cheongso/",
+  "img": "/sample/thumb/cheongso.jpg",
+  "region": "인천 · 연수구 · 송도동",
+  "title": "입주청소 지역형 페이지",
+  "type": "지역형"
+ },
+ {
+  "id": "sofa",
+  "href": "/sample/sofa/",
+  "img": "/sample/thumb/sofa.jpg",
+  "region": "세종 · 세종시 · 반곡동",
+  "title": "소파 리폼 상품소개형 페이지",
+  "type": "상품소개형"
+ },
+ {
+  "id": "lawyer",
+  "href": "/sample/lawyer/",
+  "img": "/sample/thumb/lawyer.jpg",
+  "region": "서울 · 서초구 · 서초동",
+  "title": "이혼 소송 블로그형 페이지",
+  "type": "블로그형"
+ },
+ {
+  "id": "sadari",
+  "href": "/sample/sadari/",
+  "img": "/sample/thumb/sadari.jpg",
+  "region": "대전 · 서구 · 둔산동",
+  "title": "사다리차 지역형 페이지",
+  "type": "지역형"
+ },
+ {
+  "id": "water",
+  "href": "/sample/water/",
+  "img": "/sample/thumb/water.jpg",
+  "region": "대구 · 수성구 · 수성동1가",
+  "title": "정수기 렌탈 상품소개형 페이지",
+  "type": "상품소개형"
+ }
+]

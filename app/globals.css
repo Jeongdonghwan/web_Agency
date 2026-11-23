@@ -619,3 +619,25 @@ html { scrollbar-color: #b9c6dc transparent; }
 .logo-f { gap: 9px; color: var(--accent); }
 .logo-f span { color: var(--ink); font-size: 1.32rem; font-weight: 900; letter-spacing: -0.045em; line-height: 1; }
 .logo-f i { font-style: normal; font-weight: 500; margin-left: 1px; }
+
+/* ===== 업종별 예시 페이지 · 실제 노출 화면 ===== */
+.samples { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.sample { display: block; background: var(--primary); border-radius: 14px; overflow: hidden; text-decoration: none; transition: transform .35s var(--ease), box-shadow .35s; }
+.sample:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -20px rgba(13, 27, 47, .55); }
+.sample-img { aspect-ratio: 800 / 513; overflow: hidden; background: #fff; }
+.sample-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.sample-cap { padding: 16px 20px 18px; display: grid; gap: 4px; }
+.sample-cap span { color: #5cc8ff; font-size: .86rem; font-weight: 700; }
+.sample-cap b { color: #fff; font-size: 1.06rem; }
+.sample-cap small { color: #8aa0bb; font-size: .85rem; }
+.expo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.expo figure { margin: 0; background: var(--primary); border-radius: 14px; overflow: hidden; }
+.expo img { width: 100%; display: block; background: #fff; }
+.expo figcaption { padding: 16px 20px; display: grid; gap: 3px; }
+.expo figcaption span { color: #5cc8ff; font-size: .86rem; font-weight: 700; }
+.expo figcaption b { color: #fff; }
+.expo figcaption small { color: #8aa0bb; }
+@media (max-width: 900px) { .samples { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; } }
+@media (max-width: 560px) { .samples, .expo { grid-template-columns: minmax(0, 1fr); } }
+.theme-fortune .sample-cap span, .theme-fortune .expo figcaption span { color: #8fe6bd; }
+@media (max-width: 560px) { .samples { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 82%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; margin-right: -16px; } .sample { scroll-snap-align: start; } }
