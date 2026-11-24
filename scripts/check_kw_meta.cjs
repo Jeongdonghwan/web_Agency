@@ -1,7 +1,7 @@
 // 제작(키워드) 페이지 h1 수식어·description 점검 — 빌드 없이 조합기를 그대로 돌린다.
 //   node scripts/check_kw_meta.cjs            전 페이지(열리지 않은 것 포함) 점검
 //   node scripts/check_kw_meta.cjs --show 5   예시 5쪽 출력
-// 통과 기준: h1(키워드+수식어) 중복 0, 수식어가 키워드 낱말 반복 0, description 50~80자·중복 0, 조사 오류 0.
+// 통과 기준: title 중복 0·앞부분이 h1 과 같음·60자 이하, h1(키워드+수식어) 중복 0, 수식어가 키워드 낱말 반복 0, description 50~80자·중복 0, 조사 오류 0.
 const fs = require('fs');
 const path = require('path');
 const ts = require('typescript');
@@ -46,25 +46,31 @@ const open = new Set(make.getOpenMake().map((p) => p.slug));
 const h1s = new Map(), descs = new Map(), subs = new Map();
 let minL = 1e9, maxL = 0, badLen = [], rep = [], josa = [], dupH = 0, dupD = 0;
 const show = process.argv.includes('--show') ? Number(process.argv[process.argv.indexOf('--show') + 1] || 3) : 0;
-let k = 0;
+let k = 0, dupT = 0, minT = 1e9, maxT = 0;
+const titles = new Set(), badT = [];
 for (const p of pages) {
   const c = make.composeMake(p);
   k++;
   const h = `${c.h1} ${c.h1sub}`;
   if (h1s.has(h)) dupH++; else h1s.set(h, p.slug);
   if (descs.has(c.description)) dupD++; else descs.set(c.description, p.slug);
+  // title = h1 글자 그대로 + ' | 상호' (앞부분 40자 이하, 전체 60자 이하, | 뒤는 상호 한 낱말)
+  if (titles.has(c.title)) dupT++; else titles.add(c.title);
+  minT = Math.min(minT, c.title.length); maxT = Math.max(maxT, c.title.length);
+  if (!c.title.startsWith(h + ' | ') || /\s/.test(c.title.slice(h.length + 3)) || h.length > 40 || c.title.length > 60) badT.push(`${c.title.length} ${c.title}`);
   subs.set(c.h1sub, (subs.get(c.h1sub) || 0) + 1);
   const L = c.description.length;
   minL = Math.min(minL, L); maxL = Math.max(maxL, L);
   if (L < 50 || L > 80) badLen.push(`${L} ${c.description}`);
   if (!c.h1sub || make.repeats(c.h1, c.h1sub)) rep.push(h);
   for (const e of [...josaErrors(c.h1sub), ...josaErrors(c.description)]) josa.push(`${e} ← ${p.slug}`);
-  if (show && k % Math.floor(pages.length / show) === 7) console.log(`\n/제작/${p.slug}/\n  h1: ${h}\n  desc(${L}): ${c.description}`);
+  if (show && k % Math.floor(pages.length / show) === 7) console.log(`\n/제작/${p.slug}/\n  title: ${c.title}\n  h1: ${h}\n  desc(${L}): ${c.description}`);
 }
 const top = [...subs.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3).map(([k, v]) => `${v}× ${k}`);
 console.log(`\n전체 ${pages.length}쪽 (오늘 열린 ${open.size}쪽)`);
 console.log(`h1 중복 ${dupH} · 수식어 키워드 반복 ${rep.length} · 수식어 종류 ${subs.size} (가장 많은: ${top.join(' / ')})`);
 console.log(`description ${minL}~${maxL}자 · 범위 밖 ${badLen.length} · 중복 ${dupD}`);
+console.log(`title ${minT}~${maxT}자 · 중복 ${dupT} · h1 불일치·길이 초과 ${badT.length}`);
 console.log(`조사 오류 ${josa.length}`);
-for (const x of [...badLen.slice(0, 5), ...rep.slice(0, 5), ...josa.slice(0, 10)]) console.log('  ' + x);
-process.exit(dupH || dupD || badLen.length || rep.length || josa.length ? 1 : 0);
+for (const x of [...badT.slice(0, 5), ...badLen.slice(0, 5), ...rep.slice(0, 5), ...josa.slice(0, 10)]) console.log('  ' + x);
+process.exit(dupT || badT.length || dupH || dupD || badLen.length || rep.length || josa.length ? 1 : 0);

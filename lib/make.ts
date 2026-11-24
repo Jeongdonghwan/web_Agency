@@ -1,7 +1,7 @@
 import allData from '../data/industries-all.json';
 import sidoData from '../data/sido.json';
 import { hash, pick, j, q, ro, polite, industryPath, getIndustries, type Industry } from './content';
-import { LAUNCH, LANDING } from './site';
+import { LAUNCH, LANDING, BRAND } from './site';
 import { extra, type ExtraAngle } from './make-extra';
 
 // "제작" 페이지: 업종 326 × (전국 + 시·도 17) × 키워드 4종 = 23,472쪽.
@@ -136,8 +136,6 @@ export function composeMake(p: MakePage) {
   const h1 = angle === 'only' ? `${loc}${n} 타지역서비스만 하세요?` : `${loc}${n} ${lab}`;
   const PRICE = '홈페이지는 30만원부터, 평균 7일에 만듭니다';
 
-  const tail = { jeon: '업종에 맞춘 구성', mkt: '문의 받는 구성', taji: '지역 페이지 포함', only: '홈페이지로 넓히는 법' }[angle];
-  const title = `${h1} - ${tail} | JD8`;
 
   const description = {
     jeon: pick([
@@ -307,13 +305,13 @@ export function composeMake(p: MakePage) {
   if (!BASE.has(angle)) {
     const x = extra(angle as ExtraAngle, { n, loc, cust, go, owner, unit, unitN, where, office: !!office, s, total, count: svcs.length, urgent: ind.urgent, decide: ind.decide, pain: ind.pain, a, sv });
     return {
-      title: `${h1} - ${x.tail} | JD8`, h1, h1sub, description: meta, lead: x.description, summary: x.summary, whyH2: x.whyH2, why: [x.why1, why2], tableH2,
+      title: `${h1} ${h1sub} | ${BRAND}`, h1, h1sub, description: meta, lead: x.description, summary: x.summary, whyH2: x.whyH2, why: [x.why1, why2], tableH2,
       rows: rows.map((r, k) => [r[0], r[1], x.third(r[0], sv(k).name)] as [string, string, string]),
       svcH2: x.svcH2, svcRows, inclH2: x.inclH2, incl: x.incl, timingH2, timing, flow, priceP, regulated, areasText, faq: x.faq, unit, calc, ctaH2, ctaText, keywords,
     };
   }
   return {
-    title, h1, h1sub, description: meta, lead: description, summary, whyH2, why: [why1, why2], tableH2, rows, svcH2, svcRows, inclH2, incl, timingH2, timing, flow, priceP,
+    title: `${h1} ${h1sub} | ${BRAND}`, h1, h1sub, description: meta, lead: description, summary, whyH2, why: [why1, why2], tableH2, rows, svcH2, svcRows, inclH2, incl, timingH2, timing, flow, priceP,
     regulated, areasText, faq, unit, calc, ctaH2, ctaText, keywords,
   };
 }
@@ -344,22 +342,24 @@ function headMeta(kw: string, angle: Angle, c: HM) {
   const count = svcs.length;
   const sub = (list: (string | false)[]) => {
     const good = list.filter((x): x is string => !!x && !x.includes('undefined') && !repeats(kw, x));
-    return pick(good, s + 'h1s');
+    // title 앞부분으로도 쓰므로 키워드+수식어 40자 이하인 벌만. 벌마다 마지막은 어느 키워드에도 들어가는 짧은 벌이다
+    const fit = good.filter((x) => kw.length + 1 + x.length <= 40);
+    return pick(fit, s + 'h1s');
   };
   const h1sub = sub(({
-    jeon: [two && `${S0}·${S1} 메뉴부터 나누는 구성`, two && `${j(cust, '이', '가')} 찾는 ${S0} 안내를 첫 화면에`, `서비스 ${count}가지를 메뉴로 나누기`, R.length > 1 && `${A0}·${A1} ${unit}까지 담는 구성`],
-    mkt: [two && R.length > 0 && `${A0} ${S0} 검색을 전화·카톡 문의로`, two && `${S0}·${S1} 검색어마다 도착 페이지`, two && `첫 화면에 ${S0} 안내와 연락 버튼`, '검색어를 받아 전화·카톡으로 잇는 법'],
-    taji: [R.length > 2 && `${A0}·${A1}·${A2} ${unit}마다 서는 페이지`, two && R.length > 0 && `${A0} ${S0} 검색어를 ${owner} 도메인으로`, `${unitN} 검색을 받는 페이지 묶음`],
-    only: [two && R.length > 0 && `지도 밖 ${A0} ${S0} 검색까지 받기`, `${owner} 도메인에 ${unit}별 페이지 더하기`, two && `${S0}·${S1} 검색창 통로를 남기는 법`],
-    aeo: [two && `${S0} 질문에 답하는 문장과 구조화 데이터`, two && `AI 검색이 읽는 ${S0}·${S1} 안내`, 'llms.txt와 자주 묻는 질문까지 넣는 구성'],
-    seo: [two && `${S0}·${S1} 서비스마다 다른 페이지`, '사이트맵 등록과 수집 확인까지', R.length > 1 && `${A0}·${A1} ${unit}별 입구 늘리기`],
-    cheap: [two && `30만원부터 ${S0}·${S1} 기본 구성`, `서비스 ${count}가지 중 필요한 것부터`, '비용이 정해지는 기준과 포함 항목'],
-    good: [two && `${S0}·${S1} 구성안으로 업체 비교하기`, '도메인 명의와 검색 설정 확인 항목', `${j(cust, '이', '가')} 쓰는 검색어를 아는지 보기`],
-    resp: [two && `휴대폰 화면부터 맞추는 ${S0} 안내`, '화면 아래 전화·카톡 버튼 고정', two && `모바일에서 읽히는 ${S0}·${S1} 메뉴`],
-    fast: [two && `평균 7일, ${S0} 안내부터 먼저 공개`, '자료 받기부터 공개까지 진행 순서', two && `${S0}·${S1} 페이지를 나눠 여는 순서`],
-    renew: [two && `기존 주소를 지키며 ${S0}·${S1} 다시 나누기`, two && `${S0} 안내를 검색어 기준으로 다시 짜기`, '모바일 화면과 연락 버튼 새로 맞추기'],
-    land: [two && `${S0} 하나에 집중한 한 장 문의 화면`, two && `광고를 누른 ${j(cust, '이', '가')} 도착하는 ${S0} 페이지`, R.length > 1 && `${A0}·${A1} ${unit}별로 넓히는 한 장`, '서비스 하나에 집중한 한 장 문의 화면'],
-    small: [two && `${S0} 안내와 연락 버튼부터 작게`, `${j(owner, '이', '가')} 직접 관리할 일 없는 구성`, two && `일이 늘면 ${S0}·${S1} 더하기`],
+    jeon: [two && `${S0}·${S1} 메뉴부터 나누는 구성`, two && `${j(cust, '이', '가')} 찾는 ${S0} 안내를 첫 화면에`, `서비스 ${count}가지를 메뉴로 나누기`, R.length > 1 && `${A0}·${A1} ${unit}까지 담는 구성`, '메뉴부터 나누는 구성'],
+    mkt: [two && R.length > 0 && `${A0} ${S0} 검색을 전화·카톡 문의로`, two && `${S0}·${S1} 검색어마다 도착 페이지`, two && `첫 화면에 ${S0} 안내와 연락 버튼`, '검색어를 받아 전화·카톡으로 잇는 법', '전화·카톡 문의로 잇기', two && `${S0} 검색을 문의로 잇기`, two && `${S0} 문의 도착 페이지`],
+    taji: [R.length > 2 && `${A0}·${A1}·${A2} ${unit}마다 서는 페이지`, two && R.length > 0 && `${A0} ${S0} 검색어를 ${owner} 도메인으로`, `${unitN} 검색을 받는 페이지 묶음`, `${unit}별 페이지 묶음`, R.length > 1 && `${A0}·${A1} 페이지 묶음`],
+    only: [two && R.length > 0 && `지도 밖 ${A0} ${S0} 검색까지 받기`, `${owner} 도메인에 ${unit}별 페이지 더하기`, two && `${S0}·${S1} 검색창 통로를 남기는 법`, '검색창 통로 더하기', two && `지도 밖 ${S0} 검색 받기`, `${unit}별 페이지 더하기`],
+    aeo: [two && `${S0} 질문에 답하는 문장과 구조화 데이터`, two && `AI 검색이 읽는 ${S0}·${S1} 안내`, 'llms.txt와 자주 묻는 질문까지 넣는 구성', 'AI 검색이 읽는 구조', two && `${S0} 질문에 답하는 구조`, 'llms.txt까지 넣는 구성'],
+    seo: [two && `${S0}·${S1} 서비스마다 다른 페이지`, '사이트맵 등록과 수집 확인까지', R.length > 1 && `${A0}·${A1} ${unit}별 입구 늘리기`, '사이트맵 등록까지', two && `${S0} 안내를 따로 둔 페이지`],
+    cheap: [two && `30만원부터 ${S0}·${S1} 기본 구성`, `서비스 ${count}가지 중 필요한 것부터`, '비용이 정해지는 기준과 포함 항목', '비용 기준과 포함 항목'],
+    good: [two && `${S0}·${S1} 구성안으로 업체 비교하기`, '도메인 명의와 검색 설정 확인 항목', `${j(cust, '이', '가')} 쓰는 검색어를 아는지 보기`, '업체 확인 항목', two && `${S0} 구성안으로 비교하기`],
+    resp: [two && `휴대폰 화면부터 맞추는 ${S0} 안내`, '화면 아래 전화·카톡 버튼 고정', two && `모바일에서 읽히는 ${S0}·${S1} 메뉴`, '휴대폰 화면부터 맞추기'],
+    fast: [two && `평균 7일, ${S0} 안내부터 먼저 공개`, '자료 받기부터 공개까지 진행 순서', two && `${S0}·${S1} 페이지를 나눠 여는 순서`, '공개까지 진행 순서'],
+    renew: [two && `기존 주소를 지키며 ${S0}·${S1} 다시 나누기`, two && `${S0} 안내를 검색어 기준으로 다시 짜기`, '모바일 화면과 연락 버튼 새로 맞추기', '기존 주소 지키며 다시 짜기'],
+    land: [two && `${S0} 하나에 집중한 한 장 문의 화면`, two && `광고를 누른 ${j(cust, '이', '가')} 도착하는 ${S0} 페이지`, R.length > 1 && `${A0}·${A1} ${unit}별로 넓히는 한 장`, '서비스 하나에 집중한 한 장 문의 화면', '한 장 문의 화면'],
+    small: [two && `${S0} 안내와 연락 버튼부터 작게`, `${j(owner, '이', '가')} 직접 관리할 일 없는 구성`, two && `일이 늘면 ${S0}·${S1} 더하기`, '연락 버튼부터 작게'],
   } as Record<Angle, (string | false)[]>)[angle]);
 
   // description: 키워드 → 이 페이지에 있는 내용(서비스 표·검색어 표) → 사실 하나 → 상담
