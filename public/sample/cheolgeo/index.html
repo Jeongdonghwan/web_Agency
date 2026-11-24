@@ -170,21 +170,70 @@ footer .note b{color:#fff}footer .note a{color:var(--acc2);font-weight:700}
  .mbar a:nth-child(2){background:#fee500;color:#191919}
  .mbar a:nth-child(3){background:var(--dk);color:#fff}
 }
-header{border-bottom:4px solid #ff6b1a}.str{border-top:1px solid #333}</style>
+header{border-bottom:4px solid #ff6b1a}.str{border-top:1px solid #333}
+/* 본문 보강: 서비스 상세 · 가격 안내 · 작업 사례 · JD8 지역 띠 */
+.gnb a{white-space:nowrap}
+.svc .d p+p{margin-top:8px}
+.svc .d b{color:var(--ink);margin-right:6px}
+.sh h2 small{font-family:var(--sans);font-size:15px;font-weight:700;color:var(--mut);letter-spacing:0;margin-left:8px;vertical-align:middle}
+.price{width:100%;border-collapse:collapse;border-top:2px solid var(--ink);background:#fff}
+.price th,.price td{text-align:left;vertical-align:top;padding:18px 16px;border-bottom:1px solid var(--line)}
+.price thead th{font-size:15px;font-weight:700;color:var(--mut);padding:12px 16px}
+.price tbody th{font-size:19px;font-weight:800;width:25%}
+.price .won{font-weight:800;color:var(--kc);white-space:nowrap;width:20%}
+.price .why{color:var(--mut);font-size:16px}
+.pnote{margin:14px 0 0;font-size:14px;color:var(--mut)}
+.cases{border-top:2px solid var(--ink)}
+.case{display:grid;grid-template-columns:300px 1fr;gap:12px 48px;padding:34px 0;border-bottom:1px solid var(--line)}
+.case .where{display:block;font-size:15px;font-weight:800;color:var(--kc);margin-bottom:6px}
+.case h3{margin:0;font-size:24px;font-weight:800;line-height:1.35}
+.case dl{display:grid;grid-template-columns:auto 1fr;gap:10px 20px;margin:0}
+.case dt{font-weight:800;white-space:nowrap}
+.case dd{margin:0;color:var(--mut)}
+.jd8{background:var(--lt);color:var(--ink);border:1px solid var(--line);border-radius:var(--r);padding:24px 26px;margin:28px 0 0}
+.jd8 .lb{display:block;font-size:13px;font-weight:800;color:var(--kc);letter-spacing:.04em;margin-bottom:6px}
+.jd8 .t{font-size:21px;font-weight:800;line-height:1.35;margin-bottom:14px}
+.jd8 .rg{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.jd8 .rg span{background:#fff;border:1px solid var(--line);border-radius:3px;padding:5px 12px;font-size:15px;font-weight:700}
+.jd8 p{margin:0;font-size:15px;color:var(--mut)}
+@media (max-width:1140px){.gnb{display:none}.hcall{margin-left:auto}}
+@media (min-width:761px){.svc .ph{position:sticky;top:104px;align-self:start;height:520px}}
+@media (max-width:760px){
+ .price,.price tbody{display:block;background:none}
+ .price thead{display:none}
+ .price tr{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:16px 0;border-bottom:1px solid var(--line)}
+ .price th,.price td{padding:0;border:0}
+ .price tbody th,.price .won{width:auto;font-size:17px}
+ .price .why{grid-column:1/-1;font-size:15px}
+ .case{grid-template-columns:1fr;padding:26px 0}
+ .case h3{font-size:20px}
+ .jd8{padding:20px 18px}
+ .jd8 .t{font-size:19px}
+}
+</style>
 </head>
 <body>
 <div class="tb"><div class="w"><span>구로구 상가 원상복구 · 부분철거 · 폐기물 반출</span><span class="r">상담 전화 <b>010-○○○○-○○○○</b></span></div></div>
 <header><div class="w">
 <a class="logo" href="#">○○<i>철거</i></a>
-<nav class="gnb"><a href="#">작업 범위</a><a href="#">작업 과정</a><a href="#">견적 준비</a><a href="#">작업 지역</a><a href="#">자주 묻는 질문</a></nav>
+<nav class="gnb"><a href="#">작업 범위</a><a href="#price">가격 안내</a><a href="#cases">작업 사례</a><a href="#">작업 과정</a><a href="#">견적 준비</a><a href="#">작업 지역</a><a href="#">자주 묻는 질문</a></nav>
 <a class="hcall" href="#"><small>철거 견적 문의</small><b>010-○○○○-○○○○</b></a>
 </div></header>
 <section class="hero full" style="padding:0;background-image:url(/sample/cheolgeo/hero.jpg);background-position:center"><div class="w in"><span class="chip">구로구 가리봉동 · 상가 철거 전문</span><h1>상가 원상복구,<br><em>뺄 것만 정확히</em> 뺍니다</h1><ul class="pts"><li>칸막이 · 천장 · 바닥재 · 주방 설비 철거</li><li>철거부터 폐기물 반출까지 한 번에</li><li>현장 사진으로 1차 견적 안내</li></ul><div class="ctas"><a class="tel" href="#"><small>철거 견적 문의</small><b>010-○○○○-○○○○</b></a><a class="kakao" href="#">카톡 상담</a></div></div></section>
 <div class="str"><div class="w"><div class="it"><strong>사진 견적</strong><span>먼저 안내</span><p>사진·평수·층수로 대략 견적을 드립니다</p></div><div class="it"><strong>항목별</strong><span>견적서</span><p>철거와 폐기물 처리를 나눠 적습니다</p></div><div class="it"><strong>건물 규정</strong><span>맞춰 작업</span><p>작업 시간·엘리베이터 사용을 지킵니다</p></div><div class="it"><strong>작업 후</strong><span>청소·확인</span><p>범위대로 됐는지 함께 확인합니다</p></div></div></div>
 <section id="svc"><div class="w">
 <div class="sh"><span class="k">서비스 안내</span><h2>남길 것과 뺄 것을 먼저 나눕니다</h2><p>통째로 부수는 일보다 범위를 정하는 일이 더 중요합니다. 현장마다 범위를 먼저 정합니다.</p></div>
-<div class="svc"><div class="ph" style="background-image:url(/sample/cheolgeo/hammer.jpg)" role="img" aria-label="바닥재 철거 작업"></div><ol><li><h3>상가 원상복구</h3><p>임대 기간이 끝난 상가를 계약 당시 상태로 돌려놓습니다. 건물주·관리실과 범위를 맞춘 뒤 진행합니다.</p></li><li><h3>부분철거</h3><p>리모델링 전 주방·욕실, 칸막이·문틀처럼 필요한 부분만 뜯어냅니다.</p></li><li><h3>식당 설비 철거</h3><p>주방 후드·덕트·싱크 등 설비를 해체하고 반출합니다.</p></li><li><h3>간판 철거 · 폐기물 처리</h3><p>간판과 고정 부속을 떼고, 철거 폐기물을 분류해 차량으로 반출합니다.</p></li></ol></div>
+<div class="svc"><div class="ph" style="background-image:url(/sample/cheolgeo/hammer.jpg)" role="img" aria-label="바닥재 철거 작업"></div><ol><li><h3>상가 원상복구</h3><div class="d"><p>임대 기간이 끝난 상가를 계약 당시 상태로 돌려놓습니다. 건물주·관리실과 범위를 맞춘 뒤 진행합니다. 칸막이, 천장, 바닥재, 전기 배선, 간판까지가 보통 범위인데, 전 임차인이 해 둔 시설을 그대로 넘겨받은 가게는 그것까지 철거해야 하는지가 자주 문제 됩니다. 천장 텍스나 바닥 타일처럼 건물 기본 마감은 남기는 경우가 많아 뜯기 전에 확인합니다.</p><p><b>미리 확인</b>계약서의 원상복구 조항, 입주할 때 찍어 둔 사진, 가게를 비워 줘야 하는 날짜.</p></div></li><li><h3>부분철거</h3><div class="d"><p>리모델링 전 주방·욕실, 칸막이·문틀처럼 필요한 부분만 뜯어냅니다. 남길 면과 맞닿은 자리는 먼저 커팅으로 선을 그어야 남는 쪽이 상하지 않습니다. 벽 속으로 수도·전기·가스 배관이 지나가는지 보고, 수도를 잠그고 차단기를 내린 뒤 시작합니다. 건물을 받치는 내력벽은 철거하지 않습니다.</p><p><b>미리 확인</b>뒤에 들어올 인테리어 업체가 있으면 어디까지 뜯어 두기로 했는지 알려 주세요.</p></div></li><li><h3>식당 설비 철거</h3><div class="d"><p>주방 후드·덕트·싱크 등 설비를 해체하고 반출합니다. 후드와 덕트에는 기름때가 쌓여 있어 떼기 전에 바닥과 통로를 덮습니다. 덕트가 외벽이나 옥상까지 올라가 있으면 어느 구간까지 뗄지 건물주와 정해야 합니다. 가스 배관을 막는 일은 도시가스 쪽 작업이라 철거 전에 따로 신청해 두셔야 합니다.</p><p><b>미리 확인</b>냉장고나 작업대 같은 집기는 중고 매입 업체가 먼저 가져가면 폐기물 양이 줄어듭니다. 바닥 트렌치와 그리스트랩을 메울지 남길지도 정해 주세요.</p></div></li><li><h3>간판 철거 · 폐기물 처리</h3><div class="d"><p>간판과 고정 부속을 떼고, 철거 폐기물을 분류해 차량으로 반출합니다. 간판은 높이와 크기에 따라 사다리로 되는지 스카이 차량이 필요한지가 갈립니다. 떼어 낸 자리의 앵커 구멍은 메우고 전기선은 절연해 정리합니다. 폐기물은 목재, 석고보드, 금속, 혼합으로 나눠 싣는데, 섞이면 처리비가 올라가서 현장에서 분류합니다.</p><p><b>미리 확인</b>건물 앞에 차량을 댈 수 있는지, 엘리베이터를 쓸 수 있는 시간이 정해져 있는지.</p></div></li></ol></div>
 <div class="gal" style="--gn:2"><figure><div class="ph" style="background-image:url(/sample/cheolgeo/room.jpg)" role="img" aria-label="내부 철거 후 정리"></div><figcaption>내부 철거 후 정리</figcaption></figure><figure><div class="ph" style="background-image:url(/sample/cheolgeo/wall.jpg)" role="img" aria-label="벽체·천장재 철거"></div><figcaption>벽체·천장재 철거</figcaption></figure></div>
+</div></section>
+<section id="price" class="lt"><div class="w">
+<div class="sh"><span class="k">가격 안내</span><h2>철거비와 폐기물 처리비를 나눠 적습니다</h2><p>철거 견적은 뜯는 품과 버리는 양, 두 가지로 정해집니다. 같은 평수라도 벽이 벽돌인지 석고보드인지에 따라 폐기물 양이 크게 다릅니다.</p></div>
+<table class="price"><thead><tr><th scope="col">작업</th><th scope="col">금액</th><th scope="col">금액이 달라지는 이유</th></tr></thead><tbody><tr><th scope="row">상가 원상복구</th><td class="won">평당 ○만 원부터</td><td class="why">평수, 칸막이와 천장 마감이 얼마나 되는지, 바닥을 어디까지 걷어 내는지.</td></tr><tr><th scope="row">칸막이 · 벽체 부분철거</th><td class="won">○○만 원부터</td><td class="why">경량 칸막이인지 벽돌벽인지. 벽돌은 무겁고 폐기물이 많이 나옵니다.</td></tr><tr><th scope="row">바닥재 철거</th><td class="won">평당 ○만 원부터</td><td class="why">데코타일은 금방 걷히지만 타일과 에폭시는 장비로 까내야 해서 시간이 더 듭니다.</td></tr><tr><th scope="row">주방 설비 · 덕트 철거</th><td class="won">○○만 원부터</td><td class="why">덕트 길이와 옥상까지 올라가는지, 설비 무게와 반출 경로.</td></tr><tr><th scope="row">간판 철거</th><td class="won">○○만 원부터</td><td class="why">간판 높이와 크기, 스카이 차량이 필요한지.</td></tr><tr><th scope="row">폐기물 반출</th><td class="won">1톤 차 한 대 ○○만 원부터</td><td class="why">폐기물 종류, 층수와 엘리베이터 유무, 차량을 댈 수 있는 자리까지의 거리.</td></tr></tbody></table>
+<p class="pnote">밤에만 작업할 수 있는 건물은 인건비가 더 들어갑니다. 예시 페이지라 금액은 가렸습니다.</p>
+</div></section>
+<section id="cases"><div class="w">
+<div class="sh"><span class="k">작업 사례</span><h2>가리봉동 주변에서 한 작업 <small>(예시)</small></h2></div>
+<div class="cases"><article class="case"><div><span class="where">구로구 가리봉동 · 근린상가 1층 식당</span><h3>식당 원상복구, 덕트는 외벽 구간까지</h3></div><dl><dt>상황</dt><dd>임대 기간이 끝나 가게를 비워 주는 날까지 원상복구를 마쳐야 했습니다.</dd><dt>조건</dt><dd>전 임차인 시설을 넘겨받은 가게라 계약서만으로는 범위가 정해지지 않았습니다. 주방 덕트는 건물 뒤 외벽을 타고 옥상까지 올라가 있었습니다.</dd><dt>작업</dt><dd>건물주와 현장에서 항목을 맞춘 뒤 홀 칸막이와 주방 설비, 후드를 철거했습니다. 덕트는 외벽 구간까지 떼고 벽을 뚫었던 자리를 막았습니다. 바닥 트렌치는 건물주 요청으로 남겼습니다.</dd><dt>마무리</dt><dd>청소한 뒤 건물주와 임차인이 함께 범위를 확인했고, 작업 전후 사진을 넘겨 드렸습니다.</dd></dl></article><article class="case"><div><span class="where">금천구 가산동 · 지식산업센터 사무실</span><h3>회의실 칸막이와 카펫타일만</h3></div><dl><dt>상황</dt><dd>사무실을 줄여 옮기면서 회의실 칸막이와 바닥 카펫타일만 걷어 달라는 의뢰였습니다.</dd><dt>조건</dt><dd>낮에는 소음 나는 작업을 할 수 없고, 화물 엘리베이터도 쓸 수 있는 시간이 정해져 있었습니다.</dd><dt>작업</dt><dd>관리실에 작업 신청을 하고 복도와 엘리베이터를 보양한 뒤 저녁에 유리 칸막이와 경량 칸막이를 해체했습니다. 천장 텍스는 그대로 두었습니다.</dd><dt>마무리</dt><dd>화물 엘리베이터로 반출하고 보양재를 걷은 뒤 복도를 청소했습니다. 칸막이 자국이 남은 텍스 위치는 표시해 전달했습니다.</dd></dl></article><article class="case"><div><span class="where">영등포구 대림동 · 2층 상가</span><h3>엘리베이터 없는 2층, 간판 포함</h3></div><dl><dt>상황</dt><dd>내부 철거와 함께 전면 간판과 돌출 간판을 떼어야 했습니다.</dd><dt>조건</dt><dd>엘리베이터가 없고 계단 폭이 좁았습니다. 건물 앞 도로도 좁아 차량을 오래 세워 둘 수 없었습니다.</dd><dt>작업</dt><dd>이른 오전에 스카이 차량으로 간판부터 내렸습니다. 내부 폐기물은 마대에 담아 계단으로 내리고, 반출 차량은 다 내린 시간에 맞춰 불렀습니다.</dd><dt>마무리</dt><dd>간판 앵커 구멍을 메우고 전기선을 절연해 정리했습니다. 계단과 건물 입구까지 청소했습니다.</dd></dl></article></div>
 </div></section>
 <section id="step" class="lt"><div class="w">
 <div class="sh"><span class="k">작업 과정</span><h2>견적부터 마무리 청소까지</h2><p>각 단계에서 확인할 것을 정해 두고 진행합니다.</p></div>
@@ -206,6 +255,7 @@ header{border-bottom:4px solid #ff6b1a}.str{border-top:1px solid #333}</style>
 <div class="fl">○○철거</div>
 <p class="biz">상호 ○○철거 · 대표 ○○○ · 사업자등록번호 ○○○-○○-○○○○○</p>
 <p class="biz">주소 서울 구로구 가리봉동 · 전화 010-○○○○-○○○○ · 현장 사진으로 견적 상담</p>
+<div class="jd8"><span class="lb">JD8 안내</span><div class="t">이 구성 그대로, 지역마다 한 장씩 만들어집니다</div><div class="rg"><span>구로구 구로동 상가 원상복구</span><span>금천구 가산동 상가 원상복구</span><span>금천구 독산동 상가 원상복구</span><span>영등포구 대림동 상가 원상복구</span><span>관악구 신림동 상가 원상복구</span><span>광명 철산동 상가 원상복구</span></div><p>지역이 바뀌면 출동 동네·작업 사례·안내 문구가 그 지역에 맞게 달라집니다. 지역 이름만 바꾼 복제 페이지는 만들지 않습니다.</p></div>
 <p class="note"><b>업종별 예시 페이지입니다.</b> 실제 업체가 아니며 상호·전화번호는 가렸습니다. 이런 페이지를 사장님 업종·지역마다 만들어 드립니다. <a href="/">제작 상담 →</a></p>
 </div></footer>
 <div class="badge">예시 화면</div>

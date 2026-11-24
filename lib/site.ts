@@ -1,7 +1,9 @@
 // 사이트 전역 상수. 한 코드에서 상호 두 벌을 빌드한다 — 빌드할 때 NEXT_PUBLIC_SITE 로 고른다 (scripts/build.mjs).
 //   jd8     : 본 사이트. 검색 유입용, 하위 페이지 전부.
 //   fortune : 포춘마케팅. 카톡으로 보내는 링크의 도착 페이지 한 장. 검색 제외, 하위 페이지 없음.
-const KEY: 'jd8' | 'fortune' = process.env.NEXT_PUBLIC_SITE === 'fortune' ? 'fortune' : 'jd8';
+//   hco     : 에이치코. 포춘마케팅과 같은 한 장짜리. 전화 없이 카톡 + 상담 문의란(server/inquiry.py 가 받아 /admin/ 에서 본다).
+const ENV_SITE = process.env.NEXT_PUBLIC_SITE;
+const KEY: 'jd8' | 'fortune' | 'hco' = ENV_SITE === 'fortune' || ENV_SITE === 'hco' ? ENV_SITE : 'jd8';
 
 const SITES = {
   jd8: {
@@ -24,8 +26,9 @@ const SITES = {
       phone: '1566-3046',
       bizNumber: '503-87-03619',
       address: '경기도 용인시 기흥구 금화로 3, 제이20호',
-      kakao: 'https://pf.kakao.com/_Izxnxgn',
+      kakao: 'https://pf.kakao.com/_Izxnxgn/chat',
     },
+    inquiry: '', // 상담 문의란 없음
   },
   fortune: {
     key: 'fortune',
@@ -46,8 +49,32 @@ const SITES = {
       phone: '010-8254-1411',
       bizNumber: '',
       address: '',
-      kakao: 'https://pf.kakao.com/_LytNX',
+      kakao: 'https://pf.kakao.com/_LytNX/chat',
     },
+    inquiry: '',
+  },
+  hco: {
+    key: 'hco',
+    url: 'https://hco.jd8.co.kr',
+    name: '에이치코',
+    short: '에이치코',
+    logoMark: 'HCO',
+    logoText: '에이치코',
+    title: '사장님, 내 업체를 전국에 홍보하세요 | 에이치코',
+    description: '지역·키워드 검색어마다 업체 페이지를 만들어 네이버·구글에 등록해 드립니다. 클릭당 광고비 0원, 계약이 끝나도 남는 검색 홍보.',
+    ogImage: '/og/main-hco.jpg',
+    landing: true,
+    index: false, // 검색 제외 (본 사이트와 내용이 같아 중복 문서가 되지 않게)
+    theme: 'theme-hco',
+    company: {
+      legalName: '에이치코',
+      ceo: '',
+      phone: '', // 전화 없음 — 전화 자리에는 상담 문의란으로 가는 버튼이 나온다
+      bizNumber: '',
+      address: '',
+      kakao: 'https://pf.kakao.com/_LXxbmxl/chat',
+    },
+    inquiry: '/api/inquiry', // 상담 문의를 받는 주소 (server/inquiry.py)
   },
 } as const;
 
@@ -62,6 +89,7 @@ export const COMPANY: { legalName: string; ceo: string; phone: string; bizNumber
 export const DEFAULT_TITLE: string = SITE.title;
 export const DEFAULT_DESCRIPTION: string = SITE.description;
 export const OG_IMAGE: string = SITE.ogImage;
+export const INQUIRY: string = SITE.inquiry;
 
 // 제작 페이지 공개 시작일 — 서버에 처음 올리는 날. 이 날 70%가 열리고 나머지 30%는 그 뒤 7일에 걸쳐 열린다 (lib/make.ts).
 // 한번 정하면 바꾸지 않는다(열린 페이지가 닫히지 않게). 처음 올릴 때만 `node scripts/build.mjs jd8 --launch 2026-11-20` 으로 덮어쓸 수 있다.

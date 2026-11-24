@@ -8,6 +8,9 @@ import http.server, os, re, sys, urllib.parse
 
 ROOT = r'C:/side_Prj/web_Agency/out'
 PORT = int(sys.argv[1]) if len(sys.argv) > 1 else 3201
+# 다른 상호로 찍을 때: REBRAND_NAME=에이치코 REBRAND_TAG=hco (CAPTURE_OUT=public/shots-hco)
+NAME = os.environ.get('REBRAND_NAME', '포춘마케팅')
+TAG = os.environ.get('REBRAND_TAG', 'fortune')
 
 
 class H(http.server.SimpleHTTPRequestHandler):
@@ -24,7 +27,7 @@ class H(http.server.SimpleHTTPRequestHandler):
         if f.endswith('.html') and os.path.isfile(f):
             s = open(f, encoding='utf-8').read()
             s = re.sub(r'<script\b[^>]*>.*?</script>', '', s, flags=re.S)
-            s = s.replace('JD8', '포춘마케팅').replace('jd8.co.kr', 'fortune')
+            s = s.replace('JD8', NAME).replace('jd8.co.kr', TAG)
             b = s.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html; charset=utf-8')

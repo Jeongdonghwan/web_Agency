@@ -172,21 +172,71 @@ footer .note b{color:#fff}footer .note a{color:var(--acc2);font-weight:700}
  .mbar a:nth-child(2){background:#fee500;color:#191919}
  .mbar a:nth-child(3){background:var(--dk);color:#fff}
 }
-.logo i{display:inline-block;background:#15181c;color:#c8f31d;border-radius:8px;padding:2px 8px;margin-right:6px}.steps li::before{background:#15181c;color:#c8f31d}</style>
+.logo i{display:inline-block;background:#15181c;color:#c8f31d;border-radius:8px;padding:2px 8px;margin-right:6px}.steps li::before{background:#15181c;color:#c8f31d}/* 본문 보강: 서비스 상세 · 가격 · 사례 · JD8 안내 */
+.svc li>div{color:var(--mut)}
+.svc li>div p{margin:0 0 12px}
+.svc dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:16px}
+.svc dt{font-weight:800;color:var(--ink);white-space:nowrap}
+.svc dd{margin:0}
+.sh h2 small{font-family:var(--sans);font-size:16px;font-weight:700;color:var(--mut);letter-spacing:0;margin-left:8px;white-space:nowrap}
+.price{width:100%;border-collapse:collapse;border-top:2px solid var(--ink);background:#fff}
+.price th,.price td{padding:18px 16px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.price thead th{font-size:15px;font-weight:700;color:var(--mut);padding:12px 16px}
+.price tbody th{font-size:19px;font-weight:800;width:26%}
+.price td.won{font-weight:800;white-space:nowrap;width:20%}
+.price td:last-child{color:var(--mut);font-size:16px}
+.pnote{margin:18px 0 0;color:var(--mut)}
+.pnote small{display:block;margin-top:6px;font-size:14px}
+.cases{border-top:2px solid var(--ink)}
+.cases article{display:grid;grid-template-columns:260px 1fr;gap:12px 40px;padding:30px 0;border-bottom:1px solid var(--line)}
+.cases h3{margin:0;font-size:22px;font-weight:800;line-height:1.35}
+.cases h3 span{display:block;font-size:15px;font-weight:700;color:var(--kc);margin-bottom:4px}
+.cases dl{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin:0}
+.cases dt{font-weight:800;white-space:nowrap}
+.cases dd{margin:0;color:var(--mut)}
+.jd8{margin:28px 0 0;padding:22px 24px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.05);color:#d2d2d2}
+.jd8 .lb{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.04em;color:var(--acc2);border:1px solid currentColor;padding:1px 8px}
+.jd8 strong{display:block;font-size:19px;font-weight:800;color:#fff;margin:10px 0 14px}
+.jd8 .rg{display:flex;flex-wrap:wrap;gap:8px}
+.jd8 .rg span{border:1px solid rgba(255,255,255,.28);padding:5px 12px;font-size:14px;color:#fff}
+.jd8 p{margin:14px 0 0;font-size:14px}
+@media (min-width:761px){.svc .ph{position:sticky;top:108px;align-self:start;height:520px}}
+@media (max-width:1200px){.gnb{display:none}.hcall{margin-left:auto}}
+@media (max-width:760px){
+ .price thead{display:none}
+ .price,.price tbody{display:block}
+ .price tr{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:16px 14px;border-bottom:1px solid var(--line)}
+ .price tbody th,.price tbody td,.price td.won{display:block;padding:0;border:0;width:auto}
+ .price tbody th{font-size:17px}
+ .price tbody td:last-child{grid-column:1/-1;font-size:15px}
+ .cases article{grid-template-columns:1fr;padding:24px 0}
+ .cases h3{font-size:20px}
+ .jd8{padding:18px 16px}
+}
+</style>
 </head>
 <body>
 <div class="tb"><div class="w"><span>노원구 도어락 판매 · 설치 · 개문 출장 · 매장 방문 가능</span><span class="r">상담 전화 <b>010-○○○○-○○○○</b></span></div></div>
 <header><div class="w">
 <a class="logo" href="#"><i>○○</i>열쇠</a>
-<nav class="gnb"><a href="#">도어락 종류</a><a href="#">출장 서비스</a><a href="#">작업 과정</a><a href="#">출장 지역</a><a href="#">자주 묻는 질문</a></nav>
+<nav class="gnb"><a href="#">도어락 종류</a><a href="#">출장 서비스</a><a href="#price">가격 안내</a><a href="#case">작업 사례</a><a href="#">작업 과정</a><a href="#">출장 지역</a><a href="#">자주 묻는 질문</a></nav>
 <a class="hcall" href="#"><small>도어락 상담</small><b>010-○○○○-○○○○</b></a>
 </div></header>
 <section class="hero split rev" style="padding:0"><div class="in"><span class="chip">노원구 상계동 매장 · 출장 설치</span><h1>현관문에 꼭 맞는<br><em>도어락</em> 달아 드립니다</h1><ul class="pts"><li>번호키 · 지문인식 · 카드키 · 보조키</li><li>문 두께·기존 구멍 확인 후 맞는 모델만</li><li>노원구 전 지역 직접 출장</li></ul><div class="ctas"><a class="tel" href="#"><small>전화 한 통으로 출장 예약</small><b>010-○○○○-○○○○</b></a><a class="kakao" href="#">카톡 상담</a></div></div><div class="ph" style="background-image:url(/sample/doorlock/hero.jpg);background-position:60% center"></div></section>
 <div class="str"><div class="w"><div class="it"><strong>출장 전</strong><span>모델 안내</span><p>문 사진을 보고 맞는 제품을 골라 둡니다</p></div><div class="it"><strong>기존 구멍</strong><span>그대로 활용</span><p>맞는 모델이면 추가 타공 없이 답니다</p></div><div class="it"><strong>작업 전</strong><span>금액 안내</span><p>제품값과 설치비를 먼저 말씀드립니다</p></div><div class="it"><strong>설치 후</strong><span>등록까지</span><p>번호·지문 등록과 작동 확인까지</p></div></div></div>
 <section id="svc"><div class="w">
 <div class="sh"><span class="k">서비스 안내</span><h2>도어락, 이런 일을 합니다</h2><p>매장에서 고르셔도 되고, 출장 때 실물을 가져가 현장에서 골라도 됩니다.</p></div>
-<div class="svc"><div class="ph" style="background-image:url(/sample/doorlock/smartlock.jpg)" role="img" aria-label="현관문에 달린 도어락"></div><ol><li><h3>도어락 교체 설치</h3><p>쓰던 도어락을 떼고 새 제품을 답니다. 떼어 낸 제품은 원하시면 수거해 갑니다.</p></li><li><h3>문 잠김 개문</h3><p>배터리 방전이나 고장으로 안 열릴 때 문을 부수지 않는 방법부터 시도합니다. 본인 확인 후 진행합니다.</p></li><li><h3>번호·지문·카드 등록</h3><p>이사 후 비밀번호 초기화, 가족 지문 추가, 분실 카드 삭제를 해 드립니다.</p></li><li><h3>보조키 추가 · 작동 불량 점검</h3><p>주키는 그대로 두고 보조키를 더 달거나, 헛도는 잠금·경고음을 점검합니다.</p></li></ol></div>
+<div class="svc"><div class="ph" style="background-image:url(/sample/doorlock/smartlock.jpg)" role="img" aria-label="현관문에 달린 도어락"></div><ol><li><h3>도어락 교체 설치</h3><div><p>번호판이 잘 안 눌리거나, 잠기는 소리가 길어지고, 건전지를 갈아도 금방 닳으면 바꿀 때가 된 것입니다.</p><dl><dt>흔한 원인</dt><dd>오래 쓰면 모터와 기판이 약해집니다. 문이 처져 걸쇠가 문틀에 닿는 경우에는 도어락보다 문 쪽을 먼저 손봐야 합니다.</dd><dt>작업</dt><dd>쓰던 제품을 떼고 타공 자리를 재어 맞는 모델을 답니다. 구멍이 안 맞으면 보강판으로 가리고 설치합니다. 떼어 낸 제품은 원하시면 수거해 갑니다.</dd><dt>미리 확인</dt><dd>문 옆면 걸쇠 부분과 문 안쪽 몸통 사진을 보내 주세요. 손잡이가 따로 달려 있는지도 같이 봅니다.</dd></dl></div></li><li><h3>문 잠김 개문</h3><div><p>건전지가 다 됐거나 고장으로 반응이 없을 때, 안쪽 수동 잠금이 걸려 밖에서 안 열릴 때 부르시면 됩니다.</p><dl><dt>흔한 원인</dt><dd>건전지 방전이 가장 많습니다. 모터가 고장 났거나 걸쇠가 문틀에 끼어 안 빠지는 경우도 있습니다.</dd><dt>작업</dt><dd>비상 전원부터 넣어 보고, 안 되면 문과 도어락이 상하지 않는 방법부터 시도합니다. 도어락을 부숴야만 열리는 경우에는 먼저 말씀드리고 동의를 받습니다.</dd><dt>미리 확인</dt><dd>신분증을 준비해 주세요. 신분증 주소가 다르면 임대차계약서가 필요합니다. 확인이 안 되면 열어 드리지 않습니다.</dd></dl></div></li><li><h3>번호·지문·카드 등록</h3><div><p>이사한 직후, 카드키를 잃어버렸을 때, 가족 지문을 더 넣어야 할 때 해 드립니다.</p><dl><dt>왜 필요한가</dt><dd>이전에 살던 사람의 번호나 카드가 남아 있을 수 있습니다. 이사 후에는 전체 초기화를 하고 새로 등록하는 편이 안전합니다.</dd><dt>작업</dt><dd>등록 정보를 모두 지운 뒤 번호·지문·카드를 다시 넣습니다. 지문은 한 사람에 손가락 두 개 이상 넣어 두면 인식이 안 될 때 덜 불편합니다.</dd><dt>미리 확인</dt><dd>건전지 덮개 안쪽에 적힌 모델명을 알려 주세요. 등록할 가족과 카드가 모두 있는 시간으로 잡으면 한 번에 끝납니다.</dd></dl></div></li><li><h3>보조키 추가 · 작동 불량 점검</h3><div><p>주키는 그대로 두고 보조키를 더 달거나, 헛도는 잠금·경고음을 점검합니다.</p><dl><dt>흔한 원인</dt><dd>경고음은 건전지 부족 알림인 경우가 많습니다. 문을 닫아도 자동으로 안 잠기면 문 닫힘 센서 위치가 어긋났거나 문이 처진 것입니다.</dd><dt>작업</dt><dd>건전지, 센서, 걸쇠 위치 순서로 봅니다. 조정으로 되면 조정만 합니다. 보조키는 문 두께와 문틀 여유를 재고 답니다.</dd><dt>미리 확인</dt><dd>건전지를 전부 새것으로 바꿔도 그런지 먼저 봐 주세요. 소리가 날 때 영상을 찍어 보내 주시면 증상을 바로 알 수 있습니다.</dd></dl></div></li></ol></div>
 <div class="gal" style="--gn:2"><figure><div class="ph" style="background-image:url(/sample/doorlock/touch.jpg)" role="img" aria-label="지문·번호 겸용 도어락"></div><figcaption>지문·번호 겸용 도어락</figcaption></figure><figure><div class="ph" style="background-image:url(/sample/doorlock/keys.jpg)" role="img" aria-label="보조키 · 열쇠 작업"></div><figcaption>보조키 · 열쇠 작업</figcaption></figure></div>
+</div></section>
+<section id="price" class="lt"><div class="w">
+<div class="sh"><span class="k">가격 안내</span><h2>제품값과 설치비를 나눠 말씀드립니다</h2><p>문 사진을 보고 맞는 모델을 고른 뒤, 방문 전에 금액을 먼저 안내합니다.</p></div>
+<table class="price"><thead><tr><th scope="col">작업</th><th scope="col">금액</th><th scope="col">금액이 달라지는 이유</th></tr></thead><tbody><tr><th scope="row">번호키 도어락 교체</th><td class="won">○○만 원부터</td><td>제품값과 설치비를 합친 금액입니다. 제품 등급, 기존 구멍과 맞는지에 따라 달라집니다.</td></tr><tr><th scope="row">지문·카드 겸용 도어락 교체</th><td class="won">○○만 원부터</td><td>지문·카드·휴대폰 연동 같은 기능과 제조사에 따라 제품값 차이가 큽니다.</td></tr><tr><th scope="row">보조키 추가 설치</th><td class="won">○만 원부터</td><td>새로 구멍을 내야 해서 문 재질(일반 철문·방화문)과 두께에 따라 달라집니다.</td></tr><tr><th scope="row">문 잠김 개문</th><td class="won">○만 원부터</td><td>잠금 방식, 야간·새벽 여부, 도어락을 살려서 열 수 있는지에 따라 달라집니다.</td></tr><tr><th scope="row">번호·지문·카드 등록</th><td class="won">○만 원부터</td><td>출장 기본 금액에, 카드키를 새로 추가하면 장수만큼 더해집니다.</td></tr><tr><th scope="row">작동 불량 점검</th><td class="won">○만 원부터</td><td>센서·걸쇠 조정으로 끝나는지, 부품을 바꿔야 하는지를 봅니다.</td></tr></tbody></table>
+<p class="pnote">갖고 계신 제품을 달기만 하는 것도 됩니다. 이때는 설치비만 받습니다. 추가 타공이나 보강판이 필요하면 작업 전에 말씀드립니다.<small>예시 페이지라 금액은 가렸습니다.</small></p>
+</div></section>
+<section id="case"><div class="w">
+<div class="sh"><span class="k">작업 사례</span><h2>노원구에서 이렇게 작업했습니다 <small>(예시)</small></h2><p>교체, 개문, 등록 한 건씩 적었습니다.</p></div>
+<div class="cases"><article><h3><span>상계동 · 아파트 현관</span>번호판이 안 눌리는 오래된 번호키</h3><dl><dt>증상</dt><dd>번호판 일부가 잘 안 눌리고 건전지가 금방 닳았습니다.</dd><dt>원인</dt><dd>오래 쓴 번호키의 기판과 모터가 약해진 상태였습니다.</dd><dt>작업</dt><dd>문 사진으로 타공을 확인해 구멍이 맞는 지문·번호 겸용 모델을 가져갔고, 추가 타공 없이 교체했습니다.</dd><dt>마무리</dt><dd>가족 번호와 지문을 등록하고 여러 번 여닫아 확인했습니다. 떼어 낸 제품은 수거했습니다.</dd></dl></article><article><h3><span>중계동 · 빌라</span>밤에 반응이 없는 도어락</h3><dl><dt>증상</dt><dd>늦게 귀가했는데 번호판에 불이 들어오지 않았습니다.</dd><dt>원인</dt><dd>건전지가 완전히 방전돼 있었습니다.</dd><dt>작업</dt><dd>신분증 주소를 확인한 뒤 비상 전원 단자로 전원을 넣어 도어락을 상하지 않고 열었습니다.</dd><dt>마무리</dt><dd>건전지를 모두 새것으로 바꾸고, 건전지 부족 알림음이 어떤 소리인지 알려 드렸습니다.</dd></dl></article><article><h3><span>공릉동 · 다세대주택</span>이사 온 집의 번호 초기화</h3><dl><dt>증상</dt><dd>이전 세입자가 쓰던 번호가 그대로였고, 문을 닫아도 자동으로 잠기지 않을 때가 있었습니다.</dd><dt>원인</dt><dd>초기화가 안 된 상태였고, 문 닫힘 센서 위치가 어긋나 있었습니다.</dd><dt>작업</dt><dd>임대차계약서를 확인한 뒤 등록 정보를 모두 지우고 새 번호와 카드를 넣었습니다. 센서 위치도 다시 맞췄습니다.</dd><dt>마무리</dt><dd>문을 닫을 때마다 자동으로 잠기는지 여러 번 확인했습니다.</dd></dl></article></div>
 </div></section>
 <section id="step" class="lt"><div class="w">
 <div class="sh"><span class="k">작업 과정</span><h2>문 사진 두 장이면 시작됩니다</h2><p>문 옆면과 안쪽 사진을 보내 주시면 대부분 맞는 모델을 미리 고를 수 있습니다.</p></div>
@@ -208,6 +258,7 @@ footer .note b{color:#fff}footer .note a{color:var(--acc2);font-weight:700}
 <div class="fl">○○열쇠</div>
 <p class="biz">상호 ○○열쇠 · 대표 ○○○ · 사업자등록번호 ○○○-○○-○○○○○</p>
 <p class="biz">주소 서울 노원구 상계동 · 전화 010-○○○○-○○○○ · 매장 방문 가능</p>
+<div class="jd8"><span class="lb">JD8 안내</span><strong>이 구성 그대로, 지역마다 한 장씩 만들어집니다</strong><div class="rg"><span>노원구 중계동 도어락 설치</span><span>노원구 하계동 도어락 설치</span><span>노원구 공릉동 도어락 설치</span><span>노원구 월계동 도어락 설치</span><span>도봉구 창동 도어락 설치</span><span>중랑구 묵동 도어락 설치</span></div><p>지역이 바뀌면 출동 동네·작업 사례·안내 문구가 그 지역에 맞게 달라집니다. 지역 이름만 바꾼 복제 페이지는 만들지 않습니다.</p></div>
 <p class="note"><b>업종별 예시 페이지입니다.</b> 실제 업체가 아니며 상호·전화번호는 가렸습니다. 이런 페이지를 사장님 업종·지역마다 만들어 드립니다. <a href="/">제작 상담 →</a></p>
 </div></footer>
 <div class="badge">예시 화면</div>

@@ -4,7 +4,8 @@ import { Sh, Actions, Faq, Closing } from '../components/ui';
 import SerpRotate from '../components/SerpRotate';
 import { AdCalc, PageCalc } from '../components/Calc';
 import { faqPageJsonLd, serviceJsonLd, itemListJsonLd } from '../lib/jsonld';
-import { DEFAULT_DESCRIPTION, BRAND, LANDING } from '../lib/site';
+import { DEFAULT_DESCRIPTION, BRAND, LANDING, INQUIRY } from '../lib/site';
+import Inquiry from '../components/Inquiry';
 import { getIndustries, getGroups, getGuides, industryPath, industryTitle, guidePath, ogFor, industrySlug, INDUSTRY_HUB } from '../lib/content';
 import { ANGLES, makeListPath, MAKE_HUB } from '../lib/make';
 import { REFERENCES, CASES } from '../data/references';
@@ -385,6 +386,15 @@ export default function Home() {
           <Faq items={FAQS} />
         </div>
       </section>
+
+      {INQUIRY && (
+        <section className="sec" id="inquiry">
+          <div className="wrap">
+            <Sh title="상담 문의" sub="업종과 지역만 남겨 주셔도 됩니다. 확인하는 대로 남겨 주신 연락처로 연락드립니다." />
+            <Inquiry endpoint={INQUIRY} />
+          </div>
+        </section>
+      )}
 
       <Closing title="출장 가시는 지역과 하시는 서비스만 알려 주세요" text="표로 정리해 페이지 수와 구성안을 먼저 보내 드립니다. 보시고 결정하시면 됩니다." />
     </main>

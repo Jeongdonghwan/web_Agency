@@ -62,7 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <a href="https://jd8.co.kr/#portfolio" target="_blank" rel="noopener noreferrer">제작 레퍼런스</a>
                 </>
               )}
-              <a className="tel" href={`tel:${COMPANY.phone}`}>{COMPANY.phone}</a>
+              {COMPANY.phone ? <a className="tel" href={`tel:${COMPANY.phone}`}>{COMPANY.phone}</a> : <a className="tel" href="/#inquiry">상담 문의</a>}
             </nav>
           </div>
         </header>
@@ -72,7 +72,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {LANDING ? (
               <div>
                 <p><b>{COMPANY.legalName}</b></p>
-                <p>전화 {COMPANY.phone}</p>
+                {COMPANY.phone && <p>전화 {COMPANY.phone}</p>}
                 <p>© {SITE_NAME}</p>
               </div>
             ) : (
@@ -94,7 +94,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </footer>
         <div className="sticky">
-          <a href={`tel:${COMPANY.phone}`}>{COMPANY.phone}</a>
+          {COMPANY.phone ? <a href={`tel:${COMPANY.phone}`}>{COMPANY.phone}</a> : <a href="/#inquiry">상담 문의</a>}
           <a href={COMPANY.kakao} target="_blank" rel="noopener noreferrer">카톡 문의</a>
         </div>
         <div className="float" aria-label="빠른 문의">
@@ -102,10 +102,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7-.2.8-.8 2.9-.9 3.3 0 .3.1.4.4.3.4-.1 3-2 4-2.7.6.1 1.2.1 1.8.1 5.5 0 10-3.6 10-8S17.5 3 12 3z" /></svg>
             <span>카톡 문의</span>
           </a>
-          <a className="float-tel" href={`tel:${COMPANY.phone}`}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z" /></svg>
-            <span>{COMPANY.phone}</span>
-          </a>
+          {COMPANY.phone && (
+            <a className="float-tel" href={`tel:${COMPANY.phone}`}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z" /></svg>
+              <span>{COMPANY.phone}</span>
+            </a>
+          )}
         </div>
         {/* 메타 픽셀: 스크립트 꺼진 브라우저용 (web.jd8 만) */}
         {SITE.key === 'jd8' && (

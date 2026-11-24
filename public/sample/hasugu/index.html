@@ -172,21 +172,71 @@ footer .note b{color:#fff}footer .note a{color:var(--acc2);font-weight:700}
  .mbar a:nth-child(2){background:#fee500;color:#191919}
  .mbar a:nth-child(3){background:var(--dk);color:#fff}
 }
-header{border-bottom:4px solid #111}.logo i{background:#ffd400;padding:0 6px;margin-right:2px}.sh .k{display:inline-block;background:#111;color:#ffd400;padding:2px 10px;font-size:16px}.steps li::before{border:2px solid #111}</style>
+header{border-bottom:4px solid #111}.logo i{background:#ffd400;padding:0 6px;margin-right:2px}.sh .k{display:inline-block;background:#111;color:#ffd400;padding:2px 10px;font-size:16px}.steps li::before{border:2px solid #111}/* 본문 보강: 서비스 상세 · 가격 · 사례 · JD8 안내 */
+.svc li>div{color:var(--mut)}
+.svc li>div p{margin:0 0 12px}
+.svc dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:16px}
+.svc dt{font-weight:800;color:var(--ink);white-space:nowrap}
+.svc dd{margin:0}
+.sh h2 small{font-family:var(--sans);font-size:16px;font-weight:700;color:var(--mut);letter-spacing:0;margin-left:8px;white-space:nowrap}
+.price{width:100%;border-collapse:collapse;border-top:2px solid var(--ink);background:#fff}
+.price th,.price td{padding:18px 16px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.price thead th{font-size:15px;font-weight:700;color:var(--mut);padding:12px 16px}
+.price tbody th{font-size:19px;font-weight:800;width:26%}
+.price td.won{font-weight:800;white-space:nowrap;width:20%}
+.price td:last-child{color:var(--mut);font-size:16px}
+.pnote{margin:18px 0 0;color:var(--mut)}
+.pnote small{display:block;margin-top:6px;font-size:14px}
+.cases{border-top:2px solid var(--ink)}
+.cases article{display:grid;grid-template-columns:260px 1fr;gap:12px 40px;padding:30px 0;border-bottom:1px solid var(--line)}
+.cases h3{margin:0;font-size:22px;font-weight:800;line-height:1.35}
+.cases h3 span{display:block;font-size:15px;font-weight:700;color:var(--kc);margin-bottom:4px}
+.cases dl{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin:0}
+.cases dt{font-weight:800;white-space:nowrap}
+.cases dd{margin:0;color:var(--mut)}
+.jd8{margin:28px 0 0;padding:22px 24px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.05);color:#d2d2d2}
+.jd8 .lb{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.04em;color:var(--acc2);border:1px solid currentColor;padding:1px 8px}
+.jd8 strong{display:block;font-size:19px;font-weight:800;color:#fff;margin:10px 0 14px}
+.jd8 .rg{display:flex;flex-wrap:wrap;gap:8px}
+.jd8 .rg span{border:1px solid rgba(255,255,255,.28);padding:5px 12px;font-size:14px;color:#fff}
+.jd8 p{margin:14px 0 0;font-size:14px}
+@media (min-width:761px){.svc .ph{position:sticky;top:108px;align-self:start;height:520px}}
+@media (max-width:1200px){.gnb{display:none}.hcall{margin-left:auto}}
+@media (max-width:760px){
+ .price thead{display:none}
+ .price,.price tbody{display:block}
+ .price tr{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:16px 14px;border-bottom:1px solid var(--line)}
+ .price tbody th,.price tbody td,.price td.won{display:block;padding:0;border:0;width:auto}
+ .price tbody th{font-size:17px}
+ .price tbody td:last-child{grid-column:1/-1;font-size:15px}
+ .cases article{grid-template-columns:1fr;padding:24px 0}
+ .cases h3{font-size:20px}
+ .jd8{padding:18px 16px}
+}
+</style>
 </head>
 <body>
 <div class="tb"><div class="w"><span>수원 장안구 하수구·변기·싱크대 막힘 · 24시간 상담</span><span class="r">상담 전화 <b>010-○○○○-○○○○</b></span></div></div>
 <header><div class="w">
 <a class="logo" href="#"><i>○○</i>하수구</a>
-<nav class="gnb"><a href="#">막힘 증상</a><a href="#">작업 과정</a><a href="#">출동 지역</a><a href="#">자주 묻는 질문</a></nav>
+<nav class="gnb"><a href="#">막힘 증상</a><a href="#price">가격 안내</a><a href="#case">작업 사례</a><a href="#">작업 과정</a><a href="#">출동 지역</a><a href="#">자주 묻는 질문</a></nav>
 <a class="hcall" href="#"><small>24시간 상담</small><b>010-○○○○-○○○○</b></a>
 </div></header>
 <section class="hero full" style="padding:0;background-image:url(/sample/hasugu/hero.jpg);background-position:70% center"><div class="w in"><span class="chip">장안구 하수구막힘 · 24시간 출동</span><h1>막힌 배수구,<br><em>오늘 뚫어 드립니다</em></h1><ul class="pts"><li>싱크대 · 변기 · 욕실 배수구 · 우수관</li><li>현장 확인 후 작업 전 금액 안내</li><li>뚫은 뒤 물 흘려 확인하고 마무리</li></ul><div class="ctas"><a class="tel" href="#"><small>지금 바로 전화 주세요</small><b>010-○○○○-○○○○</b></a><a class="kakao" href="#">카톡 상담</a></div></div></section>
 <div class="str"><div class="w"><div class="it"><strong>24시간</strong><span>상담 접수</span><p>야간·주말에도 전화를 받습니다</p></div><div class="it"><strong>작업 전</strong><span>금액 안내</span><p>말씀드린 금액에서 바꾸지 않습니다</p></div><div class="it"><strong>장안구</strong><span>직접 출동</span><p>정자동에서 출발합니다</p></div><div class="it"><strong>작업 후</strong><span>사진 보고</span><p>작업 전·후 사진을 보내 드립니다</p></div></div></div>
 <section id="svc"><div class="w">
 <div class="sh"><span class="k">서비스 안내</span><h2>막힌 곳마다 작업이 다릅니다</h2><p>증상을 알려 주시면 맞는 장비를 싣고 출발합니다.</p></div>
-<div class="svc"><div class="ph" style="background-image:url(/sample/hasugu/work.jpg)" role="img" aria-label="싱크대 아래 배관 작업"></div><ol><li><h3>싱크대 막힘</h3><p>기름과 음식물 찌꺼기가 굳은 배관을 스프링 장비로 뚫고, 반복되면 고압 세척을 안내합니다.</p></li><li><h3>변기 막힘</h3><p>물티슈·이물질이 걸렸는지 먼저 보고, 필요하면 변기를 떼어 이물질을 꺼낸 뒤 다시 고정합니다.</p></li><li><h3>욕실·세탁실 배수구</h3><p>머리카락과 비누때가 엉킨 트랩을 청소하고 바닥 배관까지 뚫습니다.</p></li><li><h3>우수관·빗물받이</h3><p>마당·주차장·옥상 드레인에 쌓인 토사와 낙엽을 걷어 내고 관로를 세척합니다.</p></li></ol></div>
+<div class="svc"><div class="ph" style="background-image:url(/sample/hasugu/work.jpg)" role="img" aria-label="싱크대 아래 배관 작업"></div><ol><li><h3>싱크대 막힘</h3><div><p>물이 천천히 빠지다가 어느 날부터 고이고, 개수대 아래 수납장에서 냄새가 올라오면 배관 안쪽이 좁아진 상태입니다.</p><dl><dt>흔한 원인</dt><dd>식은 기름과 음식물 찌꺼기가 배관 벽에 붙어 굳은 경우가 대부분입니다. 오래된 주방은 싱크대 아래 주름관이 처져 찌꺼기가 고이기도 합니다.</dd><dt>작업</dt><dd>트랩과 주름관을 분리해 먼저 보고, 벽 안쪽 배관은 스프링 장비로 뚫습니다. 뚫어도 금방 다시 막히는 집은 고압 세척을 안내합니다.</dd><dt>미리 확인</dt><dd>세탁기나 베란다 배수도 같이 느린지 봐 주세요. 같이 느리면 주방보다 더 안쪽 배관이 막힌 것입니다.</dd></dl></div></li><li><h3>변기 막힘</h3><div><p>물을 내리면 수위가 차올랐다가 한참 뒤에 빠지거나, 꾸르륵 소리가 나면서 넘칠 듯이 올라옵니다.</p><dl><dt>흔한 원인</dt><dd>물티슈, 위생용품, 칫솔이나 장난감처럼 물에 풀리지 않는 것이 걸린 경우가 많습니다. 휴지를 한 번에 많이 내려도 막힙니다.</dd><dt>작업</dt><dd>관통기로 먼저 뚫어 봅니다. 단단한 이물질이 걸렸으면 변기를 떼어 꺼낸 뒤 다시 앉히고 바닥 이음부를 마감합니다.</dd><dt>미리 확인</dt><dd>무엇이 들어갔는지 아시면 알려 주세요. 넘칠 것 같으면 변기 옆 급수 밸브를 잠그고 물을 더 내리지 마세요.</dd></dl></div></li><li><h3>욕실·세탁실 배수구</h3><div><p>샤워하면 발목까지 물이 차거나, 세탁기가 배수할 때 바닥 배수구로 물이 올라옵니다.</p><dl><dt>흔한 원인</dt><dd>욕실은 머리카락과 비누때가 트랩에 엉킨 경우가 가장 많고, 세탁실은 섬유 찌꺼기와 세제 찌꺼기가 쌓입니다.</dd><dt>작업</dt><dd>배수구 덮개와 트랩을 꺼내 청소하고, 바닥 아래 배관은 스프링으로 뚫은 뒤 물을 받아 한 번에 흘려 봅니다.</dd><dt>미리 확인</dt><dd>세면대·욕조·바닥 중 어디가 느린지, 한 곳만 그런지 욕실 전체가 그런지 알려 주세요.</dd></dl></div></li><li><h3>우수관·빗물받이</h3><div><p>비가 오면 마당이나 주차장에 물이 고이고, 옥상 물이 빠지지 않아 벽을 타고 흐릅니다.</p><dl><dt>흔한 원인</dt><dd>낙엽과 토사가 드레인·빗물받이에 쌓인 경우가 많습니다. 오래된 주택은 나무뿌리가 관 안으로 들어와 있기도 합니다.</dd><dt>작업</dt><dd>빗물받이와 맨홀의 토사를 걷어 내고 관로를 고압 세척합니다. 안쪽이 의심되면 배관 내시경으로 확인합니다.</dd><dt>미리 확인</dt><dd>맨홀·빗물받이 위치와 차를 어디까지 댈 수 있는지 알려 주세요. 세척 호스를 얼마나 끌어야 하는지가 정해집니다.</dd></dl></div></li></ol></div>
 <div class="gal" style="--gn:2"><figure><div class="ph" style="background-image:url(/sample/hasugu/sink.jpg)" role="img" aria-label="싱크대 배수구 점검"></div><figcaption>싱크대 배수구 점검</figcaption></figure><figure><div class="ph" style="background-image:url(/sample/hasugu/floor-drain.jpg)" role="img" aria-label="욕실 바닥 배수구 청소"></div><figcaption>욕실 바닥 배수구 청소</figcaption></figure></div>
+</div></section>
+<section id="price" class="lt"><div class="w">
+<div class="sh"><span class="k">가격 안내</span><h2>얼마가 드는지, 왜 달라지는지</h2><p>전화로는 대략만 말씀드립니다. 도착해서 막힌 위치를 본 뒤 작업 전에 금액을 정해 드립니다.</p></div>
+<table class="price"><thead><tr><th scope="col">작업</th><th scope="col">금액</th><th scope="col">금액이 달라지는 이유</th></tr></thead><tbody><tr><th scope="row">싱크대 막힘 개통</th><td class="won">○만 원부터</td><td>트랩·주름관에서 풀리는지, 벽 안 배관까지 장비가 들어가야 하는지에 따라 달라집니다.</td></tr><tr><th scope="row">변기 막힘 개통</th><td class="won">○만 원부터</td><td>관통기로 뚫리면 기본 작업입니다. 변기를 떼었다가 다시 앉혀야 하면 그 작업이 더해집니다.</td></tr><tr><th scope="row">욕실·세탁실 배수구</th><td class="won">○만 원부터</td><td>트랩 청소로 끝나는지, 바닥 아래 배관을 얼마나 깊이 들어가는지를 봅니다.</td></tr><tr><th scope="row">고압 세척</th><td class="won">○○만 원부터</td><td>세척할 배관 길이와 굵기, 장비 차량을 건물 가까이 댈 수 있는지에 따라 달라집니다.</td></tr><tr><th scope="row">배관 내시경 확인</th><td class="won">○만 원부터</td><td>자꾸 다시 막히거나 배관 파손이 의심될 때만 권합니다. 확인할 구간 길이를 봅니다.</td></tr><tr><th scope="row">우수관·맨홀</th><td class="won">현장 확인 후 안내</td><td>쌓인 토사 양과 관로 길이 차이가 커서 직접 보고 말씀드립니다.</td></tr></tbody></table>
+<p class="pnote">야간·새벽 출동은 금액이 더해질 수 있어 통화할 때 먼저 말씀드립니다. 작업 범위가 처음 안내와 달라지면 손대기 전에 다시 여쭙니다.<small>예시 페이지라 금액은 가렸습니다.</small></p>
+</div></section>
+<section id="case"><div class="w">
+<div class="sh"><span class="k">작업 사례</span><h2>장안구에서 이렇게 작업했습니다 <small>(예시)</small></h2><p>같은 막힘이라도 원인에 따라 작업이 달라집니다.</p></div>
+<div class="cases"><article><h3><span>정자동 · 아파트 주방</span>설거지물이 한참 고였다 빠지는 싱크대</h3><dl><dt>증상</dt><dd>물이 내려가는 데 오래 걸리고 개수대 아래에서 냄새가 났습니다. 세정제를 부어도 며칠뿐이었습니다.</dd><dt>원인</dt><dd>벽 안쪽 가로 배관에 기름때가 두껍게 굳어 물길이 좁아져 있었습니다.</dd><dt>작업</dt><dd>주름관을 분리하고 스프링으로 물길을 낸 뒤, 굳은 기름이 많아 고압 세척을 말씀드리고 진행했습니다.</dd><dt>마무리</dt><dd>개수대에 물을 가득 받아 한 번에 흘려 보고, 주름관 이음부에서 물이 새지 않는지 확인했습니다.</dd></dl></article><article><h3><span>조원동 · 빌라 화장실</span>물이 차올랐다 천천히 빠지는 변기</h3><dl><dt>증상</dt><dd>물을 내리면 변기 가장자리까지 차올랐고, 뚫어뻥으로는 그때뿐이었습니다.</dd><dt>원인</dt><dd>물티슈 뭉치가 변기 안쪽 굽은 구간에 걸려 있었습니다.</dd><dt>작업</dt><dd>관통기로 빠지지 않아 변기를 떼어 이물질을 꺼냈습니다.</dd><dt>마무리</dt><dd>변기를 다시 앉혀 바닥 이음부를 마감하고, 여러 번 물을 내려 수위를 확인했습니다.</dd></dl></article><article><h3><span>파장동 · 단독주택 마당</span>비만 오면 물이 고이는 마당</h3><dl><dt>증상</dt><dd>비가 올 때마다 마당 한쪽에 물이 고여 현관 앞까지 찼습니다.</dd><dt>원인</dt><dd>빗물받이와 우수관 안에 토사와 낙엽이 쌓여 있었습니다.</dd><dt>작업</dt><dd>빗물받이의 토사를 걷어 내고 관로를 고압 세척했습니다.</dd><dt>마무리</dt><dd>호스로 물을 흘려 빠지는 것을 같이 보고, 작업 전·후 사진을 보내 드렸습니다.</dd></dl></article></div>
 </div></section>
 <section id="step" class="lt"><div class="w">
 <div class="sh"><span class="k">작업 과정</span><h2>전화 한 통이면 됩니다</h2><p>도착해서 상태를 보고 금액을 말씀드린 뒤, 동의하시면 작업을 시작합니다.</p></div>
@@ -208,6 +258,7 @@ header{border-bottom:4px solid #111}.logo i{background:#ffd400;padding:0 6px;mar
 <div class="fl">○○하수구</div>
 <p class="biz">상호 ○○하수구 · 대표 ○○○ · 사업자등록번호 ○○○-○○-○○○○○</p>
 <p class="biz">주소 경기 수원시 장안구 정자동 · 전화 010-○○○○-○○○○ · 24시간 상담</p>
+<div class="jd8"><span class="lb">JD8 안내</span><strong>이 구성 그대로, 지역마다 한 장씩 만들어집니다</strong><div class="rg"><span>수원 권선구 하수구막힘</span><span>수원 팔달구 하수구막힘</span><span>수원 영통구 하수구막힘</span><span>화성 동탄 하수구막힘</span><span>용인 수지구 하수구막힘</span><span>의왕 하수구막힘</span></div><p>지역이 바뀌면 출동 동네·작업 사례·안내 문구가 그 지역에 맞게 달라집니다. 지역 이름만 바꾼 복제 페이지는 만들지 않습니다.</p></div>
 <p class="note"><b>업종별 예시 페이지입니다.</b> 실제 업체가 아니며 상호·전화번호는 가렸습니다. 이런 페이지를 사장님 업종·지역마다 만들어 드립니다. <a href="/">제작 상담 →</a></p>
 </div></footer>
 <div class="badge">예시 화면</div>

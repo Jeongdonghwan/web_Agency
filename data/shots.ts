@@ -23,5 +23,5 @@ export const SHOTS: { file: string; label: string; group?: string }[] = [
   { file: 'blog', label: '네이버 SEO 가이드 글' },
 ];
 // 포춘마케팅은 같은 페이지를 상호만 바꿔 찍은 화면을 쓴다 (public/shots-fortune/, scripts/rebrand_server.py)
-export const shotSrc = (file: string) => `/${SITE_KEY === 'fortune' ? 'shots-fortune' : 'shots'}/${file}.jpg`;
+export const shotSrc = (file: string) => `/${SITE_KEY === 'jd8' ? 'shots' : 'shots-' + SITE_KEY}/${file}.jpg`;
 export const shotFor = (group: string) => SHOTS.find((s) => s.group === group) || SHOTS[18];

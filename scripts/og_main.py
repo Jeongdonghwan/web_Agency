@@ -32,3 +32,4 @@ def make(path, bg, hi, brand, sub, chip_bg, chip_fg):
 
 make('public/og/main.jpg', '#0b1a33', '#6ea0ff', 'JD8 홈페이지·웹문서', '지역·키워드 검색 페이지 제작 · 네이버·구글 직접 등록', '#1f5cff', '#ffffff')
 make('public/og/main-fortune.jpg', '#0c2a22', '#ffe14a', '포춘마케팅', '지역·키워드 검색 페이지 제작 · 클릭당 광고비 0원', '#ffe14a', '#14221c')
+make('public/og/main-hco.jpg', '#12100c', '#e6c462', '에이치코', '지역·키워드 검색 페이지 제작 · 클릭당 광고비 0원', '#e6c462', '#14110c')

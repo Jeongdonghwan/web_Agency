@@ -3,6 +3,7 @@
 //   node scripts/build.mjs jd8                      본 사이트 (오늘까지 열린 페이지만)
 //   node scripts/build.mjs jd8 --launch 2026-11-20  처음 올릴 때만: 공개 시작일을 정한다 (lib/site.ts LAUNCH 도 같은 날짜로 고쳐 둘 것)
 //   node scripts/build.mjs fortune                  포춘마케팅 (메인 한 장, 검색 제외)
+//   node scripts/build.mjs hco                      에이치코 (메인 한 장, 검색 제외, 상담 문의란)
 //   node scripts/build.mjs jd8 --all                전부 연 상태 (미리보기용)
 //   node scripts/build.mjs jd8 --sample 8           8분의 1만 (빠른 확인용)
 //   node scripts/build.mjs jd8 --national           지역 없는 전국판만 (서버를 먼저 열 때)
@@ -11,7 +12,7 @@ import fs from 'fs';
 import path from 'path';
 
 const args = process.argv.slice(2);
-const site = args[0] === 'fortune' ? 'fortune' : 'jd8';
+const site = ['fortune', 'hco'].includes(args[0]) ? args[0] : 'jd8';
 const opt = (k) => (args.includes(k) ? args[args.indexOf(k) + 1] : '');
 const env = { ...process.env, NEXT_PUBLIC_SITE: site, NODE_OPTIONS: process.env.NODE_OPTIONS || '--max-old-space-size=6144' };
 if (opt('--launch')) env.NEXT_PUBLIC_LAUNCH = opt('--launch');
@@ -47,14 +48,14 @@ if (site === 'jd8') {
   if (fs.existsSync(make)) walk(make);
   console.log(`보조 파일 ${n}개 삭제`);
   // 포춘마케팅 전용 썸네일은 본 사이트에 두지 않는다
-  rm(path.join(out, 'og', 'main-fortune.jpg'));
-  rm(path.join(out, 'shots-fortune'));
+  for (const s of ['fortune', 'hco']) { rm(path.join(out, 'og', `main-${s}.jpg`)); rm(path.join(out, `shots-${s}`)); }
 } else {
   // 한 장짜리: 하위 페이지·사이트맵·RSS·다른 썸네일을 지운다
   for (const d of ['제작', '업종', '가이드', 'about', 'rss.xml', 'sitemap.xml', 'llms.txt']) rm(path.join(out, d));
-  for (const f of fs.readdirSync(path.join(out, 'og'))) if (f !== 'main-fortune.jpg') rm(path.join(out, 'og', f));
+  for (const f of fs.readdirSync(path.join(out, 'og'))) if (f !== `main-${site}.jpg`) rm(path.join(out, 'og', f));
   for (const f of fs.readdirSync(out)) if (/^[0-9a-f]{32}\.txt$/.test(f)) rm(path.join(out, f)); // IndexNow 키 파일
   rm(path.join(out, 'shots')); // 본 사이트용 화면(JD8 표기)은 두지 않는다
+  for (const s of ['fortune', 'hco']) if (s !== site) rm(path.join(out, `shots-${s}`)); // 다른 상호 화면도
 }
 
 const dist = path.join(root, 'dist', site);

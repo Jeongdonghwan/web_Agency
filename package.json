@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "node scripts/build.mjs jd8",
     "build:jd8": "node scripts/build.mjs jd8",
-    "build:fortune": "node scripts/build.mjs fortune"
+    "build:fortune": "node scripts/build.mjs fortune",
+    "build:hco": "node scripts/build.mjs hco"
   },
   "dependencies": {
     "next": "^14.2.5",

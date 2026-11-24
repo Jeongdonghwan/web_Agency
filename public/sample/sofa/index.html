@@ -178,6 +178,56 @@ h1,h2,h3{font-family:var(--hf);line-height:1.3;letter-spacing:-.02em;margin:0}
 .shop dl{margin:26px 0 0;display:grid;grid-template-columns:110px 1fr;gap:12px 20px;font-size:17px}
 .shop dt{font-weight:800;color:var(--c)}
 .shop dd{margin:0}
+/* 서비스 상세 · 가격 · 사례 · JD8 안내 */
+.lf figcaption p{margin:0 0 16px;color:#4e4339}
+.lf li b{color:var(--c2)}
+.scope{margin-top:60px;border-top:3px solid var(--c2)}
+.scope div{display:grid;grid-template-columns:210px 1fr;gap:8px 44px;padding:28px 4px;border-bottom:1px solid #dccfba}
+.scope h3{font-size:23px;font-weight:900;color:var(--c2)}
+.scope p{margin:0;color:#4e4339}
+.st h2 small{font-family:'Pretendard Variable',sans-serif;font-size:.45em;font-weight:600;color:#7a6a5c;vertical-align:middle;margin-left:6px;letter-spacing:0}
+.price{max-width:980px;margin:0 auto}
+.price table{width:100%;border-collapse:collapse;background:#fff;border-top:3px solid var(--c2)}
+.price th,.price td{padding:16px 14px;border-bottom:1px solid #e3d9c8;text-align:left;vertical-align:top}
+.price thead th{font-size:15px;font-weight:700;color:#7a6a5c}
+.price td:first-child{font-weight:800;color:var(--c2)}
+.price td:nth-child(2){font-weight:700;white-space:nowrap}
+.price td:nth-child(3){font-size:16px;color:#4e4339}
+.price h3{font-family:'Pretendard Variable',sans-serif;font-size:21px;font-weight:800;color:var(--c2);margin:40px 0 12px}
+.price ul{margin:0;padding-left:20px;color:#4e4339}
+.price li{margin-bottom:6px}
+.price .note{font-size:14px;color:#7a6a5c;margin:14px 0 0}
+.cases{max-width:980px;margin:0 auto;border-bottom:1px solid #dccfba}
+.cases article{display:grid;grid-template-columns:270px 1fr;gap:12px 44px;padding:34px 4px;border-top:1px solid #dccfba}
+.cases article:first-child{border-top:3px solid var(--c2)}
+.cases h3{font-size:23px;font-weight:900;color:var(--c2)}
+.cases h3 small{display:block;font-family:'Pretendard Variable',sans-serif;font-size:15px;font-weight:700;color:var(--c);margin-bottom:8px;letter-spacing:0}
+.cases dl{margin:0;display:grid;grid-template-columns:76px 1fr;gap:10px 16px}
+.cases dt{font-weight:800;color:var(--c2)}
+.cases dd{margin:0;color:#4e4339}
+.jd8{margin:0 0 22px;padding:22px 24px;background:rgba(255,255,255,.04);border:1px solid #3a404c}
+.jd8 small{display:block;font-size:13px;font-weight:800;color:var(--hl)}
+.jd8 .t{color:#fff;font-size:18px;font-weight:800;margin:4px 0 14px}
+.jd8 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.jd8 .chips span{border:1px solid #4a505c;padding:5px 11px;font-size:14.5px;color:#d5d9e0}
+.jd8 .x{margin:0;font-size:14.5px}
+@media (max-width:1160px){.hd nav{display:none}}
+@media (max-width:700px){
+ .scope{margin-top:40px}
+ .scope div{grid-template-columns:1fr;padding:22px 0}
+ .scope h3{font-size:20px}
+ .price table,.price tbody{display:block}
+ .price thead{display:none}
+ .price tr{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:14px 2px;border-bottom:1px solid #e3d9c8}
+ .price td{padding:0;border:0}
+ .price td:nth-child(3){grid-column:1/-1;font-size:15px}
+ .price h3{font-size:19px;margin-top:30px}
+ .cases article{grid-template-columns:1fr;padding:26px 0}
+ .cases h3{font-size:20px}
+ .cases dl{grid-template-columns:62px 1fr;gap:8px 12px}
+ .jd8{padding:18px 16px}
+ .jd8 .t{font-size:17px}
+}
 @media (max-width:1000px){.shop{grid-template-columns:1fr;gap:30px}}
 @media (max-width:700px){.lf{grid-template-columns:1fr;gap:24px}.lf figcaption{padding:20px 18px 24px}.lf h3{font-size:23px}.shop h2{font-size:28px}.shop dl{grid-template-columns:84px 1fr;font-size:16px}}
 </style>
@@ -185,7 +235,7 @@ h1,h2,h3{font-family:var(--hf);line-height:1.3;letter-spacing:-.02em;margin:0}
 <body>
 <header class="hd"><div class="w">
  <a class="logo" href="#">○○<span>소파</span></a>
- <nav><a href="#lf">가죽·패브릭</a><a href="#step">작업 과정</a><a href="#shop">공방 안내</a><a href="#area">수거 지역</a><a href="#faq">자주 묻는 질문</a></nav>
+ <nav><a href="#lf">가죽·패브릭</a><a href="#step">작업 과정</a><a href="#price">가격 안내</a><a href="#shop">공방 안내</a><a href="#cases">작업 사례</a><a href="#area">수거 지역</a><a href="#faq">자주 묻는 질문</a></nav>
  <a class="call" href="#"><i><svg class="ico" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg></i>010-○○○○-○○○○</a>
 </div></header>
 
@@ -221,16 +271,21 @@ h1,h2,h3{font-family:var(--hf);line-height:1.3;letter-spacing:-.02em;margin:0}
  <div class="w">
   <div class="st"><p class="k">가죽과 패브릭</p><h2>무엇으로 씌울까요</h2><p class="d">같은 색이라도 집 조명 아래에서는 다르게 보입니다. 실물 샘플을 들고 방문해 함께 고릅니다.</p></div>
   <div class="lf">
-   <figure><img src="/sample/sofa/leather.jpg" alt="브라운 가죽 3인 소파"><figcaption><h3>가죽</h3><ul>
-    <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>물기를 바로 닦아 내기 쉬움</li>
-    <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>쓸수록 색이 깊어짐</li>
-    <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>소가죽 · 누벅 · 인조가죽 중 선택</li>
-    <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>반려동물 발톱 자국은 남을 수 있음</li></ul></figcaption></figure>
-   <figure><img src="/sample/sofa/fabric.jpg" alt="초록 벨벳 원단 소파"><figcaption><h3>패브릭</h3><ul>
-    <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>사계절 비슷한 포근한 촉감</li>
-    <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>커버 분리형으로 만들면 세탁 가능</li>
-    <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>린넨 · 벨벳 · 부클레 · 생활방수 원단</li>
-    <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>원단에 따라 비용 폭이 넓음</li></ul></figcaption></figure>
+   <figure><img src="/sample/sofa/leather.jpg" alt="브라운 가죽 3인 소파"><figcaption><h3>가죽</h3><p>흘린 것을 바로 닦아 낼 수 있어 아이 있는 집, 식탁 겸용 거실에서 많이 고릅니다. 쓰던 소파가 가죽이었다면 같은 두께의 가죽으로 맞춰야 원래 모양이 납니다.</p><ul>
+    <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span><b>소가죽</b> 겉면을 그대로 쓴 가죽은 질기고 쓸수록 색이 깊어집니다. 아래층을 갈라 코팅한 가죽은 값이 덜 들지만 앉는 자리에는 권하지 않습니다.</span></li>
+    <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span><b>누벅</b> 표면을 갈아 보드랍게 만든 가죽. 물 얼룩이 남기 쉬워 관리가 필요합니다.</span></li>
+    <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span><b>인조가죽</b> 비용이 낮고 색이 다양합니다. 여러 해 쓰면 표면이 일어나 벗겨질 수 있습니다.</span></li>
+    <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span><b>확인할 것</b> 반려동물 발톱 자국은 어느 가죽이든 남습니다. 햇빛이 드는 창가 자리인지도 알려 주세요.</span></li></ul></figcaption></figure>
+   <figure><img src="/sample/sofa/fabric.jpg" alt="초록 벨벳 원단 소파"><figcaption><h3>패브릭</h3><p>여름에 달라붙지 않고 겨울에 차갑지 않아 가죽에서 패브릭으로 바꾸는 분이 많습니다. 가죽 소파를 원단으로 바꿀 때는 본을 새로 떠야 해서 봉제 시간이 더 듭니다.</p><ul>
+    <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span><b>린넨·면</b> 시원하고 담백한 질감. 구김이 가고 세탁하면 줄 수 있어 커버를 여유 있게 짓습니다.</span></li>
+    <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span><b>벨벳·부클레</b> 색이 깊고 포근합니다. 벨벳은 눌린 자국이, 부클레는 발톱에 올이 걸리는 점을 감안해야 합니다.</span></li>
+    <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span><b>생활방수 원단</b> 물이 바로 스미지 않아 닦을 시간이 있습니다. 반려동물이나 아이가 있는 집에서 많이 고릅니다.</span></li>
+    <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg><span><b>확인할 것</b> 커버를 벗겨 빨고 싶으면 분리형으로 짓습니다. 지퍼와 안감이 들어가 고정형보다 비용이 더 듭니다.</span></li></ul></figcaption></figure>
+  </div>
+  <div class="scope">
+   <div><h3>전체 천갈이</h3><p>겉감이 전체적으로 갈라지거나 벗겨졌을 때, 색을 바꾸고 싶을 때 합니다. 쓰던 겉감을 뜯어 본을 뜨고 새 가죽이나 원단을 재단해 다시 박아 씌웁니다. 뜯은 김에 스펀지, 밴드, 프레임을 같이 보고 바꿀 곳이 있으면 사진과 함께 먼저 말씀드립니다. 다리나 원목 팔걸이 칠은 포함되지 않습니다.</p></div>
+   <div><h3>속재 교체</h3><p>겉감은 멀쩡한데 앉는 자리만 꺼졌을 때 합니다. 스펀지가 주저앉은 경우가 있고, 그 아래 밴드나 스프링이 늘어난 경우가 있어 방석을 열어 봐야 어느 쪽인지 압니다. 스펀지는 밀도를 골라 단단하게도 푹신하게도 맞추고, 깃털 방석은 충전재를 채웁니다. 방석이 본체에 붙은 일체형은 겉감 일부를 뜯어야 해서 분리형보다 손이 더 갑니다.</p></div>
+   <div><h3>부분 수선</h3><p>팔걸이, 방석 한 면, 터진 박음질처럼 한 군데만 고칠 때 합니다. 가죽은 조각 단위로 갈아 끼우는데, 햇빛에 바랜 기존 가죽과는 색과 광택이 다르게 보입니다. 좌우 팔걸이를 같이 바꿔 차이를 덜 띄게 하는 방법도 있어 샘플을 대 보고 정합니다. 인조가죽이 전체적으로 일어나 벗겨지는 상태라면 전체 천갈이가 맞습니다.</p></div>
   </div>
  </div>
 </section>
@@ -239,16 +294,42 @@ h1,h2,h3{font-family:var(--hf);line-height:1.3;letter-spacing:-.02em;margin:0}
  <div class="w">
   <div class="st"><p class="k">작업 과정</p><h2>겉감만 바꾸지 않고 속부터 다시 짓습니다</h2></div>
   <ol class="steps">
-   <li><b>사진 상담</b><p>크기와 상태를 사진으로 먼저 봅니다.</p></li>
-   <li><b>방문·샘플 선택</b><p>집 조명 아래에서 가죽·원단 색을 고릅니다.</p></li>
-   <li><b>수거·해체</b><p>공방으로 싣고 가 프레임 흔들림과 갈라짐을 확인합니다.</p></li>
-   <li><b>속재 교체·봉제</b><p>스펀지와 스프링을 바꾸고 새 겉감을 재단해 박음질합니다.</p></li>
-   <li><b>씌우기·배송</b><p>주름을 잡아 씌우고 집 안 제자리까지 놓아 드립니다.</p></li>
+   <li><b>사진 상담</b><p>정면, 옆면, 꺼진 부분 사진과 가로 길이를 보내 주세요. 할 수 있는 작업과 대략의 비용 범위를 먼저 말씀드립니다.</p></li>
+   <li><b>방문·샘플 선택</b><p>샘플 책을 들고 가 집 조명 아래에서 색을 고릅니다. 이때 치수를 재고 현관과 엘리베이터로 나갈 수 있는지도 봅니다.</p></li>
+   <li><b>수거·해체</b><p>공방 차량으로 싣고 갑니다. 겉감을 뜯어 프레임 흔들림과 갈라짐을 확인하고, 견적과 달라지는 곳이 있으면 작업 전에 연락드립니다.</p></li>
+   <li><b>속재 교체·봉제</b><p>스펀지와 밴드를 바꾸고 프레임 이음부를 다시 고정합니다. 새 겉감은 뜯어낸 본에 맞춰 재단해 박습니다.</p></li>
+   <li><b>씌우기·배송</b><p>주름을 잡아 씌운 뒤 사진을 먼저 보내 드립니다. 확인하시면 날짜를 잡아 집 안 제자리에 놓고 포장재를 가져갑니다.</p></li>
   </ol>
  </div>
 </section>
 
-<section class="sec alt" id="shop">
+<section class="sec alt" id="price">
+ <div class="w">
+  <div class="st"><p class="k">가격 안내</p><h2>크기와 겉감에서 금액이 갈립니다</h2><p class="d">같은 3인 소파라도 고르는 가죽·원단과 속재 상태에 따라 차이가 큽니다. 사진을 보고 범위를 말씀드리고, 방문해서 확정합니다.</p></div>
+  <div class="price">
+   <table>
+    <thead><tr><th>작업</th><th>금액</th><th>금액이 달라지는 이유</th></tr></thead>
+    <tbody>
+     <tr><td>전체 천갈이 (3인 기준)</td><td>○○만 원부터</td><td>소파 크기, 가죽·원단 등급, 방석과 등받이가 분리형인지, 누빔·단추 같은 봉제 모양</td></tr>
+     <tr><td>방석 스펀지 교체</td><td>한 자리 ○만 원부터</td><td>스펀지 밀도와 두께, 깃털 충전 여부, 일체형인지</td></tr>
+     <tr><td>밴드·스프링 보수</td><td>○만 원부터</td><td>늘어난 범위, 프레임 보강이 같이 필요한지</td></tr>
+     <tr><td>부분 수선</td><td>한 곳 ○만 원부터</td><td>갈아 끼울 조각 수, 비슷한 가죽을 구할 수 있는지</td></tr>
+     <tr><td>리클라이너</td><td>○○만 원부터</td><td>기구부 분해 범위, 전동인지, 자리 수</td></tr>
+     <tr><td>수거·배송</td><td>세종 시내 ○만 원</td><td>인근 지역 거리, 계단 운반, 사다리차가 필요한지</td></tr>
+    </tbody>
+   </table>
+   <p class="note">예시 페이지라 금액은 가렸습니다.</p>
+   <h3>견적 뒤에 금액이 바뀌는 경우</h3>
+   <ul>
+    <li>뜯어 보니 프레임이 갈라져 있거나 합판이 삭아 보강이 필요할 때</li>
+    <li>방문해서 고른 원단이 사진 상담 때 기준으로 삼은 것과 등급이 다를 때</li>
+    <li>쿠션, 스툴, 팔걸이 덮개를 같은 원단으로 추가할 때</li>
+   </ul>
+  </div>
+ </div>
+</section>
+
+<section class="sec" id="shop">
  <div class="w shop">
   <img src="/sample/sofa/workshop.jpg" alt="공방 작업대와 재봉틀">
   <div>
@@ -259,6 +340,41 @@ h1,h2,h3{font-family:var(--hf);line-height:1.3;letter-spacing:-.02em;margin:0}
     <dt>계단 운반</dt><dd>엘리베이터가 없으면 상담 때 미리 알려 주세요</dd>
     <dt>쓰던 겉감</dt><dd>공방에서 처리하며, 원하시면 돌려 드립니다</dd>
    </dl>
+  </div>
+ </div>
+</section>
+
+<section class="sec alt" id="cases">
+ <div class="w">
+  <div class="st"><p class="k">작업 사례</p><h2>이런 소파를 이렇게 고쳤습니다 <small>(예시)</small></h2></div>
+  <div class="cases">
+   <article>
+    <h3><small>반곡동 · 아파트</small>4인 가죽 소파 전체 천갈이</h3>
+    <dl>
+     <dt>상황</dt><dd>자주 앉는 두 자리의 가죽이 갈라지고 방석이 꺼져 있었습니다. 크기와 모양은 마음에 들어 새로 사지 않기로 하셨습니다.</dd>
+     <dt>조건</dt><dd>원목 프레임, 방석 분리형. 엘리베이터로 통째로 나갈 수 있었습니다.</dd>
+     <dt>한 작업</dt><dd>전체를 소가죽으로 다시 씌웠습니다. 뜯어 보니 꺼진 자리 아래 밴드가 늘어나 있어 밴드를 새로 걸고, 방석 스펀지는 전보다 단단한 것으로 바꿨습니다.</dd>
+     <dt>마무리</dt><dd>완성 사진을 먼저 보내 확인받고 배송했습니다. 원래 자리에 놓고 쓰던 가죽과 포장재는 가져왔습니다.</dd>
+    </dl>
+   </article>
+   <article>
+    <h3><small>새롬동 · 아파트</small>패브릭 3인 소파와 스툴</h3>
+    <dl>
+     <dt>상황</dt><dd>고양이 발톱에 팔걸이와 등받이 올이 풀려 있었습니다.</dd>
+     <dt>조건</dt><dd>커버가 본체에 고정된 형태. 손님은 빨 수 있는 커버를 원하셨습니다.</dd>
+     <dt>한 작업</dt><dd>짜임이 촘촘한 생활방수 원단을 골라 방석과 등받이 커버를 분리형으로 새로 지었습니다. 본체는 고정형으로 씌우고 스툴도 같은 원단으로 맞췄습니다.</dd>
+     <dt>마무리</dt><dd>발톱 자국이 아예 안 생기는 원단은 없다는 점과 커버 세탁 방법을 배송 때 설명드렸습니다.</dd>
+    </dl>
+   </article>
+   <article>
+    <h3><small>조치원읍 · 단독주택</small>원목 소파 방석만 새로</h3>
+    <dl>
+     <dt>상황</dt><dd>오래 쓴 원목 소파의 방석이 납작해지고 커버가 해져 있었습니다.</dd>
+     <dt>조건</dt><dd>프레임은 2층 거실에 있고 계단이 좁아, 방석만 가져오기로 했습니다.</dd>
+     <dt>한 작업</dt><dd>방석 치수를 현장에서 재고 스펀지와 커버를 새로 만들었습니다. 흔들리던 팔걸이 이음부는 방문한 날 그 자리에서 다시 조였습니다.</dd>
+     <dt>마무리</dt><dd>새 방석을 가져가 끼워 보고, 뜨는 모서리 한 곳은 공방에서 다시 손봐 보내 드렸습니다.</dd>
+    </dl>
+   </article>
   </div>
  </div>
 </section>
@@ -297,6 +413,12 @@ h1,h2,h3{font-family:var(--hf);line-height:1.3;letter-spacing:-.02em;margin:0}
  <div class="w">
   <div class="nm">○○소파</div>
   <p class="info"><span>상호 ○○소파</span><span>대표 ○○○</span><span>사업자등록번호 ○○○-○○-○○○○○</span><span>주소 세종특별자치시 반곡동</span><span>010-○○○○-○○○○</span><span>소파 리폼 · 천갈이 · 스펀지 교체</span></p>
+  <div class="jd8">
+   <small>JD8 안내</small>
+   <p class="t">이 구성 그대로, 지역마다 한 장씩 만들어집니다</p>
+   <div class="chips"><span>세종 집현동 소파 리폼</span><span>세종 소담동 소파 리폼</span><span>세종 보람동 소파 리폼</span><span>세종 새롬동 소파 리폼</span><span>세종 조치원 소파 리폼</span><span>대전 유성구 소파 리폼</span></div>
+   <p class="x">지역이 바뀌면 출동 동네·작업 사례·안내 문구가 그 지역에 맞게 달라집니다. 지역 이름만 바꾼 복제 페이지는 만들지 않습니다.</p>
+  </div>
   <p class="demo"><b>업종별 예시 페이지입니다.</b> 실제 업체가 아니며 상호·전화번호는 가렸습니다. 이런 페이지를 사장님 업종·지역마다 만들어 드립니다. <a href="/">제작 상담 →</a></p>
  </div>
 </footer>

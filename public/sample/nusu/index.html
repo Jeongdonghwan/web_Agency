@@ -170,21 +170,71 @@ footer .note b{color:#fff}footer .note a{color:var(--acc2);font-weight:700}
  .mbar a:nth-child(2){background:#fee500;color:#191919}
  .mbar a:nth-child(3){background:var(--dk);color:#fff}
 }
-.hero.split .tel{background:#fff;color:#0b4a43}.chip{background:#7fd6cb;color:#0b4a43}</style>
+.hero.split .tel{background:#fff;color:#0b4a43}.chip{background:#7fd6cb;color:#0b4a43}/* 본문 보강: 서비스 상세 · 가격 · 사례 · JD8 안내 */
+.svc li>div{color:var(--mut)}
+.svc li>div p{margin:0 0 12px}
+.svc dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:16px}
+.svc dt{font-weight:800;color:var(--ink);white-space:nowrap}
+.svc dd{margin:0}
+.sh h2 small{font-family:var(--sans);font-size:16px;font-weight:700;color:var(--mut);letter-spacing:0;margin-left:8px;white-space:nowrap}
+.price{width:100%;border-collapse:collapse;border-top:2px solid var(--ink);background:#fff}
+.price th,.price td{padding:18px 16px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.price thead th{font-size:15px;font-weight:700;color:var(--mut);padding:12px 16px}
+.price tbody th{font-size:19px;font-weight:800;width:26%}
+.price td.won{font-weight:800;white-space:nowrap;width:20%}
+.price td:last-child{color:var(--mut);font-size:16px}
+.pnote{margin:18px 0 0;color:var(--mut)}
+.pnote small{display:block;margin-top:6px;font-size:14px}
+.cases{border-top:2px solid var(--ink)}
+.cases article{display:grid;grid-template-columns:260px 1fr;gap:12px 40px;padding:30px 0;border-bottom:1px solid var(--line)}
+.cases h3{margin:0;font-size:22px;font-weight:800;line-height:1.35}
+.cases h3 span{display:block;font-size:15px;font-weight:700;color:var(--kc);margin-bottom:4px}
+.cases dl{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin:0}
+.cases dt{font-weight:800;white-space:nowrap}
+.cases dd{margin:0;color:var(--mut)}
+.jd8{margin:28px 0 0;padding:22px 24px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.05);color:#d2d2d2}
+.jd8 .lb{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.04em;color:var(--acc2);border:1px solid currentColor;padding:1px 8px}
+.jd8 strong{display:block;font-size:19px;font-weight:800;color:#fff;margin:10px 0 14px}
+.jd8 .rg{display:flex;flex-wrap:wrap;gap:8px}
+.jd8 .rg span{border:1px solid rgba(255,255,255,.28);padding:5px 12px;font-size:14px;color:#fff}
+.jd8 p{margin:14px 0 0;font-size:14px}
+@media (min-width:761px){.svc .ph{position:sticky;top:108px;align-self:start;height:520px}}
+@media (max-width:1200px){.gnb{display:none}.hcall{margin-left:auto}}
+@media (max-width:760px){
+ .price thead{display:none}
+ .price,.price tbody{display:block}
+ .price tr{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:16px 14px;border-bottom:1px solid var(--line)}
+ .price tbody th,.price tbody td,.price td.won{display:block;padding:0;border:0;width:auto}
+ .price tbody th{font-size:17px}
+ .price tbody td:last-child{grid-column:1/-1;font-size:15px}
+ .cases article{grid-template-columns:1fr;padding:24px 0}
+ .cases h3{font-size:20px}
+ .jd8{padding:18px 16px}
+}
+</style>
 </head>
 <body>
 <div class="tb"><div class="w"><span>강동구 누수탐지 · 배관 부분 보수 · 평일 08–19시 · 토 09–15시</span><span class="r">상담 전화 <b>010-○○○○-○○○○</b></span></div></div>
 <header><div class="w">
 <a class="logo" href="#">○○<i>누수</i>설비</a>
-<nav class="gnb"><a href="#">누수 증상</a><a href="#">작업 과정</a><a href="#">출동 지역</a><a href="#">보험 서류</a><a href="#">자주 묻는 질문</a></nav>
+<nav class="gnb"><a href="#">누수 증상</a><a href="#price">가격 안내</a><a href="#case">작업 사례</a><a href="#">작업 과정</a><a href="#">출동 지역</a><a href="#">보험 서류</a><a href="#">자주 묻는 질문</a></nav>
 <a class="hcall" href="#"><small>누수 탐지 예약</small><b>010-○○○○-○○○○</b></a>
 </div></header>
 <section class="hero split" style="padding:0"><div class="in"><span class="chip">강동구 고덕동 · 누수탐지 전문</span><h1>바닥 다 뜯기 전에<br><em>새는 곳부터</em> 찾습니다</h1><ul class="pts"><li>청음 · 가스 · 열화상 장비로 위치 확인</li><li>확인된 자리만 부분 철거 후 보수</li><li>아랫집 피해 보험 서류 준비</li></ul><div class="ctas"><a class="tel" href="#"><small>누수 탐지 예약</small><b>010-○○○○-○○○○</b></a><a class="kakao" href="#">카톡 상담</a></div></div><div class="ph" style="background-image:url(/sample/nusu/hero.jpg);background-position:center"></div></section>
 <div class="str"><div class="w"><div class="it"><strong>위치 확인</strong><span>후 보수</span><p>새는 지점을 찾은 뒤에만 바닥을 엽니다</p></div><div class="it"><strong>결과서</strong><span>제공</span><p>원인·위치·사진을 정리해 드립니다</p></div><div class="it"><strong>작업 전</strong><span>견적 안내</span><p>탐지비와 보수비를 나눠 말씀드립니다</p></div><div class="it"><strong>보수 후</strong><span>압력 재확인</span><p>배관 연결 후 다시 시험합니다</p></div></div></div>
 <section id="svc"><div class="w">
 <div class="sh"><span class="k">서비스 안내</span><h2>이런 흔적이 보이면 점검을 권합니다</h2><p>누수는 원인이 우리 집 배관인지, 윗집인지, 공용 배관인지부터 가려야 보수 범위가 정해집니다.</p></div>
-<div class="svc"><div class="ph" style="background-image:url(/sample/nusu/pipes.jpg)" role="img" aria-label="벽 안 배관"></div><ol><li><h3>아랫집 천장에 물 얼룩</h3><p>욕실·주방 아래면 급수·배수, 거실·방 아래면 난방배관을 먼저 봅니다.</p></li><li><h3>수도를 잠갔는데 계량기가 돈다</h3><p>계량기 별침이 움직이면 급수 계통 어딘가에서 물이 빠지고 있다는 뜻입니다.</p></li><li><h3>보일러 압력이 자꾸 떨어진다</h3><p>보충수를 넣어도 며칠 만에 다시 떨어지면 난방배관 누수 가능성이 큽니다.</p></li><li><h3>장판 밑이 축축하거나 들뜬다</h3><p>마루 이음새가 벌어지거나 걸레받이 아래 곰팡이가 생기는 경우도 같습니다.</p></li></ol></div>
+<div class="svc"><div class="ph" style="background-image:url(/sample/nusu/pipes.jpg)" role="img" aria-label="벽 안 배관"></div><ol><li><h3>아랫집 천장에 물 얼룩</h3><div><p>욕실·주방 아래면 급수·배수, 거실·방 아래면 난방배관을 먼저 봅니다. 얼룩이 물을 쓸 때만 번지는지, 안 써도 계속 번지는지가 첫 단서입니다.</p><dl><dt>흔한 원인</dt><dd>물을 쓸 때만 번지면 배수관이나 욕실 방수층, 계속 번지면 늘 압력이 걸려 있는 급수·난방배관 쪽일 가능성이 높습니다.</dd><dt>작업</dt><dd>계통별로 압력 시험을 해 새는 쪽을 가린 뒤, 청음과 가스 탐지로 지점을 좁힙니다.</dd><dt>미리 확인</dt><dd>아랫집 얼룩 위치와 번지는 시간대를 사진으로 받아 두시면 의심 계통을 빨리 좁힐 수 있습니다.</dd></dl></div></li><li><h3>수도를 잠갔는데 계량기가 돈다</h3><div><p>집 안 수도를 모두 잠갔는데 계량기 별침이 움직이면 급수 계통 어딘가에서 물이 빠지고 있다는 뜻입니다.</p><dl><dt>흔한 원인</dt><dd>바닥에 묻힌 냉·온수 배관 이음부가 부식된 경우가 많습니다. 배관이 아니라 변기 물탱크 부속에서 물이 계속 흐르는 경우도 있습니다.</dd><dt>작업</dt><dd>냉수와 온수를 나눠 압력을 걸어 보고, 압력이 떨어지는 쪽 배관을 따라 청음 장비로 소리를 듣습니다.</dd><dt>미리 확인</dt><dd>변기 옆 급수 밸브까지 잠그고 계량기를 다시 봐 주세요. 그때 멈추면 변기 부속 문제라 탐지가 필요 없습니다.</dd></dl></div></li><li><h3>보일러 압력이 자꾸 떨어진다</h3><div><p>보충수를 넣어도 며칠 만에 다시 떨어지거나 물 보충 표시가 자주 뜨면 난방배관 누수를 의심합니다.</p><dl><dt>흔한 원인</dt><dd>바닥 난방배관 이음부나 분배기 연결부에서 새는 경우가 많습니다. 보일러 자체 부품 문제일 수도 있어 그것부터 가립니다.</dd><dt>작업</dt><dd>분배기에서 방별 밸브를 잠가 가며 압력을 걸어 어느 방 배관인지 가리고, 열화상과 가스 탐지로 지점을 찾습니다.</dd><dt>미리 확인</dt><dd>분배기 주변이 젖어 있는지, 보일러 아래로 물이 떨어지는지 봐 주세요. 거기서 새면 바닥을 열 일이 아닙니다.</dd></dl></div></li><li><h3>장판 밑이 축축하거나 들뜬다</h3><div><p>마루 이음새가 벌어지거나 걸레받이 아래 곰팡이가 생기는 경우도 같습니다. 배관 누수가 아닌 경우도 적지 않습니다.</p><dl><dt>흔한 원인</dt><dd>배관 누수 말고도 욕실 문턱 방수 불량, 창가 결로, 외벽으로 들어온 빗물일 수 있습니다.</dd><dt>작업</dt><dd>압력 시험에서 배관이 정상이면 수분 측정기로 젖은 범위를 따라가 물이 들어온 방향을 찾습니다.</dd><dt>미리 확인</dt><dd>비 온 뒤에 심해지는지, 욕실을 쓴 뒤에 심해지는지, 젖은 자리가 욕실·창가·외벽 중 어디와 가까운지 알려 주세요.</dd></dl></div></li></ol></div>
 
+</div></section>
+<section id="price" class="lt"><div class="w">
+<div class="sh"><span class="k">가격 안내</span><h2>탐지비와 보수비는 따로 말씀드립니다</h2><p>탐지만 받으시면 탐지비만 받습니다. 보수는 결과서를 보고 정하셔도 됩니다.</p></div>
+<table class="price"><thead><tr><th scope="col">작업</th><th scope="col">금액</th><th scope="col">금액이 달라지는 이유</th></tr></thead><tbody><tr><th scope="row">누수 탐지</th><td class="won">○○만 원부터</td><td>집 면적과 의심되는 계통 수(급수·온수·난방), 지점을 좁히는 데 드는 시간에 따라 달라집니다.</td></tr><tr><th scope="row">급수·온수 배관 부분 보수</th><td class="won">○○만 원부터</td><td>배관 재질과 묻힌 깊이, 열어야 하는 바닥 넓이를 봅니다.</td></tr><tr><th scope="row">난방배관 부분 보수</th><td class="won">○○만 원부터</td><td>새는 지점이 한 곳인지 여러 곳인지, 이음 부속을 몇 개 쓰는지에 따라 달라집니다.</td></tr><tr><th scope="row">바닥 철거·미장 복구</th><td class="won">○○만 원부터</td><td>철거 면적과 바닥 두께에 따라 달라집니다. 장판·마루를 다시 까는 비용은 따로입니다.</td></tr><tr><th scope="row">욕실 방수 보수</th><td class="won">현장 확인 후 안내</td><td>타일을 어디까지 걷어야 하는지에 따라 차이가 커서 보고 말씀드립니다.</td></tr><tr><th scope="row">탐지 결과서·내역서</th><td class="won">탐지비에 포함</td><td>원인·위치·사진을 정리한 결과서와 항목별 내역서를 드립니다. 보험 청구에 그대로 쓰실 수 있습니다.</td></tr></tbody></table>
+<p class="pnote">철거 범위가 처음 표시한 자리보다 넓어져야 하면 열기 전에 사진으로 설명드리고 금액을 다시 말씀드립니다.<small>예시 페이지라 금액은 가렸습니다.</small></p>
+</div></section>
+<section id="case"><div class="w">
+<div class="sh"><span class="k">작업 사례</span><h2>강동구에서 이렇게 찾았습니다 <small>(예시)</small></h2><p>바닥을 연 경우도 있고, 열지 않고 끝난 경우도 있습니다.</p></div>
+<div class="cases"><article><h3><span>고덕동 · 아파트</span>아랫집 거실 천장에 번진 얼룩</h3><dl><dt>증상</dt><dd>아랫집 거실 천장에 얼룩이 생겼고, 보일러 압력이 며칠마다 떨어졌습니다.</dd><dt>원인</dt><dd>거실 바닥 난방배관 이음부에서 물이 새고 있었습니다.</dd><dt>작업</dt><dd>분배기에서 방별로 압력을 걸어 거실 계통을 가려내고, 가스 탐지로 지점을 바닥에 표시한 뒤 그 자리만 열어 이음부를 교체했습니다.</dd><dt>마무리</dt><dd>다시 압력 시험을 하고 미장했습니다. 결과서와 보수 사진은 아랫집 피해 청구에 쓰실 수 있게 정리해 드렸습니다.</dd></dl></article><article><h3><span>명일동 · 빌라</span>수도를 안 써도 도는 계량기</h3><dl><dt>증상</dt><dd>수도 요금이 늘었고, 수도를 모두 잠가도 계량기 별침이 돌았습니다.</dd><dt>원인</dt><dd>주방 바닥에 묻힌 온수 배관이 부식돼 있었습니다.</dd><dt>작업</dt><dd>냉수와 온수를 나눠 압력을 걸어 온수 쪽을 확인하고, 청음으로 싱크대 앞 바닥 지점을 잡아 그 구간만 교체했습니다.</dd><dt>마무리</dt><dd>압력이 유지되는지, 계량기 별침이 멈췄는지 같이 확인했습니다.</dd></dl></article><article><h3><span>상일동 · 아파트</span>창가 쪽 장판 밑이 젖는 안방</h3><dl><dt>증상</dt><dd>안방 창가 쪽 장판 밑이 축축했고 비 온 뒤에 더 심해졌습니다.</dd><dt>원인</dt><dd>압력 시험에서 세대 배관은 모두 정상이었습니다. 창틀 아래 외벽 쪽에서 빗물이 들어오고 있었습니다.</dd><dt>작업</dt><dd>수분 측정으로 창가가 가장 젖어 있는 것을 확인했고, 바닥은 열지 않았습니다.</dd><dt>마무리</dt><dd>결과서에 세대 배관은 정상이며 외벽·창호 확인이 필요하다고 적어 관리사무소에 내실 수 있게 했습니다. 탐지비만 받았습니다.</dd></dl></article></div>
 </div></section>
 <section id="ins" class="lt" style="padding-bottom:0"><div class="w story">
 <div><span style="display:block;color:#0e8a7e;font-weight:800;font-size:18px;margin-bottom:8px">아랫집 피해가 생겼다면</span><h3>보험 청구에 필요한 서류를 챙겨 드립니다</h3>
@@ -212,6 +262,7 @@ footer .note b{color:#fff}footer .note a{color:var(--acc2);font-weight:700}
 <div class="fl">○○누수설비</div>
 <p class="biz">상호 ○○누수설비 · 대표 ○○○ · 사업자등록번호 ○○○-○○-○○○○○</p>
 <p class="biz">주소 서울 강동구 고덕동 · 전화 010-○○○○-○○○○ · 평일 08–19시 · 토 09–15시</p>
+<div class="jd8"><span class="lb">JD8 안내</span><strong>이 구성 그대로, 지역마다 한 장씩 만들어집니다</strong><div class="rg"><span>강동구 상일동 누수탐지</span><span>강동구 명일동 누수탐지</span><span>강동구 암사동 누수탐지</span><span>강동구 천호동 누수탐지</span><span>하남 미사 누수탐지</span><span>송파구 방이동 누수탐지</span></div><p>지역이 바뀌면 출동 동네·작업 사례·안내 문구가 그 지역에 맞게 달라집니다. 지역 이름만 바꾼 복제 페이지는 만들지 않습니다.</p></div>
 <p class="note"><b>업종별 예시 페이지입니다.</b> 실제 업체가 아니며 상호·전화번호는 가렸습니다. 이런 페이지를 사장님 업종·지역마다 만들어 드립니다. <a href="/">제작 상담 →</a></p>
 </div></footer>
 <div class="badge">예시 화면</div>

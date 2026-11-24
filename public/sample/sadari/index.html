@@ -181,6 +181,52 @@ h1,h2,h3{font-family:var(--hf);line-height:1.3;letter-spacing:-.02em;margin:0}
 .book .call2 h3{font-size:26px;font-weight:800}
 .book .call2 .tel{color:#ffc629}
 .book .call2 p{margin:0;opacity:.85;font-size:16px}
+/* 서비스 상세 · 가격 · 사례 · JD8 안내 */
+.eq .svc p+p{margin-top:10px}
+.eq .svc li b{color:var(--c2)}
+.jobs{grid-template-columns:1fr 1fr}
+.jobs p+p{margin-top:10px}
+.jobs p b{color:var(--c2)}
+.st h2 small{font-size:.45em;font-weight:600;color:#6b7284;vertical-align:middle;margin-left:6px;letter-spacing:0}
+.price{max-width:980px;margin:0 auto}
+.price table{width:100%;border-collapse:collapse;background:#fff;border-top:3px solid var(--c2)}
+.price th,.price td{padding:16px 14px;border-bottom:1px solid #d5dce7;text-align:left;vertical-align:top}
+.price thead th{font-size:15px;font-weight:700;color:#5a6170}
+.price td:first-child{font-weight:800;color:var(--c2)}
+.price td:nth-child(2){font-weight:700;white-space:nowrap}
+.price td:nth-child(3){font-size:16px;color:#3d4a63}
+.price h3{font-size:21px;font-weight:800;margin:40px 0 12px}
+.price ul{margin:0;padding-left:20px;color:#3d4a63}
+.price li{margin-bottom:6px}
+.price .note{font-size:14px;color:#6b7284;margin:14px 0 0}
+.cases{max-width:980px;margin:0 auto;border-bottom:1px solid #c9d2e0}
+.cases article{display:grid;grid-template-columns:270px 1fr;gap:12px 44px;padding:34px 4px;border-top:1px solid #c9d2e0}
+.cases article:first-child{border-top:3px solid var(--c2)}
+.cases h3{font-size:23px;font-weight:800}
+.cases h3 small{display:block;font-size:15px;font-weight:800;color:#c48a00;margin-bottom:8px;letter-spacing:0}
+.cases dl{margin:0;display:grid;grid-template-columns:76px 1fr;gap:10px 16px}
+.cases dt{font-weight:800}
+.cases dd{margin:0;color:#3d4a63}
+.jd8{margin:0 0 22px;padding:22px 24px;background:rgba(255,255,255,.04);border:1px solid #3a404c}
+.jd8 small{display:block;font-size:13px;font-weight:800;color:var(--hl)}
+.jd8 .t{color:#fff;font-size:18px;font-weight:800;margin:4px 0 14px}
+.jd8 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.jd8 .chips span{border:1px solid #4a505c;padding:5px 11px;font-size:14.5px;color:#d5d9e0}
+.jd8 .x{margin:0;font-size:14.5px}
+@media (max-width:1160px){.hd nav{display:none}}
+@media (max-width:700px){
+ .price table,.price tbody{display:block}
+ .price thead{display:none}
+ .price tr{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:14px 2px;border-bottom:1px solid #d5dce7}
+ .price td{padding:0;border:0}
+ .price td:nth-child(3){grid-column:1/-1;font-size:15px}
+ .price h3{font-size:19px;margin-top:30px}
+ .cases article{grid-template-columns:1fr;padding:26px 0}
+ .cases h3{font-size:20px}
+ .cases dl{grid-template-columns:62px 1fr;gap:8px 12px}
+ .jd8{padding:18px 16px}
+ .jd8 .t{font-size:17px}
+}
 @media (max-width:1000px){.jobs{grid-template-columns:1fr 1fr}.book{grid-template-columns:1fr}}
 @media (max-width:700px){.mbar a:last-child{background:#ffc629;color:#10234a}.hero h1{font-size:34px}.jobs{grid-template-columns:1fr;gap:12px}.jobs div{padding:22px 20px}.jobs h3{font-size:21px}.book ol{grid-template-columns:1fr;gap:10px}.book li{padding:16px 18px}.book li b{font-size:18px}.book .call2{padding:30px 22px}}
 </style>
@@ -188,7 +234,7 @@ h1,h2,h3{font-family:var(--hf);line-height:1.3;letter-spacing:-.02em;margin:0}
 <body>
 <header class="hd"><div class="w">
  <a class="logo" href="#">○○<span>사다리차</span></a>
- <nav><a href="#eq">장비 안내</a><a href="#jobs">작업 종류</a><a href="#book">예약 안내</a><a href="#area">작업 지역</a><a href="#faq">자주 묻는 질문</a></nav>
+ <nav><a href="#eq">장비 안내</a><a href="#jobs">작업 종류</a><a href="#price">가격 안내</a><a href="#book">예약 안내</a><a href="#cases">작업 사례</a><a href="#area">작업 지역</a><a href="#faq">자주 묻는 질문</a></nav>
  <a class="call" href="#"><i><svg class="ico" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg></i>010-○○○○-○○○○</a>
 </div></header>
 
@@ -224,9 +270,9 @@ h1,h2,h3{font-family:var(--hf);line-height:1.3;letter-spacing:-.02em;margin:0}
  <div class="w">
   <div class="st"><p class="k">장비 안내</p><h2>층수에 따라 장비가 다릅니다</h2><p class="d">같은 층이라도 진입로, 전선, 나무, 주차 여건에 따라 세울 수 있는 차가 달라집니다. 장비 선택은 저희가 합니다.</p></div>
   <div class="svc">
-   <article><img src="/sample/sadari/villa.jpg" alt="골목 안 저층 빌라" style="object-position:50% 40%"><h3><small>저층용</small>빌라·상가 2~3층대</h3><p>차체가 작아 좁은 골목과 빌라 앞에 세우기 좋습니다.</p><ul><li>원룸·투룸 이사</li><li>가구·가전 한두 점</li><li>상가 집기 반입</li></ul></article>
-   <article><img src="/sample/sadari/apt.jpg" alt="중층 아파트 단지"><h3><small>중층용</small>아파트 일반층</h3><p>둔산동·탄방동 아파트 이사에 가장 많이 나가는 장비입니다.</p><ul><li>아파트 이삿짐 전체</li><li>베란다 창 탈거 후 반출입</li><li>입주 청소 전 짐 이동</li></ul></article>
-   <article><img src="/sample/sadari/tower.jpg" alt="고층 아파트" style="object-position:50% 30%"><h3><small>고층용</small>고층 아파트·건물</h3><p>차를 세울 자리와 작업 반경을 예약 전에 꼭 확인합니다.</p><ul><li>고층 세대 이사</li><li>자재 양중</li><li>사전 현장 확인 권장</li></ul></article>
+   <article><img src="/sample/sadari/villa.jpg" alt="골목 안 저층 빌라" style="object-position:50% 40%"><h3><small>저층용</small>빌라·상가 2~3층대</h3><p>차체가 작아 좁은 골목과 빌라 앞에 세우기 좋습니다. 계단이 좁아 짐이 안 올라가는 다세대·상가 주택에 주로 나갑니다.</p><p>골목에서는 지지대를 양옆으로 펴야 해서 차 폭보다 넓은 자리가 필요합니다. 머리 위로 지나는 전선 높이도 먼저 봅니다.</p><ul><li>원룸·투룸 이사</li><li>가구·가전 한두 점</li><li>상가 집기 반입</li><li><b>미리 확인</b> 골목 폭, 전선, 건물 앞에 늘 서 있는 차</li></ul></article>
+   <article><img src="/sample/sadari/apt.jpg" alt="중층 아파트 단지"><h3><small>중층용</small>아파트 일반층</h3><p>둔산동·탄방동 아파트 이사에 가장 많이 나가는 장비입니다. 베란다 창 한 짝을 떼고 그쪽으로 짐을 내리고 올립니다.</p><p>동 앞 주차면에 세우는 경우가 많습니다. 전날 관리실에 알리고 그 자리 차를 미리 빼 두시면 제시간에 시작합니다.</p><ul><li>아파트 이삿짐 전체</li><li>베란다 창 탈거 후 반출입</li><li>입주 청소 전 짐 이동</li><li><b>미리 확인</b> 창은 누가 뗄지(보통 이삿짐 업체), 사다리를 댈 쪽 화단과 나무</li></ul></article>
+   <article><img src="/sample/sadari/tower.jpg" alt="고층 아파트" style="object-position:50% 30%"><h3><small>고층용</small>고층 아파트·건물</h3><p>차가 크고 지지대를 넓게 펴야 해서 세울 자리와 작업 반경을 예약 전에 꼭 확인합니다. 건물에서 떨어져 세울수록 닿는 층이 낮아집니다.</p><p>지하 주차장 위 보도처럼 무게를 받지 못하는 자리는 피합니다. 바람을 많이 타서 강풍 예보가 있으면 시간을 옮길 수 있습니다.</p><ul><li>고층 세대 이사</li><li>자재 양중</li><li>사전 현장 확인 권장</li><li><b>미리 확인</b> 단지에서 정해 둔 사다리차 자리가 있는지 관리실에 물어봐 주세요</li></ul></article>
   </div>
  </div>
 </section>
@@ -235,15 +281,42 @@ h1,h2,h3{font-family:var(--hf);line-height:1.3;letter-spacing:-.02em;margin:0}
  <div class="w">
   <div class="st"><p class="k">작업 종류</p><h2>이삿짐만 올리는 차가 아닙니다</h2></div>
   <div class="jobs">
-   <div><h3>이삿짐 반출·반입</h3><p>이삿짐 업체와 시간을 맞춰 대기합니다. 오전 첫 타임은 예약이 일찍 찹니다.</p></div>
-   <div><h3>가구 한 점</h3><p>엘리베이터에 안 들어가는 소파, 침대, 냉장고 하나만 옮길 때도 부르세요.</p></div>
-   <div><h3>자재 양중</h3><p>석고보드·타일·창호를 공사 일정에 맞춰 반나절 단위로도 올립니다.</p></div>
-   <div><h3>스카이 작업</h3><p>간판 설치·교체, 외벽 점검처럼 높은 곳 작업에 스카이 장비로 나갑니다.</p></div>
+   <div><h3>이삿짐 반출·반입</h3><p>이삿짐 업체와 시간을 맞춰 대기합니다. 오전 첫 타임은 예약이 일찍 찹니다. 요금은 내리는 작업 한 번, 올리는 작업 한 번을 따로 셉니다.</p><p>같은 날 대전 안에서 옮기는 이사는 한 대가 도착지까지 따라갑니다. 다른 지역으로 가는 이사는 도착지 쪽 사다리차를 따로 잡으셔야 합니다.</p><p><b>하지 않는 것</b> 짐 포장과 운반, 베란다 창 탈거</p></div>
+   <div><h3>가구 한 점</h3><p>엘리베이터에 안 들어가는 소파, 침대, 냉장고 하나만 옮길 때도 부르세요. 기본 작업 시간 요금으로 받습니다.</p><p>짐을 싣고 받아 줄 사람은 따로 있어야 합니다. 가구 배송 기사나 설치 기사가 오는 시간에 맞춰 가니, 배송 시간이 정해지면 연락 주세요.</p><p><b>미리 확인</b> 가구 치수와 창문 크기. 들어가는지 먼저 봐 드립니다.</p></div>
+   <div><h3>자재 양중</h3><p>석고보드·타일·창호를 공사 일정에 맞춰 반나절 단위로도 올립니다. 철거한 폐자재를 내리는 작업도 합니다.</p><p>타일이나 시멘트처럼 무거운 자재는 한 번에 싣는 양을 나누기 때문에 오르내리는 횟수가 늘어납니다. 자재를 싣고 받는 인원은 현장에서 준비해 주세요.</p><p><b>미리 확인</b> 자재 종류와 대략의 양, 받을 층의 창 크기</p></div>
+   <div><h3>스카이 작업</h3><p>간판 설치·교체, 외벽 점검처럼 높은 곳 작업에 스카이 장비로 나갑니다. 사람이 타는 작업대가 달린 차입니다.</p><p>장비와 운전 기사가 가고, 간판 시공이나 보수는 해당 업체가 합니다. 차도나 인도를 막고 서야 하는 자리는 허가가 필요한지 시공 업체와 먼저 확인해 주세요.</p><p><b>미리 확인</b> 작업 높이, 예상 시간, 차를 댈 자리</p></div>
   </div>
  </div>
 </section>
 
-<section class="sec alt" id="book">
+<section class="sec alt" id="price">
+ <div class="w">
+  <div class="st"><p class="k">가격 안내</p><h2>층수와 작업 시간으로 정합니다</h2><p class="d">예약할 때 층수, 짐의 양, 차 세울 자리를 듣고 금액을 먼저 말씀드립니다.</p></div>
+  <div class="price">
+   <table>
+    <thead><tr><th>작업</th><th>금액</th><th>금액이 달라지는 이유</th></tr></thead>
+    <tbody>
+     <tr><td>이삿짐 내림 또는 올림 (한 번)</td><td>○만 원부터</td><td>층수, 짐의 양, 배정되는 장비 크기</td></tr>
+     <tr><td>같은 날 내림과 올림</td><td>○만 원부터</td><td>두 곳의 층수, 이동 거리, 이삿짐 차를 기다리는 시간</td></tr>
+     <tr><td>가구·가전 한두 점</td><td>○만 원부터</td><td>층수, 기본 작업 시간 안에 끝나는지</td></tr>
+     <tr><td>자재 양중 (시간·반나절)</td><td>○만 원부터</td><td>자재 무게와 부피, 오르내리는 횟수</td></tr>
+     <tr><td>스카이 작업 (반나절·하루)</td><td>○만 원부터</td><td>작업 높이, 사용 시간</td></tr>
+     <tr><td>대기·초과 시간</td><td>시간당 ○만 원</td><td>이삿짐 차 지연, 창 탈거나 주차 차량 이동이 늦어질 때</td></tr>
+    </tbody>
+   </table>
+   <p class="note">예시 페이지라 금액은 가렸습니다.</p>
+   <h3>예약 때와 금액이 달라지는 경우</h3>
+   <ul>
+    <li>알려 주신 층수와 실제 작업 층이 다를 때 (필로티, 복층, 옥탑)</li>
+    <li>차 세울 자리가 막혀 더 큰 장비로 바꿔 와야 할 때</li>
+    <li>짐이 예상보다 많아 기본 작업 시간을 넘길 때</li>
+    <li>이른 새벽이나 야간, 서구 밖 지역으로 나갈 때</li>
+   </ul>
+  </div>
+ </div>
+</section>
+
+<section class="sec" id="book">
  <div class="w">
   <div class="st"><p class="k">예약 안내</p><h2>예약할 때 이것만 알려 주세요</h2></div>
   <div class="book">
@@ -261,6 +334,41 @@ h1,h2,h3{font-family:var(--hf);line-height:1.3;letter-spacing:-.02em;margin:0}
     <p>상담 매일 오전 7시 ~ 오후 9시<br>결제 현장 결제 · 계좌이체 · 카드</p>
     <a class="btn kakao" href="#"><svg class="ico" viewBox="0 0 24 24"><path d="M12 4c5 0 9 3.1 9 7s-4 7-9 7c-.9 0-1.8-.1-2.6-.3L5 20l1-3.6C4.2 15.1 3 13.2 3 11c0-3.9 4-7 9-7z"/></svg>카톡으로 주소·사진 보내기</a>
    </div>
+  </div>
+ </div>
+</section>
+
+<section class="sec alt" id="cases">
+ <div class="w">
+  <div class="st"><p class="k">작업 사례</p><h2>이런 현장에 이렇게 나갔습니다 <small>(예시)</small></h2></div>
+  <div class="cases">
+   <article>
+    <h3><small>둔산동 · 아파트 중층</small>30평대 이삿짐 내림</h3>
+    <dl>
+     <dt>상황</dt><dd>이삿짐 업체가 아침 첫 타임으로 들어오는 이사였습니다.</dd>
+     <dt>조건</dt><dd>동 앞 주차면에 세워야 했고, 베란다 아래에 화단과 나무가 있었습니다. 전날 관리실에 알리고 주차면 차를 빼 달라고 부탁드렸습니다.</dd>
+     <dt>한 작업</dt><dd>중층용 장비를 나무를 피해 비스듬히 대고, 이삿짐 업체가 창을 뗀 쪽으로 짐을 내렸습니다.</dd>
+     <dt>마무리</dt><dd>창이 다시 끼워진 것을 보고 사다리를 접었습니다. 바닥 받침목을 걷고 주차면을 비워 드렸습니다.</dd>
+    </dl>
+   </article>
+   <article>
+    <h3><small>갈마동 · 빌라 3층</small>냉장고 한 대 올림</h3>
+    <dl>
+     <dt>상황</dt><dd>새로 산 양문형 냉장고가 계단 꺾이는 곳을 못 지나갔습니다.</dd>
+     <dt>조건</dt><dd>골목이 좁고 건물 앞으로 전선이 낮게 지나갔습니다. 보내 주신 사진을 보고 저층용 작은 차를 배정했습니다.</dd>
+     <dt>한 작업</dt><dd>전선이 없는 건물 옆면 창 쪽에 대고, 배송 기사 도착 시간에 맞춰 냉장고를 올렸습니다.</dd>
+     <dt>마무리</dt><dd>기본 작업 시간 안에 끝났고, 골목을 막은 시간이 짧도록 바로 철수했습니다.</dd>
+    </dl>
+   </article>
+   <article>
+    <h3><small>도안동 · 아파트 고층</small>인테리어 자재 양중</h3>
+    <dl>
+     <dt>상황</dt><dd>욕실과 주방 공사에 쓸 타일, 석고보드를 올려야 했습니다. 엘리베이터로는 관리실에서 자재 운반을 허락하지 않았습니다.</dd>
+     <dt>조건</dt><dd>단지에서 정해 둔 사다리차 자리가 한 곳이었고, 작업 시간도 관리실과 미리 정했습니다.</dd>
+     <dt>한 작업</dt><dd>고층용 장비로 반나절 나갔습니다. 타일은 무거워 여러 번에 나눠 올리고, 석고보드는 눕혀 묶어서 올렸습니다.</dd>
+     <dt>마무리</dt><dd>철거 폐자재 자루를 내려 드리고 끝냈습니다. 폐자재 수거는 인테리어 업체가 따로 불렀습니다.</dd>
+    </dl>
+   </article>
   </div>
  </div>
 </section>
@@ -301,6 +409,12 @@ h1,h2,h3{font-family:var(--hf);line-height:1.3;letter-spacing:-.02em;margin:0}
  <div class="w">
   <div class="nm">○○사다리차</div>
   <p class="info"><span>상호 ○○사다리차</span><span>대표 ○○○</span><span>사업자등록번호 ○○○-○○-○○○○○</span><span>주소 대전광역시 서구 둔산동</span><span>010-○○○○-○○○○</span></p>
+  <div class="jd8">
+   <small>JD8 안내</small>
+   <p class="t">이 구성 그대로, 지역마다 한 장씩 만들어집니다</p>
+   <div class="chips"><span>대전 서구 탄방동 사다리차</span><span>대전 서구 월평동 사다리차</span><span>대전 서구 갈마동 사다리차</span><span>대전 서구 관저동 사다리차</span><span>대전 유성구 봉명동 사다리차</span><span>대전 중구 태평동 사다리차</span></div>
+   <p class="x">지역이 바뀌면 출동 동네·작업 사례·안내 문구가 그 지역에 맞게 달라집니다. 지역 이름만 바꾼 복제 페이지는 만들지 않습니다.</p>
+  </div>
   <p class="demo"><b>업종별 예시 페이지입니다.</b> 실제 업체가 아니며 상호·전화번호는 가렸습니다. 이런 페이지를 사장님 업종·지역마다 만들어 드립니다. <a href="/">제작 상담 →</a></p>
  </div>
 </footer>

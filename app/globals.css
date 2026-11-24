@@ -641,5 +641,58 @@ html { scrollbar-color: #b9c6dc transparent; }
 @media (max-width: 900px) { .samples { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; } }
 @media (max-width: 560px) { .samples, .expo { grid-template-columns: minmax(0, 1fr); } }
 .theme-fortune .sample-cap span, .theme-fortune .expo figcaption span { color: #8fe6bd; }
-@media (max-width: 560px) { .samples { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 82%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; margin-right: -16px; } .sample { scroll-snap-align: start; } }
+/* 모바일: 가로로 넘기지 않고 2열로 전부 펼친다 (설명 문장은 숨겨 카드 높이를 줄임) */
+@media (max-width: 560px) { .samples { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .sample-cap { padding: 10px 12px 12px; gap: 2px; } .sample-cap span { font-size: .74rem; } .sample-cap b { font-size: .9rem; line-height: 1.35; word-break: keep-all; } .sample-cap p { display: none; } .sample-cap small { font-size: .74rem; } }
 .sample-cap p { margin: 2px 0 6px; color: #c3d0e2; font-size: .95rem; line-height: 1.5; }
+
+/* ===== 에이치코 테마: 같은 구성에 색만 바꾼다 (검정 + 금색) ===== */
+.theme-hco { --ink: #14110c; --text: #37322a; --muted: #766f62; --line: #e6e0d3; --soft: #f6f3ec; --tint: #f3ead2; --accent: #a67c1a; --accent-d: #7d5c0e; --primary: #12100c; }
+.theme-hco body { background: #fcfbf8; }
+.theme-hco .hero { background: radial-gradient(900px 480px at 86% 6%, #f5ebcf 0%, rgba(245, 235, 207, 0) 62%), #fcfbf8; }
+.theme-hco .logo b { background: var(--ink); color: #e6c462; letter-spacing: .04em; }
+.theme-hco .nav .tel, .theme-hco .float-tel, .theme-hco .sticky a { background: var(--ink); color: #f1d98a; }
+.theme-hco .nav .tel:hover { background: var(--accent-d); color: #fff; }
+.theme-hco .sticky a + a { background: var(--kakao); color: #191600; }
+.theme-hco .mark { background: linear-gradient(transparent 62%, #f0dfa8 62%); }
+.theme-hco .tiles span.on { background: #f0e3bd; color: var(--accent-d); }
+.theme-hco .cover figure { background: #f4f1ea; }
+.theme-hco .cover figure.good { background: #f3ead2; }
+.theme-hco .cover .good .tiles span.on { background: var(--accent); color: #fff; }
+.theme-hco .sec.tint { background: linear-gradient(180deg, #f6eed9 0%, #fcfbf8 100%); }
+.theme-hco .power li:nth-child(3) b { color: #e6c462; }
+.theme-hco .power li:nth-child(4) b { color: #ffe14a; }
+.theme-hco .effect-steps span, .theme-hco .sec.dark .sh p, .theme-hco .proof-text p { color: #cfc7b4; }
+.theme-hco .effect-cap, .theme-hco .sec.dark .note { color: #a59c86; }
+.theme-hco .proof-text .note a { color: #e6c462; }
+.theme-hco .closing .wrap { background: linear-gradient(135deg, #2a2317 0%, #0e0c08 100%); color: #e9e2cf; border: 1px solid #5c4a1c; }
+.theme-hco .closing h2 { color: #f1d98a; }
+.theme-hco .closing .btn-text { border-color: rgba(230, 196, 98, .7); color: #f1d98a; }
+.theme-hco .closing .btn-text:hover { background: #f1d98a; color: var(--ink); }
+.theme-hco .hl { color: var(--accent); }
+.theme-hco .serp-rot-list button.on { color: var(--ink); }
+.theme-hco .ft { background: #f6f3ec; }
+.theme-hco .sample-cap span, .theme-hco .expo figcaption span { color: #e6c462; }
+html.theme-hco { scrollbar-color: #cdbb8a transparent; }
+
+/* 상담 문의란 (components/Inquiry.tsx) */
+.inq { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 18px; max-width: 760px; background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 30px; box-shadow: var(--shadow); }
+.inq label { display: grid; gap: 6px; font-weight: 700; color: var(--ink); font-size: .95rem; }
+.inq label i { font-style: normal; color: var(--accent); font-size: .8rem; margin-left: 4px; }
+.inq input:not([type=checkbox]), .inq textarea { font: inherit; font-weight: 400; color: var(--ink); width: 100%; padding: 13px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--soft); }
+.inq input:focus-visible, .inq textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; background: #fff; }
+.inq textarea { resize: vertical; }
+.inq-wide { grid-column: 1 / -1; }
+.inq-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.inq .inq-agree { display: flex; gap: 10px; align-items: flex-start; font-weight: 600; }
+.inq-agree input { width: 18px; height: 18px; margin-top: 4px; flex: none; accent-color: var(--accent); }
+.inq-agree small { display: block; font-weight: 400; color: var(--muted); font-size: .84rem; line-height: 1.55; margin-top: 2px; }
+.inq-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; }
+.inq-btn { font: inherit; font-weight: 800; font-size: 1.05rem; padding: 16px 34px; border: 0; border-radius: 999px; background: var(--ink); color: #fff; cursor: pointer; transition: background .25s; }
+.theme-hco .inq-btn { color: #f1d98a; }
+.inq-btn:hover { background: var(--accent-d); color: #fff; }
+.inq-btn:disabled { opacity: .6; cursor: default; }
+.inq-err { margin: 0; color: #b3261e; font-weight: 600; font-size: .92rem; }
+.inq-done { display: block; }
+.inq-done b { font-size: 1.2rem; color: var(--ink); }
+.inq-done p { margin: 8px 0 0; }
+@media (max-width: 640px) { .inq { grid-template-columns: minmax(0, 1fr); padding: 22px 18px; border-radius: 18px; } .inq-btn { width: 100%; } }

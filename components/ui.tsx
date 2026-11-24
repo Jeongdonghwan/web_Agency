@@ -21,9 +21,13 @@ export const Actions = ({ label = '카톡으로 구성안 받기' }: { label?: s
       <span>{label}</span>
       <Arrow />
     </a>
-    <a className="btn-text" href={`tel:${COMPANY.phone}`}>
-      {COMPANY.phone}
-    </a>
+    {COMPANY.phone ? (
+      <a className="btn-text" href={`tel:${COMPANY.phone}`}>
+        {COMPANY.phone}
+      </a>
+    ) : (
+      <a className="btn-text" href="/#inquiry">상담 문의 남기기</a>
+    )}
   </div>
 );
 
@@ -63,7 +67,7 @@ export const Side = ({ title = '지역과 서비스만 알려 주세요' }: { ti
       <span>카톡으로 문의</span>
       <Arrow />
     </a>
-    <a className="tel" href={`tel:${COMPANY.phone}`}>전화 {COMPANY.phone}</a>
+    {COMPANY.phone && <a className="tel" href={`tel:${COMPANY.phone}`}>전화 {COMPANY.phone}</a>}
   </aside>
 );
 

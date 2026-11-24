@@ -44,3 +44,6 @@ __pycache__/
 *.pyc
 .indexnow-sent.json
 .lastmod.json
+
+# 상담 문의 저장 파일 (개인정보)
+server/*.db
