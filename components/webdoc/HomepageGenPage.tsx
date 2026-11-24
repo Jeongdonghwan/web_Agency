@@ -14,6 +14,7 @@ import {
 } from '../../lib/webdoc';
 import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd, itemListJsonLd } from '../../lib/jsonld';
 import TopPromo from '../blog/TopPromo';
+import { KwH1, KwSummary, ServiceLinks } from '../seo/Kw';
 
 // 웹문서 업종 데이터로 만든 "{업종} 홈페이지 제작" 페이지 (기존 207업종 md 페이지와 같은 /homepage/ 아래)
 export default function HomepageGenPage({ doc }: { doc: HomepageGenDoc }) {
@@ -45,18 +46,11 @@ export default function HomepageGenPage({ doc }: { doc: HomepageGenDoc }) {
         </nav>
         <header className="page-header">
           <span className="page-eyebrow">{doc.group}</span>
-          <h1>{c.h1}</h1>
+          <KwH1 kw={c.kw} sub={c.h1sub} />
           <Paras text={c.description} per={1} className="page-lead" />
         </header>
         <TopPromo />
-        <aside className="wd-summary" aria-label="핵심 요약">
-          <strong>핵심 요약</strong>
-          <ul>
-            {c.summary.map((t) => (
-              <li key={t}>{t}</li>
-            ))}
-          </ul>
-        </aside>
+        <KwSummary kw={c.kw} items={c.summary} />
 
         <section className="content-section">
           <h2>{c.needH2}</h2>
@@ -115,7 +109,7 @@ export default function HomepageGenPage({ doc }: { doc: HomepageGenDoc }) {
         )}
 
         <section className="content-section">
-          <h2>{doc.name} 홈페이지 비용과 기간</h2>
+          <h2>{c.kw} 비용과 기간</h2>
           <Paras text={c.cost} />
         </section>
 
@@ -128,7 +122,7 @@ export default function HomepageGenPage({ doc }: { doc: HomepageGenDoc }) {
         </section>
 
         <section className="content-section">
-          <h2>{doc.name} 홈페이지 제작 자주 묻는 질문</h2>
+          <h2>{c.kw} 자주 묻는 질문</h2>
           <div className="static-faq">
             {c.faq.map((f) => (
               <div className="qa" key={f.q}>
@@ -152,6 +146,8 @@ export default function HomepageGenPage({ doc }: { doc: HomepageGenDoc }) {
             </div>
           </section>
         )}
+
+        <ServiceLinks />
 
         <div className="cta-banner">
           <h2>{doc.name} 홈페이지, 이번 주에 시작하세요</h2>

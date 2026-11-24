@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { hash, kwTitle, pickSub, fitDesc, mdHead, repeats, TITLE_MAX } from './kw';
 
 // 웹문서 대량제작 상품 섹션 — 핵심 페이지(content/webdoc/*.md) + 업종 페이지(data/webdoc/industries.json 조합)
 // 키워드 원본: keywords/웹문서대량제작_키워드.xlsx (생성기 keywords/gen_webdoc_keywords.py)
@@ -9,7 +10,10 @@ export interface CoreDoc {
   kind: 'core';
   slug: string;
   name: string;
-  title: string;
+  title: string; // 키워드 + 수식어 | JD8 (lib/kw.ts mdHead)
+  kw: string;
+  h1sub: string;
+  meta: string; // meta description (45~80자). description 은 본문 첫 문단
   description: string;
   keywords: string[];
   summary: string[];
@@ -95,11 +99,16 @@ function loadCore(): CoreDoc[] {
   if (!fs.existsSync(dir)) return [];
   const docs = fs.readdirSync(dir).filter((f) => f.endsWith('.md') && !f.startsWith('_')).map((f) => {
     const { data, content } = matter(fs.readFileSync(path.join(dir, f), 'utf-8'));
+    const slug = String(data.urlSlug || data.slug || f.replace(/\.md$/, ''));
+    const h = mdHead({ title: String(data.title), keywords: data.keywords || [], faq: data.faq || [] }, slug, ['구성안을 먼저 보여드립니다.', '전 과정 비대면으로 진행합니다.']);
     return {
       kind: 'core' as const,
-      slug: String(data.urlSlug || data.slug || f.replace(/\.md$/, '')),
+      slug,
       name: String(data.name),
-      title: String(data.title),
+      title: h.title,
+      kw: h.kw,
+      h1sub: h.h1sub,
+      meta: h.description,
       description: String(data.description),
       keywords: data.keywords || [],
       summary: data.summary || [],
@@ -211,15 +220,12 @@ const officeize = <T,>(v: T): T => {
 
 // ---- 업종 페이지 조합기 ----
 
-const hash = (s: string) => {
-  let h = 2166136261;
-  for (const ch of s) h = Math.imul(h ^ ch.codePointAt(0)!, 16777619) >>> 0;
-  // 하위 비트 편향 방지 (raws_prj에서 FNV 하위 비트로 % 4 가 몰린 버그 있었음)
-  h ^= h >>> 15;
-  h = Math.imul(h, 2246822507) >>> 0;
-  return (h ^ (h >>> 13)) >>> 0;
-};
 const pick = <T,>(arr: T[], seed: string) => arr[hash(seed) % arr.length];
+// 조합기 마무리: 어휘 치환(사무소·고객) 뒤에도 키워드+수식어가 40자를 넘지 않게 하고 title 을 h1 글자로 만든다
+const head = <T extends { kw: string; h1sub: string }>(c: T) => {
+  const h1sub = `${c.kw} ${c.h1sub}`.length <= TITLE_MAX ? c.h1sub : '';
+  return { ...c, h1sub, title: kwTitle(c.kw, h1sub) };
+};
 
 // "~다" 평서 종결 → "~습니다/ㅂ니다" (데이터 문장을 존댓말 본문에 쓰기 위해)
 const HANGUL = 0xac00;
@@ -278,8 +284,9 @@ const GROUP_NOTE: Record<string, string[]> = {
   '기타 출장': ['출장형 서비스는 영업 지역이 곧 상품입니다. 갈 수 있는 지역을 페이지로 하나씩 드러내야 손님이 "여기도 오나요?"를 묻지 않고 바로 연락합니다.', '출장 서비스는 행사·수리처럼 필요한 날짜와 장소가 정해진 문의가 많아, 지역 이름으로 검색했을 때 바로 보이는 업체가 선택받습니다.'],
 };
 
-const WHY_H2 = ['{n} 업체, 왜 웹문서가 필요할까요?', '{n} 사장님이 검색에서 놓치는 손님은 어디에 있을까요?', '{n} 홍보, 플레이스와 블로그만으로는 왜 부족할까요?', '{n} 손님은 어떻게 업체를 찾을까요?'];
-const HOW_H2 = ['{n} 웹문서는 이렇게 만들어집니다', '{n} 업체 페이지 구성 예시', '영업 지역 × {n} 서비스, 이렇게 페이지가 나뉩니다', '{n} 검색 페이지, 어떤 이름으로 만들어지나요?'];
+// h2 는 "{키워드}: {세부 주제}" — 키워드(예: 하수구 업체 홍보)는 조합기에서 앞에 붙인다 (composer-patterns §5-3)
+const WHY_H2 = ['왜 웹문서가 필요할까요?', '검색에서 놓치는 손님은 어디에 있을까요?', '플레이스와 블로그만으로는 왜 부족할까요?', '손님은 어떻게 찾아올까요?'];
+const HOW_H2 = ['웹문서는 이렇게 만들어집니다', '지역 페이지 구성 예시', '영업 지역 × 서비스로 페이지가 나뉩니다', '검색 페이지 이름 예시'];
 const INCL_H2 = ['페이지마다 들어가는 것', '{n} 페이지 한 장에 담기는 구성', '검색에 걸리고 전화로 이어지게 넣는 것들'];
 const STEP_H2 = ['진행 순서', '{n} 웹문서 제작은 이렇게 진행됩니다', '상담부터 오픈까지'];
 
@@ -333,10 +340,10 @@ function faqFor(ind: IndustryDoc, regions: string[]) {
 }
 
 export function buildIndustryContent(ind: IndustryDoc) {
-  if (isBrand(ind.group)) return composeBrand(ind);
+  if (isBrand(ind.group)) return head(composeBrand(ind));
   const c = composeIndustry(ind);
-  if (!isOffice(ind.group)) return c;
-  return LEGAL_GROUPS.includes(ind.group) ? legalize(officeize(c)) : officeize(c);
+  if (!isOffice(ind.group)) return head(c);
+  return head(LEGAL_GROUPS.includes(ind.group) ? legalize(officeize(c)) : officeize(c));
 }
 
 function composeIndustry(ind: IndustryDoc) {
@@ -348,7 +355,17 @@ function composeIndustry(ind: IndustryDoc) {
   const fill = (t: string) => t.replace(/\{n은\}/g, j(n, '은', '는')).replace(/\{n\}/g, n);
 
   const label = industryTitle(n, ind.group);
-  const title = `${label} - 지역×서비스 웹문서 제작 | JD8`;
+  const SV = ind.services.filter((x) => !repeats(label, x));
+  const h1sub = pickSub(label, [
+    SV[1] && `${SV[0]}·${SV[1]} 검색을 지역마다 받는 웹문서`,
+    SV[1] && `${regions[0]} ${SV[0]}처럼 지역이 붙은 검색 받기`,
+    `지역 × 서비스 ${ind.services.length}가지 페이지 구성`,
+  ], s, null, ['지역마다 검색 페이지를 두는 웹문서', '지역별 검색 페이지 구성']);
+  const meta = fitDesc(label, s, [
+    [`${ind.services.slice(0, 2).join('·')} 검색어 예시와 필요한 페이지 수를 정리했습니다.`, `${ind.services[0]} 검색어 예시와 페이지 수를 정리했습니다.`],
+    [`지역 × 서비스 ${ind.services.length}가지 구성 예시와 진행 순서가 있습니다.`, '구성 예시와 진행 순서가 있습니다.'],
+    [`${regions[0]} ${ind.services[0]} 같은 검색어 표와 페이지 수 계산기가 있습니다.`, '검색어 표와 페이지 수 계산기가 있습니다.'],
+  ], ['묶음별로 열고 수집을 확인합니다.', '순위 보장은 하지 않습니다.', '구성안을 먼저 드립니다.']);
   const description = `${label}는 지역마다 검색 페이지를 두는 웹문서로. ${ind.services.slice(0, 3).join('·')} 같은 서비스를 영업 지역별 페이지로 만들어 네이버·구글 검색에 걸리게 합니다.`;
   const summary = [
     `${n} 손님은 '${ind.searches[0]}'처럼 검색하고, 대부분 앞에 지역 이름을 붙입니다.`,
@@ -369,16 +386,17 @@ function composeIndustry(ind: IndustryDoc) {
   ], s + 'h');
 
   return {
-    title,
+    kw: label,
+    h1sub,
+    meta,
     description,
-    h1: `${label}, 웹문서로 ${isOffice(ind.group) ? '상담 지역' : '영업 지역'} 전체에`,
     label,
     serpH2: `${examples[0]} 검색에 사장님 업체가 보이게`,
     serpDesc: isOffice(ind.group) ? '상담 안내, 진행 절차, 자주 묻는 질문 — 전화 한 번으로 바로 연결됩니다.' : '출동·상담 안내, 작업 사진, 자주 묻는 질문 — 전화 한 번으로 바로 연결됩니다.',
     summary,
-    whyH2: fill(pick(WHY_H2, s + 'w')),
+    whyH2: `${label}: ${pick(WHY_H2, s + 'w')}`,
     why,
-    howH2: fill(pick(HOW_H2, s + 'hh')),
+    howH2: `${label} — ${pick(HOW_H2, s + 'hh')}`,
     how,
     examples,
     regions,
@@ -446,9 +464,8 @@ Object.assign(GROUP_NOTE, {
 });
 
 // ---- 서비스 페이지 조합기 ("변기막힘 업체 홍보") ----
-const SVC_H1 = ['{s} 업체 홍보, 지역마다 검색 페이지로', '{s} 손님이 검색하는 곳마다 업체 페이지를', '{s} 업체, 영업 지역 전체 검색에 걸리게'];
-const SVC_WHAT_H2 = ['{s} 손님은 어떻게 검색할까요?', '{s} 검색은 어떤 말로 들어올까요?', '{s} 문의는 어디서 시작될까요?'];
-const SVC_PAGE_H2 = ['{s} 검색 페이지 구성 예시', '지역 × {s}, 이렇게 페이지가 나뉩니다', '{s} 키워드 페이지 이름 예시'];
+const SVC_WHAT_H2 = ['손님은 어떻게 검색할까요?', '검색은 어떤 말로 들어올까요?', '문의는 어디서 시작될까요?'];
+const SVC_PAGE_H2 = ['검색 페이지 구성 예시', '지역별로 이렇게 페이지가 나뉩니다', '키워드 페이지 이름 예시'];
 const SVC_INC_H2 = ['{s} 페이지에 들어가는 것', '{s} 페이지 한 장의 구성', '{s} 손님을 전화로 잇는 구성'];
 
 // 법률·회생은 '업체' 자체를 '사무소'로 (대출·금융은 '업체'가 자연스러워 그대로)
@@ -462,8 +479,8 @@ const legalize = <T,>(v: T): T => {
 
 export function buildServiceContent(svc: ServiceDoc) {
   const c = composeService(svc);
-  if (!isOffice(svc.group)) return c;
-  return LEGAL_GROUPS.includes(svc.group) ? legalize(officeize(c)) : officeize(c);
+  if (!isOffice(svc.group)) return head(c);
+  return head(LEGAL_GROUPS.includes(svc.group) ? legalize(officeize(c)) : officeize(c));
 }
 
 function composeService(svc: ServiceDoc) {
@@ -482,17 +499,29 @@ function composeService(svc: ServiceDoc) {
   const f1 = hash(seed + 'fa') % facts.length;
   const f2 = (f1 + 1 + (hash(seed + 'fb') % (facts.length - 1))) % facts.length;
 
+  const OT = others.filter((x) => !repeats(label, x));
+  const h1sub = pickSub(label, [
+    `${regions[0]}·${regions[1]} 같은 지역 검색마다 전용 페이지`,
+    `지역 × 검색어 형태 ${mods.length}가지 페이지 구성`,
+    OT[1] && `${OT[0]}·${j(OT[1], '과', '와')} 따로 두는 전용 페이지`,
+  ], seed, null, ['지역마다 전용 검색 페이지 두기', '전용 검색 페이지 구성']);
+  const meta = fitDesc(label, seed, [
+    [`${examples[0]}·${examples[2]} 같은 검색어 표와 페이지 수 계산기가 있습니다.`, '검색어 표와 페이지 수 계산기가 있습니다.'],
+    [`지역 × 검색어 형태 ${mods.length}가지 구성 예시와 질문 답을 정리했습니다.`, '구성 예시와 질문 답을 정리했습니다.'],
+    [`${examples[1]} 같은 페이지 이름 예시와 들어가는 구성을 담았습니다.`, '페이지 이름 예시와 들어가는 구성을 담았습니다.'],
+  ], ['묶음별로 열고 수집을 확인합니다.', '순위 보장은 하지 않습니다.', '구성안을 먼저 드립니다.']);
   return {
     label,
-    title: `${label} - 지역별 ${s} 검색 페이지 제작 | JD8`,
+    kw: label,
+    h1sub,
+    meta,
     description: `${label}는 지역별 웹문서로. '${q[0]}'·'${q[1]}' 같은 검색에 맞춰 영업 지역마다 ${s} 페이지를 만들어 네이버·구글에 등록합니다.`,
-    h1: fill(pick(SVC_H1, seed + 'h1')),
     summary: [
       `'${q[0]}', '${q[1]}'처럼 찾는 손님에게 ${s} 업체 페이지를 보여 주는 방법입니다.`,
       `예: ${regions.length}개 지역 × 검색어 형태 ${mods.length}가지 = ${regions.length * mods.length}페이지 (${examples[0]}, ${examples[2]} …).`,
       pick([`${P.name} 업체의 실제 ${s} 사례로 채우고 묶음별로 엽니다. 노출 보장은 하지 않습니다.`, `${s} 페이지부터 단계적으로 열고 수집을 확인합니다. 순위 보장은 하지 않습니다.`], seed + 's3'),
     ],
-    whatH2: fill(pick(SVC_WHAT_H2, seed + 'w')),
+    whatH2: `${label}: ${pick(SVC_WHAT_H2, seed + 'w')}`,
     what: [
       `'${q[0]}', '${q[1]}'처럼 ${s} 손님은 필요한 작업을 그대로 검색합니다. ${polite(svc.note)} 여기에 '${regions[0]}' 같은 지역 이름이 붙으면 검색 결과는 그 지역에서 ${j(s, '을', '를')} 하는 업체로 좁혀집니다.`,
       `${facts[f1]} ${facts[f2]}`,
@@ -502,7 +531,7 @@ function composeService(svc: ServiceDoc) {
         `손님은 '${P.name}'보다 '${s}'처럼 구체적인 말로 검색하는 경우가 많습니다. 그 말 그대로를 제목으로 한 페이지가 지역마다 있어야 연락이 옵니다.`,
       ], seed + 'why'),
     ],
-    pageH2: fill(pick(SVC_PAGE_H2, seed + 'p')),
+    pageH2: `${label} — ${pick(SVC_PAGE_H2, seed + 'p')}`,
     page: pick([
       `${s} 페이지는 지역 이름과 손님이 붙이는 말(${mods.filter(Boolean).map((m) => m.trim()).join('·')})을 조합해 만듭니다. 아래는 예시로 뽑은 조합이고, 실제 제작 때는 사장님의 영업 지역으로 다시 짭니다.`,
       `검색어 하나에 페이지 하나가 원칙입니다. '${examples[1]}'와 '${examples[3]}'는 서로 다른 손님이 쓰는 말이라 각각 페이지를 둡니다.`,
@@ -542,10 +571,16 @@ export function buildGroupContent(g: GroupDoc, industries: IndustryDoc[]) {
   const names = industries.map((i) => i.name);
   const notes = GROUP_NOTE[g.group] || [];
   const office = isOffice(g.group);
-  return {
-    title: isBrand(g.group) ? `${g.group} 웹문서 제작 - 본사용 검색 페이지 | JD8` : `${g.group} 업체 웹문서 제작 - 업종별 지역 검색 페이지 | JD8`,
+  const kw = isBrand(g.group) ? `${g.group} 웹문서 제작` : `${g.group} 업체 웹문서 제작`;
+  return head({
+    kw,
+    h1sub: pickSub(kw, [isBrand(g.group) ? '본사용 검색 페이지 구성' : '업종별 지역 검색 페이지 구성', '업종별 구성과 필요한 페이지 수', '업종별 구성 안내'], g.slug),
+    meta: fitDesc(kw, g.slug, [
+      [`${names.slice(0, 3).join('·')} 등 업종별 구성을 모았습니다.`, `${names.slice(0, 2).join('·')} 등 업종별 구성을 모았습니다.`],
+      ['업종별 페이지 구성과 필요한 페이지 수 계산기가 있습니다.', '업종별 구성과 페이지 수 계산기가 있습니다.'],
+    ], ['구성안을 먼저 보여드립니다.', '전 과정 비대면으로 진행합니다.']),
     description: `${g.group} 업종(${names.slice(0, 4).join('·')} 등)의 영업 지역 × 서비스 검색 페이지 제작 안내. 업종별 페이지 구성과 필요한 페이지 수를 확인하세요.`,
-    h1: isBrand(g.group) ? `${g.group} 웹문서 제작` : `${g.group} 업체 웹문서 제작`,
+    h1: kw,
     summary: [
       `${g.group} 업종 ${names.length}개(${names.slice(0, 5).join(', ')} 등)의 웹문서 구성을 모았습니다.`,
       ...notes.slice(0, 1),
@@ -553,7 +588,7 @@ export function buildGroupContent(g: GroupDoc, industries: IndustryDoc[]) {
     ],
     intro: notes.slice(1).join(' '),
     cards: industries.map((i) => ({ slug: i.slug, name: industryTitle(i.name, i.group), pain: polite(i.pain), services: i.services.slice(0, 4) })),
-  };
+  });
 }
 
 // ==== 업종 홈페이지 제작 페이지 (/homepage/<업종>-홈페이지제작/) — 기존 207업종 md 와 대응 안 되는 웹문서 업종만 ====
@@ -621,30 +656,41 @@ export const adServiceHref = (urlSlug: string) => `${AD_SITE}/service/${encodeUR
 
 export function buildHomepageContent(ind: HomepageGenDoc) {
   const c = composeHomepage(ind);
-  if (!isOffice(ind.group)) return c;
-  return LEGAL_GROUPS.includes(ind.group) ? legalize(officeize(c)) : officeize(c);
+  if (!isOffice(ind.group)) return head(c);
+  return head(LEGAL_GROUPS.includes(ind.group) ? legalize(officeize(c)) : officeize(c));
 }
 
-const HP_NEED_H2 = ['{n} 홈페이지에 꼭 들어가야 할 것', '{n} 홈페이지, 무엇을 보여 줘야 문의가 올까요?', '{n} 업체 홈페이지의 기본 구성'];
-const HP_MENU_H2 = ['{n} 홈페이지 메뉴 구성 예시', '{n} 홈페이지는 이렇게 나눕니다', '{n} 사이트 메뉴, 이렇게 짭니다'];
+const HP_NEED_H2 = ['꼭 들어가야 할 것', '무엇을 보여 줘야 문의가 올까요?', '기본 구성'];
+const HP_MENU_H2 = ['메뉴 구성 예시', '메뉴는 이렇게 나눕니다', '사이트 메뉴, 이렇게 짭니다'];
 
 function composeHomepage(ind: HomepageGenDoc) {
   const n = ind.name;
   const sv = ind.services;
   const seed = ind.slug;
   const office = isOffice(ind.group);
-  const fill = (t: string) => t.replace(/\{n\}/g, n);
   const q = ind.searches;
+  const kw = `${n} 홈페이지 제작`;
+  const SV = sv.filter((x) => !repeats(kw, x));
   return {
-    title: `${n} 홈페이지 제작 - ${office ? '상담으로 이어지는 사무소 사이트' : '문의로 이어지는 업체 사이트'} | JD8`,
+    kw,
+    h1sub: pickSub(kw, [
+      SV[1] && `${SV[0]}·${SV[1]} 안내와 문의 동선 구성`,
+      SV[0] && `${SV[0]} 사례를 첫 화면 가까이에`,
+      `서비스 ${sv.length}가지 메뉴 구성 예시`,
+    ], seed, null, ['메뉴 구성과 비용·기간 안내', '메뉴 구성 예시']),
+    meta: fitDesc(kw, seed, [
+      [`${sv.slice(0, 2).join('·')} 안내와 메뉴 구성 예시를 담았습니다.`, `${sv[0]} 안내와 메뉴 구성 예시를 담았습니다.`],
+      [`메뉴 구성 표와 ${sv.slice(0, 2).join('·')} 서비스 소개 예시가 있습니다.`, `메뉴 구성 표와 ${sv[0]} 소개 예시가 있습니다.`],
+      [`${sv[0]} 사례 배치와 문의 동선, 메뉴 구성을 정리했습니다.`, '사례 배치와 문의 동선, 메뉴 구성을 정리했습니다.'],
+    ], ['30만원부터 시작합니다.', '평균 7일에 만듭니다.', '30만원부터 평균 7일.']),
     description: `${n} 홈페이지 제작은 JD8. ${sv.slice(0, 3).join('·')} 안내, 작업 사례, ${office ? '상담 지역' : '출장 지역'}, 전화·카톡 문의 동선까지 30만원부터 평균 7일에 만듭니다.`,
-    h1: `${n} 홈페이지 제작`,
+    h1: kw,
     summary: [
       `${polite(ind.decide)} 그래서 ${n} 홈페이지는 사례와 문의 버튼이 첫 화면 가까이에 있어야 합니다.`,
       `서비스 ${sv.length}가지 안내, 사례, ${office ? '상담' : '출장'} 지역, 문의 동선을 기본으로 30만원부터 평균 7일에 만듭니다.`,
       `홈페이지 하나로 부족한 지역 검색은 웹문서(지역×서비스 페이지)로 넓힐 수 있습니다.`,
     ],
-    needH2: fill(pick(HP_NEED_H2, seed + 'n')),
+    needH2: `${kw}: ${pick(HP_NEED_H2, seed + 'n')}`,
     needs: [
       { h: '서비스별 안내', p: `${sv.slice(0, 4).join('·')}처럼 서비스마다 따로 소개해야 '${q[1] || q[0]}' 같은 검색과 맞아떨어집니다. 한 화면에 몰아 적으면 손님이 찾는 작업을 놓칩니다.` },
       { h: '사례와 사진', p: pick([`${n} 손님은 결과물로 판단합니다. 작업 전후 사진과 사례를 서비스별로 정리해 첫 화면 가까이에 둡니다.`, `${sv[0]} 같은 대표 작업의 사례부터 지역·날짜와 함께 올려, 같은 동네 손님이 비슷한 사례를 바로 찾게 합니다.`], seed + 'c') },
@@ -652,7 +698,7 @@ function composeHomepage(ind: HomepageGenDoc) {
       { h: office ? '상담 지역 안내' : '출장 지역 안내', p: `${j(n, '은', '는')} ${polite(ind.radius)} 그래서 ${office ? '상담 가능한' : '갈 수 있는'} 지역을 목록으로 보여 줘야 "여기도 되나요?" 문의 전에 연락이 옵니다.` },
       ...(ind.regulated ? [{ h: '표시 기준', p: `${polite(ind.regulated)} 필수 표기 항목은 대표님께 받은 정보 그대로 하단에 넣습니다.` }] : []),
     ],
-    menuH2: fill(pick(HP_MENU_H2, seed + 'm')),
+    menuH2: `${kw} — ${pick(HP_MENU_H2, seed + 'm')}`,
     menu: [
       ['홈', `대표 서비스 ${sv[0]}·${sv[1] || sv[0]}, ${ind.urgent ? '전화 버튼' : '상담 버튼'}, 대표 사례`],
       ['서비스 안내', sv.slice(0, 5).join(', ')],
@@ -753,14 +799,25 @@ export function composeBrand(ind: IndustryDoc) {
   const examples = fr
     ? ind.serviceItems.flatMap((x) => (x.searches.length ? x.searches.slice(0, 1) : [x.name])).slice(0, 8)
     : consumer.slice(0, 5).flatMap((c, k) => [c, `${c}${mods[1 + (k % (mods.length - 1))]}`]).slice(0, 10);
-  const fill = (t: string) => t.replace(/\{n\}/g, n);
+  const CS = consumer.filter((x) => !repeats(label, x));
   return {
     label,
-    title: `${label} - ${fr ? '가맹 모집·지점 검색 페이지' : '제품·고민별 검색 페이지'} 웹문서 제작 | JD8`,
+    kw: label,
+    h1sub: pickSub(label, fr
+      ? ['지역별 가맹 모집·지점 검색 페이지', '예비 점주 검색에 공식 정보 두기', '가맹 모집부터 지점 찾기까지']
+      : [CS[1] && `${CS[0]}·${CS[1]} 검색마다 공식 페이지`, '공식몰·판매처 안내까지 담는 웹문서', '제품·고민별 검색 페이지 구성'], seed, null, [fr ? '가맹·지점 검색 페이지' : '제품 검색 페이지 구성']),
+    meta: fitDesc(label, seed, fr
+      ? [
+          [`${examples[0]} 같은 검색어 예시와 가맹·지점 페이지 구성을 담았습니다.`, '검색어 예시와 가맹·지점 페이지 구성을 담았습니다.'],
+          ['지역별 가맹 모집, 지점 찾기, 창업 상담 페이지 구성을 정리했습니다.', '가맹 모집·지점 찾기 페이지 구성을 정리했습니다.'],
+        ]
+      : [
+          [`${consumer.slice(0, 2).join('·')} 검색어 예시와 공식 페이지 구성을 담았습니다.`, `${consumer[0]} 검색어 예시와 공식 페이지 구성을 담았습니다.`],
+          ['공식몰 유입, 판매처 안내, 입점 문의 페이지 구성을 정리했습니다.', '공식몰·판매처 안내 페이지 구성을 정리했습니다.'],
+        ], ['효능·과장 표현 없이 만듭니다.', '순위 보장은 하지 않습니다.', '구성안을 먼저 드립니다.']),
     description: fr
       ? `${label}는 지역별 가맹 모집·창업 문의·지점 찾기 검색 페이지로. '${owner[0]}' 같은 본사 고민에 맞춰 예비 점주와 고객이 찾는 검색어마다 공식 페이지를 만듭니다.`
       : `${label}는 제품·고민·대상별 검색 페이지로. 공식몰 유입, 판매처·대리점 안내, 입점 문의까지 본사가 필요한 검색 페이지를 광고 규정에 맞춰 만듭니다.`,
-    h1: fr ? `${n} 본사 홍보, 가맹 모집부터 지점 검색까지` : `${n} 브랜드 홍보, 제품 검색부터 판매처 안내까지`,
     summary: [
       fr
         ? `예비 점주는 '${examples[0]}'처럼 지역·비용을 붙여 검색하고, 고객은 지점을 찾습니다. 두 검색 모두에 공식 페이지를 둡니다.`
@@ -768,13 +825,13 @@ export function composeBrand(ind: IndustryDoc) {
       fr ? `${n} 본사용 구성: 지역별 가맹 모집, 창업 문의, 지점 찾기, 브랜드 검색 정리.` : `${n} 본사용 구성: 공식몰 유입, 판매처·대리점 안내, 입점 문의, 브랜드 검색 정리.`,
       `${polite(ind.regulated || '광고 표시 기준을 지켜야 한다')} 효능·과장 표현 없이 만듭니다.`,
     ],
-    whyH2: fill(pick([fr ? '{n} 본사, 왜 웹문서가 필요할까요?' : '{n} 브랜드, 왜 웹문서가 필요할까요?', '{n} 본사가 검색에서 놓치는 곳은 어디일까요?'], seed + 'w')),
+    whyH2: `${label}: ${pick(['왜 웹문서가 필요할까요?', '검색에서 놓치는 곳은 어디일까요?'], seed + 'w')}`,
     why: [
       `${polite(ind.pain)} ${polite(ind.decide)}`,
       `${j(n, '은', '는')} ${polite(ind.radius)} ${pick(GROUP_NOTE[g] || [''], seed + 'g')}`,
       `${polite(ind.season)} ${polite(ind.hq || '본사 문의 창구가 함께 필요하다')}`,
     ],
-    howH2: fr ? `${n} 가맹·지점 검색 페이지 예시` : `${n} 제품 검색 페이지 예시`,
+    howH2: fr ? `${label} — 가맹·지점 검색 페이지 예시` : `${label} — 제품 검색 페이지 예시`,
     how: fr
       ? pick([`예비 점주와 고객이 실제로 쓰는 검색어마다 ${n} 공식 페이지를 만듭니다. 아래는 예시이며, 실제로는 본사의 가맹 가능 지역과 지점 목록으로 다시 짭니다.`, `'${examples[0]}'처럼 예비 점주가 지역·비용을 붙여 찾는 말이 ${n} 페이지 이름이 됩니다. 실제 제작 때는 가맹 우선 지역부터 짭니다.`], seed + 'how')
       : pick([`소비자가 쓰는 고민·대상 검색어마다 ${n} 공식 정보 페이지를 만듭니다. 아래는 예시이며, 실제로는 라인업과 심의받은 문구 범위 안에서 짭니다.`, `'${consumer[0]}', '${consumer[2] || consumer[0]}'처럼 소비자가 붙이는 말이 ${n} 페이지 이름이 됩니다. 실제 제작 때는 주력 제품부터 짭니다.`], seed + 'how'),
@@ -847,9 +904,14 @@ export function loadBrandTasks(): BrandTask[] {
 }
 export function buildTaskContent(t: BrandTask) {
   const title = `${t.group} ${t.name}`;
-  return {
+  return head({
     label: title,
-    title: `${title} - 본사 마케팅·웹문서 대행 | JD8`,
+    kw: title,
+    h1sub: pickSub(title, [`본사가 챙길 ${t.points.length}가지와 진행 순서`, '규정 검수와 검색 페이지 연결', '진행 순서와 주의할 점'], t.slug, null, ['본사가 챙길 것']),
+    meta: fitDesc(title, t.slug, [
+      [`본사가 챙길 ${t.points.length}가지와 진행 순서, 주의할 규정을 정리했습니다.`, '본사가 챙길 일과 진행 순서를 정리했습니다.'],
+      [`${t.searches[0]} 고민에 맞춘 할 일과 검색 페이지 연결 방법을 담았습니다.`, '할 일과 검색 페이지 연결 방법을 담았습니다.'],
+    ], ['진행 내용과 지표를 매월 공유합니다.', '성과 보장은 하지 않습니다.']),
     description: `${title}, 규정을 지키면서 검색에서 보이게. '${t.searches[0]}' 같은 고민을 가진 본사를 위해 할 일과 주의할 점, 웹문서로 함께 만드는 페이지를 정리했습니다.`,
     h1: title,
     summary: [
@@ -890,7 +952,7 @@ export function buildTaskContent(t: BrandTask) {
       { q: `${title}도 성과를 보장하나요?`, a: '성과나 순위는 누구도 보장할 수 없습니다. 진행 내용과 지표를 매월 공유하며 조정합니다.' },
     ],
     keywords: [...t.searches, title],
-  };
+  });
 }
 
 // ---- 업종 × 시도 타지역 홍보 (/타지역홍보/<시도>-<업종>/) ----
@@ -933,13 +995,13 @@ export const openTajiFor = (name: string) => getOpenTaji().filter((p) => p.name 
 const shortArea = (a: string) => (a.length > 2 && /[시군구]$/.test(a) ? a.slice(0, -1) : a).replace(/ 동지역$/, '');
 const shuffle = <T,>(arr: T[], seed: string) => [...arr].sort((a, b) => hash(seed + String(a)) - hash(seed + String(b)));
 
-const TAJI_WHY_H2 = ['{sd}에서 {n} 신규 고객을 놓치는 이유', '{sd} {n} 업체가 옆 지역 검색에서 안 보이는 이유', '{sd} 전역 {n} 문의, 왜 일부만 들어올까요?'];
-const TAJI_EFFECT_H2 = ['{sd} {n} 타지역 홍보, 효과가 큰 이유', '웹문서가 {sd} {n} 신규 고객 유치에 강한 이유', '{sd} {n} 업체에 웹문서가 잘 맞는 이유'];
+const TAJI_WHY_H2 = ['신규 고객을 놓치는 이유', '옆 지역 검색에서 안 보이는 이유', '문의가 왜 일부만 들어올까요?'];
+const TAJI_EFFECT_H2 = ['효과가 큰 이유', '웹문서가 신규 고객 유치에 강한 이유', '웹문서가 잘 맞는 이유'];
 
 export function buildTajiContent(p: TajiDoc) {
   const c = composeTaji(p);
-  if (!isOffice(p.group)) return c;
-  return LEGAL_GROUPS.includes(p.group) ? legalize(officeize(c)) : officeize(c);
+  if (!isOffice(p.group)) return head(c);
+  return head(LEGAL_GROUPS.includes(p.group) ? legalize(officeize(c)) : officeize(c));
 }
 
 function composeTaji(p: TajiDoc) {
@@ -954,15 +1016,28 @@ function composeTaji(p: TajiDoc) {
   const S = fr ? 4 : p.services.length;
   const total = sd.areas.length * S;
   const far = `${A[0]}·${A[1]}`;
-  const fill = (t: string) => t.replace(/\{sd\}/g, sd.name).replace(/\{n\}/g, n);
   const label = fr ? `${n} 본사` : off ? n : `${n} 업체`;
   const who = off ? '사무소' : fr ? '본사' : '업체';
   const unitN = `${sd.areas.length}개 ${sd.unit}`;
+  const go = off ? '상담하는' : fr ? '가맹점을 열려는' : '출장 가는';
 
-  const title = fr
-    ? `${sd.name} ${base} 가맹점 모집 홍보 - ${unitN} 창업 검색에 본사 페이지를 | JD8`
-    : `${sd.name} ${n} 타지역 홍보 - ${unitN} 검색에 업체를, 신규 고객 문의 | JD8`;
-  const h1 = fr ? `${sd.name} ${base} 가맹점 모집, ${unitN} 창업 검색에 본사를` : `${sd.name} ${label} 타지역 홍보, ${unitN} 검색에 바로 보이게`;
+  const kw = fr ? `${sd.name} ${base} 가맹점 모집 홍보` : `${sd.name} ${n} 타지역 홍보`;
+  const AK = A.filter((x) => !repeats(kw, x));
+  const XS = p.services.filter((x) => !repeats(kw, x));
+  const h1sub = pickSub(kw, fr
+    ? [AK[1] && `${AK[0]}·${AK[1]} 창업 검색에 본사 페이지`, `${unitN} 예비 점주 검색 받기`, `${sd.unit}별 창업 검색 페이지`]
+    : [
+        AK[1] && `${AK[0]}·${AK[1]} 검색에도 보이는 페이지 묶음`,
+        `${unitN} 검색마다 ${who} 페이지 두기`,
+        XS[1] && `${XS[0]}·${XS[1]} 검색을 ${sd.unit}별로 받기`,
+        AK[1] && `플레이스 거리 밖 ${AK[0]}·${AK[1]} 문의 받기`,
+      ], s, null, fr ? ['창업 검색 페이지'] : [`${sd.unit}별 검색 페이지 묶음`, '검색 페이지 묶음']);
+  const x0 = fr ? `${base} 창업` : p.services[0];
+  const meta = fitDesc(kw, s, [
+    [`${A[0]}·${A[1]} ${x0} 같은 검색어 표와 서비스별 페이지 예시가 있습니다.`, `${A[0]} ${x0} 같은 검색어 표가 있습니다.`],
+    [`${unitN} 검색어 예시와 필요한 페이지 수 계산기를 담았습니다.`, '검색어 예시와 페이지 수 계산기를 담았습니다.'],
+    [`${x0} 등 서비스별 페이지 예시와 ${unitN} 목록을 정리했습니다.`, `서비스별 페이지 예시와 ${unitN} 목록을 정리했습니다.`],
+  ], ['순위는 보장하지 않습니다.', '전 과정 비대면입니다.', `${go} 지역부터 만듭니다.`]);
   const description = fr
     ? `${sd.full} ${unitN}에서 '${A[0]} ${base} 창업'처럼 검색하는 예비 점주에게 본사 페이지가 보이도록 지역별 웹문서를 만듭니다. 지역 가맹 문의 통로를 넓히는 본사 홍보, 지금 바로 상담하세요.`
     : `${sd.full} ${unitN} 어디서 ${j(n, '을', '를')} 검색해도 ${who}가 보이도록 지역 × 서비스 웹문서를 만듭니다. 플레이스 거리 밖 신규 고객 문의를 받는 타지역 홍보, 지금 바로 상담하세요.`;
@@ -1020,7 +1095,6 @@ function composeTaji(p: TajiDoc) {
     `타지역서비스와 비교해 보세요. 웹문서는 ${who} 도메인 아래 ${sd.name} 지역 페이지를 쌓기 때문에, 광고비를 끊어도 노출 자리가 사라지지 않습니다.`,
   ], s + 'tj');
 
-  const go = off ? '상담하는' : fr ? '가맹점을 열려는' : '출장 가는';
   const faq = [
     { q: `${sd.name} ${unitN}${j(sd.unit, '을', '를')} 다 만들어야 하나요?`, a: `아닙니다. 실제로 ${go} 지역부터 만들고 넓혀 갈 수 있습니다. 보통 ${A[0]}·${A[1]}처럼 문의가 많은 곳부터 열고, 묶음별로 수집을 확인하며 나머지를 채웁니다.` },
     { q: `${A[0]}에 사무실이 없어도 ${A[0]} 검색에 보이나요?`, a: `웹문서는 사무실 위치가 아니라 페이지 내용으로 검색에 걸립니다. 그래서 ${A[0]}에 사무실이 없어도 ${A[0]} 페이지를 만들어 둘 수 있습니다. 다만 실제로 ${off ? '상담' : fr ? '가맹 상담' : '출장'}이 가능한 지역만 만듭니다.` },
@@ -1030,15 +1104,16 @@ function composeTaji(p: TajiDoc) {
   if (fr && p.regulated) faq.push({ q: '가맹점 모집 광고에서 주의할 점은요?', a: `${polite(p.regulated)} 예상 수익은 정보공개서와 다른 숫자를 쓰지 않고, 페이지에는 가맹 조건과 상담 절차 위주로 담습니다.` });
 
   return {
-    title,
-    h1,
+    kw,
+    h1sub,
+    meta,
     description,
     summary,
-    whyH2: fill(pick(TAJI_WHY_H2, s + 'w')),
+    whyH2: `${kw}: ${pick(TAJI_WHY_H2, s + 'w')}`,
     why,
     tableH2: fr ? `${sd.name} 지역별 창업 검색과 본사 페이지 예시` : `${sd.name} 지역별 검색어와 만들 페이지 예시`,
     rows,
-    effectH2: fill(pick(TAJI_EFFECT_H2, s + 'e')),
+    effectH2: `${kw}, ${pick(TAJI_EFFECT_H2, s + 'e')}`,
     effect,
     taji,
     svcH2: fr ? `${sd.name} ${base} 창업 검색, 이렇게 나눠 받습니다` : `${sd.name} ${n} 서비스별로 나눠 만드는 페이지`,
@@ -1094,8 +1169,8 @@ export const openTsvcSlug = (slug: string) => (tsvcOpenMap().has(slug) ? slug : 
 
 export function buildTsvcContent(p: TajiDoc) {
   const c = composeTsvc(p);
-  if (!isOffice(p.group)) return c;
-  return LEGAL_GROUPS.includes(p.group) ? legalize(officeize(c)) : officeize(c);
+  if (!isOffice(p.group)) return head(c);
+  return head(LEGAL_GROUPS.includes(p.group) ? legalize(officeize(c)) : officeize(c));
 }
 
 function composeTsvc(p: TajiDoc) {
@@ -1117,8 +1192,19 @@ function composeTsvc(p: TajiDoc) {
   const unitN = `${sd.areas.length}개 ${sd.unit}`;
   const noRank = '순위는 보장하지 않습니다.';
 
-  const title = `${sd.name} ${n} 타지역서비스 - ${unitN} 노출, 웹문서로 바로 문의 | JD8`;
-  const h1 = `${sd.name} ${label} 타지역서비스, ${unitN}에 웹문서로`;
+  const kw = `${sd.name} ${n} 타지역서비스`;
+  const AK = A.filter((x) => !repeats(kw, x));
+  const h1sub = pickSub(kw, [
+    AK[1] && `${AK[0]}·${AK[1]} 검색에 ${who}가 보이는 방법`,
+    '지도 방식과 웹문서 방식 비교',
+    `${unitN} 페이지 수와 비용 기준`,
+    AK[2] && `${AK[1]}·${AK[2]}부터 시작하는 방법`,
+  ], s, null, ['비용 기준과 시작 방법']);
+  const meta = fitDesc(kw, s, [
+    [`지도 방식과 웹문서 방식 비교표, ${a(0)}·${a(1)} 검색어 예시를 담았습니다.`, '지도 방식과 웹문서 방식 비교표를 담았습니다.'],
+    [`${unitN} 검색어 표와 비용이 정해지는 기준, 시작 방법을 정리했습니다.`, '검색어 표와 비용 기준, 시작 방법을 정리했습니다.'],
+    [`${a(2)} ${q0} 같은 검색어 예시와 페이지 수 계산기가 있습니다.`, '검색어 예시와 페이지 수 계산기가 있습니다.'],
+  ], ['순위는 보장하지 않습니다.', '전 과정 비대면입니다.', '출장 가는 곳만 고릅니다.']);
   const description = pick([
     `${sd.name} ${n} 타지역서비스를 찾으신다면 JD8 웹문서를 보세요. ${a(0)}·${a(1)} 등 ${unitN} 검색마다 ${who} 페이지를 만들어 신규 고객 문의를 받습니다. 지금 바로 문의하세요.`,
     `${sd.full}에서 ${n} 타지역서비스를 알아보는 사장님을 위한 안내입니다. 사무실이 없는 ${a(0)}·${a(1)} 검색에도 ${who}가 보이도록 ${unitN} 페이지를 사장님 사이트에 만듭니다. 바로 문의하세요.`,
@@ -1136,7 +1222,7 @@ function composeTsvc(p: TajiDoc) {
     ], s + 's3'),
   ];
 
-  const whatH2 = pick([`${sd.name} ${n} 타지역서비스란 무엇인가요`, `${sd.name}에서 ${n} 타지역서비스를 찾는 이유`, `${n} 타지역서비스, ${sd.name}에서는 이렇게 합니다`], s + 'h1');
+  const whatH2 = pick([`${kw}란 무엇인가요`, `${kw}: 찾는 이유`, `${kw}, 이렇게 합니다`], s + 'h1');
   const what = [
     pick([
       `타지역서비스는 사무실이 없는 다른 지역의 검색에도 ${who}가 보이게 하는 서비스를 통틀어 부르는 말입니다. ${n}처럼 손님에게 찾아가는 업종에서 많이 찾습니다.`,
@@ -1206,7 +1292,7 @@ function composeTsvc(p: TajiDoc) {
   ];
 
   return {
-    title, h1, description, summary, whatH2, what, cmpH2, cmp, cmpNote,
+    kw, h1sub, meta, description, summary, whatH2, what, cmpH2, cmp, cmpNote,
     tableH2: `${sd.name} ${sd.unit}별 ${n} 검색어와 만들 페이지`, rows,
     svcH2: `${n} 서비스별로 받는 타지역 검색`, svcRows, areasText,
     effectH2, effect,

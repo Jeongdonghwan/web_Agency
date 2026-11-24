@@ -21,6 +21,7 @@ import {
 import Paras from '../../../components/webdoc/Paras';
 import PageCalculator from '../../../components/webdoc/PageCalculator';
 import TopPromo from '../../../components/blog/TopPromo';
+import { KwH1, KwSummary } from '../../../components/seo/Kw';
 import JsonLd from '../../../components/seo/JsonLd';
 import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd, itemListJsonLd } from '../../../lib/jsonld';
 
@@ -37,10 +38,10 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const path = tsvcEncodedPath(p.tajiSlug);
   return {
     title: { absolute: c.title },
-    description: c.description,
+    description: c.meta,
     keywords: c.keywords,
     alternates: { canonical: path },
-    ...ogMeta(c.title, c.description, path, {}, webdocOg(`${p.name}-홍보`)),
+    ...ogMeta(c.title, c.meta, path, {}, webdocOg(`${p.name}-홍보`)),
   };
 }
 
@@ -100,18 +101,11 @@ export default function TsvcPage({ params }: { params: { slug: string } }) {
           <span className="page-eyebrow">
             {p.sido.full} · {p.group} · 타지역서비스
           </span>
-          <h1>{c.h1}</h1>
+          <KwH1 kw={c.kw} sub={c.h1sub} />
           <Paras text={c.description} per={1} className="page-lead" />
         </header>
         <TopPromo />
-        <aside className="wd-summary" aria-label="핵심 요약">
-          <strong>핵심 요약</strong>
-          <ul>
-            {c.summary.map((x) => (
-              <li key={x}>{x}</li>
-            ))}
-          </ul>
-        </aside>
+        <KwSummary kw={c.kw} items={c.summary} />
 
         <section className="content-section">
           <h2>{c.whatH2}</h2>

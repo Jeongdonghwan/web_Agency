@@ -758,6 +758,9 @@
   margin: 0 0 40px;
   background: var(--bg-light, #f7f8fa);
 }
+.page-header h1 .hero-sub { display: block; margin-top: 8px; font-size: 0.46em; font-weight: 600; line-height: 1.45; color: var(--text-light); }
+.wd-summary h2 { font-size: 0.95rem; color: var(--text-muted); margin: 0 0 8px; letter-spacing: 0.02em; }
+.wd-updated { margin: 10px 0 0; font-size: 0.8rem; color: var(--text-muted); }
 .wd-summary strong { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 0.02em; }
 .wd-summary ul { margin: 0; padding-left: 18px; }
 .wd-summary li { line-height: 1.7; margin: 4px 0; }

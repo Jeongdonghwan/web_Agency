@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import type { MetadataRoute } from 'next';
-import { SITE_URL } from '../lib/site';
+import { SITE_URL, UPDATED } from '../lib/site';
 import { getAllIndustries, getActiveCategories } from '../lib/industries';
 import { getAllPosts } from '../lib/posts';
 import { getAllServices, serviceEncodedPath } from '../lib/services';
@@ -16,6 +16,9 @@ const latest = (dates: (string | Date | undefined)[]) =>
   new Date(Math.max(...dates.filter(Boolean).map((d) => new Date(d as string).getTime())));
 
 // 빌드 시 out/sitemap.xml 로 생성됨 (output: 'export')
+// 키워드형 페이지: 자체 수정일과 공통 개정일(UPDATED) 중 늦은 쪽
+const kwLm = (...dates: (string | Date | undefined)[]) => latest([...dates, UPDATED]);
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const industries = getAllIndustries();
   const services = getAllServices();
@@ -55,7 +58,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const ind of industries) {
     entries.push({
       url: `${SITE_URL}/homepage/${encodeURIComponent(ind.urlSlug)}/`,
-      lastModified: new Date(ind.updatedAt),
+      lastModified: kwLm(ind.updatedAt),
       changeFrequency: 'monthly',
       priority: 0.8,
     });
@@ -67,7 +70,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const s of services) {
       entries.push({
         url: `${SITE_URL}${serviceEncodedPath(s)}`,
-        lastModified: new Date(s.updatedAt),
+        lastModified: kwLm(s.updatedAt),
         changeFrequency: 'monthly',
         priority: 0.9,
       });
@@ -80,7 +83,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const r of regions) {
       entries.push({
         url: `${SITE_URL}${regionEncodedPath(r)}`,
-        lastModified: new Date(r.updatedAt),
+        lastModified: kwLm(r.updatedAt),
         changeFrequency: 'monthly',
         priority: 0.7,
       });
@@ -91,7 +94,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const d of getAllDongs()) {
     entries.push({
       url: `${SITE_URL}${dongEncodedPath(d)}`,
-      lastModified: dongsUpdated,
+      lastModified: kwLm(dongsUpdated),
       changeFrequency: 'monthly',
       priority: 0.6,
     });
@@ -104,13 +107,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   if (webdoc.length) {
     entries.push({ url: `${SITE_URL}/${encodeURIComponent('웹문서')}/`, lastModified: latest(webdoc.map(webdocLm)), changeFrequency: 'weekly', priority: 0.9 });
     for (const p of webdoc) {
-      entries.push({ url: `${SITE_URL}${webdocEncodedPath(p.slug)}`, lastModified: webdocLm(p), changeFrequency: 'monthly', priority: p.kind === 'core' ? 0.9 : 0.7 });
+      entries.push({ url: `${SITE_URL}${webdocEncodedPath(p.slug)}`, lastModified: kwLm(webdocLm(p)), changeFrequency: 'monthly', priority: p.kind === 'core' ? 0.9 : 0.7 });
     }
   }
 
   // 업종 홈페이지 제작(웹문서 업종 데이터로 생성) — 열린 묶음만
   for (const p of getOpenHomepageGen()) {
-    entries.push({ url: `${SITE_URL}${homepageGenEncodedPath(p.slug)}`, lastModified: latest([p.openDate, webdocData]), changeFrequency: 'monthly', priority: 0.7 });
+    entries.push({ url: `${SITE_URL}${homepageGenEncodedPath(p.slug)}`, lastModified: kwLm(p.openDate, webdocData), changeFrequency: 'monthly', priority: 0.7 });
   }
 
   // 타지역 홍보 (업종 × 시도) — 열린 묶음만
@@ -122,7 +125,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const sd of [...new Set(taji.map((p) => p.sido.name))]) {
       entries.push({ url: `${SITE_URL}${tajiSidoEncodedPath(sd)}`, lastModified: latest(taji.filter((p) => p.sido.name === sd).map((p) => tajiLm(p.openDate))), changeFrequency: 'weekly', priority: 0.8 });
     }
-    for (const p of taji) entries.push({ url: `${SITE_URL}${tajiEncodedPath(p.tajiSlug)}`, lastModified: tajiLm(p.openDate), changeFrequency: 'monthly', priority: 0.7 });
+    for (const p of taji) entries.push({ url: `${SITE_URL}${tajiEncodedPath(p.tajiSlug)}`, lastModified: kwLm(tajiLm(p.openDate)), changeFrequency: 'monthly', priority: 0.7 });
   }
 
   // 타지역서비스 (업종 × 시도) — 열린 묶음만
@@ -134,7 +137,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const sd of [...new Set(tsvc.map((p) => p.sido.name))]) {
       entries.push({ url: `${SITE_URL}${tsvcSidoEncodedPath(sd)}`, lastModified: latest(tsvc.filter((p) => p.sido.name === sd).map((p) => tsvcLm(p.openDate))), changeFrequency: 'weekly', priority: 0.8 });
     }
-    for (const p of tsvc) entries.push({ url: `${SITE_URL}${tsvcEncodedPath(p.tajiSlug)}`, lastModified: tsvcLm(p.openDate), changeFrequency: 'monthly', priority: 0.7 });
+    for (const p of tsvc) entries.push({ url: `${SITE_URL}${tsvcEncodedPath(p.tajiSlug)}`, lastModified: kwLm(tsvcLm(p.openDate)), changeFrequency: 'monthly', priority: 0.7 });
   }
 
   // 블로그 글

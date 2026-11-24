@@ -5,9 +5,11 @@ import { notFound } from 'next/navigation';
 import {
   getAllIndustries,
   getIndustryByUrlSlug,
+  getIndustriesByCategory,
   industryPath,
   industryEncodedPath,
 } from '../../../lib/industries';
+import { KwH1, KwSummary, ServiceLinks } from '../../../components/seo/Kw';
 import { getPostsByIndustry } from '../../../lib/posts';
 import { markdownToHtml } from '../../../lib/markdown';
 import { getPortfolioById } from '../../../data/portfolios';
@@ -33,18 +35,18 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     const p = homepageGenEncodedPath(g.slug);
     return {
       title: { absolute: c.title },
-      description: c.description,
+      description: c.meta,
       keywords: [`${g.name} 홈페이지 제작`, `${g.name} 홈페이지`, `${g.name} 업체 홈페이지`],
       alternates: { canonical: p },
-      ...ogMeta(c.title, c.description, p, {}, homepageGenOg(g.slug)),
+      ...ogMeta(c.title, c.meta, p, {}, homepageGenOg(g.slug)),
     };
   }
   return {
     title: { absolute: ind.title },
-    description: ind.description,
+    description: ind.meta,
     keywords: ind.keywords,
     alternates: { canonical: industryEncodedPath(ind) },
-    ...ogMeta(ind.title, ind.description, industryEncodedPath(ind)),
+    ...ogMeta(ind.title, ind.meta, industryEncodedPath(ind)),
   };
 }
 
@@ -68,6 +70,7 @@ export default async function IndustryPage({ params }: { params: { slug: string 
   ].slice(0, 4);
 
   const path = industryEncodedPath(ind);
+  const sameCategory = getIndustriesByCategory(ind.category).filter((i) => i.slug !== ind.slug && !ind.relatedIndustries.includes(i.slug)).slice(0, 8);
 
   return (
     <main className="content-page">
@@ -101,13 +104,14 @@ export default async function IndustryPage({ params }: { params: { slug: string 
 
         <header className="page-header">
           <span className="page-eyebrow">{ind.categoryName}</span>
-          <h1>{ind.name} 홈페이지 제작</h1>
+          <KwH1 kw={ind.kw} sub={ind.h1sub} />
           <p className="page-lead">{ind.description}</p>
         </header>
         <TopPromo />
+        <KwSummary kw={ind.kw} items={ind.summary} />
 
         <section className="content-section">
-          <h2>{ind.name} 사장님들이 겪는 고민</h2>
+          <h2>{ind.kw}: 사장님들이 겪는 고민</h2>
           <ul className="point-list">
             {ind.painPoints.map((p, i) => (
               <li key={i}>{p}</li>
@@ -116,7 +120,7 @@ export default async function IndustryPage({ params }: { params: { slug: string 
         </section>
 
         <section className="content-section">
-          <h2>{ind.name} 홈페이지 필수 기능</h2>
+          <h2>{ind.kw} — 필수 기능</h2>
           <div className="feature-grid">
             {ind.features.map((f, i) => (
               <div className="feature-card" key={i}>
@@ -158,7 +162,7 @@ export default async function IndustryPage({ params }: { params: { slug: string 
         <article className="prose" dangerouslySetInnerHTML={{ __html: html }} />
 
         <section className="content-section">
-          <h2>{ind.name} 홈페이지 제작 자주 묻는 질문</h2>
+          <h2>{ind.kw} 자주 묻는 질문</h2>
           <div className="static-faq">
             {ind.faq.map((f, i) => (
               <div className="qa" key={i}>
@@ -188,6 +192,20 @@ export default async function IndustryPage({ params }: { params: { slug: string 
             </div>
           </section>
         )}
+
+        {sameCategory.length > 0 && (
+          <section className="content-section">
+            <h2>{ind.categoryName} 다른 업종 홈페이지 제작</h2>
+            <div className="industry-grid">
+              {sameCategory.map((r) => (
+                <Link key={r.slug} href={industryPath(r)}>
+                  {r.name}
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+        <ServiceLinks />
 
         <div className="cta-banner">
           <h2>{ind.name} 홈페이지, 지금 시작하세요</h2>

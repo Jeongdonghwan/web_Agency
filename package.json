@@ -7,7 +7,8 @@
     "build": "next build",
     "postbuild": "node scripts/ops.mjs",
     "start": "next start",
-    "qa:industries": "node scripts/qa-industries.mjs"
+    "qa:industries": "node scripts/qa-industries.mjs",
+    "qa:kw": "node scripts/check_kw.cjs"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

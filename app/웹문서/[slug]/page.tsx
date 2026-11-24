@@ -45,6 +45,7 @@ import SerpMock from '../../../components/webdoc/SerpMock';
 import CaseStudy from '../../../components/webdoc/CaseStudy';
 import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd, itemListJsonLd } from '../../../lib/jsonld';
 import TopPromo from '../../../components/blog/TopPromo';
+import { KwH1, KwSummary } from '../../../components/seo/Kw';
 
 export const dynamicParams = false;
 
@@ -64,10 +65,10 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const path = webdocEncodedPath(p.slug);
   return {
     title: { absolute: m.title },
-    description: m.description,
+    description: m.meta,
     keywords: m.keywords,
     alternates: { canonical: path },
-    ...ogMeta(m.title, m.description, path, {}, webdocOg(p.slug)),
+    ...ogMeta(m.title, m.meta, path, {}, webdocOg(p.slug)),
   };
 }
 
@@ -92,19 +93,6 @@ function Crumbs({ name }: { name: string }) {
       <span className="sep">›</span>
       <span>{name}</span>
     </nav>
-  );
-}
-
-function Summary({ items }: { items: string[] }) {
-  return (
-    <aside className="wd-summary" aria-label="핵심 요약">
-      <strong>핵심 요약</strong>
-      <ul>
-        {items.map((t) => (
-          <li key={t}>{t}</li>
-        ))}
-      </ul>
-    </aside>
   );
 }
 
@@ -180,16 +168,16 @@ async function CorePage({ doc }: { doc: CoreDoc & WebdocPage }) {
         <Crumbs name={doc.name} />
         <header className="page-header">
           <span className="page-eyebrow">웹문서 대량제작</span>
-          <h1>{doc.name}</h1>
+          <KwH1 kw={doc.kw} sub={doc.h1sub} />
           <Paras text={doc.description} per={1} className="page-lead" />
         </header>
         <TopPromo />
         {doc.slug === '웹문서-대량제작' && <CaseStudy />}
-        <Summary items={doc.summary} />
+        <KwSummary kw={doc.kw} items={doc.summary} />
 
         {doc.painPoints.length > 0 && (
           <section className="content-section">
-            <h2>이런 사장님께 필요합니다</h2>
+            <h2>{doc.kw}: 이런 사장님께 필요합니다</h2>
             <ul className="point-list">
               {doc.painPoints.map((t) => (
                 <li key={t}>{t}</li>
@@ -200,10 +188,10 @@ async function CorePage({ doc }: { doc: CoreDoc & WebdocPage }) {
 
         <article className="prose" dangerouslySetInnerHTML={{ __html: html }} />
         <PageCalculator />
-        <Faq title={`${doc.name} 자주 묻는 질문`} faq={doc.faq} />
+        <Faq title={`${doc.kw} 자주 묻는 질문`} faq={doc.faq} />
         <RelatedGrid title="함께 보면 좋은 안내" pages={related} />
         <RelatedGrid title="업종별 웹문서 제작 안내" pages={industries} />
-        <Cta title={`${doc.name}, 구성안부터 받아보세요`} />
+        <Cta title={`${doc.kw}, 구성안부터 받아보세요`} />
       </div>
     </main>
   );
@@ -241,11 +229,11 @@ function IndustryPage({ ind }: { ind: IndustryDoc & WebdocPage }) {
         <Crumbs name={c.label} />
         <header className="page-header">
           <span className="page-eyebrow">{ind.group}</span>
-          <h1>{c.h1}</h1>
+          <KwH1 kw={c.kw} sub={c.h1sub} />
           <Paras text={c.description} per={1} className="page-lead" />
         </header>
         <TopPromo />
-        <Summary items={c.summary} />
+        <KwSummary kw={c.kw} items={c.summary} />
 
         <section className="content-section">
           <h2>{c.whyH2}</h2>
@@ -406,10 +394,10 @@ function IndustryPage({ ind }: { ind: IndustryDoc & WebdocPage }) {
           </ol>
         </section>
 
-        <Faq title={`${ind.name} 웹문서 자주 묻는 질문`} faq={c.faq} />
+        <Faq title={`${c.kw} 자주 묻는 질문`} faq={c.faq} />
         <RelatedGrid title={`${ind.group} 다른 업종`} pages={siblings} />
         <RelatedGrid title="웹문서 제작 안내" pages={core.slice(0, 4)} />
-        <Cta title={`${ind.name} 웹문서, 구성안부터 받아보세요`} text={c.ctaText} />
+        <Cta title={`${c.kw}, 웹문서 구성안부터 받아보세요`} text={c.ctaText} />
       </div>
     </main>
   );
@@ -456,11 +444,11 @@ function ServicePage({ svc }: { svc: ServiceDoc & WebdocPage }) {
           <span className="page-eyebrow">
             {svc.group} · {svc.parent.name}
           </span>
-          <h1>{c.h1}</h1>
+          <KwH1 kw={c.kw} sub={c.h1sub} />
           <Paras text={c.description} per={1} className="page-lead" />
         </header>
         <TopPromo />
-        <Summary items={c.summary} />
+        <KwSummary kw={c.kw} items={c.summary} />
 
         <section className="content-section">
           <h2>{c.whatH2}</h2>
@@ -514,10 +502,11 @@ function ServicePage({ svc }: { svc: ServiceDoc & WebdocPage }) {
           <Paras text={c.bundle} />
         </section>
 
-        <Faq title={`${svc.name} 웹문서 자주 묻는 질문`} faq={c.faq} />
+        <Faq title={`${c.kw} 자주 묻는 질문`} faq={c.faq} />
         <RelatedGrid title={`${svc.parent.name} 서비스별 웹문서`} pages={related} />
         {group && <RelatedGrid title="같은 업종군 안내" pages={[group]} />}
-        <Cta title={`${svc.name} 웹문서, 구성안부터 받아보세요`} />
+        <RelatedGrid title="웹문서 제작 안내" pages={getOpenCore().slice(0, 4)} />
+        <Cta title={`${c.kw}, 웹문서 구성안부터 받아보세요`} />
       </div>
     </main>
   );
@@ -546,14 +535,14 @@ function GroupPage({ g }: { g: GroupDoc & WebdocPage }) {
         <Crumbs name={c.h1} />
         <header className="page-header">
           <span className="page-eyebrow">업종군 안내</span>
-          <h1>{c.h1}</h1>
+          <KwH1 kw={c.kw} sub={c.h1sub} />
           <Paras text={c.description} per={1} className="page-lead" />
         </header>
         <TopPromo />
-        <Summary items={c.summary} />
+        <KwSummary kw={c.kw} items={c.summary} />
         {c.intro && <Paras text={c.intro} />}
         <section className="content-section">
-          <h2>{g.group} 업종별 웹문서 구성</h2>
+          <h2>{c.kw}: 업종별 구성</h2>
           <div className="static-faq">
             {c.cards.map((k) => (
               <div className="qa" key={k.slug}>
@@ -566,10 +555,13 @@ function GroupPage({ g }: { g: GroupDoc & WebdocPage }) {
               </div>
             ))}
           </div>
+        </section>
+        <section className="content-section">
+          <h2>{c.kw} — 필요한 페이지 수</h2>
           <PageCalculator title={`${g.group} 업체는 페이지가 몇 개 필요할까?`} />
         </section>
         <RelatedGrid title="다른 업종군" pages={otherGroups} />
-        <Cta title={`${g.group} 업체 웹문서, 구성안부터 받아보세요`} />
+        <Cta title={`${c.kw}, 구성안부터 받아보세요`} />
       </div>
     </main>
   );
@@ -601,11 +593,11 @@ function TaskPage({ t }: { t: BrandTask & WebdocPage }) {
         <Crumbs name={c.h1} />
         <header className="page-header">
           <span className="page-eyebrow">{t.group} 본사</span>
-          <h1>{c.h1}</h1>
+          <KwH1 kw={c.kw} sub={c.h1sub} />
           <Paras text={c.description} per={1} className="page-lead" />
         </header>
         <TopPromo />
-        <Summary items={c.summary} />
+        <KwSummary kw={c.kw} items={c.summary} />
         <section className="content-section">
           <h2>{c.h1}, 본사가 챙길 것</h2>
           <ol className="wd-steps">

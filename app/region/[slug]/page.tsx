@@ -19,6 +19,7 @@ import { markdownToHtml } from '../../../lib/markdown';
 import JsonLd from '../../../components/seo/JsonLd';
 import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd, itemListJsonLd } from '../../../lib/jsonld';
 import TopPromo from '../../../components/blog/TopPromo';
+import { KwH1, KwSummary, ServiceLinks } from '../../../components/seo/Kw';
 
 export const dynamicParams = false;
 
@@ -35,10 +36,10 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   if (doc) {
     return {
       title: { absolute: doc.title },
-      description: doc.description,
+      description: doc.meta,
       keywords: doc.keywords,
       alternates: { canonical: regionEncodedPath(doc) },
-      ...ogMeta(doc.title, doc.description, regionEncodedPath(doc)),
+      ...ogMeta(doc.title, doc.meta, regionEncodedPath(doc)),
     };
   }
   const dong = getDongByUrlSlug(params.slug);
@@ -46,10 +47,10 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const c = buildDongContent(dong);
   return {
     title: { absolute: c.title },
-    description: c.description,
+    description: c.meta,
     keywords: [`${dong.dong} 홈페이지제작`, `${dong.dong} 홈페이지 제작`, `${dong.gu} 홈페이지제작`, `${dong.dong} 웹사이트 제작`],
     alternates: { canonical: dongEncodedPath(dong) },
-    ...ogMeta(c.title, c.description, dongEncodedPath(dong)),
+    ...ogMeta(c.title, c.meta, dongEncodedPath(dong)),
   };
 }
 
@@ -105,13 +106,14 @@ async function RegionMdPage({ doc }: { doc: any }) {
 
         <header className="page-header">
           <span className="page-eyebrow">{doc.name}</span>
-          <h1>{doc.name} 홈페이지 제작</h1>
+          <KwH1 kw={doc.kw} sub={doc.h1sub} />
           <p className="page-lead">{doc.description}</p>
         </header>
         <TopPromo />
+        <KwSummary kw={doc.kw} items={doc.summary} />
 
         <section className="content-section">
-          <h2>{doc.name} 사장님들이 자주 겪는 고민</h2>
+          <h2>{doc.kw}: 사장님들이 자주 겪는 고민</h2>
           <ul className="point-list">
             {doc.painPoints.map((p: string, i: number) => (
               <li key={i}>{p}</li>
@@ -120,7 +122,7 @@ async function RegionMdPage({ doc }: { doc: any }) {
         </section>
 
         <section className="content-section">
-          <h2>{doc.name} 홈페이지 제작에서 JD8이 챙기는 것</h2>
+          <h2>{doc.kw}에서 JD8이 챙기는 것</h2>
           <div className="feature-grid">
             {doc.features.map((f: any, i: number) => (
               <div className="feature-card" key={i}>
@@ -150,7 +152,7 @@ async function RegionMdPage({ doc }: { doc: any }) {
         )}
 
         <section className="content-section">
-          <h2>{doc.name} 홈페이지 제작 자주 묻는 질문</h2>
+          <h2>{doc.kw} 자주 묻는 질문</h2>
           <div className="static-faq">
             {doc.faq.map((f: any, i: number) => (
               <div className="qa" key={i}>
@@ -186,6 +188,8 @@ async function RegionMdPage({ doc }: { doc: any }) {
             </div>
           </section>
         )}
+
+        <ServiceLinks />
 
         <div className="cta-banner">
           <h2>{doc.name}에서 홈페이지가 필요하신가요?</h2>
@@ -255,10 +259,11 @@ function DongPage({ dong }: { dong: any }) {
 
         <header className="page-header">
           <span className="page-eyebrow">{dong.regionLabel}</span>
-          <h1>{dong.dong} 홈페이지제작</h1>
+          <KwH1 kw={c.kw} sub={c.h1sub} />
           <p className="page-lead">{c.description}</p>
         </header>
         <TopPromo />
+        <KwSummary kw={c.kw} items={c.summary} />
 
         {c.paragraphs.map((p, i) => (
           <section className="content-section" key={i}>
@@ -295,7 +300,7 @@ function DongPage({ dong }: { dong: any }) {
         )}
 
         <section className="content-section">
-          <h2>{dong.dong} 홈페이지 제작 화면 미리보기</h2>
+          <h2>{c.kw} 화면 미리보기</h2>
           <div className="demo-cards">
             {c.showcase.map((idx: number) => {
               const demo = portfolios[idx];
@@ -317,7 +322,7 @@ function DongPage({ dong }: { dong: any }) {
         </section>
 
         <section className="content-section">
-          <h2>{dong.dong} 홈페이지제작 자주 묻는 질문</h2>
+          <h2>{c.kw} 자주 묻는 질문</h2>
           <div className="static-faq">
             {c.faq.map((f, i) => (
               <div className="qa" key={i}>

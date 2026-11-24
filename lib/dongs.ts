@@ -3,6 +3,8 @@ import ggData from '../data/gg-dongs.json';
 import cityData from '../data/city-dongs.json';
 import expansionData from '../data/expansion-dongs.json';
 import { getAllRegions } from './regions';
+import { getIndustryBySlug } from './industries';
+import { kwTitle, pickSub, fitDesc } from './kw';
 
 // 서울·경기·인천 동 단위 페이지 — 데이터 기반 생성 (md 파일 없이 조합)
 // 콘텐츠는 문장 뱅크를 동별 해시로 회전 조합해 같은 구 안에서도 구성이 달라진다.
@@ -115,8 +117,12 @@ export const dongEncodedPath = (d: { urlSlug: string }) => `/region/${encodeURIC
 // ===== 콘텐츠 조합 =====
 
 export interface DongContent {
-  title: string;
-  description: string;
+  title: string;       // 키워드 + 수식어 | JD8
+  kw: string;          // 송파동 홈페이지제작 (동명이 겹치면 "강남 신사동 홈페이지제작" — 주소와 같다)
+  h1sub: string;
+  meta: string;        // meta description 45~80자
+  summary: string[];   // 핵심 요약
+  description: string; // 본문 첫 문단
   paragraphs: { heading: string; body: string }[];
   faq: { q: string; a: string }[];
   hash: number;          // 페이지 내 회전 선택용
@@ -137,6 +143,27 @@ export function industryNote(dong: string, industryName: string, i: number, hash
 export function buildDongContent(e: DongEntry): DongContent {
   const h = hashOf(e.dong + e.gu);
   const { dong, gu } = e;
+  const kw = e.urlSlug === `${e.guShort}-${dong}-홈페이지제작` ? `${e.guShort} ${dong} 홈페이지제작` : `${dong} 홈페이지제작`;
+  const N = e.industries.map((s) => getIndustryBySlug(s)?.name).filter((x): x is string => !!x);
+  const h1sub = pickSub(kw, [
+    N[1] && `${gu} ${N[0]}·${N[1]} 업종 맞춤 구성`,
+    N[1] && `${N[0]}·${N[1]} 업종에 맞춘 구성과 비용`,
+    N[2] && `${N[0]}·${N[1]}·${N[2]} 업종별 안내`,
+    `${gu} 상권에 맞춘 구성과 비용 안내`,
+  ], e.urlSlug, null, ['30만원부터 평균 7일 비대면 진행', '비용·기간과 업종별 안내']);
+  const meta = fitDesc(kw, e.urlSlug, N.length > 1
+    ? [
+        [`${N[0]}·${N[1]} 업종 안내와 ${gu} 상권 설명, 화면 예시를 담았습니다.`, `${gu} 상권 설명과 화면 예시를 담았습니다.`],
+        [`${gu} ${N[0]}·${N[1]} 업종별 구성과 비용·기간을 정리했습니다.`, `${gu} 업종별 구성과 비용·기간을 정리했습니다.`],
+        [`비용·기간, ${N[0]} 등 업종 ${N.length}가지 안내, 질문 5개를 담았습니다.`, '비용·기간과 업종 안내, 질문 5개를 담았습니다.'],
+      ]
+    : [[`${gu} 상권 설명과 비용·기간, 화면 예시를 담았습니다.`, `${gu} 상권 설명과 비용·기간을 담았습니다.`]],
+    ['30만원부터 시작합니다.', '평균 7일에 만듭니다.', '전 과정 비대면입니다.']);
+  const summary = [
+    `${dong} 홈페이지는 30만원부터, 평균 7일에 비대면으로 만듭니다.`,
+    ...(N.length ? [`이 페이지에서 다루는 업종: ${N.join(', ')}.`] : []),
+    `${gu}의 다른 동 ${e.siblings.length}곳 안내로 이어집니다.`,
+  ];
 
   const intros = [
     `${dong}에서 가게나 사무실을 운영하고 계신가요? 손님과 거래처는 방문 전에 "${dong} ○○"을 검색합니다. 그 검색 결과에 내 홈페이지가 있느냐 없느냐가 ${gu} 안에서의 경쟁을 가릅니다. 전단과 현수막은 지나가는 사람에게만 닿지만, 검색은 ${dong}에 올 이유가 있는 사람에게 정확히 닿습니다.`,
@@ -177,16 +204,20 @@ export function buildDongContent(e: DongEntry): DongContent {
   ];
 
   return {
-    title: `${dong} 홈페이지제작 | ${gu} 지역 전문 - JD8`,
+    title: kwTitle(kw, h1sub),
+    kw,
+    h1sub,
+    meta,
+    summary,
     description: descs[h % 3],
     paragraphs: [
-      { heading: `${dong} 홈페이지제작, 왜 필요할까요?`, body: intros[h % 5] },
+      { heading: `${kw}, 왜 필요할까요?`, body: intros[h % 5] },
       {
         heading: `${gu} 상권을 아는 제작`,
         body: `${gu} 지역은 ${e.traits}. ${dong} 역시 이 흐름 안에 있어, 지역 특성과 업종을 함께 고려한 홈페이지 구성이 효과적입니다.`,
       },
-      { heading: `JD8이 ${dong}에서 일하는 방식`, body: approaches[h % 4] },
-      { heading: `비용과 기간`, body: prices[h % 3] },
+      { heading: `${kw}: JD8이 일하는 방식`, body: approaches[h % 4] },
+      { heading: `${kw} — 비용과 기간`, body: prices[h % 3] },
     ],
     faq,
     hash: h,

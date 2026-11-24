@@ -2,6 +2,9 @@
 export const SITE_URL = 'https://jd8.co.kr';
 export const SITE_NAME = '홈페이지제작 JD8 에이전시';
 export const BRAND = 'JD8';
+// 키워드형 페이지(업종·지역·동·서비스·웹문서·타지역)의 본문·title·h1 을 바꾼 날. 바꿀 때마다 올린다 —
+// 사이트맵 lastmod 와 화면의 "최종 수정" 이 여기서 나온다 (메인·블로그 글·데모는 해당 없음)
+export const UPDATED = '2026-11-24';
 export const COMPANY = {
   legalName: '주식회사 제이디에이치',
   ceo: '정동환',

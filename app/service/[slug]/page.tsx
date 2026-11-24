@@ -3,7 +3,8 @@ import { ogMeta } from '../../../lib/site';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllServices, getServiceByUrlSlug, servicePath, serviceEncodedPath } from '../../../lib/services';
-import { getIndustryBySlug, industryPath } from '../../../lib/industries';
+import { getIndustryBySlug, getPopularIndustries, industryPath } from '../../../lib/industries';
+import { KwH1, KwSummary, ServiceLinks } from '../../../components/seo/Kw';
 import { markdownToHtml } from '../../../lib/markdown';
 import JsonLd from '../../../components/seo/JsonLd';
 import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd } from '../../../lib/jsonld';
@@ -20,10 +21,10 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   if (!doc) return {};
   return {
     title: { absolute: doc.title },
-    description: doc.description,
+    description: doc.meta,
     keywords: doc.keywords,
     alternates: { canonical: serviceEncodedPath(doc) },
-    ...ogMeta(doc.title, doc.description, serviceEncodedPath(doc)),
+    ...ogMeta(doc.title, doc.meta, serviceEncodedPath(doc)),
   };
 }
 
@@ -39,6 +40,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
     .map((s) => getIndustryBySlug(s))
     .filter(Boolean);
   const path = serviceEncodedPath(doc);
+  const popular = getPopularIndustries(12).filter((i) => !doc.relatedIndustries.includes(i.slug)).slice(0, 8);
 
   return (
     <main className="content-page">
@@ -65,13 +67,14 @@ export default async function ServicePage({ params }: { params: { slug: string }
 
         <header className="page-header">
           <span className="page-eyebrow">SERVICE</span>
-          <h1>{doc.name}</h1>
+          <KwH1 kw={doc.kw} sub={doc.h1sub} />
           <p className="page-lead">{doc.description}</p>
         </header>
         <TopPromo />
+        <KwSummary kw={doc.kw} items={doc.summary} />
 
         <section className="content-section">
-          <h2>이런 상황이라면 {doc.name}이 필요합니다</h2>
+          <h2>{doc.kw}: 이런 상황이라면 필요합니다</h2>
           <ul className="point-list">
             {doc.painPoints.map((p, i) => (
               <li key={i}>{p}</li>
@@ -80,7 +83,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
         </section>
 
         <section className="content-section">
-          <h2>{doc.name}에 포함되는 구성</h2>
+          <h2>{doc.kw} — 포함되는 구성</h2>
           <div className="feature-grid">
             {doc.features.map((f, i) => (
               <div className="feature-card" key={i}>
@@ -94,7 +97,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
         <article className="prose" dangerouslySetInnerHTML={{ __html: html }} />
 
         <section className="content-section">
-          <h2>{doc.name} 자주 묻는 질문</h2>
+          <h2>{doc.kw} 자주 묻는 질문</h2>
           <div className="static-faq">
             {doc.faq.map((f, i) => (
               <div className="qa" key={i}>
@@ -125,8 +128,20 @@ export default async function ServicePage({ params }: { params: { slug: string }
           </section>
         )}
 
+        <ServiceLinks except={doc.slug} />
+        <section className="content-section">
+          <h2>업종별 홈페이지 제작 안내</h2>
+          <div className="industry-grid">
+            {popular.map((r) => (
+              <Link key={r.slug} href={industryPath(r)}>
+                {r.name}
+              </Link>
+            ))}
+          </div>
+        </section>
+
         <div className="cta-banner">
-          <h2>{doc.name}, 견적부터 확인해보세요</h2>
+          <h2>{doc.kw}, 견적부터 확인해보세요</h2>
           <p>JD8이 목적에 맞는 구성을 제안하고 평균 7일 안에 완성해드립니다.</p>
           <div className="cta-actions">
             <a href="/#contact" className="primary">무료 상담 신청</a>

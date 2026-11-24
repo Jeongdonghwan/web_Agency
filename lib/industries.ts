@@ -4,6 +4,7 @@ import matter from 'gray-matter';
 import taxonomy from '../data/taxonomy.json';
 // @ts-ignore - 공유 ESM 모듈 (한글 슬러그 규칙의 단일 출처)
 import { koSlugOf } from './koslug.mjs';
+import { mdHead } from './kw';
 
 const INDUSTRIES_DIR = path.join(process.cwd(), 'content', 'industries');
 
@@ -23,8 +24,12 @@ export interface IndustryMeta {
   name: string;
   category: string;
   categoryName: string;
-  title: string;
-  description: string;
+  title: string;     // 키워드 + 수식어 | JD8 (lib/kw.ts mdHead — 프런트매터 title 에서 만든다)
+  kw: string;        // 페이지 키워드 (프런트매터 title 의 " - " 앞)
+  h1sub: string;     // h1 수식어
+  meta: string;      // meta description 45~80자
+  summary: string[]; // 핵심 요약
+  description: string; // 본문 첫 문단
   keywords: string[];
   painPoints: string[];
   features: IndustryFeature[];
@@ -61,13 +66,19 @@ function parseIndustryFile(filePath: string): Industry {
   const slug = String(data.slug || path.basename(filePath, '.md'));
   const category = String(data.category || '');
   const categoryName = getCategory(category)?.name || category;
+  const urlSlug = koSlugOf(String(data.name || ''));
+  const h = mdHead({ title: String(data.title || ''), features: data.features || [], faq: data.faq || [] }, urlSlug, ['평균 7일 안에 완성합니다.', '견적 확인은 무료입니다.']);
   return {
     slug,
-    urlSlug: koSlugOf(String(data.name || '')),
+    urlSlug,
     name: String(data.name || ''),
     category,
     categoryName,
-    title: String(data.title || ''),
+    title: h.title,
+    kw: h.kw,
+    h1sub: h.h1sub,
+    meta: h.description,
+    summary: h.summary,
     description: String(data.description || ''),
     keywords: data.keywords || [],
     painPoints: data.painPoints || [],

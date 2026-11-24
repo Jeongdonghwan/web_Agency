@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { mdHead } from './kw';
 
 // 서비스 유형/지역 페이지 공용 콘텐츠 로더
 // (업종은 taxonomy 결합 등 전용 로직이 있어 lib/industries.ts 를 그대로 둔다)
@@ -9,8 +10,12 @@ export interface PageDoc {
   slug: string;      // 영문 파일명 (내부 id)
   urlSlug: string;   // 한글 URL 슬러그 (frontmatter 명시)
   name: string;      // 표시명 (서비스: h1 전체 문구, 지역: 지역명)
-  title: string;
-  description: string;
+  title: string;     // 키워드 + 수식어 | JD8 (lib/kw.ts mdHead — 프런트매터 title 에서 만든다)
+  kw: string;        // 페이지 키워드 (프런트매터 title 의 " - " 앞)
+  h1sub: string;     // h1 수식어
+  meta: string;      // meta description 45~80자
+  summary: string[]; // 핵심 요약
+  description: string; // 본문 첫 문단
   keywords: string[];
   painPoints: string[];
   features: { name: string; desc: string }[];
@@ -29,6 +34,12 @@ const toDateString = (v: unknown): string => {
   return String(v || '');
 };
 
+// description·핵심 요약에 쓰는 사실 — 각 템플릿의 상담 배너에 이미 있는 문장만
+const FACTS: Record<string, string[]> = {
+  services: ['평균 7일 안에 완성합니다.', '목적에 맞는 구성을 먼저 제안합니다.'],
+  regions: ['30만원부터 평균 7일.', '전 과정 비대면으로 진행합니다.'],
+};
+
 export function loadCollection(dirName: string): PageDoc[] {
   const dir = path.join(process.cwd(), 'content', dirName);
   if (!fs.existsSync(dir)) return [];
@@ -37,11 +48,16 @@ export function loadCollection(dirName: string): PageDoc[] {
     .filter((f) => f.endsWith('.md'))
     .map((f) => {
       const { data, content } = matter(fs.readFileSync(path.join(dir, f), 'utf-8'));
+      const h = mdHead({ title: String(data.title || ''), features: data.features || [], faq: data.faq || [] }, String(data.urlSlug || ''), FACTS[dirName] || FACTS.services);
       return {
         slug: String(data.slug || f.replace(/\.md$/, '')),
         urlSlug: String(data.urlSlug || ''),
         name: String(data.name || ''),
-        title: String(data.title || ''),
+        title: h.title,
+        kw: h.kw,
+        h1sub: h.h1sub,
+        meta: h.description,
+        summary: h.summary,
         description: String(data.description || ''),
         keywords: data.keywords || [],
         painPoints: data.painPoints || [],

@@ -49,6 +49,7 @@ public/references/        # 업종별 데모 사이트 (정적 HTML, 그대로 �
 npm install
 npm run dev            # http://localhost:3000
 npm run qa:industries  # 업종 콘텐츠 검증 (필수 필드·분량·유사도·링크)
+npm run qa:kw          # 키워드형 페이지 검수(빌드 없이 h1·title·description·h2·내부링크·조사). 본문·title 을 바꾼 날은 lib/site.ts UPDATED 도 올린다
 npm run build          # out/ 생성
 ```
 

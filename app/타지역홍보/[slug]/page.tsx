@@ -21,6 +21,7 @@ import {
 import Paras from '../../../components/webdoc/Paras';
 import PageCalculator from '../../../components/webdoc/PageCalculator';
 import TopPromo from '../../../components/blog/TopPromo';
+import { KwH1, KwSummary } from '../../../components/seo/Kw';
 import JsonLd from '../../../components/seo/JsonLd';
 import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd, itemListJsonLd } from '../../../lib/jsonld';
 
@@ -37,10 +38,10 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const path = tajiEncodedPath(p.tajiSlug);
   return {
     title: { absolute: c.title },
-    description: c.description,
+    description: c.meta,
     keywords: c.keywords,
     alternates: { canonical: path },
-    ...ogMeta(c.title, c.description, path, {}, webdocOg(`${p.name}-홍보`)),
+    ...ogMeta(c.title, c.meta, path, {}, webdocOg(`${p.name}-홍보`)),
   };
 }
 
@@ -84,18 +85,11 @@ export default function TajiPage({ params }: { params: { slug: string } }) {
           <span className="page-eyebrow">
             {p.sido.full} · {p.group}
           </span>
-          <h1>{c.h1}</h1>
+          <KwH1 kw={c.kw} sub={c.h1sub} />
           <Paras text={c.description} per={1} className="page-lead" />
         </header>
         <TopPromo />
-        <aside className="wd-summary" aria-label="핵심 요약">
-          <strong>핵심 요약</strong>
-          <ul>
-            {c.summary.map((x) => (
-              <li key={x}>{x}</li>
-            ))}
-          </ul>
-        </aside>
+        <KwSummary kw={c.kw} items={c.summary} />
 
         <section className="content-section">
           <h2>{c.whyH2}</h2>
@@ -176,7 +170,7 @@ export default function TajiPage({ params }: { params: { slug: string } }) {
         </section>
 
         <section className="content-section">
-          <h2>{t} 자주 묻는 질문</h2>
+          <h2>{c.kw} 자주 묻는 질문</h2>
           <div className="static-faq">
             {c.faq.map((f) => (
               <div className="qa" key={f.q}>
