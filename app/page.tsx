@@ -37,7 +37,7 @@ const TYPES: [string, string, string, string][] = [
 ];
 
 // 실제 화면 3열 — 열마다 다른 화면
-const COLS = [SHOTS.slice(0, 5), SHOTS.slice(5, 10), SHOTS.slice(10, 15)];
+const COLS = [SAMPLES.slice(0, 4), SAMPLES.slice(4, 8), SAMPLES.slice(8, 12)];
 
 export default function Home() {
   const industries = getIndustries();
@@ -85,13 +85,13 @@ export default function Home() {
                 <div className="wall-col" key={c}>
                   <div className="wall-track">
                     {[...col, ...col].map((s, k) => (
-                      <img key={k} src={shotSrc(s.file)} width={390} height={1500} alt={k < col.length ? `${s.label} 페이지 실제 화면` : ''} aria-hidden={k >= col.length} loading={c === 0 && k < 2 ? 'eager' : 'lazy'} />
+                      <img key={k} src={s.mobile} width={390} height={1500} alt={k < col.length ? `${s.region} ${s.title} 예시 화면` : ''} aria-hidden={k >= col.length} loading={c === 0 && k < 2 ? 'eager' : 'lazy'} />
                     ))}
                   </div>
                 </div>
               ))}
             </div>
-            <figcaption>{LANDING ? '이런 검색 페이지를 만들어 드립니다. 제작 페이지 예시 화면입니다.' : 'JD8이 같은 방식으로 직접 운영하는 jd8.co.kr 검색 페이지의 실제 화면입니다.'}</figcaption>
+            <figcaption>업종마다 따로 디자인한 예시 페이지 화면입니다. 상호·전화번호는 가렸습니다. <a href="#samples">예시 페이지 보기</a></figcaption>
           </figure>
         </div>
       </section>
@@ -131,6 +131,20 @@ export default function Home() {
             </div>
           </div>
           <p className="note">지도를 그만두라는 뜻이 아닙니다. 사무실 주변은 지도가, 그 밖의 출장 지역은 검색 페이지가 맡습니다. {!LANDING && <><Link href={guidePath('지도-노출-대안')}>지도 노출의 한계와 대안</Link> · <Link href={guidePath('타지역서비스')}>타지역서비스란</Link></>}</p>
+        </div>
+      </section>
+
+      <section className="sec soft" id="samples">
+        <div className="wrap">
+          <Sh title="업종별로 이런 페이지를 만듭니다" sub="실제 제작하는 페이지와 같은 구성으로 만든 업종별 예시입니다. 눌러서 PC·모바일 화면을 직접 보세요. 상호·전화번호는 가렸습니다." />
+          <div className="samples">
+            {SAMPLES.map((x) => (
+              <a className="sample" href={x.href} target="_blank" rel="noopener" key={x.id} data-reveal>
+                <div className="sample-img"><img src={x.img} width={800} height={513} loading="lazy" alt={`${x.region} ${x.title} 예시 화면`} /></div>
+                <div className="sample-cap"><span>{x.region}</span><b>{x.title}</b><small>예시 페이지 보기 ↗</small></div>
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -197,20 +211,6 @@ export default function Home() {
           </div>
         </section>
       )}
-
-      <section className="sec soft" id="samples">
-        <div className="wrap">
-          <Sh title="업종별로 이런 페이지를 만듭니다" sub="실제 제작하는 페이지와 같은 구성으로 만든 업종별 예시입니다. 눌러서 PC·모바일 화면을 직접 보세요. 상호·전화번호는 가렸습니다." />
-          <div className="samples">
-            {SAMPLES.map((x) => (
-              <a className="sample" href={x.href} target="_blank" rel="noopener" key={x.id} data-reveal>
-                <div className="sample-img"><img src={x.img} width={800} height={513} loading="lazy" alt={`${x.region} ${x.title} 예시 화면`} /></div>
-                <div className="sample-cap"><span>{x.region}</span><b>{x.title}</b><small>예시 페이지 보기 ↗</small></div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {REFERENCES.length > 0 && (
         <section className="sec">
