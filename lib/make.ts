@@ -305,13 +305,13 @@ export function composeMake(p: MakePage) {
   if (!BASE.has(angle)) {
     const x = extra(angle as ExtraAngle, { n, loc, cust, go, owner, unit, unitN, where, office: !!office, s, total, count: svcs.length, urgent: ind.urgent, decide: ind.decide, pain: ind.pain, a, sv });
     return {
-      title: `${h1} ${h1sub} | ${BRAND}`, h1, h1sub, description: meta, lead: x.description, summary: x.summary, whyH2: x.whyH2, why: [x.why1, why2], tableH2,
+      title: titleOf(h1, h1sub), h1, h1sub, description: meta, lead: x.description, summary: x.summary, whyH2: x.whyH2, why: [x.why1, why2], tableH2,
       rows: rows.map((r, k) => [r[0], r[1], x.third(r[0], sv(k).name)] as [string, string, string]),
       svcH2: x.svcH2, svcRows, inclH2: x.inclH2, incl: x.incl, timingH2, timing, flow, priceP, regulated, areasText, faq: x.faq, unit, calc, ctaH2, ctaText, keywords,
     };
   }
   return {
-    title: `${h1} ${h1sub} | ${BRAND}`, h1, h1sub, description: meta, lead: description, summary, whyH2, why: [why1, why2], tableH2, rows, svcH2, svcRows, inclH2, incl, timingH2, timing, flow, priceP,
+    title: titleOf(h1, h1sub), h1, h1sub, description: meta, lead: description, summary, whyH2, why: [why1, why2], tableH2, rows, svcH2, svcRows, inclH2, incl, timingH2, timing, flow, priceP,
     regulated, areasText, faq, unit, calc, ctaH2, ctaText, keywords,
   };
 }
@@ -324,6 +324,8 @@ const DESC_WHAT: Record<Angle, string> = {
   seo: '사이트맵 등록', cheap: '비용이 정해지는 기준', good: '업체 고르는 기준', resp: '모바일 화면 기준', fast: '진행 순서',
   renew: '기존 주소 연결', land: '한 장 문의 페이지', small: '작게 시작하는 구성',
 };
+// title = h1 글자 그대로 + 상호. 전체 40자(네이버 권장)를 넘으면 상호를 뺀다
+const titleOf = (h1: string, sub: string) => { const t = `${h1} ${sub}`; return `${t} | ${BRAND}`.length <= 40 ? `${t} | ${BRAND}` : t; };
 export const kwWords = (kw: string) => kw.replace(/[?]/g, '').split(/[\s·]+/).filter(Boolean);
 // 수식어 낱말이 키워드 낱말을 품으면 반복 (두 글자 이상은 포함, 한 글자는 같을 때만)
 export const repeats = (kw: string, sub: string) => {
