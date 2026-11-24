@@ -4,107 +4,107 @@
   "mobile": "/sample/m/hasugu.jpg",
   "href": "/sample/hasugu/",
   "img": "/sample/thumb/hasugu.jpg",
-  "region": "경기 · 수원시 장안구 · 정자동",
-  "title": "하수구막힘 지역형 페이지",
-  "type": "지역형"
+  "label": "하수구막힘",
+  "title": "하수구 업체 전국 홍보 페이지",
+  "hook": "'동네 + 하수구' 검색어마다 이런 페이지가 하나씩"
  },
  {
   "id": "nusu",
   "mobile": "/sample/m/nusu.jpg",
   "href": "/sample/nusu/",
   "img": "/sample/thumb/nusu.jpg",
-  "region": "서울 · 강동구 · 고덕동",
-  "title": "누수탐지 상품소개형 페이지",
-  "type": "상품소개형"
+  "label": "누수탐지",
+  "title": "누수탐지 업체 전국 홍보 페이지",
+  "hook": "천장 얼룩을 검색한 손님이 바로 전화하는 구성"
  },
  {
   "id": "doorlock",
   "mobile": "/sample/m/doorlock.jpg",
   "href": "/sample/doorlock/",
   "img": "/sample/thumb/doorlock.jpg",
-  "region": "서울 · 노원구 · 상계동",
-  "title": "도어락 상품소개형 페이지",
-  "type": "상품소개형"
+  "label": "도어락",
+  "title": "도어락 출장 전국 홍보 페이지",
+  "hook": "문이 안 열려 검색하는 그 순간에 보이게"
  },
  {
   "id": "julnun",
   "mobile": "/sample/m/julnun.jpg",
   "href": "/sample/julnun/",
   "img": "/sample/thumb/julnun.jpg",
-  "region": "경기 · 부천시 소사구 · 송내동",
-  "title": "줄눈 시공 블로그형 페이지",
-  "type": "블로그형"
+  "label": "줄눈 시공",
+  "title": "줄눈 시공 전국 홍보 페이지",
+  "hook": "후기 글 하나가 지역마다 문의 통로가 됩니다"
  },
  {
   "id": "boiler",
   "mobile": "/sample/m/boiler.jpg",
   "href": "/sample/boiler/",
   "img": "/sample/thumb/boiler.jpg",
-  "region": "경기 · 성남시 수정구 · 금토동",
-  "title": "보일러 교체 상품소개형 페이지",
-  "type": "상품소개형"
+  "label": "보일러 교체",
+  "title": "보일러 교체 전국 홍보 페이지",
+  "hook": "겨울 전 '보일러 교체' 검색을 잡는 구성"
  },
  {
   "id": "cheolgeo",
   "mobile": "/sample/m/cheolgeo.jpg",
   "href": "/sample/cheolgeo/",
   "img": "/sample/thumb/cheolgeo.jpg",
-  "region": "서울 · 구로구 · 가리봉동",
-  "title": "철거 지역형 페이지",
-  "type": "지역형"
+  "label": "철거",
+  "title": "철거 업체 전국 홍보 페이지",
+  "hook": "원상복구 견적을 찾는 상가 사장님께 바로"
  },
  {
   "id": "isa",
   "mobile": "/sample/m/isa.jpg",
   "href": "/sample/isa/",
   "img": "/sample/thumb/isa.jpg",
-  "region": "경기 · 과천시 · 문원동",
-  "title": "보관이사 블로그형 페이지",
-  "type": "블로그형"
+  "label": "보관이사",
+  "title": "보관이사 전국 홍보 페이지",
+  "hook": "입주일을 고민하는 손님이 읽고 바로 문의"
  },
  {
   "id": "cheongso",
   "mobile": "/sample/m/cheongso.jpg",
   "href": "/sample/cheongso/",
   "img": "/sample/thumb/cheongso.jpg",
-  "region": "인천 · 연수구 · 송도동",
-  "title": "입주청소 지역형 페이지",
-  "type": "지역형"
+  "label": "입주청소",
+  "title": "입주청소 전국 홍보 페이지",
+  "hook": "신축 단지마다 '입주청소' 검색어를 잡습니다"
  },
  {
   "id": "sofa",
   "mobile": "/sample/m/sofa.jpg",
   "href": "/sample/sofa/",
   "img": "/sample/thumb/sofa.jpg",
-  "region": "세종 · 세종시 · 반곡동",
-  "title": "소파 리폼 상품소개형 페이지",
-  "type": "상품소개형"
+  "label": "소파 리폼",
+  "title": "소파 리폼 전국 홍보 페이지",
+  "hook": "수거·배송으로 지역 제한 없이 받는 일감"
  },
  {
   "id": "lawyer",
   "mobile": "/sample/m/lawyer.jpg",
   "href": "/sample/lawyer/",
   "img": "/sample/thumb/lawyer.jpg",
-  "region": "서울 · 서초구 · 서초동",
-  "title": "이혼 소송 블로그형 페이지",
-  "type": "블로그형"
+  "label": "이혼 상담",
+  "title": "이혼 상담 전국 홍보 페이지",
+  "hook": "이혼 상담 검색에서 들어온 손님이 바로 상담 예약"
  },
  {
   "id": "sadari",
   "mobile": "/sample/m/sadari.jpg",
   "href": "/sample/sadari/",
   "img": "/sample/thumb/sadari.jpg",
-  "region": "대전 · 서구 · 둔산동",
-  "title": "사다리차 지역형 페이지",
-  "type": "지역형"
+  "label": "사다리차",
+  "title": "사다리차 전국 홍보 페이지",
+  "hook": "'○○동 사다리차' 검색마다 바로 예약 전화"
  },
  {
   "id": "water",
   "mobile": "/sample/m/water.jpg",
   "href": "/sample/water/",
   "img": "/sample/thumb/water.jpg",
-  "region": "대구 · 수성구 · 수성동1가",
-  "title": "정수기 렌탈 상품소개형 페이지",
-  "type": "상품소개형"
+  "label": "정수기 렌탈",
+  "title": "정수기 렌탈 전국 홍보 페이지",
+  "hook": "제품 비교부터 상담 신청까지 한 페이지에서"
  }
 ]

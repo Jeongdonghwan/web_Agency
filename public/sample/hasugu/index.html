@@ -9,226 +9,205 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap">
 <style>
-:root{--y:#ffd400;--k:#111;--g:#efefea;--muted:#5e5e58;--w:#fff;
-  --head:'Black Han Sans','Pretendard Variable',sans-serif;--sans:'Pretendard Variable',Pretendard,sans-serif}
+:root{--acc:#ffd400;--acc2:#ffd400;--on:#111;--hl:#ffd400;--chk:#ffd400;--dk:#111;--ink:#111;--mut:#55554f;--line:#e2e2dc;--lt:#f4f4ef;--kc:#111;--mark:#111;--btn:#ffd400;--btnt:#111;--r:0;--rc:0;--head:'Black Han Sans','Pretendard Variable',sans-serif;--hw:400;--sb:#ffd400;--st:#111;--sl:rgba(0,0,0,.25);--sn:#111;--fb:#111;--ctao:rgba(17,17,17,.82);--sans:'Pretendard Variable',Pretendard,sans-serif}
 *{box-sizing:border-box}html,body{margin:0}
-body{font-family:var(--sans);color:var(--k);background:var(--w);line-height:1.6;word-break:keep-all}
-a{color:inherit}
-.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
-.strip{background:var(--k);color:var(--y);font-weight:800;font-size:.9rem;overflow:hidden;white-space:nowrap}
-.strip-in{display:inline-block;padding:9px 0;animation:mq 30s linear infinite}
-.strip-in span{margin-right:42px}
-.strip-in span::before{content:'';display:inline-block;width:8px;height:8px;background:var(--y);margin-right:12px;vertical-align:middle}
-@keyframes mq{to{transform:translateX(-50%)}}
-header.top{background:var(--y);border-bottom:3px solid var(--k)}
-header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
-.logo{font-family:var(--head);font-size:1.6rem;letter-spacing:-.02em;text-decoration:none}
-.logo small{font-family:var(--sans);font-size:.78rem;font-weight:700;margin-left:10px;letter-spacing:0}
-nav.gnb a{font-weight:700;text-decoration:none;margin-left:26px;font-size:.95rem}
-.hero{background:var(--y);border-bottom:3px solid var(--k)}
-.hero .wrap{display:grid;grid-template-columns:1.25fr .75fr;min-height:680px}
-.hero-l{padding:44px 40px 44px 0;border-right:3px solid var(--k);display:flex;flex-direction:column;justify-content:space-between}
-.tag{display:inline-block;background:var(--k);color:var(--y);font-weight:800;padding:6px 12px;font-size:.88rem}
-.hero h1{font-family:var(--head);font-weight:400;font-size:clamp(2.6rem,6vw,4.6rem);line-height:1.06;margin:18px 0 14px;letter-spacing:-.03em}
-.hero h1 em{font-style:normal;background:var(--k);color:var(--y);padding:0 .12em}
-.hero p.lead{font-size:1.08rem;font-weight:600;max-width:34em;margin:0}
-.call{margin-top:28px;display:block;background:var(--k);color:var(--y);text-decoration:none;padding:20px 26px 18px;position:relative}
-.call small{display:block;color:#fff;font-weight:700;font-size:.92rem}
-.call b{display:block;font-family:var(--head);font-weight:400;font-size:clamp(2.2rem,5.6vw,4.6rem);line-height:1.08;font-variant-numeric:tabular-nums;white-space:nowrap}
-.call i{position:absolute;right:22px;top:20px;font-style:normal;color:#fff;font-size:.82rem;font-weight:700;border:1px solid #fff;padding:3px 8px}
-.hero-r{padding:40px 0 40px 36px;display:flex;flex-direction:column}
-.hero-r h2{font-family:var(--head);font-weight:400;font-size:1.35rem;margin:0 0 14px}
-.sym{list-style:none;margin:0;padding:0;border-top:3px solid var(--k)}
-.sym li{display:grid;grid-template-columns:44px 1fr;gap:10px;border-bottom:2px solid var(--k);padding:14px 0}
-.sym li b{font-family:var(--head);font-weight:400;font-size:1.6rem;line-height:1}
-.sym li strong{display:block;font-size:1.02rem}
-.sym li span{font-size:.9rem;font-weight:500}
-.hours{margin:auto 0 0;padding-top:20px;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-weight:700;font-size:.95rem}
-.hours dt{background:var(--k);color:var(--y);padding:2px 8px;font-size:.8rem;align-self:center}
-.hours dd{margin:0}
-section{padding:96px 0}
-.sh{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:40px;border-bottom:3px solid currentColor;padding-bottom:16px}
-.sh h2{font-family:var(--head);font-weight:400;font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.08;margin:0;letter-spacing:-.02em}
-.sh p{margin:0;max-width:30em;font-weight:500;color:var(--muted)}
-.dark{background:var(--k);color:#fff}.dark .sh p{color:#bdbdb6}
-.gray{background:var(--g)}
-.svc{display:grid;grid-template-columns:repeat(2,1fr);border-top:2px solid var(--k)}
-.svc article{padding:30px 32px 32px 0;border-bottom:2px solid var(--k);display:grid;grid-template-columns:120px 1fr;gap:20px}
-.svc article:nth-child(odd){border-right:2px solid var(--k)}
-.svc article:nth-child(even){padding-left:32px}
-.svc .ic{width:120px;height:120px;background:var(--y);display:grid;place-items:center;border:2px solid var(--k)}
-.svc h3{font-family:var(--head);font-weight:400;font-size:1.7rem;margin:0 0 6px}
-.svc p{margin:0 0 10px}
-.svc ul{margin:0;padding:0;list-style:none;font-size:.92rem;color:var(--muted)}
-.svc ul li::before{content:'';display:inline-block;width:6px;height:6px;background:var(--k);margin-right:8px;vertical-align:middle}
-.svc .how{font-size:.85rem;font-weight:800;background:var(--k);color:var(--y);display:inline-block;padding:3px 8px;margin-top:10px}
-.area-grid{display:grid;grid-template-columns:repeat(6,1fr);border-left:2px solid var(--y);border-top:2px solid var(--y)}
-.area-grid div{border-right:2px solid var(--y);border-bottom:2px solid var(--y);padding:20px 16px;font-weight:800;font-size:1.15rem}
-.area-grid div small{display:block;font-weight:500;color:#9b9b94;font-size:.78rem}
-.area-grid div.on{background:var(--y);color:var(--k)}.area-grid div.on small{color:var(--k)}
-.area-note{margin-top:22px;color:#cfcfc8;font-size:.95rem}
-.area-note b{color:var(--y)}
-.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);counter-reset:s}
-.steps li{counter-increment:s;padding:0 24px 0 0;position:relative}
-.steps li::before{content:counter(s);display:block;font-family:var(--head);font-size:5.4rem;line-height:1;margin-bottom:10px}
-.steps li:not(:last-child)::after{content:'';position:absolute;left:70px;right:18px;top:40px;height:6px;background:repeating-linear-gradient(90deg,var(--k) 0 14px,transparent 14px 22px)}
-.steps h3{font-size:1.15rem;margin:0 0 6px;font-weight:800}
-.steps p{margin:0;font-size:.95rem}
-.money{display:grid;grid-template-columns:1fr 1fr;border:3px solid var(--k);background:var(--w)}
-.money > div{padding:32px}
-.money > div:first-child{background:var(--y);border-right:3px solid var(--k)}
-.money h3{font-family:var(--head);font-weight:400;font-size:1.6rem;margin:0 0 14px}
-.money dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:10px 18px}
-.money dt{font-weight:800}.money dd{margin:0}
-.faq details{border-bottom:2px solid var(--k)}
-.faq details:first-child{border-top:3px solid var(--k)}
-.faq summary{list-style:none;cursor:pointer;padding:22px 50px 22px 0;font-weight:800;font-size:1.12rem;position:relative}
+body{font-family:var(--sans);font-size:17px;line-height:1.65;color:var(--ink);background:#fff;word-break:keep-all;overflow-x:hidden}
+a{color:inherit}img{display:block;max-width:100%}
+.w{max-width:1200px;margin:0 auto;padding:0 32px}
+.tb{background:var(--dk);color:#d9d9d9;font-size:14px}
+.tb .w{display:flex;justify-content:space-between;align-items:center;height:40px;gap:16px}
+.tb b{color:var(--acc2)}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+header .w{display:flex;align-items:center;height:80px;gap:30px}
+.logo{font-family:var(--head);font-weight:var(--hw);font-size:30px;line-height:1;text-decoration:none;white-space:nowrap;letter-spacing:-.02em}
+.logo i{font-style:normal;color:var(--mark)}
+.gnb{display:flex;gap:28px;margin-left:auto;font-weight:700;font-size:17px}
+.gnb a{text-decoration:none}
+.hcall{background:var(--btn);color:var(--btnt);text-decoration:none;padding:9px 20px;border-radius:var(--r);line-height:1.25;white-space:nowrap}
+.hcall small{display:block;font-size:13px;font-weight:700;opacity:.85}
+.hcall b{font-size:21px;font-weight:800}
+/* hero */
+.hero{position:relative;color:#fff;background:#333 center/cover no-repeat}
+.hero .in{position:relative;min-height:620px;display:flex;flex-direction:column;justify-content:center;padding:56px 0}
+.hero.full::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,10,.86) 0%,rgba(10,10,10,.7) 42%,rgba(10,10,10,.15) 78%)}
+.chip{align-self:flex-start;background:var(--acc);color:var(--on);font-weight:800;font-size:18px;padding:6px 16px;border-radius:var(--r)}
+.hero h1{font-family:var(--head);font-weight:var(--hw);font-size:clamp(38px,5.4vw,74px);line-height:1.14;letter-spacing:-.03em;margin:20px 0 22px}
+.hero h1 em{font-style:normal;color:var(--hl)}
+.pts{list-style:none;margin:0 0 32px;padding:0;font-size:21px;font-weight:700}
+.pts li{position:relative;padding-left:36px;margin:7px 0}
+.pts li::before{content:'';position:absolute;left:7px;top:.22em;width:9px;height:16px;border:solid var(--chk);border-width:0 4px 4px 0;transform:rotate(45deg)}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+.tel{display:block;background:var(--btn);color:var(--btnt);text-decoration:none;padding:14px 28px 12px;border-radius:var(--r)}
+.tel small{display:block;font-size:16px;font-weight:700;opacity:.9}
+.tel b{display:block;font-family:var(--head);font-weight:var(--hw);font-size:clamp(28px,3.4vw,46px);line-height:1.15;white-space:nowrap}
+.kakao{display:flex;align-items:center;justify-content:center;background:#fee500;color:#191919;text-decoration:none;font-weight:800;font-size:21px;padding:14px 30px;border-radius:var(--r)}
+/* split hero */
+.hero.split{display:grid;grid-template-columns:1.05fr .95fr;background:var(--panel);color:var(--ptext)}
+.hero.split .in{padding:56px 56px 56px max(32px,calc((100vw - 1200px)/2 + 32px))}
+.hero.split h1,.hero.box h1{font-size:clamp(36px,4.1vw,54px)}
+.hero.split .pts,.hero.box .pts{font-size:19px;margin-bottom:28px}
+.hero.split .tel b,.hero.box .tel b{font-size:clamp(26px,2.6vw,34px)}
+.hero.split .kakao,.hero.box .kakao{padding:12px 24px}
+.hero.split .ph{background:center/cover no-repeat;min-height:620px}
+.hero.split.rev .ph{order:-1}
+.hero.split.rev .in{padding:56px max(32px,calc((100vw - 1200px)/2 + 32px)) 56px 56px}
+/* light boxed hero */
+.hero.box .in{align-items:flex-start}
+.hero.box .card{background:rgba(255,255,255,.95);color:var(--ink);padding:40px 44px;max-width:640px;border-top:8px solid var(--acc)}
+.hero.box .card .pts{color:var(--ink)}
+/* strengths */
+.str{background:var(--sb);color:var(--st)}
+.str .w{display:grid;grid-template-columns:repeat(4,1fr)}
+.str div.it{padding:38px 26px;border-left:1px solid var(--sl)}
+.str div.it:first-child{border-left:0;padding-left:0}
+.str strong{display:block;font-family:var(--head);font-weight:var(--hw);font-size:38px;line-height:1.15;color:var(--sn)}
+.str span{display:block;font-size:20px;font-weight:800;margin-top:4px}
+.str p{margin:8px 0 0;font-size:16px;opacity:.82}
+/* sections */
+section{padding:100px 0}
+.lt{background:var(--lt)}
+.sh{margin-bottom:44px;max-width:760px}
+.sh .k{display:block;color:var(--kc);font-weight:800;font-size:18px;margin-bottom:8px}
+.sh h2{font-family:var(--head);font-weight:var(--hw);font-size:clamp(30px,3.6vw,46px);line-height:1.2;letter-spacing:-.02em;margin:0}
+.sh p{margin:14px 0 0;font-size:18px;color:var(--mut)}
+.svc{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:stretch}
+.svc .ph{background:center/cover no-repeat;border-radius:var(--r);min-height:520px}
+.svc ol{list-style:none;margin:0;padding:0;counter-reset:s}
+.svc li{counter-increment:s;display:grid;grid-template-columns:64px 1fr;gap:4px 18px;padding:24px 0;border-bottom:1px solid var(--line)}
+.svc li:first-child{padding-top:0}
+.svc li::before{content:counter(s,decimal-leading-zero);grid-row:span 2;font-family:var(--head);font-weight:var(--hw);font-size:36px;line-height:1.1;color:var(--kc)}
+.svc h3{margin:0;font-size:24px;font-weight:800;line-height:1.35}
+.svc p{margin:0;color:var(--mut)}
+.gal{display:grid;grid-template-columns:repeat(var(--gn,2),1fr);gap:20px;margin-top:56px}
+.gal figure{margin:0}
+.gal .ph{aspect-ratio:4/3;background:center/cover no-repeat;border-radius:var(--r)}
+.gal figcaption{font-weight:800;font-size:19px;margin-top:12px}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(var(--sn2,4),1fr);gap:22px;counter-reset:p}
+.steps li{counter-increment:p;background:#fff;padding:30px 26px;border-radius:var(--r);border:1px solid var(--line)}
+.steps li::before{content:counter(p);display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:var(--rc);background:var(--acc);color:var(--on);font-family:var(--head);font-weight:var(--hw);font-size:28px;margin-bottom:18px}
+.steps h3{margin:0 0 8px;font-size:22px;font-weight:800}
+.steps p{margin:0;font-size:16px;color:var(--mut)}
+.area{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.dongs{display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--ink);margin-top:8px}
+.dongs div{padding:16px 4px;border-bottom:1px solid var(--line);font-weight:800;font-size:19px}
+.dongs div.on{color:var(--kc)}
+.area .side{border-radius:var(--r);min-height:440px;background:center/cover no-repeat}
+.area .big{background:var(--acc);color:var(--on);display:flex;flex-direction:column;justify-content:center;padding:44px}
+.area .big b{font-family:var(--head);font-weight:var(--hw);font-size:clamp(34px,4vw,54px);line-height:1.15}
+.area .big span{font-size:19px;font-weight:700;margin-top:14px}
+.area .big .atel{margin-top:26px;font-family:var(--head);font-weight:var(--hw);font-size:clamp(24px,2.6vw,34px);text-decoration:none;white-space:nowrap}
+.anote{margin:22px 0 0;color:var(--mut)}
+.faq{max-width:900px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq details:first-child{border-top:2px solid var(--ink)}
+.faq summary{list-style:none;cursor:pointer;padding:24px 48px 24px 0;font-size:20px;font-weight:800;position:relative}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::before{content:'Q';font-family:var(--head);background:var(--y);padding:0 8px;margin-right:14px;font-weight:400}
-.faq summary::after{content:'+';position:absolute;right:6px;top:14px;font-size:1.8rem;font-weight:400}
+.faq summary::before{content:'Q.';color:var(--kc);margin-right:10px;font-family:var(--head)}
+.faq summary::after{content:'+';position:absolute;right:8px;top:18px;font-size:30px;font-weight:400}
 .faq details[open] summary::after{content:'−'}
-.faq details p{margin:0 0 24px 44px;max-width:52em}
-.band{background:var(--y);border-top:3px solid var(--k);padding:56px 0}
-.band .wrap{display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap}
-.band h2{font-family:var(--head);font-weight:400;font-size:clamp(1.8rem,4vw,2.8rem);margin:0;line-height:1.12}
-.band a{font-family:var(--head);font-size:clamp(1.6rem,4vw,3rem);background:var(--k);color:var(--y);padding:12px 22px;text-decoration:none;white-space:nowrap}
-footer{background:var(--k);color:#bdbdb6;padding:48px 0 60px;font-size:.9rem}
-footer .biz{display:flex;flex-wrap:wrap;gap:6px 22px;margin-bottom:22px}
-footer .biz b{color:#fff}
-footer .note{border-top:1px solid #333;padding-top:18px;margin:0}
-footer .note b{color:var(--y)}footer .note a{color:var(--y);font-weight:700}
-.badge{position:fixed;left:12px;bottom:12px;z-index:50;background:#fff;color:var(--k);border:2px solid var(--k);font-size:.72rem;font-weight:800;padding:3px 8px}
+.faq details p{margin:0 0 26px;padding-left:34px;color:var(--mut);font-size:17px}
+.cta{position:relative;color:#fff;background:#222 center/cover no-repeat;padding:96px 0;text-align:center}
+.cta::before{content:'';position:absolute;inset:0;background:var(--ctao)}
+.cta .w{position:relative}
+.cta h2{font-family:var(--head);font-weight:var(--hw);font-size:clamp(30px,4vw,50px);line-height:1.2;margin:0 0 14px}
+.cta p{margin:0 0 30px;font-size:19px;opacity:.9}
+.cta .ctas{justify-content:center}
+.story{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.story h3{font-family:var(--head);font-weight:var(--hw);font-size:30px;line-height:1.3;margin:0 0 16px}
+.story p{margin:0 0 14px}
+.story dl{display:grid;grid-template-columns:auto 1fr;gap:10px 20px;margin:20px 0 0;padding:22px 24px;background:var(--lt);border-radius:var(--r)}
+.story dt{font-weight:800}.story dd{margin:0}
+footer{background:var(--fb);color:#b9b9b9;padding:52px 0 64px;font-size:15px}
+footer .fl{font-family:var(--head);font-weight:var(--hw);font-size:26px;color:#fff;margin-bottom:14px}
+footer .biz{margin:0 0 6px}
+footer .note{border-top:1px solid rgba(255,255,255,.15);margin:24px 0 0;padding-top:20px}
+footer .note b{color:#fff}footer .note a{color:var(--acc2);font-weight:700}
+.badge{position:fixed;right:14px;bottom:14px;z-index:50;background:#fff;color:#111;border:2px solid #111;font-size:13px;font-weight:800;padding:3px 10px}
 .mbar{display:none}
-@media (prefers-reduced-motion:reduce){.strip-in{animation:none}}
-@media (max-width:900px){
-  .wrap{padding:0 18px}
-  nav.gnb{display:none}
-  .hero .wrap{grid-template-columns:1fr;min-height:0}
-  .hero-l{border-right:0;padding:28px 0;border-bottom:3px solid var(--k)}
-  .hero-r{padding:28px 0 32px}
-  .call{padding:16px 18px}
-  .call b{font-size:1.6rem}
-  .svc article:nth-child(odd){border-right:0}
-  .call i{position:static;display:inline-block;margin-top:8px}
-  section{padding:64px 0}
-  .sh{display:block}.sh p{margin-top:10px}
-  .svc{grid-template-columns:1fr}
-  .svc article,.svc article:nth-child(even){padding:24px 0;border-right:0;grid-template-columns:72px 1fr;gap:16px}
-  .svc .ic{width:72px;height:72px}.svc .ic svg{width:40px;height:40px}
-  .area-grid{grid-template-columns:repeat(3,1fr)}
-  .area-grid div{padding:14px 10px;font-size:1rem}
-  .steps{grid-template-columns:1fr 1fr;gap:34px 0}
-  .steps li::after{display:none}
-  .steps li::before{font-size:3.6rem}
-  .money{grid-template-columns:1fr}.money > div:first-child{border-right:0;border-bottom:3px solid var(--k)}.money > div{padding:24px}
-  .faq details p{margin-left:0}
-  body{padding-bottom:58px}
-  .mbar{display:grid;grid-template-columns:1.4fr 1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:60;border-top:3px solid var(--k)}
-  .mbar a{text-align:center;padding:14px 4px;font-weight:800;text-decoration:none;font-size:.95rem}
-  .mbar a:nth-child(1){background:var(--k);color:var(--y)}
-  .mbar a:nth-child(2){background:var(--y);color:var(--k);border-right:2px solid var(--k)}
-  .mbar a:nth-child(3){background:#fff;color:var(--k)}
-  .badge{bottom:auto;top:52px;left:auto;right:10px}
+@media (max-width:1000px){
+ .gnb{display:none}.hcall{margin-left:auto}
+ .str .w{grid-template-columns:1fr 1fr}
+ .str div.it:nth-child(3){border-left:0;padding-left:0}
+ .str div.it{border-top:1px solid var(--sl)}
+ .str div.it:nth-child(-n+2){border-top:0}
+ .steps{grid-template-columns:1fr 1fr}
 }
-</style>
+@media (max-width:760px){
+ body{font-size:16px;padding-bottom:60px}
+ .w{padding:0 18px}
+ .tb .w{height:36px;font-size:13px}.tb .r{display:none}
+ header .w{height:64px;gap:12px}
+ .logo{font-size:24px}
+ .hcall{padding:7px 12px}.hcall small{display:none}.hcall b{font-size:16px}
+ .hero .in{min-height:0;padding:40px 0 44px}
+ .hero h1{font-size:36px;margin:16px 0}
+ .chip{font-size:15px}
+ .pts{font-size:18px;margin-bottom:24px}
+ .tel{width:100%;padding:12px 18px}.tel b{font-size:30px}
+ .kakao{width:100%;font-size:19px}
+ .hero.split{grid-template-columns:1fr}
+ .hero.split .in,.hero.split.rev .in{padding:36px 18px 40px}
+ .hero.split .ph{min-height:240px;order:-1}
+ .hero.box .in{padding:180px 18px 0}
+ .hero.box .card{padding:28px 18px;margin:0 -18px;max-width:none}
+ .hero.split .tel b,.hero.box .tel b,.tel b{font-size:clamp(24px,7.2vw,30px)}
+ .str div.it{padding:24px 12px 24px 14px}
+ .str div.it:nth-child(odd){padding-left:0;border-left:0}
+ .str strong{font-size:28px}.str span{font-size:17px}.str p{font-size:15px}
+ section{padding:64px 0}
+ .svc,.area,.story{grid-template-columns:1fr;gap:32px}
+ .svc .ph{min-height:260px}
+ .svc li{grid-template-columns:48px 1fr}.svc li::before{font-size:28px}.svc h3{font-size:20px}
+ .gal{grid-template-columns:1fr;margin-top:36px}
+ .steps{grid-template-columns:1fr}
+ .dongs{grid-template-columns:1fr 1fr}
+ .area .side{min-height:260px}
+ .faq summary{font-size:18px}
+ .faq details p{padding-left:0}
+ .cta{padding:64px 0}
+ .badge{bottom:68px;right:auto;left:10px;font-size:13px}
+ .mbar{display:grid;grid-template-columns:1.3fr 1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:60;height:58px}
+ .mbar a{display:flex;align-items:center;justify-content:center;text-decoration:none;font-weight:800;font-size:16px}
+ .mbar a:nth-child(1){background:var(--btn);color:var(--btnt)}
+ .mbar a:nth-child(2){background:#fee500;color:#191919}
+ .mbar a:nth-child(3){background:var(--dk);color:#fff}
+}
+header{border-bottom:4px solid #111}.logo i{background:#ffd400;padding:0 6px;margin-right:2px}.sh .k{display:inline-block;background:#111;color:#ffd400;padding:2px 10px;font-size:16px}.steps li::before{border:2px solid #111}</style>
 </head>
 <body>
-<div class="strip" aria-hidden="true"><div class="strip-in">
-<span>24시간 상담 · 야간·주말 접수</span><span>장안구 정자동에서 출발</span><span>싱크대 · 변기 · 욕실 배수구 · 우수관</span><span>작업 전 금액 먼저 안내</span>
-<span>24시간 상담 · 야간·주말 접수</span><span>장안구 정자동에서 출발</span><span>싱크대 · 변기 · 욕실 배수구 · 우수관</span><span>작업 전 금액 먼저 안내</span>
-</div></div>
-<header class="top"><div class="wrap">
-<a class="logo" href="#">○○하수구<small>수원 장안구 정자동</small></a>
-<nav class="gnb"><a href="#svc">막힘 증상</a><a href="#area">출동 지역</a><a href="#step">작업 순서</a><a href="#faq">자주 묻는 질문</a></nav>
+<div class="tb"><div class="w"><span>수원 장안구 하수구·변기·싱크대 막힘 · 24시간 상담</span><span class="r">상담 전화 <b>010-○○○○-○○○○</b></span></div></div>
+<header><div class="w">
+<a class="logo" href="#"><i>○○</i>하수구</a>
+<nav class="gnb"><a href="#">막힘 증상</a><a href="#">작업 과정</a><a href="#">출동 지역</a><a href="#">자주 묻는 질문</a></nav>
+<a class="hcall" href="#"><small>24시간 상담</small><b>010-○○○○-○○○○</b></a>
 </div></header>
-
-<section class="hero" style="padding:0"><div class="wrap">
-<div class="hero-l">
-<div>
-<span class="tag">수원 장안구 하수구막힘 · 배관 뚫음</span>
-<h1>물이 안 내려가면<br><em>전화부터</em> 주세요</h1>
-<p class="lead">정자동에서 출발해 장안구 전 지역을 다닙니다. 막힌 위치와 증상을 듣고 필요한 장비를 싣고 나가며, 작업 전에 금액을 먼저 말씀드립니다.</p>
-</div>
-<a class="call" href="#"><small>24시간 상담 전화</small><b>010-○○○○-○○○○</b><i>문자로 사진 보내셔도 됩니다</i></a>
-</div>
-<div class="hero-r">
-<h2>지금 어떤 상태인가요</h2>
-<ul class="sym">
-<li><b>01</b><div><strong>싱크대 물이 고여 있다</strong><span>기름·음식물 찌꺼기가 굳은 경우가 많습니다</span></div></li>
-<li><b>02</b><div><strong>변기 물이 차오른다</strong><span>물티슈·이물질, 오수관 막힘 확인</span></div></li>
-<li><b>03</b><div><strong>욕실 바닥 물이 안 빠진다</strong><span>머리카락·비누때가 쌓인 배수구</span></div></li>
-<li><b>04</b><div><strong>비 오면 마당·주차장이 잠긴다</strong><span>우수관·빗물받이 토사 적체</span></div></li>
-</ul>
-<dl class="hours"><dt>상담</dt><dd>24시간 · 연중</dd><dt>출동</dt><dd>장안구 전 지역 · 인접 구는 문의</dd></dl>
-</div>
+<section class="hero full" style="padding:0;background-image:url(/sample/hasugu/hero.jpg);background-position:70% center"><div class="w in"><span class="chip">장안구 하수구막힘 · 24시간 출동</span><h1>막힌 배수구,<br><em>오늘 뚫어 드립니다</em></h1><ul class="pts"><li>싱크대 · 변기 · 욕실 배수구 · 우수관</li><li>현장 확인 후 작업 전 금액 안내</li><li>뚫은 뒤 물 흘려 확인하고 마무리</li></ul><div class="ctas"><a class="tel" href="#"><small>지금 바로 전화 주세요</small><b>010-○○○○-○○○○</b></a><a class="kakao" href="#">카톡 상담</a></div></div></section>
+<div class="str"><div class="w"><div class="it"><strong>24시간</strong><span>상담 접수</span><p>야간·주말에도 전화를 받습니다</p></div><div class="it"><strong>작업 전</strong><span>금액 안내</span><p>말씀드린 금액에서 바꾸지 않습니다</p></div><div class="it"><strong>장안구</strong><span>직접 출동</span><p>정자동에서 출발합니다</p></div><div class="it"><strong>작업 후</strong><span>사진 보고</span><p>작업 전·후 사진을 보내 드립니다</p></div></div></div>
+<section id="svc"><div class="w">
+<div class="sh"><span class="k">서비스 안내</span><h2>막힌 곳마다 작업이 다릅니다</h2><p>증상을 알려 주시면 맞는 장비를 싣고 출발합니다.</p></div>
+<div class="svc"><div class="ph" style="background-image:url(/sample/hasugu/work.jpg)" role="img" aria-label="싱크대 아래 배관 작업"></div><ol><li><h3>싱크대 막힘</h3><p>기름과 음식물 찌꺼기가 굳은 배관을 스프링 장비로 뚫고, 반복되면 고압 세척을 안내합니다.</p></li><li><h3>변기 막힘</h3><p>물티슈·이물질이 걸렸는지 먼저 보고, 필요하면 변기를 떼어 이물질을 꺼낸 뒤 다시 고정합니다.</p></li><li><h3>욕실·세탁실 배수구</h3><p>머리카락과 비누때가 엉킨 트랩을 청소하고 바닥 배관까지 뚫습니다.</p></li><li><h3>우수관·빗물받이</h3><p>마당·주차장·옥상 드레인에 쌓인 토사와 낙엽을 걷어 내고 관로를 세척합니다.</p></li></ol></div>
+<div class="gal" style="--gn:2"><figure><div class="ph" style="background-image:url(/sample/hasugu/sink.jpg)" role="img" aria-label="싱크대 배수구 점검"></div><figcaption>싱크대 배수구 점검</figcaption></figure><figure><div class="ph" style="background-image:url(/sample/hasugu/floor-drain.jpg)" role="img" aria-label="욕실 바닥 배수구 청소"></div><figcaption>욕실 바닥 배수구 청소</figcaption></figure></div>
 </div></section>
-
-<section id="svc"><div class="wrap">
-<div class="sh"><h2>막힌 곳마다<br>작업이 다릅니다</h2><p>같은 막힘이라도 원인과 장비가 다릅니다. 증상을 알려 주시면 맞는 장비를 정해 출발합니다.</p></div>
-<div class="svc">
-<article><div class="ic"><svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#111" stroke-width="3"><path d="M6 26h52v6H6z"/><path d="M14 32v6a18 18 0 0 0 36 0v-6"/><path d="M32 56v6M44 26V12a6 6 0 0 0-12 0"/></svg></div>
-<div><h3>싱크대 막힘</h3><p>주방 배수관 안쪽에 기름이 굳어 관이 좁아진 경우가 대부분입니다.</p><ul><li>트랩 분해 후 내부 청소</li><li>스프링 장비로 벽체 안쪽 배관 관통</li><li>반복되면 고압 세척 여부 설명</li></ul><span class="how">스프링 · 고압세척</span></div></article>
-<article><div class="ic"><svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#111" stroke-width="3"><path d="M16 6h22v18H16z"/><path d="M10 24h44c0 14-9 22-22 22S10 38 10 24z"/><path d="M22 46l-2 12h24l-2-12"/></svg></div>
-<div><h3>변기 막힘</h3><p>물티슈·위생용품이 걸렸는지, 변기 아래 오수관 문제인지 먼저 구분합니다.</p><ul><li>관통기로 1차 개통</li><li>이물질이 걸린 경우 변기 탈착 후 제거</li><li>재설치 시 실리콘·고정 마감</li></ul><span class="how">관통기 · 변기 탈착</span></div></article>
-<article><div class="ic"><svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#111" stroke-width="3"><circle cx="32" cy="32" r="22"/><circle cx="32" cy="32" r="8"/><path d="M32 10v14M32 40v14M10 32h14M40 32h14"/></svg></div>
-<div><h3>욕실·세탁실 배수구</h3><p>머리카락과 비누때가 엉켜 배수가 점점 느려지다 막힙니다.</p><ul><li>배수구 트랩·거름망 분리 청소</li><li>바닥 배관 스프링 작업</li><li>세탁기 배수 역류 점검</li></ul><span class="how">스프링 · 트랩 청소</span></div></article>
-<article><div class="ic"><svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#111" stroke-width="3"><path d="M8 14h48v10H8z"/><path d="M14 24v8M22 24v8M30 24v8M38 24v8M46 24v8"/><path d="M20 40h24v18H20z"/><path d="M8 40h12M44 40h12"/></svg></div>
-<div><h3>우수관·빗물받이</h3><p>주택 마당, 상가 주차장, 옥상 드레인에 낙엽과 토사가 쌓이는 경우입니다.</p><ul><li>빗물받이 뚜껑 열고 토사 제거</li><li>고압 세척으로 관로 내부 개통</li><li>필요 시 내시경으로 막힌 위치 확인</li></ul><span class="how">고압세척 · 내시경</span></div></article>
-</div>
+<section id="step" class="lt"><div class="w">
+<div class="sh"><span class="k">작업 과정</span><h2>전화 한 통이면 됩니다</h2><p>도착해서 상태를 보고 금액을 말씀드린 뒤, 동의하시면 작업을 시작합니다.</p></div>
+<ol class="steps" style="--sn2:4"><li><h3>전화·문자 접수</h3><p>막힌 곳과 건물 종류를 알려 주세요. 사진이 있으면 더 정확합니다.</p></li><li><h3>장비 싣고 출동</h3><p>증상에 맞춰 스프링·관통기·고압세척기를 싣고 갑니다.</p></li><li><h3>현장 확인·금액 안내</h3><p>막힌 위치를 보고 작업 범위와 금액을 먼저 말씀드립니다.</p></li><li><h3>개통 후 확인</h3><p>물을 충분히 흘려 확인하고 주변 정리 후 마칩니다.</p></li></ol>
 </div></section>
-
-<section id="area" class="dark"><div class="wrap">
-<div class="sh" style="border-color:var(--y)"><h2 style="color:var(--y)">장안구 출동 지역</h2><p>정자동 사무실에서 출발합니다. 아래 동은 모두 같은 기준으로 다닙니다.</p></div>
-<div class="area-grid">
-<div class="on">정자동<small>출발지</small></div>
-<div>천천동<small>성균관대역 일대</small></div>
-<div>율전동<small>성대 자연과학캠퍼스</small></div>
-<div>조원동<small>장안구청 일대</small></div>
-<div>파장동<small>파장시장 일대</small></div>
-<div>영화동<small>장안문 북쪽</small></div>
-<div>송죽동<small>만석공원 인근</small></div>
-<div>이목동<small>북수원 IC 방면</small></div>
-<div>연무동<small>광교산 방면</small></div>
-<div>상광교동<small>광교저수지 위쪽</small></div>
-<div>하광교동<small>광교산 입구</small></div>
-<div>장안동<small>화성행궁 북쪽</small></div>
-</div>
-<p class="area-note">아파트·빌라·단독주택·상가 모두 갑니다. <b>권선구·팔달구 인접 동</b>은 전화로 출동 가능 여부를 먼저 확인해 주세요.</p>
+<section id="area"><div class="w area">
+<div><div class="sh" style="margin-bottom:28px"><span class="k">출동 지역</span><h2>장안구 전 지역 출동</h2></div>
+<div class="dongs"><div class="on">정자동</div><div>천천동</div><div>율전동</div><div>조원동</div><div>파장동</div><div>영화동</div><div>송죽동</div><div>이목동</div><div>연무동</div></div><p class="anote">아파트·빌라·단독주택·상가 모두 갑니다. 권선구·팔달구 인접 동은 전화로 먼저 확인해 주세요.</p></div>
+<div class="side big"><b>수원 장안구<br>하수구막힘</b><span>정자동 출발 · 24시간 상담</span><a class="atel" href="#">010-○○○○-○○○○</a></div>
 </div></section>
-
-<section id="step"><div class="wrap">
-<div class="sh"><h2>전화 후 진행 순서</h2><p>도착해서 상태를 보고 금액을 말씀드린 뒤, 동의하시면 작업을 시작합니다.</p></div>
-<ol class="steps">
-<li><h3>전화·문자 접수</h3><p>막힌 곳, 언제부터인지, 건물 종류를 알려 주세요. 사진이 있으면 더 정확합니다.</p></li>
-<li><h3>장비 싣고 출동</h3><p>증상에 맞춰 스프링·관통기·고압세척기를 싣고 갑니다.</p></li>
-<li><h3>현장 확인·금액 안내</h3><p>막힌 위치를 확인하고 작업 범위와 금액을 먼저 말씀드립니다.</p></li>
-<li><h3>개통 후 물 흘려 확인</h3><p>뚫은 뒤 물을 충분히 흘려 확인하고, 주변 정리 후 마칩니다.</p></li>
-</ol>
+<section id="faq" class="lt"><div class="w">
+<div class="sh"><span class="k">자주 묻는 질문</span><h2>전화로 많이 받는 질문</h2></div>
+<div class="faq"><details open><summary>밤 12시가 넘었는데도 오나요?</summary><p>상담 전화는 24시간 받습니다. 심야에는 출동 가능 시간을 통화로 먼저 말씀드리고, 급하지 않으면 다음 날 오전으로 잡아 드리기도 합니다.</p></details><details><summary>뚫어뻥이나 세정제를 써 봤는데 괜찮나요?</summary><p>괜찮습니다. 다만 강한 세정제를 부었다면 통화할 때 말씀해 주세요. 배관 안에 남아 있으면 작업 방법이 달라집니다.</p></details><details><summary>아파트 아랫집까지 역류했어요.</summary><p>공용 배관이 막혔을 수 있습니다. 관리사무소에 먼저 알리시고, 세대 쪽 작업이 필요한지 같이 확인해 드립니다.</p></details><details><summary>뚫고 나서 또 막히면요?</summary><p>같은 원인으로 다시 막히면 연락 주세요. 기름이 많이 굳은 주방 배관처럼 반복되는 경우에는 고압 세척이 필요한지 설명드립니다.</p></details><details><summary>카드 결제나 현금영수증 되나요?</summary><p>카드 결제, 계좌 이체 모두 되고 현금영수증도 발행합니다.</p></details></div>
 </div></section>
-
-<section class="gray"><div class="wrap">
-<div class="sh"><h2>금액은 이렇게 정해집니다</h2><p>정찰 가격표 대신 현장 기준으로 안내합니다. 작업 전에 말씀드린 금액에서 바꾸지 않습니다.</p></div>
-<div class="money">
-<div><h3>금액에 영향을 주는 것</h3><dl><dt>막힌 위치</dt><dd>트랩 가까이 / 벽체 안쪽 / 공용 배관</dd><dt>사용 장비</dt><dd>스프링, 고압세척, 변기 탈착 여부</dd><dt>시간대</dt><dd>야간·휴일 출동 여부</dd></dl></div>
-<div><h3>전화할 때 알려 주시면 좋은 것</h3><dl><dt>건물</dt><dd>아파트 몇 층 / 빌라 / 단독 / 상가</dd><dt>증상</dt><dd>완전히 막힘 / 천천히 빠짐 / 역류</dd><dt>이전 작업</dt><dd>최근에 뚫은 적이 있는지</dd></dl></div>
-</div>
+<section class="cta" style="background-image:url(/sample/hasugu/sink.jpg)"><div class="w">
+<h2>물이 안 내려가면 전화부터 주세요</h2><p>막힌 곳 사진을 카톡으로 보내 주시면 더 빨리 안내해 드립니다.</p><div class="ctas"><a class="tel" href="#"><small>지금 바로 전화 주세요</small><b>010-○○○○-○○○○</b></a><a class="kakao" href="#">카톡 상담</a></div>
 </div></section>
-
-<section id="faq"><div class="wrap">
-<div class="sh"><h2>자주 묻는 질문</h2><p>전화로 가장 많이 받는 질문입니다.</p></div>
-<div class="faq">
-<details open><summary>밤 12시가 넘었는데도 오나요?</summary><p>상담 전화는 24시간 받습니다. 심야에는 출동 가능 시간을 통화로 먼저 말씀드리고, 급하지 않으면 다음 날 오전으로 잡아 드리기도 합니다.</p></details>
-<details><summary>뚫어뻥이나 세정제를 써 봤는데 괜찮나요?</summary><p>괜찮습니다. 다만 강한 세정제를 부었다면 통화할 때 말씀해 주세요. 배관 안에 남아 있으면 작업 방법이 달라집니다.</p></details>
-<details><summary>아파트 아랫집까지 역류했어요.</summary><p>세대 안 배관이 아니라 공용 배관이 막혔을 수 있습니다. 관리사무소에 먼저 알리시고, 세대 쪽 작업이 필요한지 같이 확인해 드립니다.</p></details>
-<details><summary>뚫고 나서 또 막히면요?</summary><p>같은 원인으로 다시 막히면 연락 주세요. 기름이 많이 굳은 주방 배관처럼 반복되는 경우에는 고압 세척이 필요한지 함께 설명드립니다.</p></details>
-<details><summary>카드 결제나 현금영수증 되나요?</summary><p>카드 결제, 계좌 이체 모두 되고 현금영수증도 발행합니다.</p></details>
-</div>
-</div></section>
-
-<div class="band"><div class="wrap"><h2>장안구 하수구막힘<br>24시간 상담</h2><a href="#">010-○○○○-○○○○</a></div></div>
-
-<footer><div class="wrap">
-<div class="biz"><span><b>○○하수구</b></span><span>경기 수원시 장안구 정자동</span><span>대표전화 010-○○○○-○○○○</span><span>사업자등록번호 ○○○-○○-○○○○○</span></div>
+<footer><div class="w">
+<div class="fl">○○하수구</div>
+<p class="biz">상호 ○○하수구 · 대표 ○○○ · 사업자등록번호 ○○○-○○-○○○○○</p>
+<p class="biz">주소 경기 수원시 장안구 정자동 · 전화 010-○○○○-○○○○ · 24시간 상담</p>
 <p class="note"><b>업종별 예시 페이지입니다.</b> 실제 업체가 아니며 상호·전화번호는 가렸습니다. 이런 페이지를 사장님 업종·지역마다 만들어 드립니다. <a href="/">제작 상담 →</a></p>
 </div></footer>
 <div class="badge">예시 화면</div>

@@ -67,10 +67,6 @@ export default function Home() {
               <span>수천 장을 <em>네이버·구글</em>에 직접 등록해 드립니다.</span>
               <span>사무실 없는 지역도 검색 문의 통로가 생깁니다.</span>
             </p>
-            <p className="ai-line">
-              <span>네이버 AI 브리핑</span><span>구글 AI</span><span>챗GPT</span>
-              <em>AI 검색이 인용할 수 있는 <b>AEO·GEO 구조</b></em>
-            </p>
             <Actions />
             <ul className="hero-pts">
               <li>클릭당 광고비 0원</li>
@@ -78,6 +74,10 @@ export default function Home() {
               <li>홈페이지 30만원부터 · 평균 7일</li>
               <li>완료까지 무한 수정</li>
             </ul>
+            <p className="ai-line">
+              <span>네이버 AI 브리핑</span><span>구글 AI</span><span>챗GPT</span>
+              <em>덤으로, AI 검색도 인용할 수 있는 <b>AEO·GEO 구조</b></em>
+            </p>
           </div>
           <figure className="wall">
             <div className="wall-cols">
@@ -85,7 +85,7 @@ export default function Home() {
                 <div className="wall-col" key={c}>
                   <div className="wall-track">
                     {[...col, ...col].map((s, k) => (
-                      <img key={k} src={s.mobile} width={390} height={1500} alt={k < col.length ? `${s.region} ${s.title} 예시 화면` : ''} aria-hidden={k >= col.length} loading={c === 0 && k < 2 ? 'eager' : 'lazy'} />
+                      <img key={k} src={s.mobile} width={390} height={1500} alt={k < col.length ? `${s.title} 예시 화면` : ''} aria-hidden={k >= col.length} loading={c === 0 && k < 2 ? 'eager' : 'lazy'} />
                     ))}
                   </div>
                 </div>
@@ -136,12 +136,12 @@ export default function Home() {
 
       <section className="sec soft" id="samples">
         <div className="wrap">
-          <Sh title="업종별로 이런 페이지를 만듭니다" sub="실제 제작하는 페이지와 같은 구성으로 만든 업종별 예시입니다. 눌러서 PC·모바일 화면을 직접 보세요. 상호·전화번호는 가렸습니다." />
+          <Sh title="사장님 업종도 이런 페이지로 전국에 깔립니다" sub="실제 제작하는 페이지와 같은 구성으로 만든 업종별 예시입니다. 눌러서 PC·모바일 화면을 직접 보세요. 상호·전화번호는 가렸습니다." />
           <div className="samples">
             {SAMPLES.map((x) => (
               <a className="sample" href={x.href} target="_blank" rel="noopener" key={x.id} data-reveal>
-                <div className="sample-img"><img src={x.img} width={800} height={513} loading="lazy" alt={`${x.region} ${x.title} 예시 화면`} /></div>
-                <div className="sample-cap"><span>{x.region}</span><b>{x.title}</b><small>예시 페이지 보기 ↗</small></div>
+                <div className="sample-img"><img src={x.img} width={800} height={513} loading="lazy" alt={`${x.title} 예시 화면`} /></div>
+                <div className="sample-cap"><span>{x.label}</span><b>{x.title}</b><p>{x.hook}</p><small>예시 페이지 보기 ↗</small></div>
               </a>
             ))}
           </div>

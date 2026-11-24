@@ -12,20 +12,20 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PUB = os.path.join(ROOT, 'public')
 OUT = os.path.join(PUB, 'sample')
 
-# id, 업종, 지역(시도, 시군구, 동), 형식 — 갤러리 카드 문구
+# id, 갤러리 라벨(업종), 카드 제목, 한 줄 후킹 — 지역명 대신 "전국 홍보" 관점으로 쓴다
 S = [
-    ('hasugu', '하수구막힘', ('경기', '수원시 장안구', '정자동'), '지역형'),
-    ('nusu', '누수탐지', ('서울', '강동구', '고덕동'), '상품소개형'),
-    ('doorlock', '도어락', ('서울', '노원구', '상계동'), '상품소개형'),
-    ('julnun', '줄눈 시공', ('경기', '부천시 소사구', '송내동'), '블로그형'),
-    ('boiler', '보일러 교체', ('경기', '성남시 수정구', '금토동'), '상품소개형'),
-    ('cheolgeo', '철거', ('서울', '구로구', '가리봉동'), '지역형'),
-    ('isa', '보관이사', ('경기', '과천시', '문원동'), '블로그형'),
-    ('cheongso', '입주청소', ('인천', '연수구', '송도동'), '지역형'),
-    ('sofa', '소파 리폼', ('세종', '세종시', '반곡동'), '상품소개형'),
-    ('lawyer', '이혼 소송', ('서울', '서초구', '서초동'), '블로그형'),
-    ('sadari', '사다리차', ('대전', '서구', '둔산동'), '지역형'),
-    ('water', '정수기 렌탈', ('대구', '수성구', '수성동1가'), '상품소개형'),
+    ('hasugu', '하수구막힘', '하수구 업체 전국 홍보 페이지', "'동네 + 하수구' 검색어마다 이런 페이지가 하나씩"),
+    ('nusu', '누수탐지', '누수탐지 업체 전국 홍보 페이지', '천장 얼룩을 검색한 손님이 바로 전화하는 구성'),
+    ('doorlock', '도어락', '도어락 출장 전국 홍보 페이지', '문이 안 열려 검색하는 그 순간에 보이게'),
+    ('julnun', '줄눈 시공', '줄눈 시공 전국 홍보 페이지', '후기 글 하나가 지역마다 문의 통로가 됩니다'),
+    ('boiler', '보일러 교체', '보일러 교체 전국 홍보 페이지', "겨울 전 '보일러 교체' 검색을 잡는 구성"),
+    ('cheolgeo', '철거', '철거 업체 전국 홍보 페이지', '원상복구 견적을 찾는 상가 사장님께 바로'),
+    ('isa', '보관이사', '보관이사 전국 홍보 페이지', '입주일을 고민하는 손님이 읽고 바로 문의'),
+    ('cheongso', '입주청소', '입주청소 전국 홍보 페이지', "신축 단지마다 '입주청소' 검색어를 잡습니다"),
+    ('sofa', '소파 리폼', '소파 리폼 전국 홍보 페이지', '수거·배송으로 지역 제한 없이 받는 일감'),
+    ('lawyer', '이혼 상담', '이혼 상담 전국 홍보 페이지', '이혼 상담 검색에서 들어온 손님이 바로 상담 예약'),
+    ('sadari', '사다리차', '사다리차 전국 홍보 페이지', "'○○동 사다리차' 검색마다 바로 예약 전화"),
+    ('water', '정수기 렌탈', '정수기 렌탈 전국 홍보 페이지', '제품 비교부터 상담 신청까지 한 페이지에서'),
 ]
 
 Q = type('Q', (http.server.SimpleHTTPRequestHandler,), {'log_message': lambda *a: None})
@@ -37,7 +37,7 @@ meta = []
 with sync_playwright() as p:
     b = p.chromium.launch(channel='chrome')
     pg = b.new_page(viewport={'width': 1280, 'height': 820})
-    for sid, ind, (sd, sg, dong), typ in S:
+    for sid, label, title, hook in S:
         pg.goto(f'http://127.0.0.1:{srv.server_port}/sample/{sid}/', wait_until='networkidle')
         pg.add_style_tag(content='*{animation:none!important;transition:none!important}')
         pg.evaluate("document.querySelectorAll('*').forEach(e=>{if(e.textContent.trim()==='예시 화면'&&getComputedStyle(e).position==='fixed')e.style.display='none'})")
@@ -57,7 +57,7 @@ with sync_playwright() as p:
         mp.screenshot(path=mpng)
         Image.open(mpng).convert('RGB').save(mpng[:-4] + '.jpg', quality=72, optimize=True)
         os.remove(mpng); mp.close()
-        meta.append({'id': sid, 'mobile': f'/sample/m/{sid}.jpg', 'href': f'/sample/{sid}/', 'img': f'/sample/thumb/{sid}.jpg', 'region': f'{sd} · {sg} · {dong}', 'title': f'{ind} {typ} 페이지', 'type': typ})
+        meta.append({'id': sid, 'mobile': f'/sample/m/{sid}.jpg', 'href': f'/sample/{sid}/', 'img': f'/sample/thumb/{sid}.jpg', 'label': label, 'title': title, 'hook': hook})
         print(sid, os.path.getsize(dst) // 1024, 'KB')
     b.close()
 srv.shutdown()

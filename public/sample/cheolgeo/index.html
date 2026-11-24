@@ -6,249 +6,206 @@
 <meta name="robots" content="noindex">
 <title>○○철거 · 구로구 가리봉동 상가 원상복구·부분철거 (예시)</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=IBM+Plex+Sans+KR:wght@500;700&display=swap">
 <style>
-:root{--ch:#1f2226;--ch2:#2a2e33;--ch3:#383d43;--or:#ff6b1a;--paper:#f3f2ee;--w:#fff;--line:#d3d1ca;--muted:#6d6a63;
-  --mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;--head:'IBM Plex Sans KR','Pretendard Variable',sans-serif;--sans:'Pretendard Variable',Pretendard,sans-serif;
-  --hz:repeating-linear-gradient(-45deg,var(--or) 0 14px,var(--ch) 14px 28px)}
+:root{--acc:#ff6b1a;--acc2:#ff8a45;--on:#fff;--hl:#ff8a45;--chk:#ff6b1a;--dk:#1f2226;--ink:#1f2226;--mut:#5d5a54;--line:#dedbd3;--lt:#f3f2ee;--kc:#e0560c;--mark:#ff6b1a;--btn:#ff6b1a;--btnt:#fff;--r:2px;--rc:2px;--head:'Pretendard Variable',Pretendard,sans-serif;--hw:900;--sb:#1f2226;--st:#fff;--sl:rgba(255,255,255,.16);--sn:#ff8a45;--fb:#1f2226;--ctao:rgba(31,34,38,.85);--sans:'Pretendard Variable',Pretendard,sans-serif}
 *{box-sizing:border-box}html,body{margin:0}
-body{font-family:var(--sans);color:var(--ch);background:var(--paper);line-height:1.65;word-break:keep-all}
-a{color:inherit}
-.wrap{max-width:1240px;margin:0 auto;padding:0 36px}
-.hz{height:12px;background:var(--hz)}
+body{font-family:var(--sans);font-size:17px;line-height:1.65;color:var(--ink);background:#fff;word-break:keep-all;overflow-x:hidden}
+a{color:inherit}img{display:block;max-width:100%}
+.w{max-width:1200px;margin:0 auto;padding:0 32px}
+.tb{background:var(--dk);color:#d9d9d9;font-size:14px}
+.tb .w{display:flex;justify-content:space-between;align-items:center;height:40px;gap:16px}
+.tb b{color:var(--acc2)}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+header .w{display:flex;align-items:center;height:80px;gap:30px}
+.logo{font-family:var(--head);font-weight:var(--hw);font-size:30px;line-height:1;text-decoration:none;white-space:nowrap;letter-spacing:-.02em}
+.logo i{font-style:normal;color:var(--mark)}
+.gnb{display:flex;gap:28px;margin-left:auto;font-weight:700;font-size:17px}
+.gnb a{text-decoration:none}
+.hcall{background:var(--btn);color:var(--btnt);text-decoration:none;padding:9px 20px;border-radius:var(--r);line-height:1.25;white-space:nowrap}
+.hcall small{display:block;font-size:13px;font-weight:700;opacity:.85}
+.hcall b{font-size:21px;font-weight:800}
 /* hero */
-.hero{position:relative;min-height:820px;color:#fff;display:flex;flex-direction:column;background:var(--ch)}
-.hero-bg{position:absolute;inset:0;background:url(/ind/construction.jpg) center 30%/cover no-repeat;filter:grayscale(.55) contrast(1.1)}
-.hero::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(24,26,29,.94) 0%,rgba(24,26,29,.82) 46%,rgba(24,26,29,.35) 100%)}
-.hero > *:not(.hero-bg){position:relative;z-index:2}
-.bar{display:flex;align-items:center;justify-content:space-between;padding:22px 36px;max-width:1240px;margin:0 auto;width:100%}
-.logo{display:flex;align-items:center;gap:12px;font-family:var(--head);font-weight:700;font-size:1.35rem;text-decoration:none}
-.logo i{width:30px;height:30px;background:var(--hz);display:block}
-.bar nav{display:inline}
-.bar nav a{font-size:.92rem;font-weight:600;text-decoration:none;margin-left:24px;color:#d9d7d0}
-.bar .tel{font-family:var(--mono);font-weight:700;color:var(--or);margin-left:28px;text-decoration:none}
-.hero-main{flex:1;display:grid;grid-template-columns:1fr 380px;gap:48px;align-items:end;max-width:1240px;margin:0 auto;width:100%;padding:40px 36px 56px}
-.kicker{font-family:var(--mono);font-size:.85rem;letter-spacing:.12em;color:var(--or);margin:0 0 18px}
-.hero h1{font-family:var(--head);font-weight:700;font-size:clamp(2.6rem,6.2vw,5.2rem);line-height:1.08;letter-spacing:-.035em;margin:0 0 22px}
-.hero h1 span{color:var(--or)}
-.hero p.lead{font-size:1.1rem;color:#d9d7d0;max-width:31em;margin:0 0 32px}
-.acts{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:12px;background:var(--or);color:var(--ch);font-weight:800;padding:17px 26px;text-decoration:none;font-size:1.05rem}
-.btn b{font-family:var(--mono);font-weight:700}
-.tl{color:#fff;font-weight:600;text-decoration:none;border-bottom:1px solid #fff;padding-bottom:3px}
-.sheet{background:var(--w);color:var(--ch);border-top:8px solid var(--or)}
-.sheet h2{font-family:var(--mono);font-size:.82rem;letter-spacing:.12em;margin:0;padding:16px 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
-.sheet dl{margin:0}
-.sheet dl div{display:grid;grid-template-columns:96px 1fr;border-bottom:1px solid var(--line)}
-.sheet dt{font-family:var(--mono);font-size:.78rem;color:var(--muted);padding:13px 0 13px 22px}
-.sheet dd{margin:0;padding:12px 22px 12px 0;font-weight:700;font-size:.97rem}
-.sheet p{margin:0;padding:14px 22px;font-size:.85rem;color:var(--muted);background:var(--paper)}
-/* ticker */
-.ticker{background:var(--or);color:var(--ch);font-family:var(--head);font-weight:700;font-size:.9rem;overflow:hidden;white-space:nowrap}
-.ticker div{display:inline-block;padding:12px 0;animation:tk 34s linear infinite}
-.ticker span{margin-right:56px}
-@keyframes tk{to{transform:translateX(-50%)}}
+.hero{position:relative;color:#fff;background:#333 center/cover no-repeat}
+.hero .in{position:relative;min-height:620px;display:flex;flex-direction:column;justify-content:center;padding:56px 0}
+.hero.full::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,10,.86) 0%,rgba(10,10,10,.7) 42%,rgba(10,10,10,.15) 78%)}
+.chip{align-self:flex-start;background:var(--acc);color:var(--on);font-weight:800;font-size:18px;padding:6px 16px;border-radius:var(--r)}
+.hero h1{font-family:var(--head);font-weight:var(--hw);font-size:clamp(38px,5.4vw,74px);line-height:1.14;letter-spacing:-.03em;margin:20px 0 22px}
+.hero h1 em{font-style:normal;color:var(--hl)}
+.pts{list-style:none;margin:0 0 32px;padding:0;font-size:21px;font-weight:700}
+.pts li{position:relative;padding-left:36px;margin:7px 0}
+.pts li::before{content:'';position:absolute;left:7px;top:.22em;width:9px;height:16px;border:solid var(--chk);border-width:0 4px 4px 0;transform:rotate(45deg)}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+.tel{display:block;background:var(--btn);color:var(--btnt);text-decoration:none;padding:14px 28px 12px;border-radius:var(--r)}
+.tel small{display:block;font-size:16px;font-weight:700;opacity:.9}
+.tel b{display:block;font-family:var(--head);font-weight:var(--hw);font-size:clamp(28px,3.4vw,46px);line-height:1.15;white-space:nowrap}
+.kakao{display:flex;align-items:center;justify-content:center;background:#fee500;color:#191919;text-decoration:none;font-weight:800;font-size:21px;padding:14px 30px;border-radius:var(--r)}
+/* split hero */
+.hero.split{display:grid;grid-template-columns:1.05fr .95fr;background:var(--panel);color:var(--ptext)}
+.hero.split .in{padding:56px 56px 56px max(32px,calc((100vw - 1200px)/2 + 32px))}
+.hero.split h1,.hero.box h1{font-size:clamp(36px,4.1vw,54px)}
+.hero.split .pts,.hero.box .pts{font-size:19px;margin-bottom:28px}
+.hero.split .tel b,.hero.box .tel b{font-size:clamp(26px,2.6vw,34px)}
+.hero.split .kakao,.hero.box .kakao{padding:12px 24px}
+.hero.split .ph{background:center/cover no-repeat;min-height:620px}
+.hero.split.rev .ph{order:-1}
+.hero.split.rev .in{padding:56px max(32px,calc((100vw - 1200px)/2 + 32px)) 56px 56px}
+/* light boxed hero */
+.hero.box .in{align-items:flex-start}
+.hero.box .card{background:rgba(255,255,255,.95);color:var(--ink);padding:40px 44px;max-width:640px;border-top:8px solid var(--acc)}
+.hero.box .card .pts{color:var(--ink)}
+/* strengths */
+.str{background:var(--sb);color:var(--st)}
+.str .w{display:grid;grid-template-columns:repeat(4,1fr)}
+.str div.it{padding:38px 26px;border-left:1px solid var(--sl)}
+.str div.it:first-child{border-left:0;padding-left:0}
+.str strong{display:block;font-family:var(--head);font-weight:var(--hw);font-size:38px;line-height:1.15;color:var(--sn)}
+.str span{display:block;font-size:20px;font-weight:800;margin-top:4px}
+.str p{margin:8px 0 0;font-size:16px;opacity:.82}
+/* sections */
 section{padding:100px 0}
-.sh{display:grid;grid-template-columns:120px 1fr;gap:0 24px;margin-bottom:48px;border-top:2px solid currentColor;padding-top:18px}
-.sh .no{font-family:var(--mono);font-size:.85rem;letter-spacing:.1em;color:var(--or)}
-.sh h2{font-family:var(--head);font-weight:700;font-size:clamp(1.9rem,4vw,2.9rem);line-height:1.15;margin:0;letter-spacing:-.03em}
-.sh p{grid-column:2;margin:12px 0 0;max-width:36em;color:var(--muted)}
-.dk{background:var(--ch);color:#fff}.dk .sh p{color:#a9a69e}
-.white{background:var(--w)}
-/* scope mosaic */
-.scope{display:grid;grid-template-columns:1.3fr 1fr 1fr;grid-template-rows:auto auto;gap:2px;background:var(--ch3)}
-.scope article{background:var(--ch2);padding:34px 30px 30px;position:relative}
-.scope article.big{grid-row:span 2;background:var(--ch);display:flex;flex-direction:column}
-.scope article.big::after{content:'';position:absolute;left:0;right:0;bottom:0;height:10px;background:var(--hz)}
-.scope .code{font-family:var(--mono);font-size:.78rem;color:var(--or);letter-spacing:.1em}
-.scope h3{font-family:var(--head);font-weight:700;font-size:1.55rem;margin:10px 0 10px;letter-spacing:-.02em}
-.scope article.big h3{font-size:2.2rem}
-.scope p{margin:0 0 14px;color:#c9c6bf;font-size:.96rem}
-.scope ul{margin:0;padding:0;list-style:none;font-size:.9rem;color:#e7e5df}
-.scope ul li{padding:7px 0;border-top:1px solid var(--ch3)}
-.scope ul li::before{content:'—';color:var(--or);margin-right:8px;font-family:var(--mono)}
-.scope article.big ul{margin-top:auto}
-/* steps */
-.steps{list-style:none;margin:0;padding:0}
-.steps li{display:grid;grid-template-columns:200px 1fr 1.1fr;gap:32px;align-items:start;padding:30px 0;border-bottom:1px solid var(--line)}
-.steps li:first-child{border-top:1px solid var(--line)}
-.steps .n{font-family:var(--mono);font-weight:700;font-size:5.2rem;line-height:.9;color:var(--ch);letter-spacing:-.04em}
-.steps li:nth-child(odd) .n{color:var(--or)}
-.steps h3{font-family:var(--head);font-size:1.4rem;margin:6px 0 0}
-.steps p{margin:6px 0 0;color:var(--muted)}
-/* checklist */
-.need{display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:start}
-.need-l p{color:var(--muted);margin:0 0 20px}
-.need-l .box{border:2px solid var(--ch);padding:22px;background:var(--w);font-size:.95rem}
-.need-l .box b{font-family:var(--mono);color:var(--or);display:block;font-size:.8rem;letter-spacing:.1em;margin-bottom:6px}
-.chk{list-style:none;margin:0;padding:0;counter-reset:c;border-top:2px solid var(--ch)}
-.chk li{counter-increment:c;display:grid;grid-template-columns:34px 1fr auto;gap:18px;align-items:start;padding:20px 0;border-bottom:1px solid var(--line)}
-.chk li::before{content:'';width:26px;height:26px;border:2px solid var(--ch);margin-top:2px}
-.chk li strong{display:block;font-size:1.12rem}
-.chk li span{color:var(--muted);font-size:.93rem}
-.chk li em{font-style:normal;font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;background:var(--ch);color:#fff;padding:3px 8px;align-self:center;white-space:nowrap}
-.chk li em.opt{background:transparent;color:var(--muted);border:1px solid var(--line)}
-/* area */
-.area{display:grid;grid-template-columns:1fr 1.4fr;gap:56px}
-.area .home{background:var(--or);color:var(--ch);padding:30px}
-.area .home b{font-family:var(--mono);font-size:.8rem;letter-spacing:.12em}
-.area .home h3{font-family:var(--head);font-size:2.4rem;margin:8px 0 6px;line-height:1.1}
-.area .home p{margin:0}
-.gu{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ch3)}
-.gu li{padding:16px 0;border-bottom:1px solid var(--ch3);display:flex;justify-content:space-between;gap:10px;padding-right:18px}
-.gu li b{font-size:1.1rem}
-.gu li span{font-family:var(--mono);font-size:.78rem;color:#8f8c85;align-self:center}
-/* faq */
+.lt{background:var(--lt)}
+.sh{margin-bottom:44px;max-width:760px}
+.sh .k{display:block;color:var(--kc);font-weight:800;font-size:18px;margin-bottom:8px}
+.sh h2{font-family:var(--head);font-weight:var(--hw);font-size:clamp(30px,3.6vw,46px);line-height:1.2;letter-spacing:-.02em;margin:0}
+.sh p{margin:14px 0 0;font-size:18px;color:var(--mut)}
+.svc{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:stretch}
+.svc .ph{background:center/cover no-repeat;border-radius:var(--r);min-height:520px}
+.svc ol{list-style:none;margin:0;padding:0;counter-reset:s}
+.svc li{counter-increment:s;display:grid;grid-template-columns:64px 1fr;gap:4px 18px;padding:24px 0;border-bottom:1px solid var(--line)}
+.svc li:first-child{padding-top:0}
+.svc li::before{content:counter(s,decimal-leading-zero);grid-row:span 2;font-family:var(--head);font-weight:var(--hw);font-size:36px;line-height:1.1;color:var(--kc)}
+.svc h3{margin:0;font-size:24px;font-weight:800;line-height:1.35}
+.svc p{margin:0;color:var(--mut)}
+.gal{display:grid;grid-template-columns:repeat(var(--gn,2),1fr);gap:20px;margin-top:56px}
+.gal figure{margin:0}
+.gal .ph{aspect-ratio:4/3;background:center/cover no-repeat;border-radius:var(--r)}
+.gal figcaption{font-weight:800;font-size:19px;margin-top:12px}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(var(--sn2,4),1fr);gap:22px;counter-reset:p}
+.steps li{counter-increment:p;background:#fff;padding:30px 26px;border-radius:var(--r);border:1px solid var(--line)}
+.steps li::before{content:counter(p);display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:var(--rc);background:var(--acc);color:var(--on);font-family:var(--head);font-weight:var(--hw);font-size:28px;margin-bottom:18px}
+.steps h3{margin:0 0 8px;font-size:22px;font-weight:800}
+.steps p{margin:0;font-size:16px;color:var(--mut)}
+.area{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.dongs{display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--ink);margin-top:8px}
+.dongs div{padding:16px 4px;border-bottom:1px solid var(--line);font-weight:800;font-size:19px}
+.dongs div.on{color:var(--kc)}
+.area .side{border-radius:var(--r);min-height:440px;background:center/cover no-repeat}
+.area .big{background:var(--acc);color:var(--on);display:flex;flex-direction:column;justify-content:center;padding:44px}
+.area .big b{font-family:var(--head);font-weight:var(--hw);font-size:clamp(34px,4vw,54px);line-height:1.15}
+.area .big span{font-size:19px;font-weight:700;margin-top:14px}
+.area .big .atel{margin-top:26px;font-family:var(--head);font-weight:var(--hw);font-size:clamp(24px,2.6vw,34px);text-decoration:none;white-space:nowrap}
+.anote{margin:22px 0 0;color:var(--mut)}
 .faq{max-width:900px}
 .faq details{border-bottom:1px solid var(--line)}
-.faq details:first-child{border-top:2px solid var(--ch)}
-.faq summary{cursor:pointer;list-style:none;padding:22px 40px 22px 0;font-weight:700;font-size:1.08rem;position:relative}
+.faq details:first-child{border-top:2px solid var(--ink)}
+.faq summary{list-style:none;cursor:pointer;padding:24px 48px 24px 0;font-size:20px;font-weight:800;position:relative}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:'+';position:absolute;right:4px;top:16px;font-family:var(--mono);font-size:1.5rem;color:var(--or)}
+.faq summary::before{content:'Q.';color:var(--kc);margin-right:10px;font-family:var(--head)}
+.faq summary::after{content:'+';position:absolute;right:8px;top:18px;font-size:30px;font-weight:400}
 .faq details[open] summary::after{content:'−'}
-.faq details p{margin:0 0 22px;color:var(--muted)}
-.end{background:var(--ch);color:#fff;padding:70px 0}
-.end .wrap{display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap}
-.end h2{font-family:var(--head);font-size:clamp(1.7rem,3.6vw,2.6rem);margin:0;line-height:1.2}
-.end h2 span{color:var(--or)}
-footer{background:#16181b;color:#a9a69e;padding:44px 0 56px;font-size:.88rem}
-footer .biz{display:flex;flex-wrap:wrap;gap:6px 24px;margin-bottom:20px;font-family:var(--mono);font-size:.8rem}
-footer .biz b{color:#fff;font-family:var(--sans)}
-footer .note{margin:0;border-top:1px solid #2e3237;padding-top:18px}
-footer .note b{color:#fff}footer .note a{color:var(--or);font-weight:700}
-.badge{position:fixed;right:14px;bottom:14px;z-index:50;background:var(--ch);color:var(--or);font-family:var(--mono);font-size:.72rem;padding:4px 9px;border:1px solid var(--or)}
+.faq details p{margin:0 0 26px;padding-left:34px;color:var(--mut);font-size:17px}
+.cta{position:relative;color:#fff;background:#222 center/cover no-repeat;padding:96px 0;text-align:center}
+.cta::before{content:'';position:absolute;inset:0;background:var(--ctao)}
+.cta .w{position:relative}
+.cta h2{font-family:var(--head);font-weight:var(--hw);font-size:clamp(30px,4vw,50px);line-height:1.2;margin:0 0 14px}
+.cta p{margin:0 0 30px;font-size:19px;opacity:.9}
+.cta .ctas{justify-content:center}
+.story{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.story h3{font-family:var(--head);font-weight:var(--hw);font-size:30px;line-height:1.3;margin:0 0 16px}
+.story p{margin:0 0 14px}
+.story dl{display:grid;grid-template-columns:auto 1fr;gap:10px 20px;margin:20px 0 0;padding:22px 24px;background:var(--lt);border-radius:var(--r)}
+.story dt{font-weight:800}.story dd{margin:0}
+footer{background:var(--fb);color:#b9b9b9;padding:52px 0 64px;font-size:15px}
+footer .fl{font-family:var(--head);font-weight:var(--hw);font-size:26px;color:#fff;margin-bottom:14px}
+footer .biz{margin:0 0 6px}
+footer .note{border-top:1px solid rgba(255,255,255,.15);margin:24px 0 0;padding-top:20px}
+footer .note b{color:#fff}footer .note a{color:var(--acc2);font-weight:700}
+.badge{position:fixed;right:14px;bottom:14px;z-index:50;background:#fff;color:#111;border:2px solid #111;font-size:13px;font-weight:800;padding:3px 10px}
 .mbar{display:none}
-@media (prefers-reduced-motion:reduce){.ticker div{animation:none}}
-@media (max-width:900px){
-  .wrap,.bar{padding-left:18px;padding-right:18px}
-  .bar nav{display:none}
-  .hero{min-height:0}
-  .hero::before{background:linear-gradient(180deg,rgba(24,26,29,.55) 0%,rgba(24,26,29,.92) 55%)}
-  .hero-main{grid-template-columns:1fr;padding:120px 18px 36px;gap:30px}
-  .btn{width:100%;justify-content:center}
-  section{padding:64px 0}
-  .sh{grid-template-columns:1fr}.sh p{grid-column:1}.sh .no{margin-bottom:8px}
-  .scope{grid-template-columns:1fr}.scope article.big{grid-row:auto}
-  .scope article.big ul{margin-top:12px;padding-bottom:10px}
-  .steps li{grid-template-columns:1fr;gap:6px}.steps .n{font-size:3.4rem}
-  .need,.area{grid-template-columns:1fr;gap:32px}
-  .chk li{grid-template-columns:30px 1fr}.chk li em{grid-column:2;justify-self:start}
-  .gu{grid-template-columns:1fr 1fr}
-  body{padding-bottom:58px}
-  .mbar{display:grid;grid-template-columns:1fr 1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:60;border-top:4px solid transparent;border-image:var(--hz) 1}
-  .mbar a{text-align:center;padding:14px 4px;font-weight:800;text-decoration:none;font-size:.95rem;background:var(--ch);color:#fff}
-  .mbar a:first-child{background:var(--or);color:var(--ch)}
-  .mbar a + a{border-left:1px solid var(--ch3)}
-  .badge{right:10px;bottom:auto;top:70px}
+@media (max-width:1000px){
+ .gnb{display:none}.hcall{margin-left:auto}
+ .str .w{grid-template-columns:1fr 1fr}
+ .str div.it:nth-child(3){border-left:0;padding-left:0}
+ .str div.it{border-top:1px solid var(--sl)}
+ .str div.it:nth-child(-n+2){border-top:0}
+ .steps{grid-template-columns:1fr 1fr}
 }
-</style>
+@media (max-width:760px){
+ body{font-size:16px;padding-bottom:60px}
+ .w{padding:0 18px}
+ .tb .w{height:36px;font-size:13px}.tb .r{display:none}
+ header .w{height:64px;gap:12px}
+ .logo{font-size:24px}
+ .hcall{padding:7px 12px}.hcall small{display:none}.hcall b{font-size:16px}
+ .hero .in{min-height:0;padding:40px 0 44px}
+ .hero h1{font-size:36px;margin:16px 0}
+ .chip{font-size:15px}
+ .pts{font-size:18px;margin-bottom:24px}
+ .tel{width:100%;padding:12px 18px}.tel b{font-size:30px}
+ .kakao{width:100%;font-size:19px}
+ .hero.split{grid-template-columns:1fr}
+ .hero.split .in,.hero.split.rev .in{padding:36px 18px 40px}
+ .hero.split .ph{min-height:240px;order:-1}
+ .hero.box .in{padding:180px 18px 0}
+ .hero.box .card{padding:28px 18px;margin:0 -18px;max-width:none}
+ .hero.split .tel b,.hero.box .tel b,.tel b{font-size:clamp(24px,7.2vw,30px)}
+ .str div.it{padding:24px 12px 24px 14px}
+ .str div.it:nth-child(odd){padding-left:0;border-left:0}
+ .str strong{font-size:28px}.str span{font-size:17px}.str p{font-size:15px}
+ section{padding:64px 0}
+ .svc,.area,.story{grid-template-columns:1fr;gap:32px}
+ .svc .ph{min-height:260px}
+ .svc li{grid-template-columns:48px 1fr}.svc li::before{font-size:28px}.svc h3{font-size:20px}
+ .gal{grid-template-columns:1fr;margin-top:36px}
+ .steps{grid-template-columns:1fr}
+ .dongs{grid-template-columns:1fr 1fr}
+ .area .side{min-height:260px}
+ .faq summary{font-size:18px}
+ .faq details p{padding-left:0}
+ .cta{padding:64px 0}
+ .badge{bottom:68px;right:auto;left:10px;font-size:13px}
+ .mbar{display:grid;grid-template-columns:1.3fr 1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:60;height:58px}
+ .mbar a{display:flex;align-items:center;justify-content:center;text-decoration:none;font-weight:800;font-size:16px}
+ .mbar a:nth-child(1){background:var(--btn);color:var(--btnt)}
+ .mbar a:nth-child(2){background:#fee500;color:#191919}
+ .mbar a:nth-child(3){background:var(--dk);color:#fff}
+}
+header{border-bottom:4px solid #ff6b1a}.str{border-top:1px solid #333}</style>
 </head>
 <body>
-<div class="hz"></div>
-<div class="hero">
-<div class="hero-bg" role="img" aria-label="철골 자재가 놓인 현장에서 작업 중인 작업자들"></div>
-<div class="bar">
-<a class="logo" href="#"><i></i>○○철거</a>
-<div><nav><a href="#scope">작업 범위</a><a href="#step">진행 순서</a><a href="#need">견적 준비</a><a href="#area">작업 지역</a></nav><a class="tel" href="#">010-○○○○-○○○○</a></div>
-</div>
-<div class="hero-main">
-<div>
-<p class="kicker">SEOUL GURO-GU · GARIBONG-DONG</p>
-<h1>상가 원상복구,<br>빼야 할 것만<br><span>정확히 뺍니다</span></h1>
-<p class="lead">구로구 가리봉동에서 상가·사무실 철거와 원상복구를 합니다. 임대차 계약서의 원상복구 범위를 같이 확인하고, 철거부터 폐기물 반출까지 한 번에 맡습니다.</p>
-<div class="acts"><a class="btn" href="#">견적 문의 <b>010-○○○○-○○○○</b></a><a class="tl" href="#need">견적에 필요한 것 보기</a></div>
-</div>
-<aside class="sheet">
-<h2><span>WORK SHEET</span><span>GARIBONG</span></h2>
-<dl>
-<div><dt>지역</dt><dd>서울 구로구 가리봉동</dd></div>
-<div><dt>대상</dt><dd>상가 · 사무실 · 식당 · 주택 내부</dd></div>
-<div><dt>작업</dt><dd>원상복구 · 부분철거 · 간판 · 폐기물</dd></div>
-<div><dt>견적</dt><dd>현장 사진으로 1차 안내, 필요 시 방문</dd></div>
-</dl>
-<p>건물 관리 규정(작업 시간·엘리베이터 사용)에 맞춰 일정을 잡습니다.</p>
-</aside>
-</div>
-</div>
-<div class="ticker" aria-hidden="true"><div>
-<span>상가 원상복구</span><span>칸막이·천장 철거</span><span>주방 설비 철거</span><span>바닥재 제거</span><span>간판 철거</span><span>폐기물 반출</span>
-<span>상가 원상복구</span><span>칸막이·천장 철거</span><span>주방 설비 철거</span><span>바닥재 제거</span><span>간판 철거</span><span>폐기물 반출</span>
-</div></div>
-
-<section id="scope" class="dk"><div class="wrap">
-<div class="sh"><span class="no">01 / SCOPE</span><h2>작업 범위</h2><p>통째로 부수는 일보다 남길 것과 뺄 것을 나누는 일이 더 많습니다. 현장마다 범위를 먼저 정합니다.</p></div>
-<div class="scope">
-<article class="big"><span class="code">A-01</span><h3>상가 원상복구</h3><p>임대 기간이 끝난 상가를 계약 당시 상태로 돌려놓는 작업입니다. 건물주·관리실과 복구 범위를 맞춘 뒤 진행합니다.</p>
-<ul><li>인테리어 벽체·가벽·천장재 철거</li><li>바닥 타일·데코타일 제거</li><li>추가 설치한 전기·조명 정리</li><li>철거 후 현장 청소까지</li></ul></article>
-<article><span class="code">A-02</span><h3>부분철거</h3><p>리모델링 전 필요한 부분만 뜯어냅니다.</p><ul><li>주방·욕실만 철거</li><li>칸막이·문틀 철거</li></ul></article>
-<article><span class="code">A-03</span><h3>폐기물 처리</h3><p>철거에서 나온 폐기물을 분류해 반출합니다.</p><ul><li>혼합 폐기물 분리</li><li>차량 반출 일정 조율</li></ul></article>
-<article><span class="code">A-04</span><h3>간판 철거</h3><p>돌출·가로 간판과 고정 부속을 떼어냅니다.</p><ul><li>높이에 따라 장비 사용</li><li>고정 자국 정리</li></ul></article>
-<article><span class="code">A-05</span><h3>식당 설비 철거</h3><p>주방 후드·덕트·싱크 등 설비를 정리합니다.</p><ul><li>덕트·후드 해체</li><li>설비 반출</li></ul></article>
-</div>
+<div class="tb"><div class="w"><span>구로구 상가 원상복구 · 부분철거 · 폐기물 반출</span><span class="r">상담 전화 <b>010-○○○○-○○○○</b></span></div></div>
+<header><div class="w">
+<a class="logo" href="#">○○<i>철거</i></a>
+<nav class="gnb"><a href="#">작업 범위</a><a href="#">작업 과정</a><a href="#">견적 준비</a><a href="#">작업 지역</a><a href="#">자주 묻는 질문</a></nav>
+<a class="hcall" href="#"><small>철거 견적 문의</small><b>010-○○○○-○○○○</b></a>
+</div></header>
+<section class="hero full" style="padding:0;background-image:url(/sample/cheolgeo/hero.jpg);background-position:center"><div class="w in"><span class="chip">구로구 가리봉동 · 상가 철거 전문</span><h1>상가 원상복구,<br><em>뺄 것만 정확히</em> 뺍니다</h1><ul class="pts"><li>칸막이 · 천장 · 바닥재 · 주방 설비 철거</li><li>철거부터 폐기물 반출까지 한 번에</li><li>현장 사진으로 1차 견적 안내</li></ul><div class="ctas"><a class="tel" href="#"><small>철거 견적 문의</small><b>010-○○○○-○○○○</b></a><a class="kakao" href="#">카톡 상담</a></div></div></section>
+<div class="str"><div class="w"><div class="it"><strong>사진 견적</strong><span>먼저 안내</span><p>사진·평수·층수로 대략 견적을 드립니다</p></div><div class="it"><strong>항목별</strong><span>견적서</span><p>철거와 폐기물 처리를 나눠 적습니다</p></div><div class="it"><strong>건물 규정</strong><span>맞춰 작업</span><p>작업 시간·엘리베이터 사용을 지킵니다</p></div><div class="it"><strong>작업 후</strong><span>청소·확인</span><p>범위대로 됐는지 함께 확인합니다</p></div></div></div>
+<section id="svc"><div class="w">
+<div class="sh"><span class="k">서비스 안내</span><h2>남길 것과 뺄 것을 먼저 나눕니다</h2><p>통째로 부수는 일보다 범위를 정하는 일이 더 중요합니다. 현장마다 범위를 먼저 정합니다.</p></div>
+<div class="svc"><div class="ph" style="background-image:url(/sample/cheolgeo/hammer.jpg)" role="img" aria-label="바닥재 철거 작업"></div><ol><li><h3>상가 원상복구</h3><p>임대 기간이 끝난 상가를 계약 당시 상태로 돌려놓습니다. 건물주·관리실과 범위를 맞춘 뒤 진행합니다.</p></li><li><h3>부분철거</h3><p>리모델링 전 주방·욕실, 칸막이·문틀처럼 필요한 부분만 뜯어냅니다.</p></li><li><h3>식당 설비 철거</h3><p>주방 후드·덕트·싱크 등 설비를 해체하고 반출합니다.</p></li><li><h3>간판 철거 · 폐기물 처리</h3><p>간판과 고정 부속을 떼고, 철거 폐기물을 분류해 차량으로 반출합니다.</p></li></ol></div>
+<div class="gal" style="--gn:2"><figure><div class="ph" style="background-image:url(/sample/cheolgeo/room.jpg)" role="img" aria-label="내부 철거 후 정리"></div><figcaption>내부 철거 후 정리</figcaption></figure><figure><div class="ph" style="background-image:url(/sample/cheolgeo/wall.jpg)" role="img" aria-label="벽체·천장재 철거"></div><figcaption>벽체·천장재 철거</figcaption></figure></div>
 </div></section>
-
-<section id="step"><div class="wrap">
-<div class="sh"><span class="no">02 / PROCESS</span><h2>진행 순서</h2><p>견적부터 마무리 청소까지, 각 단계에서 확인할 것을 정해 두고 갑니다.</p></div>
-<ol class="steps">
-<li><span class="n">01</span><h3>사진·도면으로 상담</h3><p>현장 사진과 평수, 층수를 받아 대략의 범위와 기간을 먼저 말씀드립니다.</p></li>
-<li><span class="n">02</span><h3>현장 확인·견적서</h3><p>필요하면 방문해 철거 범위와 폐기물 양을 보고, 항목별로 나눈 견적서를 드립니다.</p></li>
-<li><span class="n">03</span><h3>관리실 협의·일정</h3><p>작업 가능 시간, 엘리베이터 보양, 소음 공지 등 건물 규정에 맞춰 날짜를 잡습니다.</p></li>
-<li><span class="n">04</span><h3>철거·반출</h3><p>정해진 범위만 철거하고, 폐기물은 분류해 차량으로 반출합니다.</p></li>
-<li><span class="n">05</span><h3>청소·확인</h3><p>현장을 정리한 뒤 의뢰인과 함께 범위대로 됐는지 확인하고 마칩니다.</p></li>
-</ol>
+<section id="step" class="lt"><div class="w">
+<div class="sh"><span class="k">작업 과정</span><h2>견적부터 마무리 청소까지</h2><p>각 단계에서 확인할 것을 정해 두고 진행합니다.</p></div>
+<ol class="steps" style="--sn2:5"><li><h3>사진으로 상담</h3><p>현장 사진과 평수, 층수를 받아 범위와 기간을 먼저 말씀드립니다.</p></li><li><h3>현장 확인·견적서</h3><p>필요하면 방문해 철거 범위와 폐기물 양을 보고 항목별 견적서를 드립니다.</p></li><li><h3>관리실 협의</h3><p>작업 시간, 엘리베이터 보양, 소음 공지 등 건물 규정에 맞춰 날짜를 잡습니다.</p></li><li><h3>철거·반출</h3><p>정해진 범위만 철거하고 폐기물은 분류해 반출합니다.</p></li><li><h3>청소·확인</h3><p>현장을 정리한 뒤 의뢰인과 함께 범위대로 됐는지 확인합니다.</p></li></ol>
 </div></section>
-
-<section id="need" class="white"><div class="wrap">
-<div class="sh"><span class="no">03 / CHECKLIST</span><h2>견적에 필요한 것</h2><p>아래를 문자나 카톡으로 보내 주시면 방문 전에 대략의 견적을 드릴 수 있습니다.</p></div>
-<div class="need">
-<div class="need-l">
-<p>철거 금액은 면적보다 <b>무엇을 얼마나 빼는지</b>, 그리고 <b>폐기물을 어떻게 내리는지</b>에 따라 크게 달라집니다. 사진이 많을수록 견적이 정확해집니다.</p>
-<div class="box"><b>TIP</b>원상복구라면 임대차 계약서의 원상복구 조항이나 입점 당시 사진이 있으면 함께 보내 주세요. 범위를 두고 다툴 일이 줄어듭니다.</div>
-</div>
-<ul class="chk">
-<li><div><strong>현장 사진</strong><span>입구에서 전체, 벽·천장·바닥, 주방·화장실 등 철거할 부분 각각</span></div><em>필수</em></li>
-<li><div><strong>평수 (전용면적)</strong><span>정확하지 않아도 됩니다. 계약서상 면적이면 충분합니다</span></div><em>필수</em></li>
-<li><div><strong>층수 · 엘리베이터 유무</strong><span>폐기물을 어떻게 내릴지가 금액과 일정에 바로 영향을 줍니다</span></div><em>필수</em></li>
-<li><div><strong>원하는 작업 날짜</strong><span>퇴거일·다음 임차인 공사일이 정해져 있으면 함께</span></div><em class="opt">있으면 좋음</em></li>
-<li><div><strong>건물 작업 규정</strong><span>야간·주말 작업 가능 여부, 화물 엘리베이터 사용 시간</span></div><em class="opt">있으면 좋음</em></li>
-</ul>
-</div>
+<section id="area"><div class="w area">
+<div><div class="sh" style="margin-bottom:28px"><span class="k">출동 지역</span><h2>가리봉동에서 출발합니다</h2></div>
+<div class="dongs"><div class="on">구로구 전 지역</div><div>금천구 가산·독산</div><div>영등포 대림·신길</div><div>관악구 신림</div><div>동작구 상도·대방</div><div>양천구 신정·목동</div><div>광명 철산·하안</div><div>강서구 문의</div><div>부천시 문의</div></div><p class="anote">가산·구로디지털단지 상가와 사무실, 가리봉동 일대 근린상가 작업이 많습니다.</p></div>
+<div class="side big"><b>견적에 필요한 것</b><span>현장 사진 · 평수 · 층수와 엘리베이터 유무 · 원하는 작업 날짜. 원상복구라면 계약서의 원상복구 조항도 함께 보내 주세요.</span><a class="atel" href="#">010-○○○○-○○○○</a></div>
 </div></section>
-
-<section id="area" class="dk"><div class="wrap">
-<div class="sh"><span class="no">04 / AREA</span><h2>작업 지역</h2><p>가리봉동에서 출발합니다. 서울 서남권과 인접 구는 일정만 맞으면 갑니다.</p></div>
-<div class="area">
-<div class="home"><b>BASE</b><h3>구로구<br>가리봉동</h3><p>가산디지털단지·구로디지털단지 상가와 사무실, 가리봉동 일대 근린상가 작업이 많습니다.</p></div>
-<ul class="gu">
-<li><b>구로구</b><span>전 지역</span></li>
-<li><b>금천구</b><span>가산·독산</span></li>
-<li><b>영등포구</b><span>대림·신길</span></li>
-<li><b>관악구</b><span>신림 일대</span></li>
-<li><b>동작구</b><span>상도·대방</span></li>
-<li><b>양천구</b><span>신정·목동</span></li>
-<li><b>강서구</b><span>문의</span></li>
-<li><b>광명시</b><span>철산·하안</span></li>
-<li><b>부천시</b><span>문의</span></li>
-</ul>
-</div>
+<section id="faq" class="lt"><div class="w">
+<div class="sh"><span class="k">자주 묻는 질문</span><h2>전화로 많이 받는 질문</h2></div>
+<div class="faq"><details open><summary>원상복구 범위는 누가 정하나요?</summary><p>임대차 계약서와 건물주(또는 관리실)의 요청이 기준입니다. 범위가 애매하면 견적 단계에서 항목을 나눠 두고, 확정된 항목만 작업합니다.</p></details><details><summary>엘리베이터가 없는 3층 이상도 되나요?</summary><p>됩니다. 폐기물을 계단으로 내려야 해서 인력과 시간이 더 들어갑니다. 층수와 계단 폭을 미리 알려 주세요.</p></details><details><summary>영업 중인 옆 가게에 피해가 가지 않을까요?</summary><p>소음이 큰 작업은 건물 규정에 맞춘 시간대에 하고, 공용 복도와 엘리베이터는 보양재로 덮은 뒤 작업합니다.</p></details><details><summary>간판만 철거해도 되나요?</summary><p>간판만 단독으로도 합니다. 간판 높이와 크기, 건물 앞 도로 여건을 사진으로 보내 주시면 필요한 장비를 정해 안내합니다.</p></details></div>
 </div></section>
-
-<section><div class="wrap">
-<div class="sh"><span class="no">05 / FAQ</span><h2>자주 묻는 질문</h2></div>
-<div class="faq">
-<details open><summary>원상복구 범위는 누가 정하나요?</summary><p>임대차 계약서와 건물주(또는 관리실)의 요청이 기준입니다. 범위가 애매하면 견적 단계에서 항목을 나눠 두고, 확정된 항목만 작업합니다.</p></details>
-<details><summary>엘리베이터가 없는 3층 이상도 되나요?</summary><p>됩니다. 다만 폐기물을 계단으로 내려야 해서 인력과 시간이 더 들어갑니다. 층수와 계단 폭을 미리 알려 주세요.</p></details>
-<details><summary>영업 중인 옆 가게에 피해가 가지 않을까요?</summary><p>소음이 큰 작업은 건물 규정에 맞춘 시간대에 하고, 공용 복도와 엘리베이터는 보양재로 덮은 뒤 작업합니다.</p></details>
-<details><summary>철거 후 폐기물은 따로 맡겨야 하나요?</summary><p>아닙니다. 철거와 폐기물 반출을 함께 진행하며, 견적서에 폐기물 처리 항목을 따로 적어 드립니다.</p></details>
-<details><summary>간판만 철거해도 되나요?</summary><p>간판만 단독으로도 합니다. 간판 높이와 크기, 건물 앞 도로 여건을 사진으로 보내 주시면 필요한 장비를 정해 안내합니다.</p></details>
-</div>
+<section class="cta" style="background-image:url(/sample/cheolgeo/room.jpg)"><div class="w">
+<h2>사진 · 평수 · 층수만 보내 주시면<br>대략 견적부터 드립니다</h2><p>건물 작업 규정이 있으면 함께 알려 주세요. 일정을 맞춰 드립니다.</p><div class="ctas"><a class="tel" href="#"><small>철거 견적 문의</small><b>010-○○○○-○○○○</b></a><a class="kakao" href="#">카톡 상담</a></div>
 </div></section>
-
-<div class="hz"></div>
-<div class="end"><div class="wrap"><h2>사진·평수·층수만 보내 주시면<br><span>대략 견적부터</span> 드립니다</h2><a class="btn" href="#">견적 문의 <b>010-○○○○-○○○○</b></a></div></div>
-<footer><div class="wrap">
-<div class="biz"><b>○○철거</b><span>서울 구로구 가리봉동</span><span>TEL 010-○○○○-○○○○</span><span>사업자등록번호 ○○○-○○-○○○○○</span></div>
+<footer><div class="w">
+<div class="fl">○○철거</div>
+<p class="biz">상호 ○○철거 · 대표 ○○○ · 사업자등록번호 ○○○-○○-○○○○○</p>
+<p class="biz">주소 서울 구로구 가리봉동 · 전화 010-○○○○-○○○○ · 현장 사진으로 견적 상담</p>
 <p class="note"><b>업종별 예시 페이지입니다.</b> 실제 업체가 아니며 상호·전화번호는 가렸습니다. 이런 페이지를 사장님 업종·지역마다 만들어 드립니다. <a href="/">제작 상담 →</a></p>
 </div></footer>
 <div class="badge">예시 화면</div>

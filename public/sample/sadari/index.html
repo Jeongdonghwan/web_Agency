@@ -7,294 +7,305 @@
 <title>○○사다리차 · 대전 서구 둔산동 사다리차 예약 (예시)</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
-:root{--navy:#10234a;--navy2:#1a3366;--sky:#e8edf5;--w:#fff;--line:#d5dce7;--muted:#5b6880;--yel:#ffc629;
-  --sans:'Pretendard Variable',Pretendard,sans-serif}
-*{box-sizing:border-box}html,body{margin:0}
-body{font-family:var(--sans);color:var(--navy);background:var(--w);line-height:1.65;word-break:keep-all}
+:root{--c:#1a3366;--c2:#10234a;--ink:#10234a;--bg2:#eef2f7;--acc:#ffc629;--acct:#10234a;--hl:#ffc629;--hf:'Pretendard Variable',Pretendard,sans-serif;
+--ov:linear-gradient(90deg,rgba(10,22,48,.93) 0,rgba(10,22,48,.82) 42%,rgba(10,22,48,.3) 72%,rgba(10,22,48,.15) 100%)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Pretendard Variable',Pretendard,sans-serif;font-size:17px;line-height:1.7;color:var(--ink);background:#fff;word-break:keep-all;-webkit-font-smoothing:antialiased}
 a{color:inherit}
-.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
-header.top{border-bottom:1px solid var(--line);background:var(--w)}
-header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
-.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.25rem;letter-spacing:-.03em;text-decoration:none}
-.logo svg{display:block}
-.top nav{display:inline}
-.top nav a{text-decoration:none;font-weight:600;margin-left:28px;font-size:.95rem;color:var(--muted)}
-.top .res{background:var(--navy);color:#fff;padding:10px 16px;font-weight:700;text-decoration:none;margin-left:28px;font-size:.92rem}
-/* hero */
-.hero{background:linear-gradient(var(--w) 0 0) top/100% 100% no-repeat;position:relative;overflow:hidden}
-.hero .wrap{display:grid;grid-template-columns:1fr 1.02fr;gap:40px;align-items:stretch;min-height:700px}
-.hero-txt{padding:70px 0 56px;display:flex;flex-direction:column}
-.eyebrow{font-weight:700;font-size:.92rem;color:var(--muted);display:flex;align-items:center;gap:10px;margin:0}
-.eyebrow::before{content:'';width:28px;height:3px;background:var(--yel)}
-.hero h1{font-size:clamp(2.5rem,5.4vw,4.3rem);font-weight:900;line-height:1.12;letter-spacing:-.045em;margin:20px 0 22px}
-.hero h1 mark{background:linear-gradient(transparent 62%,var(--yel) 62%);color:inherit;padding:0 2px}
-.hero .lead{font-size:1.1rem;color:var(--muted);max-width:30em;margin:0 0 34px}
-.cta{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
-.btn{background:var(--navy);color:#fff;text-decoration:none;font-weight:800;padding:18px 26px;display:inline-flex;gap:14px;align-items:center;font-size:1.05rem;border-bottom:4px solid var(--yel)}
-.btn b{font-variant-numeric:tabular-nums;letter-spacing:.01em}
-.tlink{font-weight:700;text-decoration:none;border-bottom:2px solid var(--navy);padding-bottom:2px}
-.hero dl{margin:auto 0 0;padding-top:40px;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
-.hero dl div{padding:16px 16px 0 0}
-.hero dt{font-size:.8rem;color:var(--muted);font-weight:600}
-.hero dd{margin:2px 0 0;font-weight:800;font-size:1.02rem}
-.diagram{background:var(--sky);position:relative;display:flex;align-items:flex-end;justify-content:center;padding:36px 20px 0}
-.diagram svg{width:100%;max-width:560px;height:auto;display:block}
-.diagram .cap{position:absolute;left:20px;top:18px;font-size:.8rem;font-weight:700;color:var(--muted)}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:var(--hf);line-height:1.3;letter-spacing:-.02em;margin:0}
+.w{max-width:1200px;margin:0 auto;padding:0 32px}
+/* header */
+.hd{background:#fff;border-bottom:1px solid #e6e8ec;position:relative;z-index:5}
+.hd .w{display:flex;align-items:center;height:76px;gap:36px}
+.logo{font-family:var(--hf);font-size:25px;font-weight:800;text-decoration:none;color:var(--c2);white-space:nowrap;letter-spacing:-.03em}
+.logo span{color:var(--c)}
+.hd nav{display:flex;gap:30px;font-weight:600;font-size:16px;margin-left:auto}
+.hd nav a{text-decoration:none;color:#3b4250}
+.hd .call{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;font-size:21px;color:var(--c2);white-space:nowrap}
+.hd .call i{width:38px;height:38px;border-radius:50%;background:var(--c);display:grid;place-items:center;flex:none}
+.ico{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.hd .call i .ico{stroke:#fff;width:18px;height:18px}
+/* hero banner */
+.hero{position:relative;min-height:744px;display:flex;align-items:center;color:#fff;overflow:hidden;background:var(--c2)}
+.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::before{content:'';position:absolute;inset:0;background:var(--ov);z-index:1}
+.hero .w{position:relative;width:100%;z-index:2}
+.hero .tag{display:inline-block;font-size:19px;font-weight:700;padding:6px 16px;background:var(--acc);color:var(--acct);margin-bottom:22px}
+.hero h1{font-size:62px;font-weight:800;line-height:1.22;margin-bottom:28px}
+.hero h1 em{font-style:normal;color:var(--hl)}
+.pts{list-style:none;margin:0 0 36px;padding:0;display:grid;gap:10px}
+.pts li{display:flex;align-items:center;gap:12px;font-size:22px;font-weight:600}
+.pts li .ico{width:26px;height:26px;color:var(--hl);stroke-width:3;flex:none}
+.cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px}
+.tel{display:inline-block;text-decoration:none;font-size:42px;font-weight:800;letter-spacing:-.01em;line-height:1.1;white-space:nowrap}
+.tel small{display:block;font-size:16px;font-weight:600;opacity:.85;margin-bottom:6px;letter-spacing:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-weight:800;font-size:19px;padding:18px 30px;border-radius:6px;background:var(--c);color:#fff;white-space:nowrap}
+.btn.kakao{background:#fee500;color:#191600}
+.btn.line{background:transparent;border:2px solid currentColor}
 /* sections */
-section{padding:100px 0}
-.sh{margin-bottom:44px;max-width:760px}
-.sh small{display:block;font-weight:800;font-size:.85rem;color:var(--navy2);letter-spacing:.02em;margin-bottom:10px}
-.sh small::before{content:'';display:inline-block;width:10px;height:10px;background:var(--yel);margin-right:10px}
-.sh h2{font-size:clamp(1.9rem,3.8vw,2.7rem);font-weight:900;letter-spacing:-.04em;line-height:1.2;margin:0}
-.sh p{color:var(--muted);margin:14px 0 0}
-.navy{background:var(--navy);color:#fff}.navy .sh p{color:#b8c3d8}.navy .sh small{color:#fff}
-.sky{background:var(--sky)}
-/* equipment */
-.eq{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:1px solid var(--line)}
-.eq article{padding:32px 28px 30px;border-right:1px solid var(--line);display:flex;flex-direction:column;background:var(--w)}
-.eq article:last-child{border-right:0}
-.eq article.mid{background:var(--navy);color:#fff}
-.eq .gauge{display:flex;align-items:flex-end;gap:4px;height:84px;margin-bottom:22px}
-.eq .gauge i{flex:1;background:var(--line);display:block}
-.eq .gauge i.on{background:var(--navy)}
-.eq article.mid .gauge i{background:#2c4478}.eq article.mid .gauge i.on{background:var(--yel)}
-.eq .lv{font-size:.85rem;font-weight:700;color:var(--muted)}
-.eq article.mid .lv{color:#b8c3d8}
-.eq h3{font-size:1.65rem;font-weight:900;letter-spacing:-.03em;margin:4px 0 4px}
-.eq .fl{font-size:2.4rem;font-weight:900;letter-spacing:-.04em;line-height:1.1;margin:0 0 14px;font-variant-numeric:tabular-nums}
-.eq .fl span{display:block;font-size:.92rem;font-weight:700;letter-spacing:0;margin-top:4px;opacity:.75}
-.eq p{margin:0 0 16px;font-size:.95rem}
-.eq ul{list-style:none;margin:auto 0 0;padding:14px 0 0;border-top:1px solid var(--line);font-size:.9rem}
-.eq article.mid ul{border-color:#2c4478}
-.eq ul li{padding:4px 0}
-.eq ul li::before{content:'';display:inline-block;width:5px;height:5px;background:var(--yel);margin-right:9px;vertical-align:middle}
-.eq-note{margin:22px 0 0;font-weight:700;display:flex;gap:12px;align-items:center}
-.eq-note::before{content:'';flex:none;width:22px;height:22px;background:var(--yel)}
-/* jobs */
-.jobs{display:grid;grid-template-columns:1fr 1fr;gap:0 56px}
-.jobs li{list-style:none;display:grid;grid-template-columns:64px 1fr;gap:18px;padding:28px 0;border-bottom:1px solid #2c4478}
-.jobs{margin:0;padding:0}
-.jobs li:nth-child(-n+2){border-top:1px solid #2c4478}
-.jobs svg{width:56px;height:56px}
-.jobs h3{margin:0 0 6px;font-size:1.3rem;font-weight:800}
-.jobs p{margin:0;color:#c6cfe0;font-size:.96rem}
-.jobs p b{color:var(--yel);font-weight:700}
+.sec{padding:100px 0}
+.sec.alt{background:var(--bg2)}
+.st{text-align:center;margin-bottom:54px}
+.st p.k{color:var(--c);font-weight:800;font-size:18px;margin:0 0 10px}
+.st h2{font-size:42px;font-weight:800}
+.st p.d{font-size:18px;color:#5a6170;margin:16px auto 0;max-width:660px}
+/* strengths */
+.str{display:grid;grid-template-columns:repeat(4,1fr);border-top:4px solid var(--c2);background:#fff}
+.str div{padding:36px 26px 34px;border-right:1px solid #e3e6eb;border-bottom:1px solid #e3e6eb}
+.str div:last-child{border-right:0}
+.str b{display:block;font-family:var(--hf);font-size:28px;font-weight:800;color:var(--c2);line-height:1.3;margin-bottom:12px}
+.str b em{font-style:normal;color:var(--c)}
+.str p{margin:0;color:#4e5563;font-size:17px}
+/* services */
+.svc{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.svc img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.svc h3{font-size:25px;font-weight:800;margin:22px 0 8px;color:var(--c2)}
+.svc p{margin:0;color:#4e5563}
+/* steps */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:16px;counter-reset:s}
+.steps li{counter-increment:s;background:#fff;padding:30px 22px;border-top:5px solid var(--c)}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--c2);color:#fff;font-weight:800;font-size:21px;margin-bottom:18px}
+.steps b{display:block;font-size:21px;font-weight:800;margin-bottom:8px;color:var(--c2)}
+.steps p{margin:0;font-size:16px;color:#4e5563}
 /* area */
-.area{display:grid;grid-template-columns:320px 1fr;gap:48px;align-items:start}
-.area-l{background:var(--w);padding:28px;border-top:4px solid var(--navy)}
-.area-l h3{margin:0 0 8px;font-size:1.5rem;font-weight:900}
-.area-l p{margin:0;color:var(--muted);font-size:.95rem}
-.dongs{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-.dongs span{background:var(--w);padding:16px 14px;font-weight:700}
-.dongs span.home{background:var(--navy);color:#fff}
-.dongs span.home::after{content:'출발';display:block;font-size:.75rem;color:var(--yel);font-weight:700}
-.dongs span small{display:block;font-size:.75rem;color:var(--muted);font-weight:500}
-/* booking */
-.book{display:grid;grid-template-columns:1.1fr .9fr;gap:0;border:2px solid var(--navy)}
-.book-l{padding:36px}
-.book-l ol{margin:0;padding:0;list-style:none;counter-reset:b}
-.book-l li{counter-increment:b;display:grid;grid-template-columns:40px 140px 1fr;gap:12px;padding:15px 0;border-bottom:1px solid var(--line);align-items:baseline}
-.book-l li::before{content:counter(b,decimal-leading-zero);font-weight:900;color:var(--navy2)}
-.book-l li b{font-weight:800}
-.book-l li span{color:var(--muted);font-size:.95rem}
-.book-r{background:var(--navy);color:#fff;padding:36px;display:flex;flex-direction:column}
-.book-r h3{margin:0 0 6px;font-size:1.1rem;color:#b8c3d8;font-weight:600}
-.book-r .tel{font-size:clamp(1.8rem,3.4vw,2.5rem);font-weight:900;letter-spacing:-.02em;color:#fff;text-decoration:none;border-bottom:4px solid var(--yel);align-self:flex-start;font-variant-numeric:tabular-nums}
-.book-r dl{margin:28px 0 0;display:grid;grid-template-columns:auto 1fr;gap:10px 20px;font-size:.95rem}
-.book-r dt{color:#b8c3d8}.book-r dd{margin:0;font-weight:700}
-.book-r .kakao{margin-top:auto;padding-top:26px}
-.book-r .kakao a{display:block;text-align:center;background:var(--yel);color:var(--navy);font-weight:800;padding:15px;text-decoration:none}
+.area{display:grid;grid-template-columns:1fr 1.3fr;gap:60px;align-items:center}
+.area h2{font-size:40px;font-weight:800;margin-bottom:18px}
+.area p{color:#4e5563;margin:0}
+.area .list{font-size:20px;font-weight:600;line-height:2;color:var(--c2);border-left:5px solid var(--c);padding-left:32px}
+.area .list b{display:block;font-size:22px;font-weight:800;color:var(--c);margin-top:14px}
+.area .list b:first-child{margin-top:0}
 /* faq */
-.faq{display:grid;grid-template-columns:1fr 1fr;gap:0 48px}
-.faq div{padding:24px 0;border-top:1px solid var(--line)}
-.faq h3{margin:0 0 8px;font-size:1.08rem;font-weight:800}
-.faq h3::before{content:'Q.';color:var(--navy2);margin-right:8px}
-.faq p{margin:0;color:var(--muted);font-size:.96rem}
-footer{background:#0b1834;color:#9fabc3;padding:44px 0 56px;font-size:.88rem;border-top:4px solid var(--yel)}
-footer .biz{display:flex;flex-wrap:wrap;gap:6px 24px;margin-bottom:20px}
-footer .biz b{color:#fff}
-footer .note{margin:0;border-top:1px solid #21335a;padding-top:18px}
-footer .note b{color:#fff}footer .note a{color:var(--yel);font-weight:700}
-.badge{position:fixed;left:14px;bottom:14px;z-index:50;background:var(--w);color:var(--navy);font-size:.72rem;font-weight:700;padding:4px 9px;border:1px solid var(--navy)}
+.faq{max-width:860px;margin:0 auto}
+.faq details{border-bottom:1px solid #dfe2e7;padding:24px 4px}
+.faq details:first-child{border-top:2px solid var(--c2)}
+.faq summary{cursor:pointer;list-style:none;font-size:20px;font-weight:700;display:flex;gap:14px;align-items:flex-start}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:'Q';color:var(--c);font-weight:800;font-size:22px;line-height:1.3}
+.faq summary::after{content:'+';margin-left:auto;font-size:26px;line-height:1;color:#8a909c}
+.faq details[open] summary::after{content:'\2212'}
+.faq details p{margin:14px 0 0 32px;color:#4e5563}
+/* cta band */
+.band{background:var(--c2);color:#fff;padding:80px 0}
+.band .w{display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
+.band h2{font-size:40px;font-weight:800}
+.band p{margin:12px 0 0;font-size:19px;opacity:.85}
+.band .r{display:flex;flex-direction:column;align-items:flex-start;gap:16px}
+/* footer */
+.ft{background:#1c1f25;color:#a9afba;padding:50px 0 60px;font-size:15px}
+.ft .nm{color:#fff;font-weight:800;font-size:20px;margin-bottom:12px}
+.ft .info{display:flex;flex-wrap:wrap;gap:4px 18px;margin:0 0 20px}
+.ft .demo{font-size:14.5px;margin:0;padding-top:20px;border-top:1px solid #343944}
+.ft .demo a{color:#fff;font-weight:700}
+.badge{position:fixed;left:16px;bottom:16px;z-index:40;background:#fff;color:#222;border:2px solid #222;font-size:14px;font-weight:700;padding:5px 12px}
 .mbar{display:none}
-@media (max-width:900px){
-  .wrap{padding:0 18px}
-  .top nav{display:none}
-  .top .res{margin-left:0}
-  .hero .wrap{grid-template-columns:1fr;min-height:0;gap:0;padding:0}
-  .diagram{order:-1;padding:30px 18px 0}
-  .diagram svg{max-width:360px}
-  .hero-txt{padding:32px 18px 40px}
-  .hero dl{grid-template-columns:1fr 1fr 1fr}
-  .hero dl div{padding-right:8px}.hero dd{font-size:.92rem}
-  .btn{width:100%;justify-content:center}
-  section{padding:64px 0}
-  .eq{grid-template-columns:1fr}
-  .eq article{border-right:0;border-bottom:1px solid var(--line)}
-  .jobs{grid-template-columns:1fr}
-  .jobs li:nth-child(2){border-top:0}
-  .area{grid-template-columns:1fr;gap:24px}
-  .dongs{grid-template-columns:repeat(3,1fr)}
-  .dongs span{padding:12px 10px}
-  .book{grid-template-columns:1fr}
-  .book-l,.book-r{padding:24px 20px}
-  .book-l li{grid-template-columns:34px 1fr}
-  .book-l li span{grid-column:2}
-  .faq{grid-template-columns:1fr}
-  body{padding-bottom:60px}
-  .mbar{display:grid;grid-template-columns:1.3fr 1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--w);border-top:1px solid var(--line)}
-  .mbar a{text-align:center;padding:15px 4px;font-weight:800;text-decoration:none;font-size:.95rem}
-  .mbar a:first-child{background:var(--navy);color:#fff;border-top:3px solid var(--yel)}
-  .mbar a:nth-child(2){background:var(--yel);color:var(--navy)}
-  .badge{left:auto;right:10px;bottom:auto;top:78px}
+@media (max-width:1000px){
+ .hd nav{display:none}
+ .str{grid-template-columns:1fr 1fr}
+ .str div:nth-child(2){border-right:0}
+ .steps{grid-template-columns:1fr 1fr}
+ .svc{grid-template-columns:1fr 1fr}
 }
+@media (max-width:700px){
+ body{font-size:16px;padding-bottom:62px}
+ .w{padding:0 18px}
+ .hd .w{height:62px;gap:12px}
+ .logo{font-size:21px}
+ .hd .call{font-size:15px;margin-left:auto;gap:7px}
+ .hd .call i{width:32px;height:32px}
+ .hero{display:block;min-height:0;padding:0 0 46px}
+ .hero>img{position:relative;height:240px}
+ .hero::before{display:none}
+ .hero .w{padding-top:30px}
+ .hero .tag{font-size:15px;margin-bottom:16px}
+ .hero h1{font-size:34px;margin-bottom:20px}
+ .pts{margin-bottom:28px}
+ .pts li{font-size:17px}
+ .pts li .ico{width:22px;height:22px}
+ .tel{font-size:30px}
+ .btn{font-size:17px;padding:15px 22px}
+ .sec{padding:64px 0}
+ .st{margin-bottom:34px}
+ .st h2{font-size:29px}
+ .st p.d{font-size:16px}
+ .str div{padding:24px 16px}
+ .str b{font-size:21px}
+ .str p{font-size:15px}
+ .svc{grid-template-columns:1fr;gap:34px}
+ .svc h3{font-size:22px;margin-top:16px}
+ .steps{grid-template-columns:1fr;gap:10px}
+ .steps li{display:grid;grid-template-columns:46px 1fr;gap:0 16px;padding:20px 18px}
+ .steps li::before{margin:0;grid-row:span 2}
+ .steps b{font-size:19px;margin-bottom:2px}
+ .area{grid-template-columns:1fr;gap:28px}
+ .area h2{font-size:29px}
+ .area .list{font-size:17px;padding-left:20px;line-height:1.9}
+ .area .list b{font-size:18px}
+ .faq summary{font-size:17px}
+ .faq details p{margin-left:0}
+ .band{padding:56px 0}
+ .band h2{font-size:28px}
+ .band p{font-size:16px}
+ .badge{left:auto;right:10px;bottom:74px;font-size:13px}
+ .mbar{display:grid;grid-template-columns:1fr 1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:50;height:62px;background:var(--c2)}
+ .mbar a{display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;font-weight:800;font-size:16px;border-left:1px solid rgba(255,255,255,.18)}
+ .mbar a:first-child{border:0}
+ .mbar a.k{background:#fee500;color:#191600}
+ .mbar a:last-child{background:var(--c)}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+.hd .call i{background:#ffc629}.hd .call i .ico{stroke:#10234a}
+.hero>img{object-position:50% 35%}
+.hero h1{font-size:66px}
+.hero .tel{color:#ffc629}
+.btn{border-radius:0;background:#ffc629;color:#10234a}
+.btn.kakao{background:#fee500}
+.st p.k{color:#c48a00}
+.str{border-top-color:#ffc629}
+.steps li{border-top-color:#ffc629}
+.eq .svc img{aspect-ratio:3/2}
+.eq .svc h3 small{display:block;font-size:17px;color:#c48a00;font-weight:800;margin-bottom:4px}
+.eq .svc ul{margin:14px 0 0;padding:0 0 0 20px;color:#3d4a63}
+.jobs{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.jobs div{background:#fff;padding:32px 26px;border-bottom:5px solid #ffc629}
+.jobs h3{font-size:25px;font-weight:800;margin-bottom:10px}
+.jobs p{margin:0;color:#3d4a63}
+.book{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:stretch}
+.book ol{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.book li{background:#fff;padding:22px 24px;border:1px solid #d5dce7}
+.book li b{display:block;font-size:20px;margin-bottom:4px}
+.book li span{color:#3d4a63;font-size:16px}
+.book .call2{background:var(--c2);color:#fff;padding:40px 36px;display:flex;flex-direction:column;justify-content:center;gap:18px}
+.book .call2 h3{font-size:26px;font-weight:800}
+.book .call2 .tel{color:#ffc629}
+.book .call2 p{margin:0;opacity:.85;font-size:16px}
+@media (max-width:1000px){.jobs{grid-template-columns:1fr 1fr}.book{grid-template-columns:1fr}}
+@media (max-width:700px){.mbar a:last-child{background:#ffc629;color:#10234a}.hero h1{font-size:34px}.jobs{grid-template-columns:1fr;gap:12px}.jobs div{padding:22px 20px}.jobs h3{font-size:21px}.book ol{grid-template-columns:1fr;gap:10px}.book li{padding:16px 18px}.book li b{font-size:18px}.book .call2{padding:30px 22px}}
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap">
-<a class="logo" href="#"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#10234a" stroke-width="2.4"><path d="M4 26L20 2M10 26L26 2M7 21.5h6M10.3 16.5h6M13.6 11.5h6M17 6.5h6"/></svg>○○사다리차</a>
-<div><nav><a href="#eq">장비 안내</a><a href="#jobs">작업 종류</a><a href="#area">서구 지역</a><a href="#book">예약 안내</a></nav><a class="res" href="#">예약 문의</a></div>
+<header class="hd"><div class="w">
+ <a class="logo" href="#">○○<span>사다리차</span></a>
+ <nav><a href="#eq">장비 안내</a><a href="#jobs">작업 종류</a><a href="#book">예약 안내</a><a href="#area">작업 지역</a><a href="#faq">자주 묻는 질문</a></nav>
+ <a class="call" href="#"><i><svg class="ico" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg></i>010-○○○○-○○○○</a>
 </div></header>
 
-<section class="hero" style="padding:0"><div class="wrap">
-<div class="hero-txt">
-<p class="eyebrow">대전 서구 둔산동 · 사다리차 예약</p>
-<h1>몇 층인지만<br>알려 주시면<br><mark>맞는 장비</mark>가 갑니다</h1>
-<p class="lead">아파트 이사, 가구 한 점, 공사 자재까지. 층수와 진입로를 듣고 저층·중층·고층 장비 중 맞는 차를 배정합니다. 둔산동에서 서구 전 지역으로 나갑니다.</p>
-<div class="cta"><a class="btn" href="#">전화 예약 <b>010-○○○○-○○○○</b></a><a class="tlink" href="#book">예약할 때 필요한 정보</a></div>
-<dl><div><dt>지역</dt><dd>대전 서구 전역</dd></div><div><dt>장비</dt><dd>저층 · 중층 · 고층</dd></div><div><dt>예약</dt><dd>전화 · 카톡</dd></div></dl>
-</div>
-<div class="diagram">
-<span class="cap">층수별 장비 배정</span>
-<svg viewBox="0 0 520 600" role="img" aria-label="건물 층수 구간과 사다리차 도식">
-<!-- ground -->
-<rect x="0" y="560" width="520" height="40" fill="#10234a"/>
-<!-- building -->
-<rect x="300" y="40" width="170" height="520" fill="#fff" stroke="#10234a" stroke-width="3"/>
-<g fill="#e8edf5" stroke="#10234a" stroke-width="1.2">
-<rect x="318" y="58" width="58" height="16"/><rect x="394" y="58" width="58" height="16"/>
-<rect x="318" y="98" width="58" height="16"/><rect x="394" y="98" width="58" height="16"/>
-<rect x="318" y="138" width="58" height="16"/><rect x="394" y="138" width="58" height="16"/>
-<rect x="318" y="178" width="58" height="16"/><rect x="394" y="178" width="58" height="16"/>
-<rect x="318" y="218" width="58" height="16"/><rect x="394" y="218" width="58" height="16"/>
-<rect x="318" y="258" width="58" height="16"/><rect x="394" y="258" width="58" height="16"/>
-<rect x="318" y="298" width="58" height="16"/><rect x="394" y="298" width="58" height="16"/>
-<rect x="318" y="338" width="58" height="16"/><rect x="394" y="338" width="58" height="16"/>
-<rect x="318" y="378" width="58" height="16"/><rect x="394" y="378" width="58" height="16"/>
-<rect x="318" y="418" width="58" height="16"/><rect x="394" y="418" width="58" height="16"/>
-<rect x="318" y="458" width="58" height="16"/><rect x="394" y="458" width="58" height="16"/>
-<rect x="318" y="498" width="58" height="16"/><rect x="394" y="498" width="58" height="16"/>
-</g>
-<rect x="318" y="138" width="58" height="16" fill="#ffc629" stroke="#10234a" stroke-width="1.2"/>
-<!-- floor bands -->
-<rect x="478" y="40" width="14" height="200" fill="#10234a"/>
-<rect x="478" y="240" width="14" height="160" fill="#1a3366" opacity=".6"/>
-<rect x="478" y="400" width="14" height="160" fill="#ffc629"/>
-<g font-family="Pretendard Variable, sans-serif" font-weight="800" font-size="15" fill="#10234a">
-<text x="498" y="140" writing-mode="tb">고층</text>
-<text x="498" y="300" writing-mode="tb">중층</text>
-<text x="498" y="458" writing-mode="tb">저층</text>
-</g>
-<!-- ladder -->
-<g transform="rotate(-62 150 520)">
-<rect x="150" y="508" width="420" height="22" fill="none" stroke="#10234a" stroke-width="3"/>
-<g stroke="#10234a" stroke-width="2.4">
-<path d="M170 508v22M195 508v22M220 508v22M245 508v22M270 508v22M295 508v22M320 508v22M345 508v22M370 508v22M395 508v22M420 508v22M445 508v22M470 508v22M495 508v22M520 508v22M545 508v22"/>
-</g>
-</g>
+<section class="hero">
+ <img src="/sample/sadari/apt.jpg" alt="베란다가 있는 고층 아파트 외벽">
+ <div class="w">
+  <span class="tag">대전 서구 둔산동 사다리차</span>
+  <h1>몇 층인지만 알려 주세요<br><em>맞는 장비</em>가 갑니다</h1>
+  <ul class="pts">
+   <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>이삿짐 · 가구 한 점 · 공사 자재 양중</li>
+   <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>저층 · 중층 · 고층 장비 배정</li>
+   <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>서구 전 지역 출장, 이른 아침 작업 예약</li>
+  </ul>
+  <div class="cta">
+   <a class="tel" href="#"><small>전화 예약 · 오전 7시 ~ 오후 9시</small>010-○○○○-○○○○</a>
+   <a class="btn kakao" href="#"><svg class="ico" viewBox="0 0 24 24"><path d="M12 4c5 0 9 3.1 9 7s-4 7-9 7c-.9 0-1.8-.1-2.6-.3L5 20l1-3.6C4.2 15.1 3 13.2 3 11c0-3.9 4-7 9-7z"/></svg>카톡으로 주소 보내기</a>
+  </div>
+ </div>
+</section>
 
+<section class="sec">
+ <div class="w">
+  <div class="str">
+   <div><b>당일 <em>상담</em></b><p>층수와 주소만 알려 주시면 바로 일정을 봐 드립니다.</p></div>
+   <div><b>작업 전<br>요금 안내</b><p>층수·작업 시간에 맞춰 예약할 때 미리 말씀드립니다.</p></div>
+   <div><b>현장 사진<br><em>사전 확인</em></b><p>차 세울 자리를 사진으로 보고 장비를 정합니다.</p></div>
+   <div><b>이른 아침<br>작업 가능</b><p>이사 첫 타임은 전날까지 예약해 주세요.</p></div>
+  </div>
+ </div>
+</section>
 
-<!-- truck -->
-<rect x="40" y="500" width="170" height="40" fill="#10234a"/>
-<path d="M210 540v-58h48l26 30v28z" fill="#10234a"/>
-<path d="M220 492h30l18 20h-48z" fill="#e8edf5"/>
-<rect x="40" y="494" width="170" height="6" fill="#ffc629"/>
-<circle cx="80" cy="548" r="16" fill="#fff" stroke="#10234a" stroke-width="6"/>
-<circle cx="130" cy="548" r="16" fill="#fff" stroke="#10234a" stroke-width="6"/>
-<circle cx="250" cy="548" r="16" fill="#fff" stroke="#10234a" stroke-width="6"/>
-<circle cx="150" cy="510" r="10" fill="#ffc629" stroke="#10234a" stroke-width="3"/>
-</svg>
-</div>
-</div></section>
+<section class="sec alt eq" id="eq">
+ <div class="w">
+  <div class="st"><p class="k">장비 안내</p><h2>층수에 따라 장비가 다릅니다</h2><p class="d">같은 층이라도 진입로, 전선, 나무, 주차 여건에 따라 세울 수 있는 차가 달라집니다. 장비 선택은 저희가 합니다.</p></div>
+  <div class="svc">
+   <article><img src="/sample/sadari/villa.jpg" alt="골목 안 저층 빌라" style="object-position:50% 40%"><h3><small>저층용</small>빌라·상가 2~3층대</h3><p>차체가 작아 좁은 골목과 빌라 앞에 세우기 좋습니다.</p><ul><li>원룸·투룸 이사</li><li>가구·가전 한두 점</li><li>상가 집기 반입</li></ul></article>
+   <article><img src="/sample/sadari/apt.jpg" alt="중층 아파트 단지"><h3><small>중층용</small>아파트 일반층</h3><p>둔산동·탄방동 아파트 이사에 가장 많이 나가는 장비입니다.</p><ul><li>아파트 이삿짐 전체</li><li>베란다 창 탈거 후 반출입</li><li>입주 청소 전 짐 이동</li></ul></article>
+   <article><img src="/sample/sadari/tower.jpg" alt="고층 아파트" style="object-position:50% 30%"><h3><small>고층용</small>고층 아파트·건물</h3><p>차를 세울 자리와 작업 반경을 예약 전에 꼭 확인합니다.</p><ul><li>고층 세대 이사</li><li>자재 양중</li><li>사전 현장 확인 권장</li></ul></article>
+  </div>
+ </div>
+</section>
 
-<section id="eq" class="sky"><div class="wrap">
-<div class="sh"><small>장비 안내</small><h2>층수 구간별로 장비가 다릅니다</h2><p>같은 층이라도 단지 안 진입로, 전선, 나무, 주차 여건에 따라 세울 수 있는 차가 달라집니다. 아래는 구간별 기본 배정 기준입니다.</p></div>
-<div class="eq">
-<article><div class="gauge"><i class="on" style="height:20%"></i><i class="on" style="height:30%"></i><i style="height:45%"></i><i style="height:60%"></i><i style="height:75%"></i><i style="height:90%"></i><i style="height:100%"></i></div>
-<span class="lv">저층용</span><h3>골목·빌라용</h3><p class="fl">저층<span>빌라 · 상가 2~3층대</span></p><p>차체가 작아 좁은 골목과 빌라 앞에 세우기 좋습니다. 가구 한 점, 소형 이사에 주로 씁니다.</p>
-<ul><li>원룸·투룸 이사</li><li>가구·가전 한두 점</li><li>상가 집기 반입</li></ul></article>
-<article class="mid"><div class="gauge"><i class="on" style="height:20%"></i><i class="on" style="height:30%"></i><i class="on" style="height:45%"></i><i class="on" style="height:60%"></i><i style="height:75%"></i><i style="height:90%"></i><i style="height:100%"></i></div>
-<span class="lv">중층용</span><h3>아파트 일반층</h3><p class="fl">중층<span>복도식·계단식 아파트</span></p><p>둔산동·탄방동 아파트 단지 이사에 가장 많이 나가는 장비입니다. 단지 진입 높이를 미리 확인합니다.</p>
-<ul><li>아파트 이삿짐 전체</li><li>베란다 창 탈거 후 반출입</li><li>입주 청소 전 짐 이동</li></ul></article>
-<article><div class="gauge"><i class="on" style="height:20%"></i><i class="on" style="height:30%"></i><i class="on" style="height:45%"></i><i class="on" style="height:60%"></i><i class="on" style="height:75%"></i><i class="on" style="height:90%"></i><i class="on" style="height:100%"></i></div>
-<span class="lv">고층용</span><h3>고층 아파트·건물</h3><p class="fl">고층<span>층수·작업 반경 확인 후</span></p><p>차를 세울 자리와 작업 반경이 충분해야 합니다. 예약 전에 동·호수와 주차 위치를 확인합니다.</p>
-<ul><li>고층 세대 이사</li><li>자재 양중</li><li>사전 현장 확인 권장</li></ul></article>
-</div>
-<p class="eq-note">층수와 주소를 알려 주시면 맞는 장비를 배정해 드립니다. 장비 선택은 저희가 합니다.</p>
-</div></section>
+<section class="sec" id="jobs">
+ <div class="w">
+  <div class="st"><p class="k">작업 종류</p><h2>이삿짐만 올리는 차가 아닙니다</h2></div>
+  <div class="jobs">
+   <div><h3>이삿짐 반출·반입</h3><p>이삿짐 업체와 시간을 맞춰 대기합니다. 오전 첫 타임은 예약이 일찍 찹니다.</p></div>
+   <div><h3>가구 한 점</h3><p>엘리베이터에 안 들어가는 소파, 침대, 냉장고 하나만 옮길 때도 부르세요.</p></div>
+   <div><h3>자재 양중</h3><p>석고보드·타일·창호를 공사 일정에 맞춰 반나절 단위로도 올립니다.</p></div>
+   <div><h3>스카이 작업</h3><p>간판 설치·교체, 외벽 점검처럼 높은 곳 작업에 스카이 장비로 나갑니다.</p></div>
+  </div>
+ </div>
+</section>
 
-<section id="jobs" class="navy"><div class="wrap">
-<div class="sh"><small>작업 종류</small><h2>이삿짐만 올리는 차가 아닙니다</h2><p>계단이나 엘리베이터로 옮기기 어려운 짐이라면 대부분 사다리차로 해결됩니다.</p></div>
-<ul class="jobs">
-<li><svg viewBox="0 0 56 56" fill="none" stroke="#ffc629" stroke-width="2.4"><rect x="6" y="18" width="30" height="26"/><path d="M36 26h8l6 8v10H36M14 50a4 4 0 1 0 0-.1M42 50a4 4 0 1 0 0-.1"/></svg><div><h3>이삿짐 반출·반입</h3><p>이사 당일 이삿짐 업체와 시간을 맞춰 대기합니다. <b>오전 첫 타임</b>은 예약이 일찍 찹니다.</p></div></li>
-<li><svg viewBox="0 0 56 56" fill="none" stroke="#ffc629" stroke-width="2.4"><path d="M8 22h40v18H8zM12 40v8M44 40v8M8 22v-6h40v6"/></svg><div><h3>가구 한 점</h3><p>소파, 침대, 냉장고처럼 엘리베이터에 안 들어가는 물건 하나만 옮길 때도 부릅니다.</p></div></li>
-<li><svg viewBox="0 0 56 56" fill="none" stroke="#ffc629" stroke-width="2.4"><path d="M6 44h44M12 44V30h14v14M30 44V20h14v24M12 30l7-6 7 6M30 20l7-6 7 6"/></svg><div><h3>자재 양중</h3><p>인테리어 공사의 석고보드·타일·창호를 올립니다. 공사 일정에 맞춰 <b>반나절 단위</b>로도 예약합니다.</p></div></li>
-<li><svg viewBox="0 0 56 56" fill="none" stroke="#ffc629" stroke-width="2.4"><path d="M8 48h18v-8H8zM17 40L40 10M34 6h14v10H34z"/></svg><div><h3>스카이 작업</h3><p>간판 설치·교체, 외벽 점검처럼 사람이 높은 곳에서 일해야 할 때 스카이 장비로 나갑니다.</p></div></li>
-</ul>
-</div></section>
+<section class="sec alt" id="book">
+ <div class="w">
+  <div class="st"><p class="k">예약 안내</p><h2>예약할 때 이것만 알려 주세요</h2></div>
+  <div class="book">
+   <ol>
+    <li><b>날짜·시간</b><span>이사 당일이면 이삿짐 업체 도착 시간</span></li>
+    <li><b>주소</b><span>동 이름과 아파트명·동·호수</span></li>
+    <li><b>층수</b><span>작업할 세대 층, 건물 전체 층수</span></li>
+    <li><b>짐의 양</b><span>원룸·투룸·30평대 등 대략적인 규모</span></li>
+    <li><b>창문 크기</b><span>베란다 창 탈거가 필요한지</span></li>
+    <li><b>차 세울 자리</b><span>도로 폭, 주차장 위치, 전선·나무</span></li>
+   </ol>
+   <div class="call2">
+    <h3>전화 한 통이면 예약됩니다</h3>
+    <a class="tel" href="#">010-○○○○-○○○○</a>
+    <p>상담 매일 오전 7시 ~ 오후 9시<br>결제 현장 결제 · 계좌이체 · 카드</p>
+    <a class="btn kakao" href="#"><svg class="ico" viewBox="0 0 24 24"><path d="M12 4c5 0 9 3.1 9 7s-4 7-9 7c-.9 0-1.8-.1-2.6-.3L5 20l1-3.6C4.2 15.1 3 13.2 3 11c0-3.9 4-7 9-7z"/></svg>카톡으로 주소·사진 보내기</a>
+   </div>
+  </div>
+ </div>
+</section>
 
-<section id="area"><div class="wrap">
-<div class="sh"><small>서구 작업 지역</small><h2>둔산동에서 서구 전 지역으로</h2></div>
-<div class="area">
-<div class="area-l" style="background:var(--sky)"><h3>대전 서구</h3><p>정부청사·둔산 아파트 단지부터 관저·도안 신도시까지 다닙니다. 유성구·중구 인접 지역은 날짜에 따라 가능하니 전화로 확인해 주세요.</p></div>
-<div class="dongs">
-<span class="home">둔산동</span><span>탄방동<small>둔산 남쪽</small></span><span>월평동<small>갑천 변</small></span><span>만년동<small>엑스포 다리 앞</small></span><span>갈마동<small>갈마역 일대</small></span>
-<span>괴정동<small>괴정 사거리</small></span><span>용문동<small>용문역</small></span><span>도마동<small>도마시장</small></span><span>변동<small>배재대 인근</small></span><span>가장동<small>내동 옆</small></span>
-<span>내동<small>서대전 방면</small></span><span>복수동<small>유등천 서쪽</small></span><span>정림동<small>정림 아파트</small></span><span>관저동<small>관저 지구</small></span><span>가수원동<small>가수원 사거리</small></span>
-<span>도안동<small>도안 신도시</small></span><span>기성동<small>문의</small></span><span>삼천동<small>둔산 북쪽</small></span><span>중구 인접<small>문의</small></span><span>그 외<small>전화 확인</small></span>
-</div>
-</div>
-</div></section>
+<section class="sec" id="area">
+ <div class="w area">
+  <div><h2>둔산동에서<br>서구 전 지역으로</h2><p>정부청사·둔산 아파트 단지부터 관저·도안 신도시까지 다닙니다. 유성구·중구 인접 지역은 날짜에 따라 가능하니 전화로 확인해 주세요.</p></div>
+  <div class="list">
+   <b>둔산·갑천 일대</b>둔산동 · 탄방동 · 월평동 · 만년동 · 갈마동 · 삼천동
+   <b>서대전·도마 일대</b>괴정동 · 용문동 · 도마동 · 변동 · 가장동 · 내동
+   <b>관저·도안 일대</b>복수동 · 정림동 · 관저동 · 가수원동 · 도안동 · 기성동
+  </div>
+ </div>
+</section>
 
-<section id="book" class="sky"><div class="wrap">
-<div class="sh"><small>예약 안내</small><h2>예약할 때 이것만 알려 주세요</h2><p>여섯 가지를 들으면 장비와 시간을 바로 잡을 수 있습니다.</p></div>
-<div class="book">
-<div class="book-l" style="background:var(--w)">
-<ol>
-<li><b>날짜·시간</b><span>이사 당일이면 이삿짐 업체 도착 시간</span></li>
-<li><b>주소</b><span>동 이름과 아파트명·동·호수</span></li>
-<li><b>층수</b><span>작업할 세대의 층, 건물 전체 층수</span></li>
-<li><b>짐의 양</b><span>원룸·투룸·30평대 등 대략적인 규모</span></li>
-<li><b>창문 크기</b><span>베란다 창 탈거가 필요한지</span></li>
-<li><b>차 세울 자리</b><span>건물 앞 도로 폭, 주차장 위치, 전선·나무</span></li>
-</ol>
-</div>
-<div class="book-r">
-<h3>전화 예약</h3>
-<a class="tel" href="#">010-○○○○-○○○○</a>
-<dl><dt>상담</dt><dd>매일 오전 7시 ~ 오후 9시</dd><dt>작업</dt><dd>이른 아침 작업은 전날까지 예약</dd><dt>결제</dt><dd>현장 결제 · 계좌이체 · 카드</dd></dl>
-<div class="kakao"><a href="#">카톡으로 주소·사진 보내기</a></div>
-</div>
-</div>
-</div></section>
+<section class="sec alt" id="faq">
+ <div class="w">
+  <div class="st"><p class="k">자주 묻는 질문</p><h2>예약 전에 많이 묻는 것</h2></div>
+  <div class="faq">
+   <details open><summary>비 오는 날에도 작업하나요?</summary><p>약한 비는 덮개를 씌워 작업합니다. 강풍이 불면 안전 때문에 시간을 조정할 수 있어 전날 다시 연락드립니다.</p></details>
+   <details><summary>가구 하나만 옮겨도 예약되나요?</summary><p>됩니다. 이사 일정 사이 빈 시간에 맞춰 잡아 드립니다.</p></details>
+   <details><summary>차를 세울 자리가 좁은데요.</summary><p>건물 앞 사진을 카톡으로 보내 주시면 세울 수 있는 장비를 먼저 판단해 말씀드립니다.</p></details>
+   <details><summary>아파트 관리실 신고가 필요한가요?</summary><p>단지마다 다릅니다. 사용 신고가 필요한 단지는 미리 관리실에 알려 두시면 당일 지연이 없습니다.</p></details>
+   <details><summary>이삿짐 업체를 따로 불러야 하나요?</summary><p>사다리차는 장비와 기사만 갑니다. 짐 포장과 운반은 이삿짐 업체와 정하시고 도착 시간만 맞춰 주세요.</p></details>
+   <details><summary>예약을 미루거나 취소하려면요?</summary><p>전날까지 전화 주시면 일정을 옮겨 드립니다. 당일 취소는 장비 배차 문제로 미리 말씀해 주세요.</p></details>
+  </div>
+ </div>
+</section>
 
-<section><div class="wrap">
-<div class="sh"><small>자주 묻는 질문</small><h2>예약 전에 많이 묻는 것</h2></div>
-<div class="faq">
-<div><h3>비 오는 날에도 작업하나요?</h3><p>약한 비는 덮개를 씌워 작업합니다. 강풍이 불면 안전 때문에 작업 시간을 조정할 수 있어 전날 다시 연락드립니다.</p></div>
-<div><h3>가구 하나만 옮겨도 예약되나요?</h3><p>됩니다. 이사 일정 사이 빈 시간에 맞춰 잡아 드리고, 시간 단위로 안내합니다.</p></div>
-<div><h3>차를 세울 자리가 좁은데요.</h3><p>건물 앞 사진을 카톡으로 보내 주시면 세울 수 있는 장비를 먼저 판단해 말씀드립니다.</p></div>
-<div><h3>아파트 관리실 신고가 필요한가요?</h3><p>단지마다 다릅니다. 사다리차 사용 신고나 승인이 필요한 단지는 미리 관리실에 알려 두시면 당일 지연이 없습니다.</p></div>
-<div><h3>이삿짐 업체를 따로 불러야 하나요?</h3><p>사다리차는 장비와 기사만 갑니다. 짐 포장과 운반은 이삿짐 업체와 따로 정하시고, 도착 시간만 맞춰 주세요.</p></div>
-<div><h3>예약을 미루거나 취소하려면요?</h3><p>전날까지 전화 주시면 일정을 옮겨 드립니다. 당일 취소는 장비 배차 문제로 미리 말씀해 주세요.</p></div>
-</div>
-</div></section>
+<section class="band">
+ <div class="w">
+  <div><h2>층수와 주소만 알려 주세요</h2><p>맞는 장비와 가능한 시간을 바로 알려 드립니다.</p></div>
+  <div class="r"><a class="tel" href="#" style="color:#ffc629">010-○○○○-○○○○</a><a class="btn kakao" href="#"><svg class="ico" viewBox="0 0 24 24"><path d="M12 4c5 0 9 3.1 9 7s-4 7-9 7c-.9 0-1.8-.1-2.6-.3L5 20l1-3.6C4.2 15.1 3 13.2 3 11c0-3.9 4-7 9-7z"/></svg>카톡 상담</a></div>
+ </div>
+</section>
 
-<footer><div class="wrap">
-<div class="biz"><b>○○사다리차</b><span>대전 서구 둔산동</span><span>예약 010-○○○○-○○○○</span><span>사업자등록번호 ○○○-○○-○○○○○</span></div>
-<p class="note"><b>업종별 예시 페이지입니다.</b> 실제 업체가 아니며 상호·전화번호는 가렸습니다. 이런 페이지를 사장님 업종·지역마다 만들어 드립니다. <a href="/">제작 상담 →</a></p>
-</div></footer>
+<footer class="ft">
+ <div class="w">
+  <div class="nm">○○사다리차</div>
+  <p class="info"><span>상호 ○○사다리차</span><span>대표 ○○○</span><span>사업자등록번호 ○○○-○○-○○○○○</span><span>주소 대전광역시 서구 둔산동</span><span>010-○○○○-○○○○</span></p>
+  <p class="demo"><b>업종별 예시 페이지입니다.</b> 실제 업체가 아니며 상호·전화번호는 가렸습니다. 이런 페이지를 사장님 업종·지역마다 만들어 드립니다. <a href="/">제작 상담 →</a></p>
+ </div>
+</footer>
+
+<nav class="mbar"><a href="#">전화 예약</a><a class="k" href="#">카톡 상담</a><a href="#book">예약 정보</a></nav>
 <div class="badge">예시 화면</div>
-<nav class="mbar"><a href="#">전화 예약</a><a href="#">카톡 상담</a><a href="#book">예약 정보</a></nav>
 </body>
 </html>
