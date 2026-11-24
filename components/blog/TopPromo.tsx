@@ -19,7 +19,7 @@ export default function TopPromo() {
         ))}
       </ul>
       <p className="top-promo-note">세 가지 모두 AEO·GEO 구조(질문형 답변·구조화 데이터)를 기본으로 넣습니다. 순위 보장은 하지 않습니다.</p>
-      <a className="top-promo-cta" href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer">
+      <a className="top-promo-cta" href="https://pf.kakao.com/_Izxnxgn/chat" target="_blank" rel="noopener noreferrer">
         카톡으로 무료 상담
       </a>
     </aside>

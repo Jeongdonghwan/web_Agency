@@ -160,7 +160,7 @@ export default function WebdocHub() {
           <h2>제작 비용 및 상담 문의 환영합니다</h2>
           <p>영업 지역과 서비스 목록만 보내주시면 페이지 구성안과 예상 페이지 수를 먼저 보여드립니다.</p>
           <div className="cta-actions">
-            <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="primary">카톡으로 구성안 받기</a>
+            <a href="https://pf.kakao.com/_Izxnxgn/chat" target="_blank" rel="noopener noreferrer" className="primary">카톡으로 구성안 받기</a>
             <a href="tel:1566-3046" className="ghost">전화 상담 1566-3046</a>
           </div>
           <p className="wd-disclaimer">{DISCLAIMER}</p>

@@ -197,7 +197,7 @@ async function RegionMdPage({ doc }: { doc: any }) {
           <div className="cta-actions">
             <a href="/#contact" className="primary">무료 상담 신청</a>
             <a href="tel:1566-3046" className="ghost">전화 상담 1566-3046</a>
-            <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="ghost">카톡 문의</a>
+            <a href="https://pf.kakao.com/_Izxnxgn/chat" target="_blank" rel="noopener noreferrer" className="ghost">카톡 문의</a>
           </div>
         </div>
       </div>
@@ -272,7 +272,7 @@ function DongPage({ dong }: { dong: any }) {
             {i === 1 && (
               <p className="mid-cta">
                 지금 {dong.dong}에서 상담 가능 —{' '}
-                <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer">
+                <a href="https://pf.kakao.com/_Izxnxgn/chat" target="_blank" rel="noopener noreferrer">
                   카톡으로 무료 견적 받기 →
                 </a>
               </p>
@@ -349,7 +349,7 @@ function DongPage({ dong }: { dong: any }) {
           <h2>{dong.dong} 홈페이지, 이번 주에 시작하세요</h2>
           <p>상담부터 완성까지 비대면 진행, 평균 7일. 견적 확인은 무료입니다.</p>
           <div className="cta-actions">
-            <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="primary">카톡으로 무료 상담</a>
+            <a href="https://pf.kakao.com/_Izxnxgn/chat" target="_blank" rel="noopener noreferrer" className="primary">카톡으로 무료 상담</a>
             <a href="tel:1566-3046" className="ghost">전화 상담 1566-3046</a>
           </div>
         </div>

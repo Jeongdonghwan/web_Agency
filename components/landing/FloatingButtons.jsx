@@ -28,7 +28,7 @@ const FloatingButtons = () => {
   };
 
   // 카카오톡 채널 URL
-  const kakaoChannelUrl = 'https://pf.kakao.com/_Izxnxgn';
+  const kakaoChannelUrl = 'https://pf.kakao.com/_Izxnxgn/chat';
 
   return (
     <div className={`floating-buttons ${isVisible ? 'visible' : ''}`}>

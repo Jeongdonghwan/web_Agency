@@ -35,7 +35,7 @@ const HeroSection = () => {
         </p>
 
         <div className="lp-center">
-          <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="lp-pill kakao-pill">
+          <a href="https://pf.kakao.com/_Izxnxgn/chat" target="_blank" rel="noopener noreferrer" className="lp-pill kakao-pill">
             <KakaoIcon size={20} /> 카톡으로 무료 상담
             <span className="lp-pill-arrow">→</span>
           </a>

@@ -16,7 +16,7 @@ const FAQSection = () => {
             <span className="lp-eyebrow">FAQ</span>
             <h2 className="lp-h2">이런 내용이<br />궁금하셨나요?</h2>
             <p className="lp-sub">사장님들이 가장 많이 물어보시는 질문들을 정리했습니다.</p>
-            <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="lp-pill">
+            <a href="https://pf.kakao.com/_Izxnxgn/chat" target="_blank" rel="noopener noreferrer" className="lp-pill">
               <KakaoIcon size={18} /> 궁금한 내용이 더 있어요
               <span className="lp-pill-arrow">→</span>
             </a>

@@ -45,7 +45,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   };
 }
 
-const KAKAO = 'https://pf.kakao.com/_Izxnxgn';
+const KAKAO = 'https://pf.kakao.com/_Izxnxgn/chat';
 
 // 시도별·업종군별 묶음은 한 번만 만든다 (페이지마다 전체를 훑지 않게)
 let byName: Map<string, ReturnType<typeof getOpenTsvc>> | null = null;

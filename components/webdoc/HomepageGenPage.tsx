@@ -153,7 +153,7 @@ export default function HomepageGenPage({ doc }: { doc: HomepageGenDoc }) {
           <h2>{doc.name} 홈페이지, 이번 주에 시작하세요</h2>
           <p>{doc.name} 서비스 목록과 사진만 보내주시면 메뉴 구성안부터 드립니다. 비대면 진행, 평균 7일.</p>
           <div className="cta-actions">
-            <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="primary">카톡으로 무료 상담</a>
+            <a href="https://pf.kakao.com/_Izxnxgn/chat" target="_blank" rel="noopener noreferrer" className="primary">카톡으로 무료 상담</a>
             <a href="tel:1566-3046" className="ghost">전화 상담 1566-3046</a>
           </div>
           <p className="wd-disclaimer">{DISCLAIMER}</p>

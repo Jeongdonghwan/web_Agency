@@ -74,7 +74,7 @@ export default function TajiHub() {
             지역과 서비스 목록을 보내주시면 페이지 구성안과 견적을 바로 드립니다. 웹문서가 무엇인지는 <a href={webdocPath('웹문서-대량제작')}>웹문서 대량제작</a>에서 볼 수 있습니다.
           </p>
           <div className="cta-actions">
-            <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="primary">
+            <a href="https://pf.kakao.com/_Izxnxgn/chat" target="_blank" rel="noopener noreferrer" className="primary">
               카톡으로 바로 문의
             </a>
             <a href="tel:1566-3046" className="ghost">

@@ -45,7 +45,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   };
 }
 
-const KAKAO = 'https://pf.kakao.com/_Izxnxgn';
+const KAKAO = 'https://pf.kakao.com/_Izxnxgn/chat';
 
 export default function TajiPage({ params }: { params: { slug: string } }) {
   const p = getTaji(params.slug);

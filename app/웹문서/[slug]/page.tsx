@@ -118,7 +118,7 @@ function Cta({ title, text }: { title: string; text?: string }) {
       <h2>{title}</h2>
       <p>{text || '영업 지역과 서비스만 알려주시면 페이지 구성안을 먼저 보여드립니다. 전 과정 비대면.'}</p>
       <div className="cta-actions">
-        <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="primary">카톡으로 구성안 받기</a>
+        <a href="https://pf.kakao.com/_Izxnxgn/chat" target="_blank" rel="noopener noreferrer" className="primary">카톡으로 구성안 받기</a>
         <a href="tel:1566-3046" className="ghost">전화 상담 1566-3046</a>
       </div>
       <p className="wd-disclaimer">{DISCLAIMER}</p>
@@ -328,7 +328,7 @@ function IndustryPage({ ind }: { ind: IndustryDoc & WebdocPage }) {
               <Paras key={x} text={x} />
             ))}
             <div className="cta-actions">
-              <a href="https://pf.kakao.com/_Izxnxgn" target="_blank" rel="noopener noreferrer" className="wd-btn-kakao">
+              <a href="https://pf.kakao.com/_Izxnxgn/chat" target="_blank" rel="noopener noreferrer" className="wd-btn-kakao">
                 카톡으로 바로 문의
               </a>
               <a href="tel:1566-3046" className="wd-btn-ghost">
