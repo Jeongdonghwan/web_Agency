@@ -47,8 +47,8 @@ export default function MakePageView({ params }: { params: { slug: string } }) {
         <div className="wrap hd-cols">
           <div>
           <Crumb items={[{ name: '홈', href: '/' }, { name: '홈페이지 제작', href: MAKE_HUB }, { name: `${sn} ${angle.label}`, href: listPath }, { name: p.ind.name }]} />
-          <h1>{c.h1}</h1>
-          <p className="lead">{c.description}</p>
+          <h1><span>{c.h1}</span>{' '}<span className="hero-sub">{c.h1sub}</span></h1>
+          <p className="lead">{c.lead}</p>
           <ol className="sum">
             {c.summary.map((x) => <li key={x}>{x}</li>)}
           </ol>

@@ -287,6 +287,7 @@ em.hl { font-style: normal; color: var(--accent); }
 .crumb a:hover { color: var(--accent); }
 .crumb i { font-style: normal; margin: 0 8px; opacity: .5; }
 .page-hd h1 { font-size: clamp(1.9rem, 4.6vw, 3rem); font-weight: 900; }
+.page-hd h1 .hero-sub { display: block; font-size: .46em; font-weight: 600; line-height: 1.4; margin-top: 10px; opacity: .9; letter-spacing: -0.02em; }
 .page-hd .lead { color: var(--muted); font-size: 1.08rem; max-width: 720px; margin: 18px 0 0; }
 .sum { margin: 26px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; max-width: 720px; }
 .sum li { padding: 13px 18px 13px 48px; background: #fff; border: 1px solid var(--line); border-radius: 14px; position: relative; font-weight: 700; color: var(--ink); }

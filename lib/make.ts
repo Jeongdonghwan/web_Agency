@@ -303,18 +303,82 @@ export function composeMake(p: MakePage) {
   const ctaH2 = pick([`${loc}${n} ${go} 지역과 서비스 목록만 보내 주세요`, `${loc}${n} 홈페이지 구성안을 먼저 받아 보세요`], s + 'c');
   const ctaText = `${a(0)}·${a(1)}처럼 ${go} 가시는 곳과 ${sv(0).name} 등 하시는 일을 알려 주시면 ${n} 홈페이지 구성과 견적을 정리해 드립니다.`;
   const keywords = [`${loc}${n} ${lab.replace('?', '')}`, `${loc}${n} 홈페이지 제작`, `${n} 타지역서비스`, `${loc}${n} 홈페이지`];
+  const { h1sub, meta } = headMeta(h1, angle, { n, s, sd, cust, owner, unit, unitN, svcs, A });
   if (!BASE.has(angle)) {
     const x = extra(angle as ExtraAngle, { n, loc, cust, go, owner, unit, unitN, where, office: !!office, s, total, count: svcs.length, urgent: ind.urgent, decide: ind.decide, pain: ind.pain, a, sv });
     return {
-      title: `${h1} - ${x.tail} | JD8`, h1, description: x.description, summary: x.summary, whyH2: x.whyH2, why: [x.why1, why2], tableH2,
+      title: `${h1} - ${x.tail} | JD8`, h1, h1sub, description: meta, lead: x.description, summary: x.summary, whyH2: x.whyH2, why: [x.why1, why2], tableH2,
       rows: rows.map((r, k) => [r[0], r[1], x.third(r[0], sv(k).name)] as [string, string, string]),
       svcH2: x.svcH2, svcRows, inclH2: x.inclH2, incl: x.incl, timingH2, timing, flow, priceP, regulated, areasText, faq: x.faq, unit, calc, ctaH2, ctaText, keywords,
     };
   }
   return {
-    title, h1, description, summary, whyH2, why: [why1, why2], tableH2, rows, svcH2, svcRows, inclH2, incl, timingH2, timing, flow, priceP,
+    title, h1, h1sub, description: meta, lead: description, summary, whyH2, why: [why1, why2], tableH2, rows, svcH2, svcRows, inclH2, incl, timingH2, timing, flow, priceP,
     regulated, areasText, faq, unit, calc, ctaH2, ctaText, keywords,
   };
+}
+
+// h1 수식어 + 검색 결과용 description (50~80자). 본문 lead 는 기존 문장 그대로 둔다.
+// 수식어: 키워드에 있는 낱말(지역·업종·홈페이지·제작 등)을 쓰지 않는 벌만 남겨 slug 해시로 고른다. 사실은 페이지 데이터(서비스·시군구·30만원·평균 7일)만.
+interface HM { n: string; s: string; sd: Sido | null; cust: string; owner: string; unit: string; unitN: string; svcs: { name: string }[]; A: string[] }
+const DESC_WHAT: Record<Angle, string> = {
+  jeon: '업종 맞춤 메뉴', mkt: '문의 받는 구성', taji: '지역 페이지 구성', only: '홈페이지를 더하는 방법', aeo: 'AI 검색용 구조',
+  seo: '사이트맵 등록', cheap: '비용이 정해지는 기준', good: '업체 고르는 기준', resp: '모바일 화면 기준', fast: '진행 순서',
+  renew: '기존 주소 연결', land: '한 장 문의 페이지', small: '작게 시작하는 구성',
+};
+export const kwWords = (kw: string) => kw.replace(/[?]/g, '').split(/[\s·]+/).filter(Boolean);
+// 수식어 낱말이 키워드 낱말을 품으면 반복 (두 글자 이상은 포함, 한 글자는 같을 때만)
+export const repeats = (kw: string, sub: string) => {
+  const ban = kwWords(kw);
+  return sub.split(/[\s·,]+/).some((w) => ban.some((b) => (b.length > 1 ? w.includes(b) : w === b)));
+};
+function headMeta(kw: string, angle: Angle, c: HM) {
+  const { n, s, sd, cust, owner, unit, unitN, svcs, A } = c;
+  const ban = kwWords(kw);
+  const ok = (w: string) => !ban.some((b) => b.length > 1 && w.includes(b));
+  const S = svcs.map((x) => x.name).filter(ok);
+  const R = A.filter(ok);
+  const two = S.length >= 2;
+  const [S0, S1] = S;
+  const [A0, A1, A2] = R;
+  const count = svcs.length;
+  const sub = (list: (string | false)[]) => {
+    const good = list.filter((x): x is string => !!x && !x.includes('undefined') && !repeats(kw, x));
+    return pick(good, s + 'h1s');
+  };
+  const h1sub = sub(({
+    jeon: [two && `${S0}·${S1} 메뉴부터 나누는 구성`, two && `${j(cust, '이', '가')} 찾는 ${S0} 안내를 첫 화면에`, `서비스 ${count}가지를 메뉴로 나누기`, R.length > 1 && `${A0}·${A1} ${unit}까지 담는 구성`],
+    mkt: [two && R.length > 0 && `${A0} ${S0} 검색을 전화·카톡 문의로`, two && `${S0}·${S1} 검색어마다 도착 페이지`, two && `첫 화면에 ${S0} 안내와 연락 버튼`, '검색어를 받아 전화·카톡으로 잇는 법'],
+    taji: [R.length > 2 && `${A0}·${A1}·${A2} ${unit}마다 서는 페이지`, two && R.length > 0 && `${A0} ${S0} 검색어를 ${owner} 도메인으로`, `${unitN} 검색을 받는 페이지 묶음`],
+    only: [two && R.length > 0 && `지도 밖 ${A0} ${S0} 검색까지 받기`, `${owner} 도메인에 ${unit}별 페이지 더하기`, two && `${S0}·${S1} 검색창 통로를 남기는 법`],
+    aeo: [two && `${S0} 질문에 답하는 문장과 구조화 데이터`, two && `AI 검색이 읽는 ${S0}·${S1} 안내`, 'llms.txt와 자주 묻는 질문까지 넣는 구성'],
+    seo: [two && `${S0}·${S1} 서비스마다 다른 페이지`, '사이트맵 등록과 수집 확인까지', R.length > 1 && `${A0}·${A1} ${unit}별 입구 늘리기`],
+    cheap: [two && `30만원부터 ${S0}·${S1} 기본 구성`, `서비스 ${count}가지 중 필요한 것부터`, '비용이 정해지는 기준과 포함 항목'],
+    good: [two && `${S0}·${S1} 구성안으로 업체 비교하기`, '도메인 명의와 검색 설정 확인 항목', `${j(cust, '이', '가')} 쓰는 검색어를 아는지 보기`],
+    resp: [two && `휴대폰 화면부터 맞추는 ${S0} 안내`, '화면 아래 전화·카톡 버튼 고정', two && `모바일에서 읽히는 ${S0}·${S1} 메뉴`],
+    fast: [two && `평균 7일, ${S0} 안내부터 먼저 공개`, '자료 받기부터 공개까지 진행 순서', two && `${S0}·${S1} 페이지를 나눠 여는 순서`],
+    renew: [two && `기존 주소를 지키며 ${S0}·${S1} 다시 나누기`, two && `${S0} 안내를 검색어 기준으로 다시 짜기`, '모바일 화면과 연락 버튼 새로 맞추기'],
+    land: [two && `${S0} 하나에 집중한 한 장 문의 화면`, two && `광고를 누른 ${j(cust, '이', '가')} 도착하는 ${S0} 페이지`, R.length > 1 && `${A0}·${A1} ${unit}별로 넓히는 한 장`, '서비스 하나에 집중한 한 장 문의 화면'],
+    small: [two && `${S0} 안내와 연락 버튼부터 작게`, `${j(owner, '이', '가')} 직접 관리할 일 없는 구성`, two && `일이 늘면 ${S0}·${S1} 더하기`],
+  } as Record<Angle, (string | false)[]>)[angle]);
+
+  // description: 키워드 → 이 페이지에 있는 내용(서비스 표·검색어 표) → 사실 하나 → 상담
+  const x0 = svcs[0].name, x1 = svcs[1].name, a0 = A[0];
+  const what = DESC_WHAT[angle];
+  const headP = angle === 'only' ? `${kw} ` : `${kw} — `;
+  const bodies = [
+    [`${x0}·${x1} 안내와 ${a0} 검색어를 담았습니다.`, `${x0} 안내와 ${a0} 검색어를 담았습니다.`],
+    [`${j(what, '과', '와')} ${x0}·${x1} 서비스 표를 정리했습니다.`, `${j(what, '과', '와')} ${x0} 서비스 표를 정리했습니다.`],
+    [`${x0}·${x1} 서비스 표와 ${a0} 검색어 예시가 있습니다.`, `${x0} 서비스 표와 ${a0} 검색어 예시가 있습니다.`],
+  ][hash(s + 'db') % 3];
+  const facts = ['30만원부터 시작합니다.', '평균 7일에 만듭니다.', sd ? `${sd.name} ${unitN} 목록도 있습니다.` : '페이지 수 계산기도 있습니다.'];
+  const fact = facts[hash(s + 'df') % 3];
+  const calls = hash(s + 'dc') % 2 ? ['전화·카톡 상담 1566-3046', '상담 1566-3046'] : ['상담 1566-3046'];
+  // 80자를 넘으면 관련 내용을 줄이고, 그래도 넘으면 사실 문장을 뺀다 (글자 중간에서 자르지 않는다)
+  const cands: string[] = [];
+  for (const parts of [[bodies[0], fact], [bodies[1], fact], [bodies[0]], [bodies[1]]]) for (const call of calls) cands.push(headP + [...parts, call].join(' '));
+  const meta = cands.find((d) => d.length >= 50 && d.length <= 80) || cands.find((d) => d.length <= 80) || cands[cands.length - 1];
+  return { h1sub, meta };
 }
 
 // 목록(허브) 페이지 소개글 — 지역·키워드·열린 업종 수로 채운다
