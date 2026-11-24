@@ -106,5 +106,41 @@
   "label": "정수기 렌탈",
   "title": "정수기 렌탈 전국 홍보 페이지",
   "hook": "제품 비교부터 상담 신청까지 한 페이지에서"
+ },
+ {
+  "id": "crane",
+  "mobile": "/sample/m/crane.jpg",
+  "href": "/sample/crane/",
+  "img": "/sample/thumb/crane.jpg",
+  "label": "크레인",
+  "title": "크레인 업체 전국 홍보 페이지",
+  "hook": "'지역 + 카고크레인' 검색마다 바로 배차 문의"
+ },
+ {
+  "id": "seolbi",
+  "mobile": "/sample/m/seolbi.jpg",
+  "href": "/sample/seolbi/",
+  "img": "/sample/thumb/seolbi.jpg",
+  "label": "설비",
+  "title": "설비업체 전국 홍보 페이지",
+  "hook": "배관 교체를 알아보는 손님이 견적 전에 읽는 페이지"
+ },
+ {
+  "id": "cat",
+  "mobile": "/sample/m/cat.jpg",
+  "href": "/sample/cat/",
+  "img": "/sample/thumb/cat.jpg",
+  "label": "고양이 분양",
+  "title": "고양이 분양샵 전국 홍보 페이지",
+  "hook": "매장 방문 예약까지 이어지는 분양 안내"
+ },
+ {
+  "id": "changup",
+  "mobile": "/sample/m/changup.jpg",
+  "href": "/sample/changup/",
+  "img": "/sample/thumb/changup.jpg",
+  "label": "카페 창업",
+  "title": "프랜차이즈 가맹 모집 페이지",
+  "hook": "'지역 + 창업' 검색으로 예비 점주를 만납니다"
  }
 ]

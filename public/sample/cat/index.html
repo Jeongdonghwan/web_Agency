@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>○○캐터리 · 마포구 고양이 분양 (예시)</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&display=swap">
+<style>
+:root{--c:#8e4f62;--c2:#2a2f2c;--ink:#262a28;--bg2:#f4efed;--line:#e2d8d5;--mute:#5d5a5b;--hl:#e9c7cf;--sf:'Noto Serif KR',serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Pretendard Variable',Pretendard,sans-serif;font-size:17px;line-height:1.7;color:var(--ink);background:#fff;word-break:keep-all;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{max-width:100%;display:block}
+h1,h2,h3{line-height:1.3;letter-spacing:-.025em;margin:0}
+.w{max-width:1200px;margin:0 auto;padding:0 32px}
+.ico{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+/* top strip + header */
+.top{background:var(--c2);color:#c9cfcb;font-size:14px}
+.top .w{display:flex;justify-content:space-between;gap:16px;height:38px;align-items:center}
+.hd{background:#fff;border-bottom:1px solid var(--line)}
+.hd .w{display:flex;align-items:center;height:74px;gap:34px}
+.logo{font-size:24px;font-weight:800;text-decoration:none;color:var(--c2);white-space:nowrap;letter-spacing:-.03em}
+.logo span{font-family:var(--sf);font-weight:700;color:var(--c);margin-left:2px}
+.hd nav{display:flex;gap:26px;font-weight:600;font-size:15.5px;margin-left:auto;white-space:nowrap}
+.hd nav a{text-decoration:none;color:#47504b}
+.hd .call{display:flex;align-items:center;gap:8px;text-decoration:none;font-weight:800;font-size:20px;color:var(--c2);white-space:nowrap}
+.hd .call .ico{color:var(--c)}
+/* hero: text left, arch photo right */
+.hero{background:var(--bg2);padding:72px 0 0;overflow:hidden}
+.hero .w{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:end}
+.hero .tx{padding-bottom:76px}
+.hero .kw{display:inline-block;font-size:16px;font-weight:700;color:var(--c);border-bottom:2px solid var(--c);padding-bottom:4px;margin-bottom:26px}
+.hero h1{font-size:56px;font-weight:800;color:var(--c2);margin-bottom:24px}
+.hero h1 em{font-style:normal;font-family:var(--sf);font-weight:700;color:var(--c)}
+.hero .lead{font-size:19px;color:#4b4f4d;margin:0 0 30px;max-width:520px}
+.hero .ph{border-radius:320px 320px 0 0;overflow:hidden;height:560px;background:#ddd}
+.hero .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 60%}
+.cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px}
+.tel{text-decoration:none;font-size:36px;font-weight:800;line-height:1.1;white-space:nowrap;color:var(--c2)}
+.tel small{display:block;font-size:15px;font-weight:600;color:var(--mute);margin-bottom:6px}
+.btn{display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-weight:800;font-size:18px;padding:16px 26px;border-radius:999px;white-space:nowrap}
+.btn.kakao{background:#fee500;color:#191600}
+/* principles strip */
+.prin{border-bottom:1px solid var(--line)}
+.prin .w{display:grid;grid-template-columns:repeat(3,1fr)}
+.prin .w>div{padding:34px 30px 34px 0;margin-right:30px;border-right:1px solid var(--line)}
+.prin .w>div:last-child{border-right:0;margin-right:0}
+.prin b{display:block;font-size:20px;font-weight:800;color:var(--c2);margin-bottom:6px}
+.prin p{margin:0;color:var(--mute);font-size:16px}
+/* section heads: left aligned */
+.sec{padding:96px 0}
+.sec.alt{background:var(--bg2)}
+.sh{display:grid;grid-template-columns:1fr 1.2fr;gap:20px 60px;align-items:end;margin-bottom:50px}
+.sh .k{font-size:15px;font-weight:800;color:var(--c);margin:0 0 10px;letter-spacing:.02em}
+.sh h2{font-size:40px;font-weight:800;color:var(--c2)}
+.sh h2 small{font-size:.45em;font-weight:600;color:var(--mute);margin-left:6px;letter-spacing:0}
+.sh p.d{margin:0;color:var(--mute);font-size:17.5px}
+/* breeds */
+.strip{display:grid;grid-template-columns:1fr 1fr 1.5fr;gap:14px;margin-bottom:46px}
+.strip figure{margin:0;position:relative}
+.strip img{width:100%;height:340px;object-fit:cover}
+.strip figcaption{position:absolute;left:0;bottom:0;background:#fff;padding:6px 14px;font-size:14.5px;font-weight:700;color:var(--c2)}
+.brd{border-top:3px solid var(--c2)}
+.brd article{display:grid;grid-template-columns:230px 1fr 1fr 1fr;gap:10px 30px;padding:30px 0;border-bottom:1px solid var(--line)}
+.brd h3{font-family:var(--sf);font-size:24px;font-weight:700;color:var(--c2)}
+.brd h3 small{display:block;font-family:'Pretendard Variable',sans-serif;font-size:13.5px;font-weight:600;color:var(--mute);letter-spacing:.02em;margin-top:4px}
+.brd dl{margin:0}
+.brd dt{font-size:14px;font-weight:800;color:var(--c);margin-bottom:4px}
+.brd dd{margin:0;font-size:16px;color:#454947}
+.brd-n{margin:22px 0 0;font-size:15.5px;color:var(--mute)}
+/* before you take home */
+.chk{display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:start}
+.chk ol{list-style:none;margin:0;padding:0;counter-reset:n}
+.chk ol li{counter-increment:n;display:grid;grid-template-columns:58px 1fr;gap:0 10px;padding:24px 0;border-top:1px solid var(--line)}
+.chk ol li:first-child{border-top:0;padding-top:0}
+.chk ol li::before{content:counter(n,decimal-leading-zero);font-family:var(--sf);font-size:28px;font-weight:700;color:var(--c);line-height:1.2;grid-row:span 2}
+.chk ol b{font-size:20px;font-weight:800;color:var(--c2)}
+.chk ol p{margin:4px 0 0;color:#454947}
+.adapt{background:var(--c2);color:#e7ebe8;padding:36px 34px}
+.adapt h3{font-size:23px;font-weight:800;color:#fff;margin-bottom:14px}
+.adapt ul{margin:0 0 24px;padding:0;list-style:none;display:grid;gap:10px}
+.adapt li{display:flex;gap:10px;font-size:16px}
+.adapt li .ico{color:var(--hl);flex:none;margin-top:3px;stroke-width:2.8}
+.adapt .ask{margin:0;padding-top:20px;border-top:1px solid rgba(255,255,255,.2);font-size:16px}
+.adapt .ask b{color:var(--hl)}
+/* price */
+.price{max-width:1000px}
+.price table{width:100%;border-collapse:collapse;background:#fff}
+.price th,.price td{padding:17px 18px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.price thead th{font-size:14.5px;font-weight:700;color:var(--mute);background:#ece4e1}
+.price tbody th{font-weight:800;color:var(--c2);width:200px}
+.price td.p{font-weight:800;white-space:nowrap}
+.price td.y{font-size:16px;color:#454947}
+.price .note{font-size:14.5px;color:var(--mute);margin:14px 0 0}
+.why{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:44px}
+.why h3{font-size:20px;font-weight:800;color:var(--c2);margin-bottom:10px}
+.why ul{margin:0;padding-left:20px;color:#454947}
+.why li{margin-bottom:6px}
+.why p{margin:0;color:#454947}
+/* cases */
+.cases article{display:grid;grid-template-columns:260px 1fr;gap:12px 44px;padding:32px 0;border-top:1px solid var(--line)}
+.cases article:first-child{border-top:3px solid var(--c2)}
+.cases h3{font-size:22px;font-weight:800;color:var(--c2)}
+.cases h3 small{display:block;font-size:14.5px;font-weight:700;color:var(--c);margin-bottom:6px;letter-spacing:0}
+.cases dl{margin:0;display:grid;grid-template-columns:86px 1fr;gap:9px 16px}
+.cases dt{font-weight:800;color:var(--c2)}
+.cases dd{margin:0;color:#454947}
+/* visit timeline */
+.tl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:24px;counter-reset:t;position:relative}
+.tl::before{content:'';position:absolute;left:0;right:0;top:21px;height:2px;background:var(--hl)}
+.tl li{counter-increment:t;position:relative}
+.tl li::before{content:counter(t);display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#fff;border:2px solid var(--c);color:var(--c);font-weight:800;font-size:18px;margin-bottom:18px}
+.tl b{display:block;font-size:19px;font-weight:800;color:var(--c2);margin-bottom:6px}
+.tl p{margin:0;font-size:15.5px;color:#454947}
+/* directions */
+.way{display:grid;grid-template-columns:1fr 1.2fr;gap:60px}
+.way h2{font-size:38px;font-weight:800;color:var(--c2);margin-bottom:16px}
+.way>div>p{color:var(--mute);margin:0}
+.way dl{margin:0;display:grid;grid-template-columns:120px 1fr;border-top:3px solid var(--c2)}
+.way dt,.way dd{margin:0;padding:18px 0;border-bottom:1px solid var(--line)}
+.way dt{font-weight:800;color:var(--c)}
+.way dd{color:#3d413f}
+/* faq */
+.faq{max-width:880px}
+.faq details{border-bottom:1px solid var(--line);padding:22px 4px}
+.faq details:first-child{border-top:3px solid var(--c2)}
+.faq summary{cursor:pointer;list-style:none;font-size:19px;font-weight:700;display:flex;gap:14px;align-items:flex-start}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:'Q';font-family:var(--sf);color:var(--c);font-weight:700;font-size:21px;line-height:1.3}
+.faq summary::after{content:'+';margin-left:auto;font-size:25px;line-height:1;color:#8d8a8b}
+.faq details[open] summary::after{content:'\2212'}
+.faq details p{margin:12px 0 0 32px;color:#454947}
+/* band */
+.band{background:var(--c);color:#fff;padding:76px 0}
+.band .w{display:flex;align-items:center;justify-content:space-between;gap:36px;flex-wrap:wrap}
+.band h2{font-size:36px;font-weight:800}
+.band p{margin:10px 0 0;font-size:18px;opacity:.9}
+.band .r{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+.band .tel{color:#fff}
+/* footer */
+.ft{background:#1d2120;color:#a8afab;padding:50px 0 60px;font-size:15px}
+.ft .nm{color:#fff;font-weight:800;font-size:20px;margin-bottom:12px}
+.ft .info{display:flex;flex-wrap:wrap;gap:4px 18px;margin:0 0 22px}
+.jd8{margin:0 0 22px;padding:22px 24px;border:1px solid #3a413e}
+.jd8 small{display:block;font-size:13px;font-weight:800;color:var(--hl)}
+.jd8 .t{color:#fff;font-size:18px;font-weight:800;margin:4px 0 14px}
+.jd8 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.jd8 .chips span{border:1px solid #4a524e;padding:5px 11px;font-size:14.5px;color:#d6dbd8}
+.jd8 .x{margin:0;font-size:14.5px}
+.ft .demo{font-size:14.5px;margin:0;padding-top:20px;border-top:1px solid #343a37}
+.ft .demo a{color:#fff;font-weight:700}
+.badge{position:fixed;left:16px;bottom:16px;z-index:40;background:#fff;color:#222;border:2px solid #222;font-size:14px;font-weight:700;padding:5px 12px}
+.mbar{display:none}
+@media (max-width:1160px){.hd nav{display:none}.hd .call{margin-left:auto}}
+@media (max-width:1000px){
+ .hero .w{grid-template-columns:1fr 1fr;gap:36px}
+ .hero h1{font-size:44px}
+ .sh{grid-template-columns:1fr}
+ .strip img{height:260px}
+ .brd article{grid-template-columns:1fr 1fr 1fr}
+ .brd article h3{grid-column:1/-1}
+ .chk{grid-template-columns:1fr;gap:40px}
+ .tl{grid-template-columns:1fr 1fr 1fr}
+ .tl::before{display:none}
+ .way{grid-template-columns:1fr;gap:30px}
+}
+@media (max-width:700px){
+ body{font-size:16px;padding-bottom:60px}
+ .w{padding:0 18px}
+ .top .w{height:auto;padding-top:8px;padding-bottom:8px;font-size:13px}
+ .top .w span:last-child{display:none}
+ .hd .w{height:60px;gap:12px}
+ .logo{font-size:20px}
+ .hd .call{font-size:15px}
+ .hero{padding-top:0}
+ .hero .w{grid-template-columns:1fr;gap:0;padding:0}
+ .hero .ph{order:-1;height:260px;border-radius:0 0 160px 160px}
+ .hero .tx{padding:30px 18px 46px}
+ .hero .kw{font-size:14.5px;margin-bottom:18px}
+ .hero h1{font-size:33px;margin-bottom:16px}
+ .hero .lead{font-size:16.5px;margin-bottom:24px}
+ .tel{font-size:28px}
+ .btn{font-size:16.5px;padding:14px 22px}
+ .prin .w{grid-template-columns:1fr}
+ .prin .w>div{padding:20px 0;margin:0;border-right:0;border-bottom:1px solid var(--line)}
+ .prin .w>div:last-child{border-bottom:0}
+ .prin b{font-size:18px}
+ .sec{padding:60px 0}
+ .sh{margin-bottom:30px}
+ .sh h2{font-size:28px}
+ .sh p.d{font-size:16px}
+ .strip{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:30px}
+ .strip figure:last-child{grid-column:1/-1}
+ .strip img{height:190px}
+ .strip figcaption{font-size:13px;padding:4px 10px}
+ .brd article{grid-template-columns:1fr;gap:12px;padding:24px 0}
+ .brd h3{font-size:21px}
+ .chk ol li{grid-template-columns:44px 1fr;padding:18px 0}
+ .chk ol li::before{font-size:22px}
+ .chk ol b{font-size:18px}
+ .adapt{padding:26px 20px}
+ .adapt h3{font-size:20px}
+ .price table,.price tbody{display:block}
+ .price thead{display:none}
+ .price tr{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:14px 14px;border-bottom:1px solid var(--line)}
+ .price th,.price td{padding:0;border:0}
+ .price tbody th{width:auto}
+ .price td.y{grid-column:1/-1;font-size:15px}
+ .why{grid-template-columns:1fr;gap:28px;margin-top:32px}
+ .why h3{font-size:18px}
+ .cases article{grid-template-columns:1fr;padding:24px 0}
+ .cases h3{font-size:19px}
+ .cases dl{grid-template-columns:70px 1fr;gap:8px 12px}
+ .tl{grid-template-columns:1fr;gap:0}
+ .tl li{display:grid;grid-template-columns:44px 1fr;gap:0 14px;padding:14px 0}
+ .tl li::before{margin:0;grid-row:span 2}
+ .tl b{font-size:18px;margin-bottom:2px}
+ .way h2{font-size:28px}
+ .way dl{grid-template-columns:84px 1fr}
+ .way dt,.way dd{padding:14px 0}
+ .faq summary{font-size:17px}
+ .faq details p{margin-left:0}
+ .band{padding:54px 0}
+ .band h2{font-size:26px}
+ .band p{font-size:16px}
+ .jd8{padding:18px 16px}
+ .jd8 .t{font-size:17px}
+ .badge{left:auto;right:10px;bottom:72px;font-size:13px}
+ .mbar{display:grid;grid-template-columns:1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:50;height:60px;background:var(--c2)}
+ .mbar a{display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;text-decoration:none;font-weight:800;font-size:16px}
+ .mbar a.k{background:#fee500;color:#191600}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="top"><div class="w"><span>서울 마포구 망원동 · 방문 예약제 캐터리</span><span>동물판매업 등록 업체 · 택배 분양 없음</span></div></div>
+<header class="hd"><div class="w">
+ <a class="logo" href="#">○○<span>캐터리</span></a>
+ <nav><a href="#breed">분양 안내</a><a href="#check">데려가기 전</a><a href="#price">가격 안내</a><a href="#cases">분양 사례</a><a href="#visit">방문 예약</a><a href="#way">오시는 길</a><a href="#faq">자주 묻는 질문</a></nav>
+ <a class="call" href="#"><svg class="ico" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg>010-○○○○-○○○○</a>
+</div></header>
+
+<section class="hero">
+ <div class="w">
+  <div class="tx">
+   <span class="kw">서울 마포구 고양이 분양</span>
+   <h1>매장에서 직접 만나고<br><em>천천히</em> 정하세요</h1>
+   <p class="lead">망원동 캐터리에서 아이를 직접 보고, 건강 기록과 계약서를 확인한 뒤 데려가는 방식입니다. 방문은 예약한 시간에 한 가족씩 받습니다.</p>
+   <div class="cta">
+    <a class="tel" href="#"><small>방문 예약 전화</small>010-○○○○-○○○○</a>
+    <a class="btn kakao" href="#"><svg class="ico" viewBox="0 0 24 24"><path d="M12 4c5 0 9 3.1 9 7s-4 7-9 7c-.9 0-1.8-.1-2.6-.3L5 20l1-3.6C4.2 15.1 3 13.2 3 11c0-3.9 4-7 9-7z"/></svg>카톡으로 방문 예약</a>
+   </div>
+  </div>
+  <div class="ph"><img src="/sample/cat/hero.jpg" alt="침대 위에 앉아 정면을 보는 회색 흰색 아기 고양이"></div>
+ </div>
+</section>
+
+<section class="prin">
+ <div class="w">
+  <div><b>생후 2개월이 지난 아이만</b><p>엄마 곁에서 충분히 지낸 뒤, 2개월이 지나지 않은 아이는 분양하지 않습니다.</p></div>
+  <div><b>택배·화물로 보내지 않습니다</b><p>동물은 택배로 보낼 수 없습니다. 매장에 오셔서 이동장에 직접 데려가십니다.</p></div>
+  <div><b>계약서와 건강 기록을 드립니다</b><p>예방접종·구충 기록과 분양 계약서를 함께 보고 설명드린 뒤 드립니다.</p></div>
+ </div>
+</section>
+
+<section class="sec" id="breed">
+ <div class="w">
+  <div class="sh"><div><p class="k">분양 안내</p><h2>품종보다 성격이<br>집에 맞는지가 먼저입니다</h2></div><p class="d">품종마다 알려진 성격은 경향일 뿐, 같은 품종이라도 아이마다 다릅니다. 매장에서 한동안 같이 있어 보고 정하시길 권합니다.</p></div>
+  <div class="strip">
+   <figure><img src="/sample/cat/kosho.jpg" alt="바닥에 앉아 아래를 보는 갈색 줄무늬 아기 고양이"><figcaption>코리안숏헤어</figcaption></figure>
+   <figure><img src="/sample/cat/british.jpg" alt="주황색 눈의 회색 브리티시숏헤어"><figcaption>브리티시숏헤어</figcaption></figure>
+   <figure><img src="/sample/cat/ragdoll.jpg" alt="햇빛 드는 자리에 누운 파란 눈의 랙돌"><figcaption>랙돌</figcaption></figure>
+  </div>
+  <div class="brd">
+   <article>
+    <h3>코리안숏헤어<small>KOREAN SHORTHAIR</small></h3>
+    <dl><dt>성격</dt><dd>한 가지로 말하기 어렵습니다. 활발한 아이, 낯을 가리는 아이가 섞여 있어 직접 만나 보는 것이 가장 정확합니다.</dd></dl>
+    <dl><dt>털 관리</dt><dd>짧은 털이라 엉킴은 적지만 털은 빠집니다. 일주일에 한두 번 빗질이면 충분합니다.</dd></dl>
+    <dl><dt>이런 집에 맞음</dt><dd>처음 고양이를 키우는 집, 품종보다 성격이 맞는 아이를 찾는 집.</dd></dl>
+   </article>
+   <article>
+    <h3>브리티시숏헤어<small>BRITISH SHORTHAIR</small></h3>
+    <dl><dt>성격</dt><dd>차분하고 독립적인 편입니다. 안기기보다 사람 곁에 가만히 있는 걸 좋아하는 아이가 많습니다.</dd></dl>
+    <dl><dt>털 관리</dt><dd>짧고 촘촘한 털이라 털갈이 철에는 빠지는 양이 많습니다. 이때는 빗질을 자주 해 줍니다.</dd></dl>
+    <dl><dt>이런 집에 맞음</dt><dd>낮에 집이 비는 맞벌이 집, 조용한 생활을 하는 집.</dd></dl>
+   </article>
+   <article>
+    <h3>스코티시스트레이트<small>SCOTTISH STRAIGHT</small></h3>
+    <dl><dt>성격</dt><dd>귀가 서 있는 스코티시입니다. 순하고 사람을 잘 따르는 편으로 알려져 있습니다.</dd></dl>
+    <dl><dt>털 관리</dt><dd>짧은 털과 긴 털이 모두 있습니다. 긴 털이면 엉키지 않게 빗질을 더 자주 합니다.</dd></dl>
+    <dl><dt>이런 집에 맞음</dt><dd>고양이와 함께 있는 시간이 긴 집. 부모 고양이 정보와 건강 기록은 분양 전에 함께 확인합니다.</dd></dl>
+   </article>
+   <article>
+    <h3>랙돌<small>RAGDOLL</small></h3>
+    <dl><dt>성격</dt><dd>느긋하고 사람을 따라다니는 아이가 많습니다. 다 자라면 몸집이 큰 편입니다.</dd></dl>
+    <dl><dt>털 관리</dt><dd>털이 길고 부드러워 엉키기 쉽습니다. 거의 매일 빗질할 시간이 필요합니다.</dd></dl>
+    <dl><dt>이런 집에 맞음</dt><dd>빗질을 생활로 받아들일 수 있는 집, 큰 고양이가 움직일 공간이 있는 집.</dd></dl>
+   </article>
+  </div>
+  <p class="brd-n">지금 매장에 있는 아이는 품종·나이·접종 차수가 그때그때 다릅니다. 방문 예약 때 원하는 품종을 말씀해 주시면 만날 수 있는 아이가 있는지 먼저 알려 드립니다. 어느 품종이든 분양 전에 건강 기록을 함께 확인합니다.</p>
+ </div>
+</section>
+
+<section class="sec alt" id="check">
+ <div class="w">
+  <div class="sh"><div><p class="k">데려가기 전 확인할 것</p><h2>서류와 상태를<br>같이 보고 정합니다</h2></div><p class="d">아래 네 가지는 매장에서 아이를 보면서 하나씩 확인합니다. 궁금한 것은 그 자리에서 물어보세요.</p></div>
+  <div class="chk">
+   <ol>
+    <li><b>건강 상태 확인</b><p>눈곱, 콧물, 귀 안쪽, 변 상태, 잘 먹고 잘 노는지를 같이 봅니다. 최근 동물병원 진료 기록이 있으면 함께 보여 드립니다.</p></li>
+    <li><b>예방접종 기록</b><p>지금까지 맞은 접종 차수와 날짜를 기록지로 드립니다. 남은 차수는 언제 어디서 맞히면 되는지도 적어 드립니다.</p></li>
+    <li><b>구충 기록</b><p>구충을 한 날짜와 다음 구충 시기를 기록에 적어 둡니다. 데려간 뒤 다니실 동물병원에 이 기록을 보여 주시면 됩니다.</p></li>
+    <li><b>분양 계약서</b><p>품종, 생년월일, 접종 내역, 분양 뒤 건강 문제가 생겼을 때의 처리 기준이 적힌 계약서를 함께 읽고 서명합니다. 건강 관련 안내는 계약서에 적힌 기준대로 합니다.</p></li>
+   </ol>
+   <div class="adapt">
+    <h3>데려간 뒤 적응 기간</h3>
+    <ul>
+     <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>처음 며칠은 숨어 있거나 잘 먹지 않을 수 있습니다. 작은 방 하나에서 시작하면 빨리 익숙해집니다.</li>
+     <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>매장에서 먹던 사료와 모래를 알려 드립니다. 바꿀 때는 천천히 섞어 바꿉니다.</li>
+     <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>먼저 지내는 고양이가 있으면 공간을 나눠 냄새부터 익히게 합니다.</li>
+     <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>적응 기간에 궁금한 것은 카톡으로 물어보시면 답해 드립니다.</li>
+    </ul>
+    <p class="ask"><b>데려가기 전에 한 번 더</b><br>가족 모두 동의했는지, 15년 넘게 함께 지낼 수 있는지 생각해 보세요. 한 번 보고 돌아가 상의한 뒤 정하셔도 됩니다.</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="sec" id="price">
+ <div class="w">
+  <div class="sh"><div><p class="k">가격 안내</p><h2>같은 품종이라도<br>분양가가 다릅니다</h2></div><p class="d">품종과 혈통서, 나이, 접종 차수에 따라 금액이 달라집니다. 방문 예약 때 원하는 조건을 알려 주시면 범위를 먼저 말씀드립니다.</p></div>
+  <div class="price">
+   <table>
+    <thead><tr><th>구분</th><th>금액</th><th>금액이 달라지는 이유</th></tr></thead>
+    <tbody>
+     <tr><th>코리안숏헤어</th><td class="p">○○만 원부터</td><td class="y">나이와 접종 차수, 털색과 무늬</td></tr>
+     <tr><th>브리티시숏헤어</th><td class="p">○○○만 원부터</td><td class="y">혈통서가 있는지, 털색, 나이와 접종 차수</td></tr>
+     <tr><th>스코티시스트레이트</th><td class="p">○○○만 원부터</td><td class="y">혈통서가 있는지, 털 길이, 나이와 접종 차수</td></tr>
+     <tr><th>랙돌</th><td class="p">○○○만 원부터</td><td class="y">혈통서가 있는지, 무늬 종류, 나이와 접종 차수</td></tr>
+     <tr><th>혈통서 발급</th><td class="p">○만 원</td><td class="y">발급 단체와 처리 기간. 혈통서가 있는 아이만 해당합니다</td></tr>
+     <tr><th>데려갈 때 용품</th><td class="p">○만 원부터</td><td class="y">이동장, 먹던 사료·모래 소분 등 필요한 것만 고르시면 됩니다</td></tr>
+    </tbody>
+   </table>
+   <p class="note">예시 페이지라 금액은 가렸습니다.</p>
+   <div class="why">
+    <div>
+     <h3>금액이 달라지는 이유</h3>
+     <ul>
+      <li>품종: 같은 나이라도 품종마다 분양가 범위가 다릅니다.</li>
+      <li>혈통서 유무: 부모 계통이 기록된 혈통서가 있으면 금액이 올라갑니다.</li>
+      <li>나이: 매장에서 지낸 기간이 길면 그만큼 관리와 접종이 더 들어가 있습니다.</li>
+      <li>접종 차수: 몇 차까지 맞혔는지에 따라 데려간 뒤 남는 접종이 달라집니다.</li>
+     </ul>
+    </div>
+    <div>
+     <h3>분양가에 들어 있는 것</h3>
+     <p>매장에서 맞힌 예방접종과 구충, 건강 기록지, 분양 계약서는 분양가에 포함됩니다. 남은 접종 차수와 이후 진료는 데려가신 뒤 다니실 동물병원에서 받으시면 됩니다.</p>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="sec alt" id="cases">
+ <div class="w">
+  <div class="sh"><div><p class="k">분양 사례</p><h2>이렇게 데려가셨습니다 <small>(예시)</small></h2></div><p class="d">마포구와 가까운 동네에서 자주 있는 상황 세 가지입니다.</p></div>
+  <div class="cases">
+   <article>
+    <h3><small>성산동 · 아파트</small>처음 고양이를 키우는 맞벌이 부부</h3>
+    <dl>
+     <dt>상황</dt><dd>고양이를 처음 키우는 집이라 무엇을 준비해야 할지 몰라 하셨습니다.</dd>
+     <dt>조건</dt><dd>평일 낮에는 집이 비어, 혼자 있는 시간을 잘 견디는 아이를 원하셨습니다.</dd>
+     <dt>진행한 일</dt><dd>첫 방문 때 여러 아이를 보고 돌아가셨고, 두 번째 방문에 두 분이 함께 오셔서 차분한 브리티시숏헤어로 정했습니다. 준비물 목록과 남은 접종 일정을 적어 드렸습니다.</dd>
+     <dt>마무리</dt><dd>계약서와 건강 기록을 함께 읽고 서명한 뒤 이동장에 넣어 직접 데려가셨습니다.</dd>
+    </dl>
+   </article>
+   <article>
+    <h3><small>연남동 · 빌라</small>먼저 지내는 고양이가 있는 집</h3>
+    <dl>
+     <dt>상황</dt><dd>나이가 있는 고양이와 지내는 집에서 둘째를 찾으셨습니다.</dd>
+     <dt>조건</dt><dd>첫째가 낯선 소리에 예민해 합사가 걱정이라고 하셨습니다.</dd>
+     <dt>진행한 일</dt><dd>활발한 아이보다 조용한 코리안숏헤어를 함께 골랐습니다. 처음엔 방을 나눠 지내고 냄새가 밴 담요를 바꿔 주는 순서로 합사 방법을 설명드렸습니다.</dd>
+     <dt>마무리</dt><dd>합사하는 동안 물어보신 것은 카톡으로 답해 드렸습니다.</dd>
+    </dl>
+   </article>
+   <article>
+    <h3><small>상암동 · 아파트</small>랙돌을 원한 아이 있는 가족</h3>
+    <dl>
+     <dt>상황</dt><dd>사진으로 랙돌을 보고 오셨는데, 털 관리가 어느 정도인지 궁금해하셨습니다.</dd>
+     <dt>조건</dt><dd>초등학생 자녀가 있고, 가족 중 한 분은 고양이를 처음 키워 보셨습니다.</dd>
+     <dt>진행한 일</dt><dd>매장에서 빗질을 직접 해 보시게 했습니다. 거의 매일 빗질해야 한다는 점과 다 자란 크기를 말씀드리고, 가족이 상의할 시간을 드렸습니다.</dd>
+     <dt>마무리</dt><dd>가족 모두 동의한 뒤 다시 예약하고 오셔서, 접종 일정에 맞춘 날짜에 데려가셨습니다.</dd>
+    </dl>
+   </article>
+  </div>
+ </div>
+</section>
+
+<section class="sec" id="visit">
+ <div class="w">
+  <div class="sh"><div><p class="k">방문 예약 과정</p><h2>예약하고 오시면<br>기다리지 않습니다</h2></div><p class="d">아이들 쉬는 시간을 지키려고 예약한 시간에 한 가족씩 받습니다.</p></div>
+  <ol class="tl">
+   <li><b>방문 예약</b><p>전화나 카톡으로 원하는 품종, 가족 구성, 먼저 지내는 반려동물이 있는지 알려 주세요.</p></li>
+   <li><b>매장에서 만나기</b><p>아이들과 같이 있어 보고 성격을 살핍니다. 함께 살 가족이 같이 오시면 좋습니다.</p></li>
+   <li><b>기록·계약서 설명</b><p>건강 기록과 접종·구충 내역, 계약서 내용을 하나씩 보여 드립니다.</p></li>
+   <li><b>데려갈 날 정하기</b><p>그날 정하지 않으셔도 됩니다. 상의한 뒤 접종 일정에 맞춰 날짜를 잡습니다.</p></li>
+   <li><b>직접 데려가기</b><p>이동장을 가지고 오셔서 데려가십니다. 적응 기간에 궁금한 것은 카톡으로 물어보세요.</p></li>
+  </ol>
+ </div>
+</section>
+
+<section class="sec alt" id="way">
+ <div class="w way">
+  <div><h2>망원동 매장으로<br>오세요</h2><p>마포구 안쪽은 물론 서대문구·은평구·영등포구에서도 많이 오십니다. 예약 시간에 맞춰 오시면 바로 안내합니다.</p></div>
+  <dl>
+   <dt>주소</dt><dd>서울 마포구 망원동 ○○로 ○○, ○층</dd>
+   <dt>지하철</dt><dd>6호선 망원역, 2·6호선 합정역에서 걸어서 오실 수 있습니다</dd>
+   <dt>주차</dt><dd>주차 가능 여부는 방문 예약 때 안내드립니다</dd>
+   <dt>마포구</dt><dd>망원동 · 합정동 · 서교동 · 연남동 · 성산동 · 상암동 · 공덕동 · 아현동</dd>
+   <dt>인근 지역</dt><dd>서대문구 · 은평구 · 영등포구</dd>
+  </dl>
+ </div>
+</section>
+
+<section class="sec" id="faq">
+ <div class="w">
+  <div class="sh"><div><p class="k">자주 묻는 질문</p><h2>방문 전에 많이 묻는 것</h2></div></div>
+  <div class="faq">
+   <details open><summary>지방에 사는데 택배나 차량으로 보내 주실 수 있나요?</summary><p>보내 드리지 않습니다. 동물은 택배로 보낼 수 없고, 저희는 매장에 직접 오셔서 데려가시는 경우에만 분양합니다.</p></details>
+   <details><summary>몇 개월부터 데려갈 수 있나요?</summary><p>생후 2개월이 지난 아이만 분양합니다. 접종 일정에 따라 데려가는 날을 조금 늦추기도 합니다.</p></details>
+   <details><summary>보러 간 날 바로 정해야 하나요?</summary><p>아닙니다. 한 번 보고 돌아가 가족과 상의하신 뒤 다시 예약하셔도 됩니다. 가족 모두 동의했는지, 오래 함께할 수 있는지 먼저 생각해 보시길 권합니다.</p></details>
+   <details><summary>데려간 뒤에 아프면 어떻게 하나요?</summary><p>먼저 건강 기록지를 가지고 가까운 동물병원에서 진료를 받아 주세요. 그 뒤의 처리는 분양 계약서에 적힌 기준대로 안내해 드립니다.</p></details>
+   <details><summary>예약 없이 들러도 되나요?</summary><p>예약제로 운영합니다. 아이들이 쉬는 시간을 지키고, 한 가족씩 충분히 보실 수 있게 하려는 것입니다.</p></details>
+  </div>
+ </div>
+</section>
+
+<section class="band">
+ <div class="w">
+  <div><h2>만나 보고 싶은 아이가 있으면 먼저 예약해 주세요</h2><p>원하는 품종과 가족 상황을 알려 주시면 방문 날짜를 잡아 드립니다.</p></div>
+  <div class="r"><a class="tel" href="#">010-○○○○-○○○○</a><a class="btn kakao" href="#"><svg class="ico" viewBox="0 0 24 24"><path d="M12 4c5 0 9 3.1 9 7s-4 7-9 7c-.9 0-1.8-.1-2.6-.3L5 20l1-3.6C4.2 15.1 3 13.2 3 11c0-3.9 4-7 9-7z"/></svg>카톡으로 방문 예약</a></div>
+ </div>
+</section>
+
+<footer class="ft">
+ <div class="w">
+  <div class="nm">○○캐터리</div>
+  <p class="info"><span>상호 ○○캐터리</span><span>대표 ○○○</span><span>사업자등록번호 ○○○-○○-○○○○○</span><span>동물판매업 등록번호 ○○○○-○○○○-○○○</span><span>주소 서울특별시 마포구 망원동</span><span>010-○○○○-○○○○</span><span>고양이 분양 · 방문 예약제</span></p>
+  <div class="jd8">
+   <small>JD8 안내</small>
+   <p class="t">이 구성 그대로, 지역마다 한 장씩 만들어집니다</p>
+   <div class="chips"><span>서울 서대문구 고양이 분양</span><span>서울 은평구 고양이 분양</span><span>서울 영등포구 고양이 분양</span><span>서울 용산구 고양이 분양</span><span>고양 일산 고양이 분양</span><span>김포 고양이 분양</span></div>
+   <p class="x">지역이 바뀌면 오시는 길·분양 사례·안내 문구가 그 지역에 맞게 달라집니다. 지역 이름만 바꾼 복제 페이지는 만들지 않습니다.</p>
+  </div>
+  <p class="demo"><b>업종별 예시 페이지입니다.</b> 실제 업체가 아니며 상호·전화번호는 가렸습니다. 이런 페이지를 사장님 업종·지역마다 만들어 드립니다. <a href="/">제작 상담 →</a></p>
+ </div>
+</footer>
+
+<nav class="mbar"><a href="#">전화 예약</a><a class="k" href="#">카톡 예약</a></nav>
+<div class="badge">예시 화면</div>
+</body>
+</html>

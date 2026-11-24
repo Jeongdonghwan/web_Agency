@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>○○크레인 · 김해 카고크레인 (예시)</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--sl:#26333f;--sl2:#3a4b5b;--sl3:#5d6f80;--or:#ee7d0b;--or2:#ffab4a;--ink:#1d262f;--mut:#56626e;--line:#d3d9df;--bg2:#e9edf0;--sans:'Pretendard Variable',Pretendard,sans-serif;
+--haz:repeating-linear-gradient(-45deg,var(--or) 0 14px,var(--sl) 14px 28px)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);font-size:17px;line-height:1.7;color:var(--ink);background:#fff;word-break:keep-all;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+img{display:block;max-width:100%}
+h1,h2,h3{line-height:1.3;letter-spacing:-.025em;margin:0}
+.w{max-width:1200px;margin:0 auto;padding:0 32px}
+.ico{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+/* header */
+.hd{background:#fff;position:sticky;top:0;z-index:40;box-shadow:0 1px 0 var(--line)}
+.hd .w{display:flex;align-items:center;height:72px;gap:32px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:900;font-size:24px;letter-spacing:-.03em;color:var(--sl);white-space:nowrap}
+.logo i{display:block;width:30px;height:30px;background:var(--haz);border:2px solid var(--sl)}
+.hd nav{display:flex;gap:26px;margin-left:auto;font-weight:600;font-size:16px}
+.hd nav a{text-decoration:none;color:#3c4752}
+.hd .call{display:flex;align-items:center;gap:8px;text-decoration:none;background:var(--sl);color:#fff;font-weight:800;font-size:18px;padding:10px 18px;white-space:nowrap}
+.hd .call .ico{color:var(--or2);width:18px;height:18px}
+.haz{height:8px;background:var(--haz)}
+/* hero */
+.hero{display:grid;grid-template-columns:1fr 1fr;background:var(--sl);color:#fff}
+.hero .tx{padding:72px 56px 72px max(32px,calc((100vw - 1200px)/2 + 32px))}
+.hero .kw{display:inline-flex;align-items:center;gap:10px;font-size:17px;font-weight:800;color:var(--or2);margin-bottom:22px}
+.hero .kw::before{content:'';width:28px;height:3px;background:var(--or)}
+.hero h1{font-size:clamp(36px,3.9vw,52px);font-weight:900;line-height:1.2;margin-bottom:24px}
+.hero h1 em{font-style:normal;color:var(--or2)}
+.hero .lead{font-size:19px;color:#cfd7df;margin:0 0 30px;max-width:520px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-weight:800;font-size:19px;padding:16px 26px;white-space:nowrap}
+.btn.tel{background:var(--or);color:var(--sl)}
+.btn.tel b{font-size:24px;letter-spacing:-.01em}
+.btn.kakao{background:#fee500;color:#191600}
+.hero .ph{position:relative;min-height:600px;background:url(/sample/crane/hero.jpg) 30% 50%/cover no-repeat}
+.plate{position:absolute;left:-56px;bottom:40px;background:#fff;color:var(--ink);width:340px;border-top:6px solid var(--or);padding:22px 24px 20px;box-shadow:0 18px 40px rgba(0,0,0,.25)}
+.plate b{display:block;font-size:15px;font-weight:800;color:var(--sl3);margin-bottom:10px}
+.plate ol{margin:0;padding:0;list-style:none;counter-reset:p}
+.plate li{counter-increment:p;display:flex;gap:12px;align-items:baseline;padding:6px 0;border-top:1px dashed var(--line);font-weight:700;font-size:16px}
+.plate li:first-child{border-top:0}
+.plate li::before{content:counter(p);font-weight:900;color:var(--or);min-width:14px}
+.plate li span{font-weight:500;color:var(--mut);font-size:14.5px;margin-left:auto;text-align:right}
+/* sections */
+.sec{padding:96px 0}
+.sec.alt{background:var(--bg2)}
+.sec.dk{background:var(--sl);color:#fff}
+.sh{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:14px 56px;margin-bottom:48px;align-items:end}
+.sh .k{grid-column:1/-1;margin:0;font-size:15px;font-weight:800;letter-spacing:.02em;color:var(--sl3);border-left:6px solid var(--or);padding-left:12px;line-height:1.3;align-self:start}
+.sh h2{font-size:clamp(30px,3.4vw,44px);font-weight:900}
+.sh h2 small{font-size:16px;font-weight:600;color:var(--mut);letter-spacing:0;margin-left:6px;white-space:nowrap}
+.sh h2:last-child{grid-column:1/-1}
+.sh p{grid-column:2;margin:0;color:var(--mut);font-size:18px;max-width:700px}
+.dk .sh .k{color:#aebbc7}.dk .sh p{color:#c3ccd5}
+/* tonnage */
+.ton{display:grid;grid-template-columns:repeat(3,1fr);align-items:end;gap:0;border-bottom:4px solid var(--sl)}
+.ton div{background:#fff;border:1px solid var(--line);border-bottom:0;padding:26px 26px 24px;margin-left:-1px}
+.ton div:nth-child(1){min-height:250px}
+.ton div:nth-child(2){min-height:300px;border-top:4px solid var(--or)}
+.ton div:nth-child(3){min-height:350px;background:var(--sl);color:#fff;border-color:var(--sl)}
+.ton small{display:block;font-size:14px;font-weight:800;color:var(--sl3)}
+.ton div:nth-child(3) small{color:var(--or2)}
+.ton h3{font-size:30px;font-weight:900;margin:2px 0 12px}
+.ton p{margin:0;font-size:16px;color:var(--mut)}
+.ton div:nth-child(3) p{color:#c9d2db}
+.tnote{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;margin:26px 0 0;font-size:16px;color:var(--mut);max-width:900px}
+.tnote b{background:var(--or);color:var(--sl);font-size:14px;padding:2px 10px;white-space:nowrap}
+/* work types */
+.jobs{border-top:2px solid var(--ink)}
+.job{display:grid;grid-template-columns:260px 1fr;gap:16px 48px;padding:34px 0;border-bottom:1px solid var(--line)}
+.job h3{font-size:25px;font-weight:900}
+.job h3 small{display:block;font-size:14px;font-weight:800;color:var(--or);letter-spacing:.04em;margin-bottom:6px}
+.job dl{margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0 28px}
+.job dt{font-size:14px;font-weight:800;color:var(--sl3);padding-bottom:6px;border-bottom:2px solid var(--sl);margin-bottom:10px;grid-row:1}
+.job dd{margin:0;font-size:16px;color:#3a4652;grid-row:2}
+.job.pic{grid-template-columns:260px 1fr 300px}
+.job.pic img{width:100%;height:100%;min-height:220px;object-fit:cover}
+.job.pic dl{grid-template-columns:1fr;gap:0}
+.job.pic dt{grid-row:auto}.job.pic dd{grid-row:auto;margin-bottom:14px}
+.wide{position:relative;margin:48px 0 0;display:grid;grid-template-columns:1.25fr 1fr;background:var(--sl);color:#fff}
+.wide img{width:100%;height:100%;min-height:380px;object-fit:cover;object-position:50% 45%}
+.wide div{padding:40px 38px;align-self:center}
+.wide h3{font-size:26px;font-weight:900;margin-bottom:14px}
+.wide h3::before{content:'';display:block;width:48px;height:8px;background:var(--haz);margin-bottom:18px}
+.wide ul{margin:0;padding:0 0 0 18px;color:#d1d9e1}
+.wide li{margin-bottom:8px}
+/* price */
+.price{max-width:1000px}
+.price table{width:100%;border-collapse:collapse;background:#fff}
+.price thead th{background:var(--sl);color:#fff;font-size:15px;font-weight:700;text-align:left;padding:12px 16px}
+.price td,.price tbody th{padding:16px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.price tbody th{font-weight:800;width:30%}
+.price td.won{font-weight:800;white-space:nowrap;color:#b15a00;width:18%}
+.price td:last-child{font-size:16px;color:var(--mut)}
+.price .note{font-size:14px;color:var(--mut);margin:12px 0 0}
+.why{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:40px;border-top:2px solid var(--sl)}
+.why h3{grid-column:1/-1;font-size:20px;font-weight:900;padding:18px 0 14px}
+.why div{padding:16px 18px 4px 0;border-top:1px solid var(--line)}
+.why b{display:block;font-size:17px;font-weight:800;margin-bottom:4px}
+.why b::before{content:'';display:inline-block;width:10px;height:10px;background:var(--or);margin-right:8px;vertical-align:1px}
+.why p{margin:0;font-size:15px;color:var(--mut)}
+/* cases */
+.cases{display:grid;grid-template-columns:1.2fr 1fr;gap:28px}
+.cases article{background:var(--sl2);padding:30px 30px 26px}
+.cases article:first-child{grid-row:span 2;background:transparent;border:1px solid #4d5f70;padding:34px 34px 30px}
+.cases h3{font-size:22px;font-weight:900;margin-bottom:16px}
+.cases h3 small{display:block;font-size:14px;font-weight:800;color:var(--or2);margin-bottom:6px;letter-spacing:0}
+.cases article:first-child h3{font-size:26px}
+.cases dl{margin:0;display:grid;grid-template-columns:62px 1fr;gap:8px 14px}
+.cases dt{font-weight:800;color:#fff;font-size:15px;padding-top:2px}
+.cases dd{margin:0;color:#c9d2db;font-size:16px}
+.cases article:first-child dd{font-size:17px}
+/* steps */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);counter-reset:s;position:relative}
+.steps::before{content:'';position:absolute;left:0;right:0;top:23px;height:4px;background:var(--line)}
+.steps li{counter-increment:s;position:relative;padding:0 18px 0 0}
+.steps li::before{content:counter(s,decimal-leading-zero);display:grid;place-items:center;width:50px;height:50px;background:var(--sl);color:var(--or2);font-weight:900;font-size:18px;margin-bottom:18px;position:relative}
+.steps b{display:block;font-size:19px;font-weight:800;margin-bottom:6px}
+.steps p{margin:0;font-size:15.5px;color:var(--mut)}
+.safe{margin-top:44px;display:grid;grid-template-columns:240px 1fr;background:#fff;border:1px solid var(--line)}
+.safe img{width:100%;height:0;min-height:100%;object-fit:cover;object-position:50% 40%}
+.safe div{padding:30px 34px}
+.safe h3{font-size:22px;font-weight:900;margin-bottom:12px}
+.safe ul{margin:0;padding-left:18px;color:#3a4652}
+.safe li{margin-bottom:6px}
+/* area */
+.area{display:grid;grid-template-columns:1fr 1.4fr;gap:56px;align-items:start}
+.area h2{font-size:clamp(30px,3.2vw,42px);font-weight:900;margin-bottom:16px}
+.area h2 em{font-style:normal;color:#b15a00}
+.area p{margin:0;color:var(--mut)}
+.map{display:grid;grid-template-columns:1fr 1fr;border-top:3px solid var(--sl)}
+.map div{padding:18px 16px 18px 0;border-bottom:1px solid var(--line)}
+.map div:nth-child(odd){border-right:1px solid var(--line)}
+.map div:nth-child(even){padding-left:18px}
+.map b{display:block;font-size:15px;font-weight:800;color:var(--sl3);margin-bottom:4px}
+.map span{font-weight:600;font-size:17px}
+.map .near{grid-column:1/-1;border-right:0;background:var(--bg2);padding:18px}
+/* faq */
+.faq{max-width:880px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq details:first-child{border-top:2px solid var(--ink)}
+.faq summary{cursor:pointer;list-style:none;font-size:19px;font-weight:800;padding:22px 44px 22px 0;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'';position:absolute;right:8px;top:30px;width:12px;height:12px;border-right:3px solid var(--or);border-bottom:3px solid var(--or);transform:rotate(45deg)}
+.faq details[open] summary::after{transform:rotate(-135deg);top:36px}
+.faq details p{margin:0 0 24px;color:var(--mut)}
+/* band */
+.band{background:var(--or);color:var(--sl);padding:72px 0;position:relative}
+.band::before,.band::after{content:'';position:absolute;left:0;right:0;height:10px;background:var(--haz)}
+.band::before{top:0}.band::after{bottom:0}
+.band .w{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap}
+.band h2{font-size:clamp(28px,3.4vw,42px);font-weight:900}
+.band p{margin:10px 0 0;font-size:18px;font-weight:600}
+.band .btn.tel{background:var(--sl);color:#fff}
+/* footer */
+.ft{background:#161d24;color:#a3adb8;padding:52px 0 64px;font-size:15px}
+.ft .nm{color:#fff;font-weight:900;font-size:21px;margin-bottom:12px}
+.ft .info{display:flex;flex-wrap:wrap;gap:4px 18px;margin:0 0 24px}
+.jd8{margin:0 0 22px;padding:22px 24px;border:1px solid #34404c;border-left:4px solid var(--or)}
+.jd8 small{display:block;font-size:13px;font-weight:800;color:var(--or2)}
+.jd8 .t{color:#fff;font-size:18px;font-weight:800;margin:4px 0 14px}
+.jd8 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.jd8 .chips span{border:1px solid #46525e;padding:5px 11px;font-size:14.5px;color:#d5dbe1}
+.jd8 .x{margin:0;font-size:14.5px}
+.ft .demo{font-size:14.5px;margin:0;padding-top:20px;border-top:1px solid #2e3843}
+.ft .demo a{color:#fff;font-weight:700}
+.badge{position:fixed;left:16px;bottom:16px;z-index:45;background:#fff;color:#222;border:2px solid #222;font-size:14px;font-weight:700;padding:5px 12px}
+.mbar{display:none}
+@media (max-width:1180px){.hd nav{display:none}.hd .call{margin-left:auto}}
+@media (max-width:1000px){
+ .hero{grid-template-columns:1fr}
+ .hero .tx{padding:56px 32px}
+ .hero .ph{min-height:420px}
+ .plate{left:32px}
+ .sh{grid-template-columns:1fr}.sh p{grid-column:1}
+ .job,.job.pic{grid-template-columns:1fr}
+ .job.pic img{max-height:300px}
+ .wide{grid-template-columns:1fr}
+ .why{grid-template-columns:1fr 1fr}
+ .steps{grid-template-columns:1fr 1fr 1fr;gap:28px 0}.steps::before{display:none}
+ .area{grid-template-columns:1fr;gap:32px}
+}
+@media (max-width:700px){
+ body{font-size:16px;padding-bottom:60px}
+ .w{padding:0 16px}
+ .hd .w{height:60px;gap:10px}
+ .logo{font-size:20px;gap:8px}.logo i{width:24px;height:24px}
+ .hd .call{font-size:14px;padding:8px 10px}
+ .hero .tx{padding:36px 16px 40px}
+ .hero .kw{font-size:15px;margin-bottom:16px}
+ .hero h1{font-size:34px;margin-bottom:18px}
+ .hero .lead{font-size:16.5px;margin-bottom:24px}
+ .btn{font-size:17px;padding:14px 18px;width:100%}
+ .btn.tel b{font-size:22px}
+ .hero .ph{min-height:0;background:none;display:flex;flex-direction:column}
+ .hero .ph::before{content:'';display:block;height:230px;background:url(/sample/crane/hero.jpg) 30% 50%/cover no-repeat}
+ .plate{position:static;width:auto;box-shadow:none;margin:0}
+ .sec{padding:60px 0}
+ .sh{margin-bottom:30px;gap:12px}
+ .sh h2 small{display:block;margin:4px 0 0}
+ .sh p{font-size:16px}
+ .ton{grid-template-columns:1fr;border-bottom:0}
+ .ton div,.ton div:nth-child(n){min-height:0;margin:0 0 -1px;padding:20px 18px;border-bottom:1px solid var(--line)}
+ .ton h3{font-size:24px}
+ .tnote{grid-template-columns:1fr;gap:8px}.tnote b{justify-self:start}
+ .job{padding:26px 0;gap:14px}
+ .job h3{font-size:21px}
+ .job dl{grid-template-columns:1fr}
+ .job dt,.job dd{grid-row:auto}
+ .job dd{margin-bottom:14px}
+ .wide div{padding:26px 18px}
+ .wide img{min-height:220px}
+ .wide h3{font-size:21px}
+ .price table,.price tbody{display:block}
+ .price thead{display:none}
+ .price tr{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:14px 2px;border-bottom:1px solid var(--line)}
+ .price td,.price tbody th,.price td.won{padding:0;border:0;width:auto}
+ .price td:last-child{grid-column:1/-1;font-size:15px}
+ .why{grid-template-columns:1fr}
+ .cases{grid-template-columns:1fr;gap:16px}
+ .cases article,.cases article:first-child{padding:22px 18px}
+ .cases h3,.cases article:first-child h3{font-size:20px}
+ .cases dd,.cases article:first-child dd{font-size:15.5px}
+ .steps{grid-template-columns:1fr;gap:16px}
+ .steps li{display:grid;grid-template-columns:50px 1fr;gap:0 14px;padding:0}
+ .steps li::before{margin:0;grid-row:span 2}
+ .steps b{font-size:18px;margin-bottom:2px}
+ .safe{grid-template-columns:1fr}
+ .safe img{min-height:0;height:220px}
+ .safe div{padding:22px 18px}
+ .map{grid-template-columns:1fr}
+ .map div,.map div:nth-child(n){padding:14px 0;border-right:0}
+ .map .near{padding:14px}
+ .faq summary{font-size:17px}
+ .band{padding:56px 0}
+ .band .r{width:100%;display:grid;gap:10px}
+ .ft{padding-bottom:40px}
+ .jd8{padding:18px 16px}
+ .jd8 .t{font-size:17px}
+ .badge{left:auto;right:10px;bottom:70px;font-size:13px}
+ .mbar{display:grid;grid-template-columns:1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:50;height:60px}
+ .mbar a{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;font-weight:800;font-size:16px}
+ .mbar a:first-child{background:var(--sl);color:#fff}
+ .mbar a:first-child .ico{color:var(--or2)}
+ .mbar a:last-child{background:#fee500;color:#191600}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="hd"><div class="w">
+ <a class="logo" href="#"><i></i>○○크레인</a>
+ <nav><a href="#ton">장비 안내</a><a href="#jobs">작업 종류</a><a href="#price">가격 안내</a><a href="#cases">작업 사례</a><a href="#steps">작업 과정</a><a href="#area">출동 지역</a><a href="#faq">자주 묻는 질문</a></nav>
+ <a class="call" href="#"><svg class="ico" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg>010-○○○○-○○○○</a>
+</div></header>
+<div class="haz"></div>
+
+<section class="hero">
+ <div class="tx">
+  <span class="kw">경남 김해 카고크레인</span>
+  <h1>무게와 높이,<br>차 댈 자리만 알려 주세요<br><em>맞는 톤수로 갑니다</em></h1>
+  <p class="lead">주촌면에서 출발해 김해 전 지역을 다닙니다. 실외기 한 대, 간판 하나, 조경수 몇 그루도 시간 단위로 부르실 수 있습니다.</p>
+  <div class="cta">
+   <a class="btn tel" href="#"><svg class="ico" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg><b>010-○○○○-○○○○</b></a>
+   <a class="btn kakao" href="#"><svg class="ico" viewBox="0 0 24 24"><path d="M12 4c5 0 9 3.1 9 7s-4 7-9 7c-.9 0-1.8-.1-2.6-.3L5 20l1-3.6C4.2 15.1 3 13.2 3 11c0-3.9 4-7 9-7z"/></svg>카톡으로 현장 사진 보내기</a>
+  </div>
+ </div>
+ <div class="ph" role="img" aria-label="적재함 뒤에 크레인을 단 카고 트럭">
+  <div class="plate">
+   <b>전화 주실 때 이 네 가지면 됩니다</b>
+   <ol>
+    <li>무엇을 드나요<span>종류·대략 무게</span></li>
+    <li>어디까지 올리나요<span>층수·높이</span></li>
+    <li>차에서 얼마나 먼가요<span>담장·건물 너머 거리</span></li>
+    <li>차가 들어가나요<span>길 폭·전선·바닥</span></li>
+   </ol>
+  </div>
+ </div>
+</section>
+
+<section class="sec alt" id="ton">
+ <div class="w">
+  <div class="sh"><p class="k">장비 안내</p><h2>톤수는 차 크기입니다</h2><p>카고크레인 톤수는 트럭 크기를 말합니다. 들 수 있는 무게는 붐을 얼마나 길게 빼는지에 따라 줄어들어서, 같은 짐이라도 멀리 놓을수록 큰 차가 필요합니다.</p></div>
+  <div class="ton">
+   <div><small>골목·주택가</small><h3>5톤 카고</h3><p>차체가 작아 좁은 길과 주택 앞에 세우기 좋습니다. 실외기, 간판, 자재 몇 묶음처럼 가볍고 가까운 작업에 갑니다.</p></div>
+   <div><small>가장 많이 나가는 차</small><h3>8톤 · 11톤 카고</h3><p>상가 간판, 조경수, 공장 설비처럼 무게가 좀 있거나 담장 너머로 넘겨야 하는 작업입니다. 적재함이 길어 자재를 싣고 가서 바로 올리기도 합니다.</p></div>
+   <div><small>멀리·높이·무겁게</small><h3>15톤 이상 · 큰 장비</h3><p>컨테이너, 큰 기계, 건물 위쪽 층 양중처럼 무게와 거리가 함께 큰 작업입니다. 진입로와 지지대 펼 자리를 먼저 확인하고, 필요하면 더 큰 크레인을 따로 배차합니다.</p></div>
+  </div>
+  <p class="tnote"><b>톤수는 저희가 정합니다</b>짐의 무게, 차에서 놓을 곳까지 거리, 높이를 들으면 그 작업에 맞는 차를 골라 드립니다. 애매하면 사진을 받아 보거나 현장을 먼저 봅니다.</p>
+ </div>
+</section>
+
+<section class="sec" id="jobs">
+ <div class="w">
+  <div class="sh"><p class="k">작업 종류</p><h2>이런 일에 부르십니다</h2><p>작업마다 고르는 차와 미리 볼 것이 다릅니다.</p></div>
+  <div class="jobs">
+   <div class="job">
+    <h3><small>01</small>에어컨 실외기</h3>
+    <dl>
+     <dt>이런 작업</dt><dd>상가 옥상이나 건물 외벽 앵글에 실외기를 올리고 내립니다. 엘리베이터에 안 들어가거나 계단으로 못 옮기는 대형 실외기가 많습니다.</dd>
+     <dt>장비·톤수 선택 기준</dt><dd>한두 대에 건물 바로 앞에 세울 수 있으면 5톤으로 충분합니다. 옥상 안쪽 깊이 놓거나 여러 대를 한 번에 올리면 8톤 이상으로 갑니다.</dd>
+     <dt>미리 확인할 것</dt><dd>실외기 대수와 모델, 놓을 자리까지 거리. 설치 기사 도착 시간에 맞춰 갑니다.</dd>
+    </dl>
+   </div>
+   <div class="job">
+    <h3><small>02</small>간판 설치·교체</h3>
+    <dl>
+     <dt>이런 작업</dt><dd>상가 돌출 간판, 옥상 간판, 큰 채널 간판을 달고 뗍니다. 간판 시공은 간판 업체가, 들어 주는 일은 저희가 합니다.</dd>
+     <dt>장비·톤수 선택 기준</dt><dd>간판 무게보다 높이와 차에서 벽까지 거리가 기준입니다. 사람이 붙어서 고정해야 하면 고소작업차를 같이 배차합니다.</dd>
+     <dt>미리 확인할 것</dt><dd>간판 크기, 달 높이, 인도나 차도를 막아야 하는지. 도로를 써야 하면 허가 여부를 시공 업체와 먼저 확인해 주세요.</dd>
+    </dl>
+   </div>
+   <div class="job pic">
+    <h3><small>03</small>조경수 식재·이식</h3>
+    <dl>
+     <dt>이런 작업</dt><dd>전원주택 마당, 상가 화단에 큰 나무를 심거나 옮깁니다. 베어 낸 큰 둥치를 들어 트럭에 싣는 일도 합니다.</dd>
+     <dt>장비·톤수 선택 기준</dt><dd>분(뿌리 흙덩이) 크기에 따라 무게 차이가 큽니다. 담장 너머 마당 안쪽으로 넘기면 거리가 길어져 한 단계 큰 차를 씁니다.</dd>
+     <dt>미리 확인할 것</dt><dd>나무 높이와 분 크기, 심을 구덩이를 미리 파 두는지, 마당 바닥이 차 무게를 받는지.</dd>
+    </dl>
+    <img src="/sample/crane/tree.jpg" alt="크레인에 매달린 나무 둥치와 바닥에 놓인 통나무">
+   </div>
+   <div class="job">
+    <h3><small>04</small>컨테이너·농막</h3>
+    <dl>
+     <dt>이런 작업</dt><dd>창고용 컨테이너, 이동식 사무실, 농막을 내려놓거나 자리를 옮깁니다. 김해 외곽 밭·과수원 작업이 많습니다.</dd>
+     <dt>장비·톤수 선택 기준</dt><dd>컨테이너 크기와 안에 든 짐에 따라 무게가 달라집니다. 운반차가 같이 오는지, 저희 차에 싣고 가는지도 따로 정합니다.</dd>
+     <dt>미리 확인할 것</dt><dd>놓을 자리까지 비포장 길이 있는지, 비 온 뒤 바닥이 무른지. 놓을 자리 높이를 고를 받침을 미리 준비해 주세요.</dd>
+    </dl>
+   </div>
+   <div class="job">
+    <h3><small>05</small>공장 설비·기계 반입</h3>
+    <dl>
+     <dt>이런 작업</dt><dd>주촌·진영·한림 공장의 기계, 집진기, 탱크를 들여놓거나 내보냅니다. 지게차로 못 넘는 턱이나 높은 곳 설치에 부릅니다.</dd>
+     <dt>장비·톤수 선택 기준</dt><dd>설비 무게와 중심 위치를 듣고 정합니다. 무게 중심이 한쪽으로 쏠린 기계는 묶는 방법부터 같이 봅니다.</dd>
+     <dt>미리 확인할 것</dt><dd>설비 무게(명판이나 도면), 들 고리 위치, 공장 마당에 지지대를 펼 공간.</dd>
+    </dl>
+   </div>
+  </div>
+  <div class="wide">
+   <img src="/sample/crane/lift.jpg" alt="건물 앞 공사 현장에서 붐을 뻗어 자재를 들어 올리는 크레인">
+   <div>
+    <h3>자재 양중 · 고소작업</h3>
+    <ul>
+     <li>철근, 패널, 창호, 방수 자재를 옥상이나 위층으로 올립니다. 공사 일정에 맞춰 시간 단위, 반나절, 하루로 잡습니다.</li>
+     <li>장비 선택은 자재 한 묶음 무게와 올릴 높이로 정합니다. 묶음을 나누면 작은 차로도 되는 경우가 있습니다.</li>
+     <li>사람이 올라가는 작업은 크레인 고리에 태우지 않습니다. 고소작업차를 따로 배차합니다.</li>
+     <li>미리 확인할 것: 자재 종류와 양, 받을 사람이 위에 있는지, 차를 댈 자리.</li>
+    </ul>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="sec alt" id="price">
+ <div class="w">
+  <div class="sh"><p class="k">가격 안내</p><h2>톤수와 시간으로 정합니다</h2><p>예약할 때 무게, 높이, 차 댈 자리를 듣고 금액을 먼저 말씀드립니다. 현장 조건이 들은 것과 다르면 작업 전에 다시 여쭙니다.</p></div>
+  <div class="price">
+   <table>
+    <thead><tr><th>작업</th><th>금액</th><th>금액이 달라지는 이유</th></tr></thead>
+    <tbody>
+     <tr><th>5톤 카고 (기본 시간)</th><td class="won">○○만 원부터</td><td>작업 높이와 거리, 기본 시간 안에 끝나는지</td></tr>
+     <tr><th>8톤 · 11톤 카고 (기본 시간)</th><td class="won">○○만 원부터</td><td>짐 무게, 담장·건물 너머로 넘기는 거리</td></tr>
+     <tr><th>15톤 이상 · 큰 장비</th><td class="won">현장 확인 후 안내</td><td>진입로, 지지대 펼 공간, 배차 가능한 장비</td></tr>
+     <tr><th>반나절 · 하루 (양중)</th><td class="won">○○만 원부터</td><td>톤수, 실제 사용 시간, 대기 시간</td></tr>
+     <tr><th>고소작업차 함께 배차</th><td class="won">○○만 원부터</td><td>작업 높이, 사용 시간</td></tr>
+     <tr><th>신호수 추가 · 시간 연장</th><td class="won">시간당 ○만 원</td><td>현장이 넓거나 시야가 막혀 신호수가 따로 필요할 때, 예정 시간을 넘길 때</td></tr>
+    </tbody>
+   </table>
+   <p class="note">예시 페이지라 금액은 가렸습니다.</p>
+   <div class="why">
+    <h3>금액이 달라지는 이유</h3>
+    <div><b>톤수</b><p>무게와 거리에 맞춰 차가 커지면 기본 금액이 올라갑니다.</p></div>
+    <div><b>작업 높이·거리</b><p>멀고 높을수록 붐을 길게 빼야 해서 큰 차가 필요합니다.</p></div>
+    <div><b>시간 단위</b><p>기본 시간을 넘기면 시간 단위로 더해집니다.</p></div>
+    <div><b>신호수 필요 여부</b><p>운전석에서 짐이 안 보이는 현장은 신호수가 따로 붙습니다.</p></div>
+    <div><b>진입로</b><p>길이 좁거나 비포장이면 장비를 바꾸거나 시간이 더 듭니다.</p></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="sec dk" id="cases">
+ <div class="w">
+  <div class="sh"><p class="k">작업 사례</p><h2>김해에서 이렇게 나갔습니다 <small style="color:#aebbc7">(예시)</small></h2></div>
+  <div class="cases">
+   <article>
+    <h3><small>주촌면 · 공장 마당</small>집진기 설비 반입</h3>
+    <dl>
+     <dt>상황</dt><dd>공장 증설로 집진기 본체를 들여와야 했습니다. 설비 업체 화물차가 오전에 도착하는 일정이었습니다.</dd>
+     <dt>조건</dt><dd>마당 안쪽에 놓을 자리가 있었고, 앞에 기존 배관이 지나가 바로 붙여 세울 수 없었습니다. 설비 무게는 명판 사진으로 미리 받았습니다.</dd>
+     <dt>한 작업</dt><dd>거리를 감안해 11톤 카고로 갔습니다. 배관 반대편에 지지대를 펴고, 신호수 한 명이 놓을 자리에서 신호를 줬습니다. 화물차에서 바로 들어 기초 위에 내렸습니다.</dd>
+     <dt>마무리</dt><dd>설비 업체가 고정 볼트를 맞출 때까지 걸어 둔 채 기다렸다가 줄을 풀었습니다. 지지대 받침을 걷고 마당을 비워 드렸습니다.</dd>
+    </dl>
+   </article>
+   <article>
+    <h3><small>장유동 · 상가 건물</small>돌출 간판 교체</h3>
+    <dl>
+     <dt>상황</dt><dd>오래된 돌출 간판을 떼고 새 간판을 다는 작업이었습니다.</dd>
+     <dt>조건</dt><dd>상가 앞 인도가 좁아 간판 업체가 관할 확인을 먼저 했고, 손님이 적은 오전 이른 시간으로 잡았습니다.</dd>
+     <dt>한 작업</dt><dd>5톤 카고로 간판을 들어 주고, 고정은 고소작업차에 탄 간판 기사가 했습니다. 작업하는 동안 아래 통행을 막았습니다.</dd>
+     <dt>마무리</dt><dd>뗀 간판은 저희 적재함에 실어 간판 업체 창고까지 옮겨 드렸습니다.</dd>
+    </dl>
+   </article>
+   <article>
+    <h3><small>한림면 · 전원주택</small>마당 조경수 식재</h3>
+    <dl>
+     <dt>상황</dt><dd>새로 지은 주택 마당에 큰 소나무 몇 그루를 심었습니다.</dd>
+     <dt>조건</dt><dd>담장 너머로 넘겨야 했고, 마당 잔디 아래가 무를 수 있어 차는 집 앞 길에 세웠습니다.</dd>
+     <dt>한 작업</dt><dd>분이 크고 거리가 있어 11톤으로 갔습니다. 조경 업체가 파 둔 구덩이에 방향을 맞춰 한 그루씩 내렸습니다.</dd>
+     <dt>마무리</dt><dd>지주목을 세울 때까지 붙잡아 드리고, 길에 떨어진 흙을 쓸고 철수했습니다.</dd>
+    </dl>
+   </article>
+  </div>
+ </div>
+</section>
+
+<section class="sec" id="steps">
+ <div class="w">
+  <div class="sh"><p class="k">작업 과정</p><h2>전화부터 철수까지</h2></div>
+  <ol class="steps">
+   <li><b>전화·카톡 접수</b><p>무게, 높이, 주소를 듣습니다. 현장 사진이 있으면 보내 주세요.</p></li>
+   <li><b>톤수·시간 안내</b><p>맞는 차와 대략 걸리는 시간, 금액을 먼저 말씀드립니다.</p></li>
+   <li><b>도착·자리 잡기</b><p>지지대를 펼 바닥을 보고 받침을 깐 뒤 차를 고정합니다.</p></li>
+   <li><b>반경 통제·인양</b><p>붐이 도는 범위에 사람이 못 들어오게 막고, 신호에 맞춰 듭니다.</p></li>
+   <li><b>정리·철수</b><p>줄을 풀고 받침을 걷은 뒤 주변을 확인하고 떠납니다.</p></li>
+  </ol>
+  <div class="safe">
+   <img src="/sample/crane/outrigger.jpg" alt="바닥에 내린 크레인 지지대와 적재함에 걸린 슬링 줄">
+   <div>
+    <h3>현장에서 이렇게 합니다</h3>
+    <ul>
+     <li>짐을 드는 동안 붐 아래와 작업 반경 안으로는 사람이 들어오지 못하게 합니다. 건물 주인이나 손님께도 미리 부탁드립니다.</li>
+     <li>운전석에서 짐이 안 보이는 자리는 신호수를 따로 둡니다. 신호는 한 사람만 줍니다.</li>
+     <li>바람이 세지면 들던 짐을 내려놓고 작업을 멈춥니다. 강풍 예보가 있는 날은 전날 연락드려 시간을 옮길 수 있습니다.</li>
+     <li>무른 땅이나 맨홀 뚜껑 위에는 지지대를 펴지 않습니다. 받침을 깔 자리를 먼저 봅니다.</li>
+    </ul>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="sec alt" id="area">
+ <div class="w area">
+  <div><h2>주촌면에서<br><em>김해 전 지역</em>으로</h2><p>공단, 상가, 아파트 단지, 외곽 밭과 전원주택까지 다닙니다. 창원·부산 강서·양산 인접 지역은 날짜에 따라 가능하니 전화로 확인해 주세요.</p></div>
+  <div class="map">
+   <div><b>서부 · 공단</b><span>주촌면 · 진례면 · 진영읍 · 한림면</span></div>
+   <div><b>장유</b><span>장유1동 · 장유2동 · 장유3동</span></div>
+   <div><b>시내</b><span>내외동 · 북부동 · 활천동 · 삼안동 · 부원동 · 회현동 · 동상동</span></div>
+   <div><b>동부 · 외곽</b><span>칠산서부동 · 불암동 · 생림면 · 상동면 · 대동면</span></div>
+   <div class="near"><b>인접 지역</b><span>창원 의창구 · 창원 성산구 · 창원 진해구 · 부산 강서구 · 양산</span></div>
+  </div>
+ </div>
+</section>
+
+<section class="sec" id="faq">
+ <div class="w">
+  <div class="sh"><p class="k">자주 묻는 질문</p><h2>전화로 많이 받는 질문</h2></div>
+  <div class="faq">
+   <details open><summary>실외기 한 대만 올려도 와 주나요?</summary><p>갑니다. 기본 시간 요금으로 받고, 설치 기사 도착 시간에 맞춰 잡아 드립니다.</p></details>
+   <details><summary>몇 톤 차를 불러야 하는지 모르겠어요.</summary><p>정하지 않으셔도 됩니다. 짐 무게, 놓을 곳까지 거리, 높이를 알려 주시면 맞는 차를 골라 말씀드립니다.</p></details>
+   <details><summary>신호수는 따로 불러야 하나요?</summary><p>작은 현장은 기사가 직접 보면서 합니다. 운전석에서 짐이 안 보이는 현장은 신호수를 붙이고, 예약할 때 미리 말씀드립니다.</p></details>
+   <details><summary>바람 불거나 비 오는 날은요?</summary><p>약한 비는 작업합니다. 바람이 세면 안전 때문에 멈추거나 날짜를 옮기고, 예보가 걸리면 전날 다시 연락드립니다.</p></details>
+   <details><summary>골목이 좁은데 차가 들어갈까요?</summary><p>입구 사진과 길 폭을 보내 주시면 들어갈 수 있는 차를 먼저 봐 드립니다. 지지대를 펴야 해서 차 폭보다 넓은 자리가 필요합니다.</p></details>
+  </div>
+ </div>
+</section>
+
+<section class="band">
+ <div class="w">
+  <div><h2>무엇을, 어디까지 올리는지만 알려 주세요</h2><p>맞는 톤수와 가능한 날짜를 바로 말씀드립니다.</p></div>
+  <div class="r cta"><a class="btn tel" href="#"><svg class="ico" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg><b>010-○○○○-○○○○</b></a><a class="btn kakao" href="#"><svg class="ico" viewBox="0 0 24 24"><path d="M12 4c5 0 9 3.1 9 7s-4 7-9 7c-.9 0-1.8-.1-2.6-.3L5 20l1-3.6C4.2 15.1 3 13.2 3 11c0-3.9 4-7 9-7z"/></svg>카톡 상담</a></div>
+ </div>
+</section>
+
+<footer class="ft">
+ <div class="w">
+  <div class="nm">○○크레인</div>
+  <p class="info"><span>상호 ○○크레인</span><span>대표 ○○○</span><span>사업자등록번호 ○○○-○○-○○○○○</span><span>주소 경상남도 김해시 주촌면</span><span>010-○○○○-○○○○</span></p>
+  <div class="jd8">
+   <small>JD8 안내</small>
+   <p class="t">이 구성 그대로, 지역마다 한 장씩 만들어집니다</p>
+   <div class="chips"><span>창원 성산구 카고크레인</span><span>부산 강서구 카고크레인</span><span>양산 카고크레인</span><span>김해 장유 카고크레인</span><span>밀양 카고크레인</span><span>창원 진해구 카고크레인</span></div>
+   <p class="x">지역이 바뀌면 출동 동네·작업 사례·안내 문구가 그 지역에 맞게 달라집니다. 지역 이름만 바꾼 복제 페이지는 만들지 않습니다.</p>
+  </div>
+  <p class="demo"><b>업종별 예시 페이지입니다.</b> 실제 업체가 아니며 상호·전화번호는 가렸습니다. 이런 페이지를 사장님 업종·지역마다 만들어 드립니다. <a href="/">제작 상담 →</a></p>
+ </div>
+</footer>
+
+<nav class="mbar"><a href="#"><svg class="ico" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg>전화 상담</a><a href="#">카톡 상담</a></nav>
+<div class="badge">예시 화면</div>
+</body>
+</html>

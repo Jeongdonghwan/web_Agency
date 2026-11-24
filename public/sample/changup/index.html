@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>○○커피 가맹 · 대구 카페 창업 (예시)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--ol:#4a5726;--dk:#1f2414;--oat:#f3ecdf;--oat2:#e8dcc6;--sn:#b4532a;--ink:#22251c;--mut:#5b5e4e;--line:#d9cfbb;--mj:'Nanum Myeongjo',serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Pretendard Variable',Pretendard,sans-serif;font-size:17px;line-height:1.7;color:var(--ink);background:#fbf8f2;word-break:keep-all;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{max-width:100%;display:block}
+h1,h2,h3{line-height:1.3;letter-spacing:-.025em;margin:0}
+.w{max-width:1180px;margin:0 auto;padding:0 32px}
+.ico{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+/* top + header */
+.top{background:var(--dk);color:#d9d6c4;font-size:14px}
+.top .w{display:flex;justify-content:space-between;gap:16px;height:38px;align-items:center}
+.top b{color:#fff}
+.hd{background:#fbf8f2;border-bottom:1px solid var(--line)}
+.hd .w{display:flex;align-items:center;gap:34px;height:74px}
+.logo{text-decoration:none;font-weight:800;font-size:24px;letter-spacing:-.03em;color:var(--dk);white-space:nowrap}
+.logo span{font-family:var(--mj);color:var(--ol);margin-left:2px}
+.hd nav{display:flex;gap:26px;margin-left:auto;font-size:15.5px;font-weight:600;white-space:nowrap}
+.hd nav a{text-decoration:none;color:#45483a}
+.hd .ap{text-decoration:none;font-weight:800;font-size:15.5px;padding:11px 18px;background:var(--ol);color:#fff;white-space:nowrap}
+/* hero */
+.hero{padding:70px 0 90px;background:linear-gradient(90deg,var(--oat) 0,var(--oat) 62%,#fbf8f2 62%)}
+.hero .w{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.kw{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:17px;color:var(--sn);margin-bottom:18px}
+.kw::before{content:'';width:28px;height:2px;background:currentColor}
+.hero h1{font-size:54px;font-weight:800;color:var(--dk);margin-bottom:22px}
+.hero h1 em{font-style:normal;font-family:var(--mj);color:var(--ol)}
+.hero .lead{font-size:19px;color:#44473a;margin:0 0 28px;max-width:520px}
+.pts{list-style:none;margin:0 0 34px;padding:0;border-top:1px solid var(--line)}
+.pts li{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);font-weight:600}
+.pts .ico{color:var(--ol);stroke-width:3;flex:none}
+.cta{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center}
+.tel{text-decoration:none;font-size:36px;font-weight:800;color:var(--dk);line-height:1.1;white-space:nowrap}
+.tel small{display:block;font-size:14.5px;font-weight:600;color:var(--mut);margin-bottom:6px}
+.btn{display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-weight:800;font-size:18px;padding:16px 26px;background:var(--ol);color:#fff;white-space:nowrap}
+.btn.kakao{background:#fee500;color:#191600}
+.ph{position:relative}
+.ph img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:55% 50%;position:relative;z-index:1}
+.ph::before{content:'';position:absolute;right:-22px;top:-22px;width:70%;height:70%;background:var(--ol)}
+.ph p{position:absolute;z-index:2;left:-30px;bottom:30px;margin:0;background:#fff;padding:16px 20px;font-size:15px;max-width:260px;box-shadow:0 10px 30px rgba(31,36,20,.15)}
+.ph p b{display:block;font-size:16.5px;color:var(--dk)}
+/* facts strip */
+.facts{background:var(--dk);color:#e9e5d4}
+.facts .w{display:grid;grid-template-columns:repeat(4,1fr)}
+.facts .w>div{padding:26px 22px;border-left:1px solid rgba(255,255,255,.12)}
+.facts .w>div:first-child{border-left:0;padding-left:0}
+.facts small{display:block;font-size:13.5px;color:#a9a88f;margin-bottom:2px}
+.facts b{font-size:19px;color:#fff}
+/* section base */
+.sec{padding:96px 0}
+.sec.oat{background:var(--oat)}
+.sh{display:grid;grid-template-columns:300px 1fr;gap:40px;margin-bottom:48px;align-items:end}
+.sh .n{font-family:var(--mj);font-size:15px;color:var(--sn);font-weight:800;border-top:2px solid var(--dk);padding-top:12px}
+.sh h2{font-size:40px;font-weight:800;color:var(--dk)}
+.sh p{margin:12px 0 0;color:var(--mut);max-width:640px}
+/* fit */
+.fit{display:grid;grid-template-columns:.9fr 1fr 1fr;gap:0;background:#fff;border:1px solid var(--line)}
+.fit img{width:100%;height:100%;object-fit:cover;min-height:380px}
+.fit>div{padding:34px 32px}
+.fit>div+div{border-left:1px solid var(--line)}
+.fit h3{font-size:22px;font-weight:800;margin-bottom:16px;display:flex;gap:10px;align-items:center}
+.fit h3 i{width:30px;height:30px;display:grid;place-items:center;background:var(--ol);color:#fff;flex:none}
+.fit .no h3 i{background:var(--sn)}
+.fit ul{list-style:none;margin:0;padding:0}
+.fit li{padding:12px 0;border-top:1px dashed var(--line);color:#3c3f33}
+.fit li b{display:block;color:var(--dk)}
+/* cost */
+.cost{display:grid;grid-template-columns:1.5fr 1fr;gap:44px;align-items:start}
+.ct{width:100%;border-collapse:collapse;background:#fff;font-size:16.5px}
+.ct th,.ct td{padding:16px 18px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.ct thead th{background:var(--dk);color:#fff;font-size:15px;font-weight:700}
+.ct tbody th{font-weight:800;color:var(--dk);white-space:nowrap}
+.ct td.p{font-family:var(--mj);font-weight:800;white-space:nowrap;color:var(--ol);font-size:18px}
+.ct td.y{color:var(--mut);font-size:15.5px}
+.ct tfoot td{font-size:15px;color:var(--mut);background:var(--oat);border-bottom:0}
+.why h3{font-size:22px;font-weight:800;margin-bottom:6px}
+.why>p{margin:0 0 18px;color:var(--mut)}
+.why ol{list-style:none;margin:0 0 26px;padding:0;counter-reset:y}
+.why li{counter-increment:y;display:grid;grid-template-columns:44px 1fr;padding:14px 0;border-top:1px solid var(--line)}
+.why li::before{content:counter(y,decimal-leading-zero);font-family:var(--mj);font-weight:800;font-size:20px;color:var(--sn)}
+.why li b{display:block;color:var(--dk)}
+.sep{background:var(--dk);color:#e6e2d1;padding:22px 24px;font-size:15.5px}
+.sep b{color:#fff;display:block;font-size:17px;margin-bottom:4px}
+/* process */
+.flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--dk)}
+.flow li{padding:28px 28px 30px 0;border-bottom:1px solid var(--line)}
+.flow li:not(:nth-child(3n+1)){padding-left:28px;border-left:1px solid var(--line)}
+.flow .no{font-family:var(--mj);font-size:34px;font-weight:800;color:var(--oat2);line-height:1;-webkit-text-stroke:1px var(--ol);display:block;margin-bottom:12px}
+.flow b{display:block;font-size:20px;color:var(--dk);margin-bottom:6px}
+.flow p{margin:0;color:var(--mut);font-size:16px}
+.flow li.key{background:var(--oat)}
+.flow li.key .no{color:var(--sn);-webkit-text-stroke:0}
+.law{margin-top:36px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start;padding:26px 28px;border:2px solid var(--ol);background:#fff}
+.law .tag{font-weight:800;font-size:14px;color:#fff;background:var(--ol);padding:4px 10px;white-space:nowrap}
+.law p{margin:0;color:#3c3f33}
+/* cases */
+.cases{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.cs{background:#fff;border:1px solid var(--line);display:flex;flex-direction:column}
+.cs.wide{grid-column:1/-1;display:grid;grid-template-columns:1fr 1.4fr}
+.cs.wide img{width:100%;height:100%;object-fit:cover;min-height:300px}
+.cs .in{padding:28px 30px;display:flex;flex-direction:column;height:100%}
+.cs .ar{font-size:14px;font-weight:800;color:var(--sn);margin:0 0 4px}
+.cs h3{font-size:23px;font-weight:800;color:var(--dk);margin-bottom:16px}
+.cs dl{margin:0 0 18px;display:grid;grid-template-columns:86px 1fr;gap:8px 14px;font-size:16px}
+.cs dt{font-weight:800;color:var(--ol)}
+.cs dd{margin:0;color:#45483a}
+.cs .end{margin:auto 0 0;padding:14px 16px;background:var(--oat);font-size:16px;border-left:4px solid var(--ol)}
+.cs .end.hold{border-color:var(--sn)}
+.cs .end b{color:var(--dk)}
+.note{margin:22px 0 0;color:var(--mut);font-size:15px}
+/* support */
+.sup{display:grid;grid-template-columns:1fr 1.5fr;gap:56px;align-items:center}
+.sup img{width:100%;aspect-ratio:1/1;object-fit:cover}
+.sup dl{margin:0}
+.sup dt{font-size:22px;font-weight:800;color:var(--dk);padding-top:22px;border-top:1px solid var(--line);display:flex;gap:12px;align-items:baseline}
+.sup dt:first-child{border-top:2px solid var(--dk)}
+.sup dt span{font-family:var(--mj);font-size:15px;color:var(--sn)}
+.sup dd{margin:6px 0 22px;color:var(--mut)}
+/* faq */
+.faq{max-width:880px}
+.faq details{border-bottom:1px solid var(--line);padding:22px 0}
+.faq details:first-child{border-top:2px solid var(--dk)}
+.faq summary{cursor:pointer;list-style:none;font-size:19px;font-weight:700;display:flex;gap:14px;color:var(--dk)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:'Q.';font-family:var(--mj);color:var(--ol);font-weight:800}
+.faq summary::after{content:'+';margin-left:auto;font-size:24px;line-height:1.2;color:#8b8c78}
+.faq details[open] summary::after{content:'\2212'}
+.faq details p{margin:12px 0 0 34px;color:#45483a}
+/* cta band */
+.band{background:var(--ol);color:#fff;padding:76px 0}
+.band .w{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center}
+.band h2{font-size:36px;font-weight:800}
+.band p{margin:12px 0 0;opacity:.88}
+.band .r{background:#fff;color:var(--ink);padding:28px 30px}
+.band .r .tel{font-size:32px}
+.band .r .btn{margin-top:16px;width:100%;justify-content:center}
+/* footer */
+.ft{background:var(--dk);color:#a9a88f;padding:52px 0 60px;font-size:15px}
+.ft .nm{color:#fff;font-weight:800;font-size:20px;margin-bottom:10px}
+.ft .info{display:flex;flex-wrap:wrap;gap:4px 18px;margin:0 0 26px}
+.jd8{margin:0 0 22px;padding:22px 24px;border:1px solid #3d4430;background:rgba(255,255,255,.03)}
+.jd8 .lb{display:block;font-size:13px;font-weight:800;color:#d9c08a}
+.jd8 .t{color:#fff;font-size:18px;font-weight:800;margin:4px 0 14px}
+.jd8 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.jd8 .chips span{border:1px solid #4d5540;padding:5px 11px;font-size:14.5px;color:#dcdac9}
+.jd8 .x{margin:0;font-size:14.5px}
+.ft .demo{font-size:14.5px;margin:0;padding-top:20px;border-top:1px solid #343a28}
+.ft .demo a{color:#fff;font-weight:700}
+.badge{position:fixed;left:16px;bottom:16px;z-index:40;background:#fff;color:#222;border:2px solid #222;font-size:14px;font-weight:700;padding:5px 12px}
+.mbar{display:none}
+@media (max-width:1140px){.hd nav{display:none}.hd .ap{margin-left:auto}}
+@media (max-width:1000px){
+ .hero{background:var(--oat)}
+ .hero .w{grid-template-columns:1fr;gap:44px}
+ .ph{max-width:560px;margin-right:22px}
+ .ph p{left:12px}
+ .facts .w{grid-template-columns:1fr 1fr}
+ .facts .w>div:nth-child(3){border-left:0;padding-left:0}
+ .sh{grid-template-columns:1fr;gap:14px}
+ .fit{grid-template-columns:1fr 1fr}
+ .fit img{grid-column:1/-1;min-height:0;aspect-ratio:16/8}
+ .fit>div+div{border-left:0}
+ .fit .no{border-left:1px solid var(--line)!important}
+ .cost{grid-template-columns:1fr}
+ .flow{grid-template-columns:1fr 1fr}
+ .flow li,.flow li:not(:nth-child(3n+1)){padding:24px 22px;border-left:0}
+ .flow li:nth-child(even){border-left:1px solid var(--line)}
+ .cs.wide{grid-template-columns:1fr}
+ .cs.wide img{min-height:0;aspect-ratio:16/8}
+ .sup{grid-template-columns:1fr;gap:32px}
+ .sup img{aspect-ratio:16/9}
+ .band .w{grid-template-columns:1fr}
+}
+@media (max-width:700px){
+ body{font-size:16px;padding-bottom:60px}
+ .w{padding:0 18px}
+ .top .w{height:34px;font-size:12.5px}
+ .top .r{display:none}
+ .hd .w{height:60px;gap:12px}
+ .logo{font-size:20px}
+ .hd .ap{font-size:14px;padding:9px 12px}
+ .hero{padding:40px 0 56px}
+ .kw{font-size:15px}
+ .hero h1{font-size:33px}
+ .hero .lead{font-size:16.5px}
+ .pts li{font-size:15.5px}
+ .tel{font-size:28px}
+ .btn{font-size:16.5px;padding:14px 20px}
+ .ph{margin-right:14px}
+ .ph::before{right:-14px;top:-14px}
+ .ph img{aspect-ratio:4/3}
+ .ph p{position:relative;left:0;bottom:0;max-width:none;margin-top:-1px;box-shadow:none;border:1px solid var(--line)}
+ .facts .w>div{padding:18px 12px 18px 0}
+ .facts .w>div:nth-child(even){padding-left:14px}
+ .facts b{font-size:16.5px}
+ .sec{padding:60px 0}
+ .sh{margin-bottom:30px}
+ .sh h2{font-size:28px}
+ .fit{grid-template-columns:1fr}
+ .fit>div{padding:24px 20px}
+ .fit .no{border-left:0!important;border-top:1px solid var(--line)}
+ .fit h3{font-size:20px}
+ .ct,.ct tbody,.ct tfoot{display:block}
+ .ct thead{display:none}
+ .ct tr{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:14px;border-bottom:1px solid var(--line)}
+ .ct th,.ct td{padding:0;border:0}
+ .ct td.y{grid-column:1/-1;margin-top:4px;font-size:15px}
+ .ct tfoot tr{display:block;background:var(--oat)}
+ .ct td.p{font-size:16px}
+ .why h3{font-size:20px}
+ .flow{grid-template-columns:1fr}
+ .flow li,.flow li:not(:nth-child(3n+1)),.flow li:nth-child(even){padding:20px 4px;border-left:0}
+ .flow li.key{padding:20px 14px}
+ .flow b{font-size:18.5px}
+ .law{grid-template-columns:1fr;gap:10px;padding:20px 18px}
+ .law .tag{justify-self:start}
+ .cases{grid-template-columns:1fr;gap:16px}
+ .cs .in{padding:22px 18px}
+ .cs h3{font-size:20px}
+ .cs dl{grid-template-columns:70px 1fr;gap:6px 10px;font-size:15.5px}
+ .sup dt{font-size:19px}
+ .faq summary{font-size:16.5px}
+ .faq details p{margin-left:0}
+ .band{padding:52px 0}
+ .band h2{font-size:26px}
+ .band .r{padding:22px 18px}
+ .band .r .tel{font-size:27px}
+ .jd8{padding:18px 16px}
+ .jd8 .t{font-size:17px}
+ .badge{left:auto;right:10px;bottom:72px;font-size:13px}
+ .mbar{display:grid;grid-template-columns:1fr 1fr 1.2fr;position:fixed;left:0;right:0;bottom:0;z-index:50;height:60px;background:var(--dk)}
+ .mbar a{display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;font-weight:800;font-size:16px}
+ .mbar a.k{background:#fee500;color:#191600}
+ .mbar a:last-child{background:var(--ol)}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="top"><div class="w"><span><b>○○커피</b> 가맹 상담 · 대구·경북</span><span class="r">평일 10~18시 · 방문 상담은 예약 후</span></div></div>
+<header class="hd"><div class="w">
+ <a class="logo" href="#">○○<span>커피</span></a>
+ <nav><a href="#fit">맞는 분</a><a href="#cost">창업 비용</a><a href="#flow">개설 절차</a><a href="#case">출점 검토</a><a href="#sup">본사 지원</a><a href="#faq">자주 묻는 질문</a></nav>
+ <a class="ap" href="#apply">창업 상담 신청</a>
+</div></header>
+
+<section class="hero">
+ <div class="w">
+  <div>
+   <p class="kw">대구 카페 창업</p>
+   <h1>작은 테이크아웃 카페,<br><em>처음 여는 분</em>과<br>같이 준비합니다</h1>
+   <p class="lead">○○커피는 좌석이 적은 소형 테이크아웃 매장을 내는 커피 브랜드입니다. 대구에서 카페 창업을 알아보신다면 비용과 절차부터 차근차근 설명드립니다.</p>
+   <ul class="pts">
+    <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>계약 전에 정보공개서를 드리고 검토할 시간을 둡니다</li>
+    <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>후보 점포를 함께 보고 상권을 확인합니다</li>
+    <li><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>카페 일이 처음이어도 교육부터 시작합니다</li>
+   </ul>
+   <div class="cta">
+    <a class="tel" href="#"><small>창업 상담 · 평일 10~18시</small>053-○○○-○○○○</a>
+    <a class="btn kakao" href="#"><svg class="ico" viewBox="0 0 24 24"><path d="M12 4c5 0 9 3.1 9 7s-4 7-9 7c-.9 0-1.8-.1-2.6-.3L5 20l1-3.6C4.2 15.1 3 13.2 3 11c0-3.9 4-7 9-7z"/></svg>카톡 상담</a>
+   </div>
+  </div>
+  <div class="ph">
+   <img src="/sample/changup/hero.jpg" alt="에스프레소 머신에서 우유 스팀을 내는 손">
+   <p><b>상담은 이렇게 시작합니다</b>생각해 둔 지역과 준비할 수 있는 예산만 알려 주시면 됩니다.</p>
+  </div>
+ </div>
+</section>
+
+<div class="facts"><div class="w">
+ <div><small>매장 형태</small><b>소형 테이크아웃</b></div>
+ <div><small>운영 인원</small><b>1~2인 운영 기준</b></div>
+ <div><small>상담 지역</small><b>대구 · 경북</b></div>
+ <div><small>계약 전</small><b>정보공개서 제공</b></div>
+</div></div>
+
+<section class="sec" id="fit">
+ <div class="w">
+  <div class="sh"><p class="n">맞는 분 · 안 맞는 분</p><div><h2>이런 분께 맞습니다</h2><p>모든 분께 맞는 창업은 없습니다. 상담 전에 아래를 먼저 읽어 보세요.</p></div></div>
+  <div class="fit">
+   <img src="/sample/changup/counter.jpg" alt="에스프레소 머신과 종이컵이 놓인 작은 카페 카운터">
+   <div>
+    <h3><i><svg class="ico" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg></i>맞습니다</h3>
+    <ul>
+     <li><b>작은 매장을 생각하는 분</b>좌석보다 포장 손님 위주의 소형 점포를 찾는 경우</li>
+     <li><b>직접 매장에 서실 분</b>점주 본인이 1~2인으로 운영하는 구조입니다</li>
+     <li><b>카페 일이 처음인 분</b>추출·위생·발주를 교육에서 처음부터 배웁니다</li>
+     <li><b>정해진 레시피가 편한 분</b>메뉴와 원두는 본사 기준을 따릅니다</li>
+    </ul>
+   </div>
+   <div class="no">
+    <h3><i><svg class="ico" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></i>안 맞습니다</h3>
+    <ul>
+     <li><b>좌석이 많은 큰 매장</b>매장 설계와 장비 구성이 소형 기준이라 맞지 않습니다</li>
+     <li><b>관리자만 두는 운영</b>점주가 매장에 나오지 않는 운영은 권하지 않습니다</li>
+     <li><b>메뉴를 직접 바꾸고 싶은 분</b>개인 카페가 더 맞을 수 있습니다</li>
+     <li><b>계약부터 서두르는 경우</b>정보공개서를 보기 전에는 계약하지 않습니다</li>
+    </ul>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="sec oat" id="cost">
+ <div class="w">
+  <div class="sh"><p class="n">창업 비용</p><div><h2>본사에 내는 비용과 매장 공사 비용</h2><p>아래는 본사 쪽 비용입니다. 매장마다 평수와 공사 조건이 달라 상담 때 항목별로 다시 적어 드립니다.</p></div></div>
+  <div class="cost">
+   <table class="ct">
+    <thead><tr><th>항목</th><th>금액</th><th>포함 내용</th></tr></thead>
+    <tbody>
+     <tr><th>가맹비</th><td class="p">○○○만 원</td><td class="y">상호·간판 사용, 상권 확인, 오픈 준비 상담</td></tr>
+     <tr><th>교육비</th><td class="p">○○○만 원</td><td class="y">점주 교육(추출·메뉴·위생·발주·매장 관리)</td></tr>
+     <tr><th>계약이행보증금</th><td class="p">○○○만 원</td><td class="y">계약이 끝나면 정산 후 돌려드리는 금액</td></tr>
+     <tr><th>인테리어</th><td class="p">평당 ○○○만 원</td><td class="y">목공·전기·설비·마감, 간판은 별도 항목으로 안내</td></tr>
+     <tr><th>주방·커피 장비</th><td class="p">○,○○○만 원</td><td class="y">에스프레소 머신·그라인더·제빙기·냉장 설비</td></tr>
+     <tr><th>초도 물품</th><td class="p">○○○만 원</td><td class="y">원두·컵·부자재 등 오픈 첫 물량</td></tr>
+    </tbody>
+    <tfoot><tr><td colspan="3">예시 페이지라 금액은 가렸습니다.</td></tr></tfoot>
+   </table>
+   <div class="why">
+    <h3>비용이 달라지는 이유</h3>
+    <p>같은 브랜드라도 매장마다 금액이 다릅니다.</p>
+    <ol>
+     <li><div><b>평수</b>인테리어는 평당으로 계산해 면적이 가장 크게 영향을 줍니다.</div></li>
+     <li><div><b>상권과 건물 조건</b>간판 허가 범위, 공사 가능 시간, 전기 증설 여부가 건물마다 다릅니다.</div></li>
+     <li><div><b>기존 시설 활용</b>전에 카페나 음식점이었던 점포는 급배수·전기를 살려 공사 범위를 줄일 수 있습니다.</div></li>
+    </ol>
+    <div class="sep"><b>점포 임차 비용은 별도입니다</b>점포 임차 보증금·월세·권리금은 위 표에 들어 있지 않습니다. 건물주, 전 임차인과 점주님이 직접 계약하며 본사가 대신 받지 않습니다.</div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="sec" id="flow">
+ <div class="w">
+  <div class="sh"><p class="n">개설 절차</p><div><h2>상담부터 오픈까지 여섯 단계</h2><p>각 단계에서 무엇을 확인하는지 적었습니다. 단계를 건너뛰어 계약을 앞당기지 않습니다.</p></div></div>
+  <ol class="flow">
+   <li><span class="no">01</span><b>창업 상담</b><p>희망 지역, 준비 가능한 예산, 직접 운영할 수 있는 시간을 여쭙니다. 맞지 않는다고 보이면 그렇다고 말씀드립니다.</p></li>
+   <li class="key"><span class="no">02</span><b>정보공개서 제공</b><p>본사 재무 상황, 가맹점 현황, 점주가 부담하는 비용이 적힌 정보공개서를 서면으로 드립니다. 가까운 가맹점 현황 문서도 함께 드립니다.</p></li>
+   <li><span class="no">03</span><b>상권 확인</b><p>후보 점포를 같이 보러 갑니다. 출퇴근 동선, 시간대별 유동 인구, 주변 카페 위치를 보고 영업지역을 정합니다.</p></li>
+   <li><span class="no">04</span><b>가맹 계약</b><p>계약서의 영업지역, 계약 기간, 갱신 조건, 해지 사유를 한 줄씩 설명드리고 서명합니다.</p></li>
+   <li><span class="no">05</span><b>인테리어 · 교육</b><p>매장 공사가 진행되는 동안 점주님은 본사 교육장에서 교육을 받습니다. 공사 중간에 현장을 같이 확인합니다.</p></li>
+   <li><span class="no">06</span><b>오픈</b><p>장비 시운전과 첫 물품 입고를 마치고 문을 엽니다. 오픈 첫 주에는 본사 직원이 매장에 함께 있습니다.</p></li>
+  </ol>
+  <div class="law"><span class="tag">계약 전 검토 기간</span><p>정보공개서를 받은 날부터 법에서 정한 기간이 지나기 전에는 계약을 맺지 않고 가맹금도 받지 않습니다. 이 기간에 정보공개서를 천천히 읽어 보시고, 궁금한 점은 기존 가맹점주나 전문가에게 물어보셔도 됩니다.</p></div>
+ </div>
+</section>
+
+<section class="sec oat" id="case">
+ <div class="w">
+  <div class="sh"><p class="n">출점 검토 예시 (예시)</p><div><h2>대구 상권별로 이렇게 검토했습니다</h2><p>같은 대구라도 상권마다 보는 것이 다릅니다. 진행한 곳과 보류한 곳을 함께 적었습니다.</p></div></div>
+  <div class="cases">
+   <article class="cs wide">
+    <img src="/sample/changup/cup.jpg" alt="나무 테이블 위의 테이크아웃 커피컵">
+    <div class="in">
+     <p class="ar">수성구 범어동</p>
+     <h3>사무실·학원이 섞인 출근길 상권</h3>
+     <dl>
+      <dt>상권 특성</dt><dd>아침 출근 시간대와 저녁 학원 시간대에 사람이 몰리고, 낮에는 비교적 한산합니다.</dd>
+      <dt>매장 조건</dt><dd>대로변에서 한 블록 들어간 1층 소형 점포, 좌석은 두지 않는 구성.</dd>
+      <dt>검토한 내용</dt><dd>출근 인파가 어느 쪽 보도로 걷는지, 근처 카페들이 몇 시에 문을 여는지, 점포 앞에 잠시 멈춰 설 공간이 있는지를 시간대를 나눠 확인했습니다.</dd>
+     </dl>
+     <p class="end"><b>결론</b> 출근길 쪽 보도에 면한 점포라 진행했습니다. 아침 영업을 일찍 시작하는 운영안을 함께 안내했습니다.</p>
+    </div>
+   </article>
+   <article class="cs">
+    <div class="in">
+     <p class="ar">중구 동성로</p>
+     <h3>유동 인구는 많고 임차 조건이 높은 곳</h3>
+     <dl>
+      <dt>상권 특성</dt><dd>주말과 저녁에 사람이 몰리는 번화가. 같은 거리 안에서도 골목마다 사람 흐름이 다릅니다.</dd>
+      <dt>매장 조건</dt><dd>점주님이 먼저 알아본 곳은 2층 점포였습니다.</dd>
+      <dt>검토한 내용</dt><dd>테이크아웃 매장은 지나가다 바로 들러야 해서 2층은 맞지 않습니다. 임차 조건도 함께 따져 봤습니다.</dd>
+     </dl>
+     <p class="end hold"><b>결론</b> 보류했습니다. 1층 소형 점포가 나올 때까지 다른 후보를 같이 찾기로 했습니다.</p>
+    </div>
+   </article>
+   <article class="cs">
+    <div class="in">
+     <p class="ar">달서구 상인동</p>
+     <h3>주거 밀집지, 전에 카페였던 점포</h3>
+     <dl>
+      <dt>상권 특성</dt><dd>아파트 단지와 지하철역 사이 생활권. 오후와 주말 손님이 꾸준한 동네입니다.</dd>
+      <dt>매장 조건</dt><dd>전 임차인이 개인 카페를 하던 점포로 급배수와 전기 설비가 남아 있었습니다.</dd>
+      <dt>검토한 내용</dt><dd>남은 설비를 그대로 쓸 수 있는지, 기존 장비가 본사 기준에 맞는지 현장에서 점검했습니다.</dd>
+     </dl>
+     <p class="end"><b>결론</b> 급배수·전기는 살려 공사 범위를 줄였고, 장비는 기준과 달라 새로 들였습니다.</p>
+    </div>
+   </article>
+  </div>
+  <p class="note">예시 페이지의 사례는 이해를 돕기 위해 만든 것입니다.</p>
+ </div>
+</section>
+
+<section class="sec" id="sup">
+ <div class="w sup">
+  <img src="/sample/changup/beans.jpg" alt="원두와 분쇄 커피가 담긴 포터필터 두 개">
+  <div>
+   <div class="sh" style="grid-template-columns:1fr;gap:10px;margin-bottom:28px"><p class="n">본사 지원</p><h2>오픈 전후로 본사가 하는 일</h2></div>
+   <dl>
+    <dt><span>교육</span>처음 하는 분 기준으로 짭니다</dt>
+    <dd>에스프레소 추출과 메뉴 제조, 위생 관리, 발주와 마감 정산을 본사 교육장에서 실습 위주로 배웁니다. 교육을 마친 뒤에도 레시피가 바뀌면 다시 안내합니다.</dd>
+    <dt><span>오픈 지원</span>첫 주는 매장에 함께 있습니다</dt>
+    <dd>장비 시운전, 첫 물품 정리, 손님이 몰리는 시간대 동선을 같이 맞춥니다. 오픈 뒤에는 담당자가 정기적으로 매장을 찾아 운영을 점검합니다.</dd>
+    <dt><span>물류</span>원두와 부자재를 정해진 날 보냅니다</dt>
+    <dd>원두·컵·시럽 같은 물품은 발주 프로그램으로 주문하면 대구 권역 배송 요일에 맞춰 받습니다. 필수 구매 품목과 그 가격 기준은 정보공개서에 적혀 있습니다.</dd>
+   </dl>
+  </div>
+ </div>
+</section>
+
+<section class="sec oat" id="faq">
+ <div class="w">
+  <div class="sh"><p class="n">자주 묻는 질문</p><div><h2>상담 때 많이 묻는 것</h2></div></div>
+  <div class="faq">
+   <details open><summary>카페 일을 해 본 적이 없어도 되나요?</summary><p>됩니다. 교육은 경험이 없는 분을 기준으로 짜여 있습니다. 다만 점주님이 직접 매장에 서는 구조라, 운영할 시간을 낼 수 있는지는 상담 때 꼭 여쭙니다.</p></details>
+   <details><summary>매출은 얼마나 나오나요?</summary><p>매장마다 입지와 운영 시간이 달라 숫자로 약속하지 않습니다. 정보공개서에 실린 기존 가맹점 자료와 가까운 가맹점 현황 문서를 직접 보시고 판단하시길 권합니다.</p></details>
+   <details><summary>점포는 제가 직접 구해야 하나요?</summary><p>후보 점포는 본사와 같이 찾고 함께 보러 갑니다. 임대차 계약은 점주님이 건물주와 직접 맺으며, 보증금·월세·권리금도 본사를 거치지 않습니다.</p></details>
+   <details><summary>정보공개서는 언제 받을 수 있나요?</summary><p>상담 후 창업 의사가 있으시면 계약 전에 서면으로 드립니다. 받은 날부터 법에서 정한 기간이 지나야 계약할 수 있으니 그동안 충분히 읽어 보세요.</p></details>
+   <details><summary>지금 운영하는 개인 카페를 바꿀 수도 있나요?</summary><p>가능한지 먼저 현장을 봅니다. 면적과 동선이 소형 테이크아웃 구성에 맞는지, 기존 설비와 장비를 어디까지 쓸 수 있는지 점검한 뒤 공사 범위를 안내드립니다.</p></details>
+  </div>
+ </div>
+</section>
+
+<section class="band" id="apply">
+ <div class="w">
+  <div><h2>대구에서 카페 창업을 알아보고 계신가요</h2><p>희망 지역과 예산을 알려 주시면 상담 일정을 잡아 드립니다. 상담만 받으셔도 됩니다.</p></div>
+  <div class="r"><a class="tel" href="#"><small>창업 상담 · 평일 10~18시</small>053-○○○-○○○○</a><a class="btn kakao" href="#"><svg class="ico" viewBox="0 0 24 24"><path d="M12 4c5 0 9 3.1 9 7s-4 7-9 7c-.9 0-1.8-.1-2.6-.3L5 20l1-3.6C4.2 15.1 3 13.2 3 11c0-3.9 4-7 9-7z"/></svg>카톡으로 상담 신청</a></div>
+ </div>
+</section>
+
+<footer class="ft">
+ <div class="w">
+  <div class="nm">○○커피 가맹본부</div>
+  <p class="info"><span>상호 ○○커피</span><span>대표 ○○○</span><span>사업자등록번호 ○○○-○○-○○○○○</span><span>가맹사업 정보공개서 등록번호 ○○○○○○○○</span><span>주소 대구광역시 수성구 범어동</span><span>053-○○○-○○○○</span></p>
+  <div class="jd8">
+   <span class="lb">JD8 안내</span>
+   <p class="t">이 구성 그대로, 지역마다 한 장씩 만들어집니다</p>
+   <div class="chips"><span>경북 경산 카페 창업</span><span>대구 수성구 카페 창업</span><span>대구 달서구 카페 창업</span><span>구미 카페 창업</span><span>포항 카페 창업</span><span>대구 북구 카페 창업</span></div>
+   <p class="x">지역이 바뀌면 상권 안내·출점 검토 예시·안내 문구가 그 지역에 맞게 달라집니다. 지역 이름만 바꾼 복제 페이지는 만들지 않습니다.</p>
+  </div>
+  <p class="demo"><b>업종별 예시 페이지입니다.</b> 실제 업체가 아니며 상호·전화번호는 가렸습니다. 이런 페이지를 사장님 업종·지역마다 만들어 드립니다. <a href="/">제작 상담 →</a></p>
+ </div>
+</footer>
+
+<nav class="mbar"><a href="#">전화</a><a class="k" href="#">카톡 상담</a><a href="#apply">창업 상담 신청</a></nav>
+<div class="badge">예시 화면</div>
+</body>
+</html>
