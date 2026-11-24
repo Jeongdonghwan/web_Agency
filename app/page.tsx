@@ -390,7 +390,7 @@ export default function Home() {
       {INQUIRY && (
         <section className="sec" id="inquiry">
           <div className="wrap">
-            <Sh title="상담 문의" sub="업종과 지역만 남겨 주셔도 됩니다. 확인하는 대로 남겨 주신 연락처로 연락드립니다." />
+            <Sh title="상담 문의" sub="상호와 연락처만 남겨 주셔도 됩니다. 확인하는 대로 남겨 주신 연락처로 연락드립니다." />
             <Inquiry endpoint={INQUIRY} />
           </div>
         </section>

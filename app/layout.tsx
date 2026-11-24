@@ -4,7 +4,7 @@ import './globals.css';
 import Motion from '../components/Motion';
 import JsonLd from '../components/JsonLd';
 import { organizationJsonLd, webSiteJsonLd } from '../lib/jsonld';
-import { SITE, SITE_URL, SITE_NAME, DEFAULT_TITLE, DEFAULT_DESCRIPTION, COMPANY, LANDING, INDEXABLE, ogMeta } from '../lib/site';
+import { SITE, SITE_URL, SITE_NAME, DEFAULT_TITLE, DEFAULT_DESCRIPTION, COMPANY, LANDING, INDEXABLE, INQUIRY, ogMeta } from '../lib/site';
 import { INDUSTRY_HUB, GUIDE_HUB } from '../lib/content';
 
 export const metadata: Metadata = {
@@ -98,6 +98,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <a href={COMPANY.kakao} target="_blank" rel="noopener noreferrer">카톡 문의</a>
         </div>
         <div className="float" aria-label="빠른 문의">
+          {INQUIRY && (
+            <a className="float-inq" href="/#inquiry">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 4h16v12H8l-4 4z" /><path d="M8 9h8M8 12h5" /></svg>
+              <span>상담 문의</span>
+            </a>
+          )}
           <a className="float-kakao" href={COMPANY.kakao} target="_blank" rel="noopener noreferrer">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7-.2.8-.8 2.9-.9 3.3 0 .3.1.4.4.3.4-.1 3-2 4-2.7.6.1 1.2.1 1.8.1 5.5 0 10-3.6 10-8S17.5 3 12 3z" /></svg>
             <span>카톡 문의</span>

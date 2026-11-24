@@ -590,7 +590,15 @@ html { scrollbar-color: #b9c6dc transparent; }
 .float a:hover { transform: translateY(-3px); }
 .float-kakao { background: var(--kakao); color: #191600; font-size: 1.02rem; }
 .float-tel { background: var(--ink); color: #fff; font-size: .96rem; }
-@media (max-width: 720px) { .float { display: none; } }
+.float-inq { background: #fff; color: var(--ink); border: 2px solid var(--ink); font-size: .98rem; }
+.float-inq:hover { background: var(--ink); color: #fff; }
+.theme-hco .float-inq:hover { color: #f1d98a; }
+/* 모바일: 카톡·전화는 아래 고정 바가 맡고, 상담 문의 버튼만 바 위에 띄운다 */
+@media (max-width: 720px) {
+  .float { right: 14px; bottom: 84px; }
+  .float-kakao, .float-tel { display: none !important; }
+  .float-inq { padding: 11px 16px; font-size: .9rem; }
+}
 
 /* ===== 포춘마케팅 테마: 같은 구성에 색만 바꾼다 (짙은 초록 + 금빛) ===== */
 .theme-fortune { --ink: #0f241d; --text: #2a3b35; --muted: #5f7169; --line: #dfe7e2; --soft: #f3f7f4; --tint: #e3f3ea; --accent: #0b8a5a; --accent-d: #076a45; --primary: #0c2a22; }
@@ -692,7 +700,25 @@ html.theme-hco { scrollbar-color: #cdbb8a transparent; }
 .inq-btn:hover { background: var(--accent-d); color: #fff; }
 .inq-btn:disabled { opacity: .6; cursor: default; }
 .inq-err { margin: 0; color: #b3261e; font-weight: 600; font-size: .92rem; }
-.inq-done { display: block; }
-.inq-done b { font-size: 1.2rem; color: var(--ink); }
-.inq-done p { margin: 8px 0 0; }
+/* 접수 완료 창: 배경이 어두워지고 카드가 아래에서 떠오르며, 체크 표시가 그려진다 */
+.inq-modal { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 20px; background: rgba(12, 10, 6, .55); backdrop-filter: blur(3px); animation: inqFade .3s ease both; }
+.inq-card { width: min(440px, 100%); background: #fff; border-radius: 24px; padding: 40px 30px 30px; text-align: center; box-shadow: 0 30px 80px -20px rgba(0, 0, 0, .45); animation: inqRise .55s cubic-bezier(.2, 1.2, .3, 1) .05s both; }
+.inq-check { width: 76px; height: 76px; margin: 0 auto 18px; display: block; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.inq-check circle { stroke: var(--accent); stroke-width: 4; stroke-dasharray: 202; stroke-dashoffset: 202; animation: inqDraw .6s ease-out .35s forwards; }
+.inq-check path { stroke: var(--accent); stroke-width: 5; stroke-dasharray: 44; stroke-dashoffset: 44; animation: inqDraw .35s ease-out .85s forwards; }
+.inq-card h3 { font-size: 1.35rem; font-weight: 900; color: var(--ink); animation: inqUp .45s ease .5s both; }
+.inq-card p { margin: 12px 0 0; color: var(--text); line-height: 1.7; animation: inqUp .45s ease .62s both; }
+.inq-card p b { color: var(--ink); }
+.inq-card-act { display: grid; gap: 12px; justify-items: center; margin-top: 24px; animation: inqUp .45s ease .74s both; }
+.inq-card-act .inq-btn { width: 100%; }
+.inq-kakao { color: var(--muted); font-size: .92rem; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.inq-kakao:hover { color: var(--ink); }
+@keyframes inqFade { from { opacity: 0; } }
+@keyframes inqRise { from { opacity: 0; transform: translateY(46px) scale(.94); } }
+@keyframes inqUp { from { opacity: 0; transform: translateY(10px); } }
+@keyframes inqDraw { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .inq-modal, .inq-card, .inq-card h3, .inq-card p, .inq-card-act { animation: none; }
+  .inq-check circle, .inq-check path { animation: none; stroke-dashoffset: 0; }
+}
 @media (max-width: 640px) { .inq { grid-template-columns: minmax(0, 1fr); padding: 22px 18px; border-radius: 18px; } .inq-btn { width: 100%; } }

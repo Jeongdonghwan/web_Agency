@@ -1,7 +1,8 @@
 // 사이트 전역 상수. 한 코드에서 상호 두 벌을 빌드한다 — 빌드할 때 NEXT_PUBLIC_SITE 로 고른다 (scripts/build.mjs).
 //   jd8     : 본 사이트. 검색 유입용, 하위 페이지 전부.
 //   fortune : 포춘마케팅. 카톡으로 보내는 링크의 도착 페이지 한 장. 검색 제외, 하위 페이지 없음.
-//   hco     : 에이치코. 포춘마케팅과 같은 한 장짜리. 전화 없이 카톡 + 상담 문의란(server/inquiry.py 가 받아 /admin/ 에서 본다).
+//   hco     : 에이치코. 포춘마케팅과 같은 한 장짜리. 전화 없이 카톡 + 상담 문의란.
+// inquiry 가 있으면 메인 하단에 상담 문의란 + 플로팅 '상담 문의' 버튼이 나온다. 받은 문의는 server/inquiry.py 의 /admin/ 에서 본다.
 const ENV_SITE = process.env.NEXT_PUBLIC_SITE;
 const KEY: 'jd8' | 'fortune' | 'hco' = ENV_SITE === 'fortune' || ENV_SITE === 'hco' ? ENV_SITE : 'jd8';
 
@@ -28,7 +29,7 @@ const SITES = {
       address: '경기도 용인시 기흥구 금화로 3, 제이20호',
       kakao: 'https://pf.kakao.com/_Izxnxgn/chat',
     },
-    inquiry: '', // 상담 문의란 없음
+    inquiry: '/api/inquiry', // 메인 하단 상담 문의란 (server/inquiry.py, 에이치코와 따로 저장)
   },
   fortune: {
     key: 'fortune',
