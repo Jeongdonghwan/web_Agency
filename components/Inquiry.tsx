@@ -33,6 +33,8 @@ export default function Inquiry({ endpoint }: { endpoint: string }) {
       if (!r.ok) throw new Error(j.error || '전송하지 못했습니다. 잠시 뒤 다시 시도해 주세요.');
       form.reset();
       setState('done');
+      // 메타 픽셀(web.jd8 에만 깔림): 접수가 실제로 끝났을 때만 전환으로 센다
+      (window as unknown as { fbq?: (...a: unknown[]) => void }).fbq?.('track', 'Lead', { content_name: '상담 문의' });
     } catch (err) {
       setMsg(err instanceof Error && err.message !== 'Failed to fetch' ? err.message : '전송하지 못했습니다. 잠시 뒤 다시 시도하거나 카톡으로 문의해 주세요.');
       setState('error');
