@@ -335,6 +335,14 @@ class H(http.server.SimpleHTTPRequestHandler):
 
 if __name__ == '__main__':
     args = sys.argv[1:]
+    if args[:1] == ['--set-pw']:  # 비밀번호를 잊었을 때 서버에서 새로 정한다: 로그인된 기기는 모두 끊긴다
+        import getpass
+        new = getpass.getpass('새 비밀번호(8자 이상): ')
+        if len(new) < 8 or new != getpass.getpass('한 번 더: '):
+            sys.exit('8자 이상, 두 번 똑같이 입력해 주세요.')
+        set_pw(new)
+        end_sessions()
+        sys.exit(f'바꿨습니다 ({DB})')
     if args[:1] == ['--static']:
         H.static = args[1]
         args = args[2:]
